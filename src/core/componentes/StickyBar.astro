@@ -1,0 +1,33 @@
+---
+// src/core/componentes/StickyBar.astro
+// 11. BARRA FLOTANTE STICKY PARA SMARTPHONES - Consultorio Psicológico América
+import { datosNegocio } from '../../negocio.js';
+import { getI18n, type Idioma } from '../idioma/idioma';
+
+interface Props {
+  idioma?: Idioma;
+}
+
+const { idioma = 'es' } = Astro.props;
+const t = getI18n(idioma).nav;
+---
+
+<div class="mobile-sticky-bar">
+  <button 
+    type="button" 
+    onclick="window.abrirModalTest && window.abrirModalTest()" 
+    class="btn-test sticky-btn-test" 
+    title="Orientación Psicológica - Me siento triste"
+  >
+    <i class="fa-solid fa-heart-pulse"></i> <span>{t.sticky_test}</span>
+  </button>
+  <button 
+    type="button" 
+    onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
+    class="btn-whatsapp sticky-btn-order" 
+    title="Agendar por WhatsApp"
+    style="cursor: pointer; border: none;"
+  >
+    <i class="fa-brands fa-whatsapp"></i> <span>{t.sticky_pedir}</span>
+  </button>
+</div>

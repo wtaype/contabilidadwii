@@ -1,0 +1,252 @@
+---
+// src/feature/inicio/secciones/01-hero/Hero.astro
+// 1. HERO CRO AUTÓNOMO: CONSULTORIO PSICOLÓGICO AMÉRICA (LIC. SOFÍA REYNAGA)
+import { datosNegocio } from '../../../../negocio.js';
+import { resolverIdioma } from '../../idioma/idioma.js';
+import es from './idioma/es.json';
+import en from './idioma/en.json';
+import heroCss from './hero.css?inline';
+
+interface Props {
+  idioma?: string;
+}
+
+const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
+const t = resolverIdioma({ es, en }, idioma);
+
+const primerServicio = datosNegocio.servicios[0];
+const precioBase = primerServicio ? primerServicio.precioPEN.toFixed(2) : '85.00';
+const whatsappTexto = datosNegocio.getWhatsappMensaje(idioma) || datosNegocio.whatsappMensaje;
+const whatsappLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(whatsappTexto)}`;
+const colegiaturaNum = datosNegocio.colegiaturaNumero;
+const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
+---
+
+<style is:global set:html={heroCss}></style>
+
+<section id="hero" class="hero-section">
+  <div class="pagewii hero-page-container">
+    <div class="hero-layout">
+      
+      <!-- Columna Izquierda: Acompañamiento Emocional Humano ➔ Solución Profesional -->
+      <div class="hero-txt">
+        
+        <!-- Badge Oficial de Registro Profesional -->
+        <div class="hero-meta-group">
+          <div class="hero-saludo">
+            <span class="badge-serenidad hero-badge">
+              <i class="fa-solid fa-circle hero-badge-dot"></i> 
+              <span data-negocio-badge>{datosNegocio.registroColegio}</span>
+              <i class="fa-solid fa-circle-check hero-badge-check"></i>
+            </span>
+          </div>
+        </div>
+
+        <!-- Titular Principal Empático -->
+        <h1 class="hero-main-heading">
+          <span>{t.titulo_1}</span><br />
+          <span class="hero-title-highlight">
+            {t.titulo_resaltado}
+          </span>
+        </h1>
+
+        <!-- Subtítulo Explicativo y Cálido -->
+        <p class="hero-main-sub">
+          {t.subtitulo}
+        </p>
+
+        <!-- Selector Interactivo de Temas Clínicos (Tipo Gaswii: actualiza feedback en vivo y prepara mensaje sin saltar de golpe) -->
+        <div class="hero-district-card hero-temas-card">
+          <div class="hero-district-title">
+            <i class="fa-solid fa-head-side-virus"></i> <span>{t.motivos_titulo}</span>
+          </div>
+          
+          <div class="hero-district-grid" id="temaSelector">
+            <button 
+              type="button" 
+              class="hero-district-btn active" 
+              data-tema="ansiedad"
+              data-label={t.motivo_ansiedad}
+              data-info={t.info_ansiedad}
+            >
+              <div class="hero-district-name"><i class="fa-solid fa-cloud-bolt"></i> {t.motivo_ansiedad}</div>
+              <div class="hero-district-time"><i class="fa-solid fa-brain"></i> Enfoque TCC</div>
+            </button>
+
+            <button 
+              type="button" 
+              class="hero-district-btn" 
+              data-tema="pareja"
+              data-label={t.motivo_pareja}
+              data-info={t.info_pareja}
+            >
+              <div class="hero-district-name"><i class="fa-solid fa-heart-crack"></i> {t.motivo_pareja}</div>
+              <div class="hero-district-time"><i class="fa-solid fa-people-arrows"></i> Terapia Vincular</div>
+            </button>
+
+            <button 
+              type="button" 
+              class="hero-district-btn" 
+              data-tema="apoyo"
+              data-label={t.motivo_apoyo}
+              data-info={t.info_apoyo}
+            >
+              <div class="hero-district-name"><i class="fa-solid fa-comments"></i> {t.motivo_apoyo}</div>
+              <div class="hero-district-time"><i class="fa-solid fa-heart-pulse"></i> Escucha Activa</div>
+            </button>
+          </div>
+
+          <!-- Feedback Dinámico Inmediato -->
+          <div class="hero-district-footer">
+            <span class="hero-footer-info">
+              <i class="fa-solid fa-shield-halved color-primary"></i> 
+              <span id="temaActualInfo">{t.info_ansiedad}</span>
+            </span>
+            <span class="hero-footer-badge color-emerald font-bold">
+              <i class="fa-solid fa-user-shield"></i> <span>100% Confidencial</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Botones Principales CTAs: Agendar y Me siento triste -->
+        <div class="hero-ctas-group">
+          <!-- CTA 1: Agendar por WhatsApp (Abre Modal Agendar) -->
+          <button 
+            type="button" 
+            onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
+            class="btn-whatsapp hero-btn-cta"
+            id="btnHeroWsp"
+            title="Agendar Consulta por WhatsApp"
+          >
+            <i class="fa-brands fa-whatsapp hero-btn-icon"></i>
+            <span>{t.btn_wsp_main}</span>
+          </button>
+
+          <!-- CTA 2: Me siento triste -->
+          <button 
+            type="button" 
+            onclick="window.abrirModalTest && window.abrirModalTest()" 
+            class="btn-test hero-btn-cta"
+            id="btnHeroTest"
+            title="Orientación Psicológica Inmediata"
+          >
+            <i class="fa-regular fa-compass hero-btn-icon"></i>
+            <span>{t.btn_test_main}</span>
+          </button>
+        </div>
+
+        <!-- Métricas de Trayectoria Clínica -->
+        <div class="stats-grid hero-stats-box">
+          <div>
+            <div class="hero-stat-val">+450</div>
+            <div class="hero-stat-label">{t.stat_clientes}</div>
+          </div>
+          <div>
+            <div class="hero-stat-val">{colegiaturaNum}</div>
+            <div class="hero-stat-label">{t.stat_colegiatura}</div>
+          </div>
+          <div>
+            <div class="hero-stat-val">+6 Años</div>
+            <div class="hero-stat-label">{t.stat_anos}</div>
+          </div>
+          <div>
+            <div class="hero-stat-val">100%</div>
+            <div class="hero-stat-label">{t.stat_confidencial}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Columna Derecha: Fotografía Oficial y Tarjeta de Presentación -->
+      <div class="hero-visual">
+        <div class="hero-right-card">
+          
+          <div class="hero-img-box">
+            <img 
+              src={imagenHero} 
+              alt={datosNegocio.especialista} 
+              width="600"
+              height="600"
+              loading="eager"
+              fetchpriority="high"
+              class="hero-img"
+            />
+            <div class="hero-specialist-overlay">
+              <div class="hero-specialist-header">
+                <span class="hero-specialist-badge">
+                  <i class="fa-solid fa-briefcase"></i> {datosNegocio.especialista}
+                </span>
+                <span class="hero-badge-available">
+                  <span class="hero-available-dot"></span> Disponible Hoy
+                </span>
+              </div>
+              <span class="hero-specialist-sub">Directora Terapéutica • TCC</span>
+            </div>
+          </div>
+
+          <div class="hero-guarantee-box">
+            <div class="hero-guarantee-left">
+              <div class="hero-guarantee-icon">
+                <i class="fa-solid fa-spa"></i>
+              </div>
+              <div>
+                <div class="hero-guarantee-title">
+                  {t.driver_card_titulo}
+                </div>
+                <div class="hero-guarantee-sub">
+                  {t.driver_card_desc}
+                </div>
+              </div>
+            </div>
+            <div class="hero-guarantee-price">
+              <div class="hero-price-sub">{t.precio_desde}</div>
+              <div class="hero-price-val">
+                S/ {precioBase}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  function setupTemaSelector() {
+    const selector = document.getElementById('temaSelector');
+    const info = document.getElementById('temaActualInfo');
+    const btnWsp = document.getElementById('btnHeroWsp');
+    if (!selector || !info) return;
+
+    const btns = selector.querySelectorAll('.hero-district-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const infoText = btn.getAttribute('data-info') || '';
+        const labelText = btn.getAttribute('data-label') || '';
+        const tema = btn.getAttribute('data-tema') || '';
+        
+        info.textContent = infoText;
+
+        if (btnWsp) {
+          btnWsp.setAttribute('data-tema', tema);
+        }
+
+        try {
+          localStorage.setItem('psicologia_motivo_activo', tema);
+        } catch (e) {}
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTemaSelector);
+  } else {
+    setupTemaSelector();
+  }
+  document.addEventListener('astro:page-load', setupTemaSelector);
+</script>

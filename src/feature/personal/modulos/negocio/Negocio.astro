@@ -1,0 +1,514 @@
+---
+// src/feature/personal/modulos/negocio/Negocio.astro
+// Módulo: Ficha de Negocio & Especialista (Psicología América)
+// Layout Profesional Bilingüe de 2 Columnas (Datos Globales + Pestañas ES / EN)
+// 100% JS Nativo · Cero TypeScript · Local-First · Sincronizado con Firestore
+
+import { datosNegocio } from '@/negocio.js';
+
+interface Props {
+  esActivo?: boolean;
+}
+
+const { esActivo = false } = Astro.props;
+const n = datosNegocio;
+---
+
+<section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-negocio">
+  <!-- Encabezado de Sección -->
+  <div class="ps-section-header">
+    <div class="ps-section-title-wrap">
+      <h1 class="ps-section-title">Ficha de Consultorio & Especialista</h1>
+      <p class="ps-section-sub">
+        Gestión central de credenciales oficiales (C.Ps.P. 49425), canales de citas WhatsApp, sedes clínicas y posicionamiento web bilingüe.
+      </p>
+    </div>
+    <div class="ps-header-actions">
+      <a href="/" target="_blank" class="ps-btn ps-btn-secondary" title="Ver Web Pública">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Web
+      </a>
+      <button type="button" class="ps-btn ps-btn-primary" id="btnGuardarNegocio">
+        <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+      </button>
+    </div>
+  </div>
+
+  <div class="ng-container">
+    <!-- ── LAYOUT PRINCIPAL DE 2 COLUMNAS (SPLIT LAYOUT) ── -->
+    <div class="ng-split-layout">
+      
+      <!-- ── COLUMNA IZQUIERDA: DATOS GLOBALES / NEUTRALES DE IDIOMA ── -->
+      <div class="ng-col-global">
+
+        <!-- 1. IDENTIDAD PROFESIONAL & MULTIMEDIA -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-user-doctor"></i> Especialista & Multimedia</h2>
+              <p class="ng-card-desc">Credenciales oficiales y fotografías representativas.</p>
+            </div>
+            <span class="ng-badge-trayectoria" id="ngBadgeTrayectoria">
+              <i class="fa-solid fa-award"></i> <span id="ngYearsText">6+ años</span>
+            </span>
+          </div>
+
+          <!-- Previews de Fotos -->
+          <div class="ng-media-dual-grid">
+            <!-- Foto de la Especialista -->
+            <div class="ng-media-preview-box is-hero">
+              <img id="ngImgHeroPreview" src="/imgwii/hero/psicologa-sofia-reynaga.webp" alt="Foto Especialista" class="ng-media-thumb" />
+              <div class="ng-media-meta">
+                <span class="ng-media-label"><i class="fa-solid fa-camera"></i> Foto Especialista</span>
+                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-sm" placeholder="/imgwii/hero/psicologa-sofia-reynaga.webp" />
+              </div>
+            </div>
+
+            <!-- Columna de Logos: Isotipo + Logo Full -->
+            <div class="ng-media-logos-col">
+              <!-- Logo Oficial (Isotipo Circular) -->
+              <div class="ng-media-preview-box">
+                <img id="ngImgLogoPreview" src="/imgwii/logo.webp" alt="Logo Consultorio" class="ng-media-thumb" />
+                <div class="ng-media-meta">
+                  <span class="ng-media-label"><i class="fa-solid fa-shield-heart"></i> Logo Oficial</span>
+                  <input type="text" id="ngInputLogo" class="ng-input ng-input-sm" placeholder="/imgwii/logo.webp" />
+                </div>
+              </div>
+
+              <!-- Logo Full (Horizontal Completo) -->
+              <div class="ng-media-preview-box">
+                <img id="ngImgLogoFullPreview" src="/imgwii/logo_full.webp" alt="Logo Full Consultorio" class="ng-media-thumb-full" />
+                <div class="ng-media-meta">
+                  <span class="ng-media-label"><i class="fa-solid fa-gem"></i> Logo Full</span>
+                  <input type="text" id="ngInputLogoFull" class="ng-input ng-input-sm" placeholder="/imgwii/logo_full.webp" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ng-grid-2 sn-mt-10">
+            <div class="ng-field span-2">
+              <label class="ng-label" for="ngInputEspecialista">Nombre de la Especialista *</label>
+              <input type="text" id="ngInputEspecialista" class="ng-input" placeholder="Lic. Sofia Reynaga Pachas" required />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputColegiatura">Colegiatura Oficial *</label>
+              <input type="text" id="ngInputColegiatura" class="ng-input" placeholder="C.Ps.P. N° 49425" required />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputLanzamiento">Fecha de Fundación / Despegue</label>
+              <input type="date" id="ngInputLanzamiento" class="ng-input" value="2020-03-15" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputTitulo">Título Universitario</label>
+              <input type="text" id="ngInputTitulo" class="ng-input" placeholder="Licenciada en Psicología" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputGrado">Grado / Posgrado</label>
+              <input type="text" id="ngInputGrado" class="ng-input" placeholder="Maestrista en Psicología Clínica" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CANALES DIRECTOS DE CONTACTO & HORARIOS -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-headset"></i> Canales de Contacto Directo</h2>
+              <p class="ng-card-desc">Líneas telefónicas, WhatsApp y horarios de operación.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-2">
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputTelefono">
+                <span>Teléfono Visible</span>
+                <span class="ng-label-hint" id="hintTelefonoFormato">+51 960 332 958</span>
+              </label>
+              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder="+51 960 332 958" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputWhatsapp">
+                <span>WhatsApp API (Sin +)</span>
+                <span class="ng-label-hint" id="hintWhatsappFormato">51960332958</span>
+              </label>
+              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51960332958" />
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label" for="ngInputEmail">Correo Electrónico Oficial</label>
+              <input type="email" id="ngInputEmail" class="ng-input" placeholder="reynaga.psychologist@gmail.com" />
+            </div>
+
+            <!-- Horarios Numéricos -->
+            <div class="ng-field">
+              <label class="ng-label">Lunes a Viernes</label>
+              <div class="ng-input-group-horario">
+                <input type="time" id="ngHorarioSemanaAbre" class="ng-input" value="08:00" />
+                <span>a</span>
+                <input type="time" id="ngHorarioSemanaCierra" class="ng-input" value="20:00" />
+              </div>
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label">Sábados</label>
+              <div class="ng-input-group-horario">
+                <input type="time" id="ngHorarioSabadoAbre" class="ng-input" value="08:00" />
+                <span>a</span>
+                <input type="time" id="ngHorarioSabadoCierra" class="ng-input" value="20:00" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. UBICACIÓN FÍSICA OFICIAL & GOOGLE MAPS -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-map-location-dot"></i> Ubicación Principal (Villa El Salvador)</h2>
+              <p class="ng-card-desc">Sede clínica física principal y coordenadas oficiales.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-2">
+            <div class="ng-field span-2">
+              <label class="ng-label" for="ngInputDireccion">Dirección Física Completa</label>
+              <input type="text" id="ngInputDireccion" class="ng-input" placeholder="Av. 3 de Octubre con Micaela Bastidas - RUTA B / Sector 3, Grupo 26, Lote comercial 7" />
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label" for="ngInputReferencia">Referencia / Punto de Encuentro</label>
+              <input type="text" id="ngInputReferencia" class="ng-input" placeholder="Frente a Paradero 3 de Octubre" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputDistrito">Distrito</label>
+              <input type="text" id="ngInputDistrito" class="ng-input" placeholder="Villa El Salvador" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputCiudad">Ciudad y País</label>
+              <input type="text" id="ngInputCiudad" class="ng-input" placeholder="Lima, PE" />
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label" for="ngInputMapsUrl">
+                <span>Enlace Compartido Google Maps</span>
+              </label>
+              <div class="ng-input-group-maps">
+                <input type="url" id="ngInputMapsUrl" class="ng-input" placeholder="https://maps.app.goo.gl/g7MFEUi8B6xpSjpn8" />
+                <button type="button" class="ng-btn-maps-action ng-btn-maps-test" id="btnProbarMapsUrl" title="Probar enlace actual">
+                  <i class="fa-solid fa-circle-play"></i> Probar
+                </button>
+                <button type="button" class="ng-btn-maps-action" id="btnBuscarGoogleMaps" title="Buscar ubicación en Maps">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Buscar
+                </button>
+              </div>
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputLat">Latitud</label>
+              <input type="number" step="any" id="ngInputLat" class="ng-input" placeholder="-12.2084" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputLng">Longitud</label>
+              <input type="number" step="any" id="ngInputLng" class="ng-input" placeholder="-76.9387" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. MÉTRICAS DE CONFIANZA & REDES SOCIALES -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-chart-line"></i> Métricas & Redes Sociales</h2>
+              <p class="ng-card-desc">Cifras de impacto y perfiles sociales oficiales.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-3">
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputMetricaPacientes">Pacientes</label>
+              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder="450+" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputMetricaSatisfaccion">Satisfacción</label>
+              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input" placeholder="98%" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputMetricaConfidencialidad">Confidencial</label>
+              <input type="text" id="ngInputMetricaConfidencialidad" class="ng-input" placeholder="100%" />
+            </div>
+          </div>
+
+          <div class="ng-grid-2 sn-mt-10">
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputRedInstagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
+              <input type="url" id="ngInputRedInstagram" class="ng-input" placeholder="https://instagram.com/psicologiaamerica" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputRedFacebook"><i class="fa-brands fa-facebook"></i> Facebook</label>
+              <input type="url" id="ngInputRedFacebook" class="ng-input" placeholder="https://facebook.com/psicologiaamerica" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputRedTiktok"><i class="fa-brands fa-tiktok"></i> TikTok</label>
+              <input type="url" id="ngInputRedTiktok" class="ng-input" placeholder="https://tiktok.com/@psicologiaamerica" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputRedLinkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</label>
+              <input type="url" id="ngInputRedLinkedin" class="ng-input" placeholder="https://linkedin.com/in/sofia-reynaga" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── COLUMNA DERECHA: FICHA BILINGÜE (ESPAÑOL | ENGLISH) ── -->
+      <div class="ng-col-traducciones">
+        
+        <!-- Pestañas de Idioma Superiores -->
+        <div class="ng-lang-tabs" id="ngLangTabs">
+          <button type="button" class="ng-lang-tab-btn active" data-target="ng-pane-es">
+            <i class="fa-solid fa-language"></i> Español [ES]
+          </button>
+          <button type="button" class="ng-lang-tab-btn" data-target="ng-pane-en">
+            <i class="fa-solid fa-globe"></i> English [EN]
+          </button>
+        </div>
+
+        <!-- ═════════ PANEL ESPAÑOL [ES] ═════════ -->
+        <div class="ng-lang-pane active" id="ng-pane-es">
+          
+          <!-- Identidad Comercial (ES) -->
+          <div class="ng-card">
+            <div class="ng-card-header">
+              <h2 class="ng-card-title"><i class="fa-solid fa-signature"></i> Identidad y Textos Oficiales (ES)</h2>
+            </div>
+
+            <div class="ng-grid-2">
+              <div class="ng-field">
+                <label class="ng-label" for="ngInputNombre">Nombre Oficial (ES) *</label>
+                <input type="text" id="ngInputNombre" class="ng-input" placeholder="Consultorio Psicológico América" required />
+              </div>
+
+              <div class="ng-field">
+                <label class="ng-label" for="ngInputNombreCorto">Nombre Corto / Marca (ES)</label>
+                <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder="Psicología América" />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputEnfoques">Enfoques Psicoterapéuticos (ES)</label>
+                <input type="text" id="ngInputEnfoques" class="ng-input" placeholder="Terapia Cognitivo-Conductual (TCC) • Terapia de Aceptación y Compromiso (ACT) • Psicopedagogía • Sistémica" />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputBioEs">Biografía Profesional / Resumen Clínico (ES)</label>
+                <textarea id="ngInputBioEs" class="ng-textarea" rows="3" placeholder="Psicóloga clínica y colegiada por el Colegio de Psicólogos del Perú (C.Ps.P. 49425)..."></textarea>
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputHorario">Horario de Atención Descriptivo (ES)</label>
+                <input type="text" id="ngInputHorario" class="ng-input" placeholder="Lunes a Sábado: 8:00 a.m. a 8:00 p.m." />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputWhatsappMensaje">
+                  <span>Mensaje Predeterminado WhatsApp (ES)</span>
+                  <button type="button" class="ng-link-btn" id="btnRestaurarMensajeWs" title="Restaurar saludo dinámico">
+                    <i class="fa-solid fa-rotate-left"></i> Restaurar
+                  </button>
+                </label>
+                <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder="¡Hola Lic. Sofia Reynaga! Deseo agendar una consulta psicológica." />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sedes & Modalidades (ES) -->
+          <div class="ng-card">
+            <div class="ng-card-header">
+              <h2 class="ng-card-title"><i class="fa-solid fa-building"></i> Sedes y Modalidades Oficiales (ES)</h2>
+            </div>
+
+            <!-- Sede 1: Villa El Salvador -->
+            <div class="ng-sede-box">
+              <div class="ng-sede-box-badge"><i class="fa-solid fa-hospital"></i> Sede Presencial</div>
+              <div class="ng-grid-2">
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVesTagEs">Etiqueta / Badge (ES)</label>
+                  <input type="text" id="ngSedeVesTagEs" class="ng-input" placeholder="Sede Villa El Salvador" />
+                </div>
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVesAtencionEs">Horario de Atención (ES)</label>
+                  <input type="text" id="ngSedeVesAtencionEs" class="ng-input" placeholder="Lunes a Sábado (Previa Cita)" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Sede 2: Modalidad Virtual -->
+            <div class="ng-sede-box sn-mt-10">
+              <div class="ng-sede-box-badge online"><i class="fa-solid fa-video"></i> Modalidad Virtual</div>
+              <div class="ng-grid-2">
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVirtualTagEs">Etiqueta / Badge (ES)</label>
+                  <input type="text" id="ngSedeVirtualTagEs" class="ng-input" placeholder="100% Online" />
+                </div>
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVirtualAtencionEs">Horario de Atención (ES)</label>
+                  <input type="text" id="ngSedeVirtualAtencionEs" class="ng-input" placeholder="Horarios Flexibles" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO Dinámico (ES) -->
+          <div class="ng-card">
+            <div class="ng-card-header">
+              <h2 class="ng-card-title"><i class="fa-solid fa-magnifying-glass"></i> Posicionamiento SEO & Palabras Clave (ES)</h2>
+            </div>
+
+            <div class="ng-grid-2">
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputSeoTituloEs">Meta Título (ES)</label>
+                <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder="Consultorio Psicológico América | Terapia, Descarte TDAH/TEA & Talleres en Lima Sur y Online" />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputSeoDescEs">Meta Descripción (ES)</label>
+                <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="2" placeholder="Atención psicológica profesional y basada en evidencia con la Lic. Sofia Reynaga (C.Ps.P. 49425)..."></textarea>
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputSeoKeywordsEs">
+                  <span>Palabras Clave (Separadas por comas)</span>
+                </label>
+                <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder="psicologo villa el salvador, psicologo lima sur, terapia psicologica lima..."></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ═════════ PANEL INGLÉS [EN] ═════════ -->
+        <div class="ng-lang-pane" id="ng-pane-en">
+          
+          <!-- Identidad Comercial (EN) -->
+          <div class="ng-card">
+            <div class="ng-card-header">
+              <h2 class="ng-card-title"><i class="fa-solid fa-signature"></i> Official Identity & Content (EN)</h2>
+            </div>
+
+            <div class="ng-grid-2">
+              <div class="ng-field">
+                <label class="ng-label" for="ngInputNombreEn">Official Name (EN)</label>
+                <input type="text" id="ngInputNombreEn" class="ng-input" placeholder="America Psychological Clinic" />
+              </div>
+
+              <div class="ng-field">
+                <label class="ng-label" for="ngInputNombreCortoEn">Short Name / Brand (EN)</label>
+                <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder="America Psychology" />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputEnfoquesEn">Therapeutic Approaches (EN)</label>
+                <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder="Cognitive Behavioral Therapy (CBT) • Acceptance & Commitment Therapy (ACT) • Psychopedagogy" />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputBioEn">Clinical Summary / Biography (EN)</label>
+                <textarea id="ngInputBioEn" class="ng-textarea" rows="3" placeholder="Clinical psychologist licensed by the College of Psychologists of Peru (C.Ps.P. 49425)..."></textarea>
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputHorarioEn">Operating Hours Description (EN)</label>
+                <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder="Monday to Saturday: 8:00 a.m. to 8:00 p.m." />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputWhatsappMensajeEn">Default WhatsApp Message (EN)</label>
+                <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder="Hello Lic. Sofia Reynaga! I'd like to book a psychological consultation." />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sedes & Modalidades (EN) -->
+          <div class="ng-card">
+            <div class="ng-card-header">
+              <h2 class="ng-card-title"><i class="fa-solid fa-building"></i> Offices & Modalities (EN)</h2>
+            </div>
+
+            <!-- Sede 1: Villa El Salvador (EN) -->
+            <div class="ng-sede-box">
+              <div class="ng-sede-box-badge"><i class="fa-solid fa-hospital"></i> In-Person Clinic</div>
+              <div class="ng-grid-2">
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVesTagEn">Tag / Badge (EN)</label>
+                  <input type="text" id="ngSedeVesTagEn" class="ng-input" placeholder="Villa El Salvador Clinic" />
+                </div>
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVesAtencionEn">Opening Hours (EN)</label>
+                  <input type="text" id="ngSedeVesAtencionEn" class="ng-input" placeholder="Monday to Saturday (By Appointment)" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Sede 2: Modalidad Virtual (EN) -->
+            <div class="ng-sede-box sn-mt-10">
+              <div class="ng-sede-box-badge online"><i class="fa-solid fa-video"></i> Online Modality</div>
+              <div class="ng-grid-2">
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVirtualTagEn">Tag / Badge (EN)</label>
+                  <input type="text" id="ngSedeVirtualTagEn" class="ng-input" placeholder="100% Online" />
+                </div>
+                <div class="ng-field">
+                  <label class="ng-label" for="ngSedeVirtualAtencionEn">Opening Hours (EN)</label>
+                  <input type="text" id="ngSedeVirtualAtencionEn" class="ng-input" placeholder="Flexible Schedule" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO Dinámico (EN) -->
+          <div class="ng-card">
+            <div class="ng-card-header">
+              <h2 class="ng-card-title"><i class="fa-solid fa-magnifying-glass"></i> SEO & Search Keywords (EN)</h2>
+            </div>
+
+            <div class="ng-grid-2">
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputSeoTituloEn">Meta Title (EN)</label>
+                <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder="America Psychological Clinic | Psychotherapy, ADHD/ASD Screening in Lima & Online" />
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputSeoDescEn">Meta Description (EN)</label>
+                <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="2" placeholder="Evidence-based psychological consultation with Lic. Sofia Reynaga (C.Ps.P. 49425)..."></textarea>
+              </div>
+
+              <div class="ng-field span-2">
+                <label class="ng-label" for="ngInputSeoKeywordsEn">Keywords (Comma separated)</label>
+                <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder="psychologist villa el salvador lima, psychotherapy lima peru, online therapy peru..."></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  import './negocio.js';
+</script>

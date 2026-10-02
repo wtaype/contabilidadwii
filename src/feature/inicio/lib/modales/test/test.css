@@ -1,0 +1,855 @@
+/* src/feature/inicio/lib/modales/test/test.css
+   Estilos del Test de Orientación Psicológica Empático (2 Columnas con Preview en Vivo)
+   Columna 1: Diálogo terapéutico en 2 etapas (desahogo libre + datos)
+   Columna 2: Preview en vivo fijo/sticky con animación "Escribiendo..." y Ficha Clínica
+   100% tokens fluidos de witema.css
+*/
+
+.modal-test-dialog {
+  width: 95%;
+  max-width: 1020px;
+  background: var(--wb, #ffffff);
+  border: 1px solid var(--brd, #e2e8f0);
+  border-radius: var(--r_l, 1.5vh);
+  padding: 2.2rem 2.4rem;
+  box-shadow: 0 25px 65px rgba(7, 25, 35, 0.5);
+  box-sizing: border-box;
+  animation: modalTestPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 94vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+@keyframes modalTestPop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 1. Header */
+.modal-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--brd, #e2e8f0);
+}
+
+.modal-test-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fz_s3, 0.78rem);
+  font-weight: 700;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--r_full, 999px);
+  background: rgba(2, 132, 199, 0.12);
+  color: var(--mco, #0284c7);
+  margin-bottom: 0.45rem;
+  cursor: default;
+}
+
+.modal-test-title {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+  font-weight: 850;
+  color: var(--tx, #071923);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.modal-test-subtitle {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.82rem);
+  color: var(--tx2, #64748b);
+  margin: 0.35rem 0 0 0;
+  font-weight: 500;
+}
+
+.modal-test-close {
+  background: none;
+  border: none;
+  font-size: 1.45rem;
+  color: var(--tx2, #64748b);
+  cursor: pointer;
+  padding: 0.35rem;
+  line-height: 1;
+  border-radius: var(--r_s, 0.5vh);
+  transition: all 0.2s ease;
+}
+
+.modal-test-close:hover {
+  color: var(--mco, #0284c7);
+  transform: rotate(90deg);
+}
+
+/* 2. Layout en 2 Columnas */
+.modal-test-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2rem 2.2rem;
+  align-items: start;
+}
+
+.modal-test-col-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.modal-test-col-preview {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 3. Chips de Sugerencias de Emociones */
+.modal-test-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-test-chip {
+  background: var(--mbg, #f8fafc);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  border-radius: var(--r_full, 999px);
+  padding: 0.45rem 0.85rem;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.79rem);
+  font-weight: 600;
+  color: var(--tx, #0f2735);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.modal-test-chip:hover {
+  border-color: var(--mco, #0284c7);
+  background: rgba(2, 132, 199, 0.1);
+  color: var(--mco, #0284c7);
+  transform: translateY(-1px);
+}
+
+.modal-test-chip.active {
+  background: var(--mco, #0284c7);
+  color: #ffffff !important;
+  border-color: var(--mco, #0284c7);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+}
+
+/* 4. Textarea de Desahogo Libre */
+.modal-test-textarea {
+  width: 100%;
+  border-radius: var(--r_m, 1vh);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  background: var(--mbg, #f8fafc);
+  color: var(--tx, #0f2735);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m, 0.92rem);
+  padding: 0.85rem 1rem;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 88px;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.modal-test-textarea:focus {
+  outline: none;
+  border-color: var(--mco, #0284c7);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+  background: var(--wb, #ffffff);
+}
+
+/* 5. Inputs de Texto y Selects */
+.modal-test-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 600px) {
+  .modal-test-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+.modal-test-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-test-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.82rem);
+  font-weight: 700;
+  color: var(--tx, #0f2735);
+  margin-bottom: 0.45rem;
+}
+
+.modal-test-label i {
+  color: var(--mco, #0284c7);
+}
+
+.modal-test-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 0.95rem;
+  border-radius: var(--r_m, 1vh);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  background: var(--mbg, #f8fafc);
+  color: var(--tx, #0f2735);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m, 0.92rem);
+  font-weight: 600;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  line-height: 48px;
+}
+
+.modal-test-input:focus {
+  outline: none;
+  border-color: var(--mco, #0284c7);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+  background: var(--wb, #ffffff);
+}
+
+/* Integración wiSelect dentro del Modal Test */
+.modal-test-dialog .wi-select-trigger {
+  width: 100%;
+  height: 48px !important;
+  min-height: 48px !important;
+  border-radius: var(--r_m, 1vh) !important;
+  border: 1.5px solid var(--brd, #cbd5e1) !important;
+  background: var(--mbg, #f8fafc) !important;
+  padding: 0 0.95rem !important;
+  font-family: var(--ff_P, 'Poppins', sans-serif) !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.modal-test-dialog .wi-select-trigger:hover,
+.modal-test-dialog .wi-select-trigger:focus-visible,
+.modal-test-dialog .wi-select-trigger.wi-select-open {
+  border-color: var(--mco, #0284c7) !important;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18) !important;
+  background: var(--wb, #ffffff) !important;
+}
+
+.modal-test-dialog .wi-select-panel {
+  z-index: 10010 !important;
+  background: var(--wb, #ffffff) !important;
+  border: 1.5px solid var(--brd, #cbd5e1) !important;
+  border-radius: var(--r_m, 1vh) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25) !important;
+}
+
+:root[data-theme="futuro"] .modal-test-dialog .wi-select-panel,
+:root[data-theme="dark"] .modal-test-dialog .wi-select-panel {
+  background: #0d2330 !important;
+  border-color: #1e4558 !important;
+}
+
+/* Selector Especializado de Tiempo (¿Desde cuándo sientes esto?) */
+.modal-test-tiempo-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-test-tiempo-trigger {
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  border-radius: var(--r_m, 1vh);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  background: var(--mbg, #f8fafc);
+  padding: 0 0.95rem;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.modal-test-tiempo-trigger:hover,
+.modal-test-tiempo-trigger:focus-visible,
+.modal-test-tiempo-trigger.tiempo-trigger-open {
+  border-color: var(--mco, #0284c7);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+  background: var(--wb, #ffffff);
+  outline: none;
+}
+
+:root[data-theme="futuro"] .modal-test-tiempo-trigger:hover,
+:root[data-theme="dark"] .modal-test-tiempo-trigger:hover,
+:root[data-theme="futuro"] .modal-test-tiempo-trigger.tiempo-trigger-open,
+:root[data-theme="dark"] .modal-test-tiempo-trigger.tiempo-trigger-open {
+  background: #0d2330;
+}
+
+.modal-test-tiempo-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fz_m, 0.92rem);
+  font-weight: 600;
+  color: var(--tx, #0f2735);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal-test-tiempo-val i {
+  color: var(--mco, #0284c7);
+  flex-shrink: 0;
+}
+
+.modal-test-tiempo-trigger .tiempo-arrow {
+  color: var(--mco, #0284c7);
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.modal-test-tiempo-trigger.tiempo-trigger-open .tiempo-arrow {
+  transform: rotate(180deg);
+}
+
+/* Popover de Tiempos con Slots / Pills que abre hacia ARRIBA */
+.modal-test-tiempo-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  max-width: 380px;
+  background: var(--wb, #ffffff);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  border-radius: var(--r_m, 1vh);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  padding: 0.9rem;
+  box-sizing: border-box;
+  z-index: 10010;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+}
+
+:root[data-theme="futuro"] .modal-test-tiempo-popover,
+:root[data-theme="dark"] .modal-test-tiempo-popover {
+  background: #0d2330;
+  border-color: #1e4558;
+}
+
+.modal-test-tiempo-popover.tiempo-popover-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.tiempo-popover-header {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.78rem);
+  font-weight: 700;
+  color: var(--tx2, #64748b);
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--brd, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tiempo-popover-section {
+  margin-bottom: 0.65rem;
+}
+
+.tiempo-popover-section:last-child {
+  margin-bottom: 0;
+}
+
+.tiempo-popover-tag {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--mco, #0284c7);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.tiempo-popover-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tiempo-pill {
+  width: 100%;
+  min-height: 38px;
+  background: var(--mbg, #f8fafc);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  border-radius: var(--r_s, 0.6vh);
+  color: var(--tx, #0f2735);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.81rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0.85rem;
+  transition: all 0.18s ease;
+  user-select: none;
+  text-align: left;
+}
+
+.tiempo-pill:hover {
+  border-color: var(--mco, #0284c7);
+  background: rgba(2, 132, 199, 0.12);
+  color: var(--mco, #0284c7);
+}
+
+.tiempo-pill.tiempo-pill-active {
+  background: var(--mco, #0284c7);
+  color: #ffffff !important;
+  border-color: var(--mco, #0284c7);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+}
+
+/* Ocultar buscador en selectores limpios como Modalidad */
+.modal-test-dialog .modal-test-clean-select + .wi-select-trigger .wi-select-search-wrapper {
+  display: none !important;
+}
+
+.modal-test-dialog .modal-test-clean-select + .wi-select-trigger .wi-select-panel {
+  padding-top: 0.4rem !important;
+}
+
+/* Selector Especializado de Horarios (Etapa 2 - Idéntico a Modal Agendar) */
+.modal-test-hora-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-test-hora-trigger {
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  border-radius: var(--r_m, 1vh);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  background: var(--mbg, #f8fafc);
+  padding: 0 0.95rem;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.modal-test-hora-trigger:hover,
+.modal-test-hora-trigger:focus-visible,
+.modal-test-hora-trigger.hora-trigger-open {
+  border-color: var(--mco, #0284c7);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
+  background: var(--wb, #ffffff);
+  outline: none;
+}
+
+:root[data-theme="futuro"] .modal-test-hora-trigger:hover,
+:root[data-theme="dark"] .modal-test-hora-trigger:hover,
+:root[data-theme="futuro"] .modal-test-hora-trigger.hora-trigger-open,
+:root[data-theme="dark"] .modal-test-hora-trigger.hora-trigger-open {
+  background: #0d2330;
+}
+
+.modal-test-hora-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fz_m, 0.92rem);
+  font-weight: 600;
+  color: var(--tx, #0f2735);
+}
+
+.modal-test-hora-val i {
+  color: var(--mco, #0284c7);
+}
+
+.modal-test-hora-trigger .hora-arrow {
+  color: var(--mco, #0284c7);
+  font-size: 0.8rem;
+  transition: transform 0.25s ease;
+}
+
+.modal-test-hora-trigger.hora-trigger-open .hora-arrow {
+  transform: rotate(180deg);
+}
+
+/* Popover de Horarios con Slots / Pills que abre hacia ARRIBA */
+.modal-test-hora-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  width: 320px;
+  background: var(--wb, #ffffff);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  border-radius: var(--r_m, 1vh);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  padding: 0.9rem;
+  box-sizing: border-box;
+  z-index: 10010;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  pointer-events: none;
+}
+
+:root[data-theme="futuro"] .modal-test-hora-popover,
+:root[data-theme="dark"] .modal-test-hora-popover {
+  background: #0d2330;
+  border-color: #1e4558;
+}
+
+.modal-test-hora-popover.hora-popover-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.hora-popover-header {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.78rem);
+  font-weight: 700;
+  color: var(--tx2, #64748b);
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--brd, #e2e8f0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hora-popover-section {
+  margin-bottom: 0.65rem;
+}
+
+.hora-popover-section:last-child {
+  margin-bottom: 0;
+}
+
+.hora-popover-tag {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--mco, #0284c7);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.hora-popover-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.hora-pill {
+  height: 35px;
+  background: var(--mbg, #f8fafc);
+  border: 1.5px solid var(--brd, #cbd5e1);
+  border-radius: var(--r_s, 0.6vh);
+  color: var(--tx, #0f2735);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+  user-select: none;
+  padding: 0;
+}
+
+.hora-pill:hover {
+  border-color: var(--mco, #0284c7);
+  background: rgba(2, 132, 199, 0.12);
+  color: var(--mco, #0284c7);
+}
+
+.hora-pill.hora-pill-active {
+  background: var(--mco, #0284c7);
+  color: #ffffff !important;
+  border-color: var(--mco, #0284c7);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+}
+
+.hora-pill-wide {
+  width: 100%;
+  height: 35px;
+  gap: 0.45rem;
+}
+
+/* 6. Columna Derecha: Cuaderno Terapéutico / Preview en Vivo */
+.modal-test-card-preview {
+  background: rgba(2, 132, 199, 0.08);
+  border: 1.5px solid rgba(2, 132, 199, 0.22);
+  border-radius: var(--r_l, 1.4vh);
+  padding: 1.4rem 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+:root[data-theme="futuro"] .modal-test-card-preview,
+:root[data-theme="dark"] .modal-test-card-preview {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.modal-test-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(2, 132, 199, 0.18);
+}
+
+.modal-test-preview-title {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.82rem);
+  font-weight: 750;
+  color: var(--mco, #0284c7);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Indicador Animado "✍️ Escribiendo..." */
+.modal-test-typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--mco, #0284c7);
+  background: rgba(2, 132, 199, 0.14);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  animation: typingFade 1.2s infinite ease-in-out;
+}
+
+@keyframes typingFade {
+  0%, 100% { opacity: 0.65; transform: scale(0.97); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.modal-test-typing-dots {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.modal-test-typing-dots span {
+  width: 4px;
+  height: 4px;
+  background: var(--mco, #0284c7);
+  border-radius: 50%;
+  animation: typingDot 1.4s infinite ease-in-out;
+}
+
+.modal-test-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.modal-test-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* Texto Empático Redactado en Dos Párrafos */
+.modal-test-preview-body {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.85rem);
+  line-height: 1.65;
+  color: var(--tx, #0f2735);
+  margin: 0;
+  min-height: 120px;
+  transition: opacity 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.modal-test-preview-p {
+  margin: 0;
+  line-height: 1.65;
+  color: inherit;
+}
+
+.modal-test-preview-profile-badge {
+  font-size: 0.74rem;
+  font-weight: 750;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: flex-start;
+}
+
+/* 7. Botones de Acción */
+.modal-test-btn-next {
+  width: 100%;
+  height: 48px;
+  background: var(--mco, #0284c7);
+  color: #ffffff !important;
+  border: none;
+  border-radius: var(--r_m, 1vh);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m, 0.92rem);
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  transition: all 0.25s ease;
+  margin-top: 0.5rem;
+}
+
+.modal-test-btn-next:hover {
+  background: #0369a1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+}
+
+.modal-test-btn-submit-wa {
+  width: 100%;
+  height: 52px;
+  background: #25d366;
+  color: #ffffff !important;
+  border: none;
+  border-radius: var(--r_m, 1vh);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m2, 0.98rem);
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: all 0.25s ease;
+}
+
+.modal-test-btn-submit-wa:hover {
+  background: #1ebd5b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+.modal-test-btn-back {
+  background: none;
+  border: none;
+  color: var(--tx2, #64748b);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3, 0.8rem);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0;
+  transition: color 0.2s ease;
+  text-decoration: underline;
+}
+
+.modal-test-btn-back:hover {
+  color: var(--mco, #0284c7);
+}
+
+/* 8. Barra de Progreso Superior */
+.modal-test-progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: var(--mbg, #e2e8f0);
+  border-radius: var(--r_full, 999px);
+  overflow: hidden;
+  margin-bottom: 0.35rem;
+}
+
+.modal-test-progress-bar-fill {
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  border-radius: var(--r_full, 999px);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 9. Adaptación Responsiva para Tablets y Móviles */
+@media (max-width: 880px) {
+  .modal-test-dialog {
+    padding: 1.4rem 1.2rem;
+    max-width: 95%;
+  }
+
+  .modal-test-grid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .modal-test-col-preview {
+    position: static;
+  }
+
+  .modal-test-btn-submit-wa {
+    height: 48px;
+    font-size: 0.92rem;
+  }
+}

@@ -1,0 +1,277 @@
+/* ==========================================================================
+   SECCIÓN 01-ACERCA (CSS HIJO) - CONSULTORIO PSICOLÓGICO AMÉRICA
+   Historia, 4 Pilares, Misión/Visión y Grid Fotográfico Institucional
+   100% Dependiente de Variables de witema.css
+   ========================================================================== */
+
+.acerca-story-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  margin-bottom: 5vh;
+}
+
+@media (max-width: 960px) {
+  .acerca-story-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.acerca-story-content h2 {
+  font-family: var(--ff_O);
+  font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--tx);
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+
+.acerca-story-content p {
+  font-family: var(--ff_P);
+  font-size: 1rem;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+
+.acerca-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brd);
+}
+
+@media (max-width: 600px) {
+  .acerca-stats-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+}
+
+.acerca-stat-card {
+  background: var(--mbg);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--r_m, 1vh);
+  padding: 1.1rem 1rem;
+  text-align: center;
+}
+
+.acerca-stat-num {
+  font-family: var(--ff_O);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--mco);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.acerca-stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--tx2);
+  letter-spacing: 0.04em;
+}
+
+/* Fotos institucionales */
+.acerca-photos-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  position: relative;
+}
+
+.acerca-photo-item {
+  border-radius: var(--r_l, 1.5vh);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-card);
+  background: var(--wb);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.acerca-photo-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--mco);
+}
+
+.acerca-photo-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.acerca-photo-caption {
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--fz_s3);
+  font-weight: 600;
+  color: var(--tx);
+  background: var(--wb);
+  border-top: 1px solid var(--brd);
+}
+
+.acerca-photo-caption i {
+  color: var(--mco);
+  font-size: 1rem;
+}
+
+/* 2. Sección Pilares */
+.acerca-pilares-section {
+  margin-bottom: 5vh;
+}
+
+.acerca-section-subtitle {
+  text-align: center;
+  font-family: var(--ff_O);
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  font-weight: 800;
+  color: var(--tx);
+  margin-bottom: 3vh;
+}
+
+.acerca-pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .acerca-pilares-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.acerca-pilar-card {
+  background: var(--wb);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r_l, 1.5vh);
+  padding: 1.8rem;
+  display: flex;
+  gap: 1.3rem;
+  align-items: flex-start;
+  transition: all 0.25s ease;
+}
+
+.acerca-pilar-card:hover {
+  border-color: var(--mco);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.acerca-pilar-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r_m, 1vh);
+  background: var(--mbg);
+  color: var(--mco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.acerca-pilar-title {
+  font-family: var(--ff_O);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--tx);
+  margin-bottom: 0.4rem;
+}
+
+.acerca-pilar-desc {
+  font-size: 0.92rem;
+  color: var(--tx2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 3. Misión, Visión y Valores */
+.acerca-mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 4vh;
+}
+
+@media (max-width: 768px) {
+  .acerca-mv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.acerca-mv-card {
+  background: var(--wb);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r_l, 1.5vh);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.acerca-mv-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--mco);
+}
+
+.acerca-mv-card h3 {
+  font-family: var(--ff_O);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--tx);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.acerca-mv-card p {
+  color: var(--tx2);
+  line-height: 1.6;
+  font-size: 0.94rem;
+  margin: 0;
+}
+
+.acerca-valores-box {
+  background: var(--wb);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r_l, 1.5vh);
+  padding: 1.8rem 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.acerca-valores-list {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.acerca-valor-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  background: var(--mbg);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--r_full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--mco);
+}

@@ -1,0 +1,769 @@
+/* ==========================================================================
+   01-HERO COMPONENT STYLES - CONSULTORIO PSICOLÓGICO AMÉRICA
+   Arquitectura Modular: 100% Cero CSS Inline - Estilo Sereno, Cálido y Humano
+   Tipografía Estandarizada: 100% Tokens Fluidos witema.css (--fz_*)
+   ========================================================================== */
+
+#hero, .hero-section {
+  min-height: 86vh;
+  display: flex;
+  align-items: center;
+  padding: 5vh 0;
+  background: var(--bg);
+  position: relative;
+  box-sizing: border-box;
+}
+
+
+/* Grid Principal: Distribución Equilibrada y Presencia Imponente (Estilo Gaswii) */
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.16fr 0.94fr;
+  gap: clamp(2rem, 3.2vw, 3.8rem);
+  align-items: center;
+  width: 100%;
+}
+
+.hero-txt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+}
+
+/* 1. Badge Oficial de Colegiatura */
+.hero-meta-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2vh;
+}
+
+.hero-saludo {
+  display: inline-flex;
+  align-items: center;
+  animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--r_full, 999px);
+  background: var(--mbg);
+  color: var(--mco);
+  border: 1px solid var(--border-accent, var(--mco));
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hero-badge-dot {
+  font-size: 0.65rem;
+  color: var(--mco);
+}
+
+.hero-badge-check {
+  font-size: 0.85em;
+  color: var(--mco);
+  margin-left: 0.2rem;
+}
+
+/* 2. Titular Principal Empático y Cálido */
+.hero-main-heading {
+  font-size: var(--fz_x2);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-weight: 850;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.25rem;
+  color: var(--tx);
+  max-width: 760px;
+  animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s backwards;
+}
+
+.hero-title-highlight {
+  background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+:root[data-theme="futuro"] .hero-title-highlight,
+:root[data-theme="dark"] .hero-title-highlight {
+  background: linear-gradient(135deg, #38bdf8 0%, #7dd3fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 3. Subtítulo Explicativo */
+.hero-main-sub {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m4);
+  color: var(--tx2);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  max-width: 720px;
+  animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s backwards;
+}
+
+/* 4. Selector Dinámico de Temas Clínicos (Inspirado en Gaswii) */
+.hero-district-card {
+  width: 100%;
+  max-width: 720px;
+  background: var(--mbg);
+  border: 1px solid var(--border-accent, var(--mco));
+  border-radius: var(--r_l, 1.5vh);
+  padding: 1.25rem 1.45rem;
+  margin-bottom: 1.6rem;
+  box-shadow: var(--shadow-card);
+  animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s backwards;
+  transition: border-color 0.3s ease;
+}
+
+.hero-district-title {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tx2);
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-district-title i {
+  color: var(--mco);
+}
+
+.hero-district-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.hero-district-btn {
+  background: var(--wb);
+  border: 1.5px solid var(--brd);
+  border-radius: var(--r_m, 1vh);
+  padding: 0.85rem 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+}
+
+.hero-district-btn:hover {
+  background: var(--bg);
+  border-color: var(--mco);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+
+.hero-district-btn.active {
+  background: var(--wb);
+  border-color: var(--mco);
+  border-width: 2px;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.22);
+}
+
+.hero-district-name {
+  font-weight: 700;
+  font-size: var(--fz_m1);
+  color: var(--tx);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.hero-district-btn.active .hero-district-name {
+  color: var(--mco);
+}
+
+.hero-district-name i {
+  color: var(--mco);
+  font-size: 0.9em;
+}
+
+.hero-district-time {
+  font-size: var(--fz_s3);
+  color: var(--tx2);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hero-district-btn.active .hero-district-time {
+  color: var(--tx);
+  font-weight: 700;
+}
+
+.hero-district-footer {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--brd);
+  font-size: var(--fz_s3);
+  color: var(--tx2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  line-height: 1.4;
+}
+
+.hero-footer-info {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hero-district-footer strong {
+  color: var(--tx);
+}
+
+.hero-district-footer .color-primary {
+  color: var(--mco);
+}
+
+.hero-district-footer .color-emerald {
+  color: #10b981;
+}
+
+/* 5. CTAs Principales (En una sola fila, lado a lado) */
+.hero-ctas-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 2rem;
+  animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.34s backwards;
+}
+
+.hero-btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  height: 52px;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--r_m, 1vh);
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m2);
+  font-weight: 700;
+  box-sizing: border-box;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1 1 auto;
+}
+
+.hero-btn-cta.btn-whatsapp {
+  background: var(--wa, #25d366);
+  color: #ffffff !important;
+  border: none;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  flex: 1.15 1 auto;
+}
+
+.hero-btn-cta.btn-whatsapp:hover {
+  background: var(--wa_hover, #1ebd5b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+.hero-btn-cta.btn-test {
+  background: #0284c7;
+  color: #ffffff !important;
+  border: 1px solid #0284c7;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  flex: 1 1 auto;
+}
+
+.hero-btn-cta.btn-test:hover {
+  background: #0369a1;
+  border-color: #0369a1;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+}
+
+:root[data-theme="futuro"] .hero-btn-cta.btn-test,
+:root[data-theme="dark"] .hero-btn-cta.btn-test {
+  background: #0284c7;
+  color: #ffffff !important;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+}
+
+:root[data-theme="futuro"] .hero-btn-cta.btn-test:hover,
+:root[data-theme="dark"] .hero-btn-cta.btn-test:hover {
+  background: #0369a1;
+  border-color: #7dd3fc;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.55);
+}
+
+.hero-btn-icon {
+  font-size: var(--fz_l1);
+  flex-shrink: 0;
+}
+
+/* 6. Grilla de Métricas de Trayectoria Clínica (Proporcional y Elegante) */
+.hero-stats-box {
+  width: 100%;
+  max-width: 720px;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--brd);
+  animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.42s backwards;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5vw;
+}
+
+.hero-stat-val {
+  font-size: clamp(1.35rem, 1.65vw, 1.95rem);
+  font-weight: 850;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  line-height: 1.1;
+  color: var(--mco);
+  white-space: nowrap;
+}
+
+.hero-stat-label {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3);
+  color: var(--tx2);
+  font-weight: 600;
+  margin-top: 0.3rem;
+  line-height: 1.35;
+}
+
+/* 7. Columna Derecha Hero (Fotografía Oficial y Tarjeta de Presentación) */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  animation: heroSlideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+.hero-right-card {
+  background: var(--wb);
+  border: 1px solid var(--brd);
+  border-radius: var(--r_l, 1.5vh);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  width: 100%;
+  max-width: 580px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-right-card:hover {
+  border-color: var(--mco);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.hero-img-box {
+  border-radius: var(--r_m, 1vh);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg);
+  aspect-ratio: 4 / 3.9;
+  width: 100%;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.hero-right-card:hover .hero-img {
+  transform: scale(1.02);
+}
+
+.hero-specialist-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.2rem 1.4rem;
+  background: linear-gradient(0deg, rgba(7, 25, 35, 0.94) 0%, rgba(7, 25, 35, 0.5) 70%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.hero-specialist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.hero-specialist-badge {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: var(--fz_m2);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero-badge-available {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  border-radius: var(--r_full, 999px);
+  color: #6ee7b7;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hero-available-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.hero-specialist-sub {
+  color: #7dd3fc;
+  font-size: var(--fz_s4);
+  font-weight: 600;
+}
+
+.hero-guarantee-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+  padding: 1rem 1.2rem;
+  background: var(--mbg);
+  border-radius: var(--r_m, 1vh);
+  border: 1px solid var(--border-accent, var(--mco));
+}
+
+.hero-guarantee-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-guarantee-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r_m, 1vh);
+  background: var(--mco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--txa, #ffffff);
+  font-size: var(--fz_l1);
+  flex-shrink: 0;
+}
+
+.hero-guarantee-title {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_m1);
+  font-weight: 700;
+  color: var(--tx);
+  line-height: 1.3;
+}
+
+.hero-guarantee-sub {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s4);
+  color: var(--tx2);
+}
+
+.hero-guarantee-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.hero-price-sub {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: var(--fz_s3);
+  color: var(--tx2);
+  font-weight: 600;
+}
+
+.hero-price-val {
+  font-size: var(--fz_l1);
+  font-weight: 850;
+  color: var(--mco);
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  line-height: 1.1;
+}
+
+/* Animaciones */
+@keyframes heroSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 7. Responsividad Integral para Tablets y Smartphones */
+@media (max-width: 1100px) {
+  .hero-layout {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .hero-visual {
+    order: 2;
+    max-width: 540px;
+    margin: 1.5vh auto 0 auto;
+    justify-content: center;
+  }
+
+  .hero-txt {
+    order: 1;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .hero-meta-group {
+    align-self: center;
+  }
+
+  .hero-ctas-group {
+    justify-content: center;
+  }
+
+  .hero-stats-box {
+    margin: 2.5vh auto 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  #hero, .hero-section {
+    padding: 3vh 0 4vh 0;
+    overflow-x: hidden;
+    min-height: auto;
+  }
+
+  .hero-page-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-layout {
+    width: 100% !important;
+    gap: 2.5rem;
+    box-sizing: border-box !important;
+  }
+
+  .hero-txt {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-badge {
+    font-size: var(--fz_s3);
+    padding: 0.4rem 0.9rem;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero-main-heading {
+    font-size: clamp(1.65rem, 6.2vw, 2.2rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  .hero-main-sub {
+    font-size: var(--fz_m2);
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+  }
+
+  .hero-district-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1rem 1rem;
+    margin-bottom: 1.4rem;
+    box-sizing: border-box !important;
+  }
+
+  .hero-district-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .hero-district-btn {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero-district-name {
+    font-size: var(--fz_s4);
+    white-space: normal;
+    text-align: left;
+  }
+
+  .hero-district-time {
+    font-size: var(--fz_s2);
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .hero-district-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero-footer-info {
+    white-space: normal;
+    text-align: left;
+    font-size: var(--fz_s3);
+    line-height: 1.4;
+  }
+
+  .hero-footer-badge {
+    align-self: flex-start;
+    font-size: var(--fz_s3);
+  }
+
+  .hero-stats-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-top: 1.2rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem 1.5rem;
+  }
+
+  .hero-stat-val {
+    font-size: var(--fz_l1);
+  }
+
+  .hero-right-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .hero-img-box {
+    aspect-ratio: 4 / 3.8;
+  }
+
+  .hero-guarantee-box {
+    padding: 0.85rem 1rem;
+  }
+
+  .hero-guarantee-title {
+    font-size: var(--fz_m);
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-ctas-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-btn-cta {
+    width: 100%;
+    height: 48px;
+    padding: 0.75rem 1.2rem;
+    font-size: var(--fz_m2);
+    box-sizing: border-box;
+  }
+
+  .hero-btn-icon {
+    font-size: var(--fz_l1);
+  }
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "renta-cuarta-categoria",
+    "tipo": "tributario",
+    "orden": 1,
+    "activo": true,
+    "nombre": {
+      "es": "Asesoría y Declaración de 4ta Categoría (RHE)",
+      "en": "4th Category Income Tax (Independent Receipts)"
+    },
+    "descripcion": {
+      "es": "Gestión integral para profesionales independientes: emisión correcta de Recibos por Honorarios Electrónicos, trámite de Suspensión de Retenciones (Form. 1609), cálculo de deducción 7+3 UIT y declaración jurada anual para solicitar devolución a SUNAT.",
+      "en": "Comprehensive management for independent professionals: electronic fee receipts (RHE), withholding suspension (Form 1609), 7+3 UIT deduction, and annual tax return to claim tax refunds from SUNAT."
+    },
+    "precioPEN": 80.00,
+    "duracion": {
+      "es": "Atención Directa",
+      "en": "Direct Attention"
+    },
+    "enfoque": "Rentas de Trabajo / 4ta Categoría",
+    "publico": {
+      "es": "Profesionales Independientes y Freelancers",
+      "en": "Independent Professionals & Freelancers"
+    },
+    "modalidad": {
+      "es": "100% Online y Presencial",
+      "en": "100% Online & In-Person"
+    },
+    "garantias": {
+      "es": [
+        "Emisión y control de RHE sin inconsistencias",
+        "Trámite oportuno de Suspensión de Retenciones (Form. 1609)",
+        "Aprovechamiento máximo de la deducción de 3 UIT adicionales"
+      ],
+      "en": [
+        "Error-free issuance and control of electronic fee receipts",
+        "Timely withholding suspension filing (Form 1609)",
+        "Maximum utilization of the 3 UIT additional deductible expenses"
+      ]
+    },
+    "imagen": "/imgwii/Attorney_reviewing_documents.jpeg",
+    "badge": {
+      "es": "Más Solicitado",
+      "en": "Most Requested"
+    },
+    "tagClase": "badge-serenidad",
+    "userId": "sistema",
+    "email": "sistema",
+    "creado": null,
+    "actualizado": null
+  },
+  {
+    "id": "gestion-quinta-categoria",
+    "tipo": "tributario",
+    "orden": 2,
+    "activo": true,
+    "nombre": {
+      "es": "Gestión de 5ta Categoría y Planillas PLAME",
+      "en": "5th Category Payroll & SUNAT PLAME"
+    },
+    "descripcion": {
+      "es": "Asesoría para trabajadores y empresas: cálculo exacto de retención mensual de 5ta categoría, declaración mensual en PLAME y T-Registro, liquidación de beneficios sociales (Gratificaciones, CTS, vacaciones) y trámite de devolución por exceso de retenciones.",
+      "en": "Advisory for employees and companies: precise monthly 5th category withholding calculations, PLAME & T-Registro monthly filings, social benefits settlements (CTS, bonuses), and refund claims for excess withholdings."
+    },
+    "precioPEN": 120.00,
+    "duracion": {
+      "es": "Mensual / Puntual",
+      "en": "Monthly / On-Demand"
+    },
+    "enfoque": "Planillas y Rentas de 5ta Categoría",
+    "publico": {
+      "es": "Empresas y Trabajadores en Planilla",
+      "en": "Corporations and Salaried Workers"
+    },
+    "modalidad": {
+      "es": "100% Online y Presencial",
+      "en": "100% Online & In-Person"
+    },
+    "garantias": {
+      "es": [
+        "Cálculo riguroso de retenciones mensuales de 5ta categoría",
+        "Declaración oportuna en PLAME y T-Registro sin contingencias",
+        "Recuperación efectiva de impuestos retenidos en exceso"
+      ],
+      "en": [
+        "Rigorous monthly 5th category withholding calculation",
+        "Timely PLAME and T-Registro filing without tax risks",
+        "Effective recovery of taxes withheld in excess"
+      ]
+    },
+    "imagen": "/imgwii/Lawyers_reviewing_corporate_tax.jpeg",
+    "badge": {
+      "es": "Empresas y Dependientes",
+      "en": "Companies & Employees"
+    },
+    "tagClase": "badge-serenidad",
+    "userId": "sistema",
+    "email": "sistema",
+    "creado": null,
+    "actualizado": null
+  },
+  {
+    "id": "auditoria-buzon-sol",
+    "tipo": "tributario",
+    "orden": 3,
+    "activo": true,
+    "nombre": {
+      "es": "Auditoría Preventiva de Buzón SOL & Descarte de Multas",
+      "en": "SOL Mailbox Preventive Audit & Fine Prevention"
+    },
+    "descripcion": {
+      "es": "Revisión integral de esquelas, notificaciones electrónicas y cruces bancarios de ITF con el criterio de una ex-funcionaria de SUNAT. Detección temprana de inconsistencias antes de requerimientos formales de fiscalización.",
+      "en": "Comprehensive audit of electronic notifications, tax letters, and ITF bank cross-checks backed by former SUNAT expertise. Early detection of discrepancies before formal audits."
+    },
+    "precioPEN": 90.00,
+    "duracion": {
+      "es": "Evaluación Inmediata",
+      "en": "Immediate Evaluation"
+    },
+    "enfoque": "Fiscalización y Regularización SUNAT",
+    "publico": {
+      "es": "Personas Naturales y Negocios",
+      "en": "Individuals & Businesses"
+    },
+    "modalidad": {
+      "es": "100% Online y Presencial",
+      "en": "100% Online & In-Person"
+    },
+    "garantias": {
+      "es": [
+        "Revisión experta con criterio normativo de ex-funcionaria SUNAT",
+        "Cruce detallado de ITF bancario vs ingresos declarados",
+        "Estrategia de subsanación voluntaria al 100% de rebaja en multas"
+      ],
+      "en": [
+        "Expert review with former SUNAT regulatory criteria",
+        "Detailed ITF banking cross-checks vs declared earnings",
+        "Voluntary rectification strategy maximizing fine discounts"
+      ]
+    },
+    "imagen": "/imgwii/Attorney_workstation_with_laptop.jpeg",
+    "badge": {
+      "es": "Criterio Ex-SUNAT",
+      "en": "Former SUNAT Criteria"
+    },
+    "tagClase": "badge-serenidad",
+    "userId": "sistema",
+    "email": "sistema",
+    "creado": null,
+    "actualizado": null
+  },
+  {
+    "id": "diagnostico-tributario-express",
+    "tipo": "tributario",
+    "orden": 4,
+    "activo": true,
+    "nombre": {
+      "es": "Diagnóstico Tributario Express para Personas Naturales",
+      "en": "Express Tax Diagnosis for Individuals"
+    },
+    "descripcion": {
+      "es": "Evaluación rápida del estado de tu RUC: detección de periodos omisos, condición de no habido, deudas tributarias fraccionables y plan de regularización paso a paso para estar al día.",
+      "en": "Quick evaluation of your tax status: detection of unfiled tax periods, address status, installment plans for tax debts, and step-by-step regularization plan."
+    },
+    "precioPEN": 50.00,
+    "duracion": {
+      "es": "30 - 45 min",
+      "en": "30 - 45 mins"
+    },
+    "enfoque": "Saneamiento Tributario",
+    "publico": {
+      "es": "Personas Naturales con o sin Negocio",
+      "en": "Individuals with or without Business"
+    },
+    "modalidad": {
+      "es": "100% Online",
+      "en": "100% Online"
+    },
+    "garantias": {
+      "es": [
+        "Reporte claro y directo del estado tributario en Clave SOL",
+        "Asesoría sin tecnicismos confusos",
+        "Hoja de ruta para estar 100% al día ante SUNAT"
+      ],
+      "en": [
+        "Clear status report from SUNAT Clave SOL portal",
+        "Plain-language advice without complicated jargon",
+        "Actionable roadmap to stay 100% compliant with SUNAT"
+      ]
+    },
+    "imagen": "/imgwii/Woman_smiling_in_law_office.jpeg",
+    "badge": {
+      "es": "Diagnóstico Rápido",
+      "en": "Express Check"
+    },
+    "tagClase": "badge-serenidad",
+    "userId": "sistema",
+    "email": "sistema",
+    "creado": null,
+    "actualizado": null
+  }
+]

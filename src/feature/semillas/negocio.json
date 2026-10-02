@@ -1,0 +1,172 @@
+{
+  "id": "principal",
+  "principal": true,
+  "moneda": "PEN",
+  "idiomaDefecto": "es",
+  "idiomasSoportados": ["es", "en"],
+
+  "identidad": {
+    "nombre": "Estudio Cusihuaman",
+    "nombreCorto": "Estudio Cusihuaman",
+    "especialista": "Lourdes Cusihuaman Gálvez",
+    "colegiatura": "",
+    "titulo": "Especialista Contable & Asesora Tributaria SUNAT",
+    "grado": "Ex-funcionaria de SUNAT · Experta en Fiscalización y Rentas de Trabajo",
+    "enfoques": "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Auditoría Preventiva Buzón SOL",
+    "nombreEn": "Cusihuaman Accounting & Tax Firm",
+    "nombreCortoEn": "Estudio Cusihuaman",
+    "enfoquesEn": "4th Category Income (Independent Fees) • 5th Category Payroll • SUNAT Tax Regularization • SOL Mailbox Audit",
+    "bio": {
+      "es": "Especialista contable y ex-funcionaria de SUNAT con amplia experiencia en normativa tributaria, fiscalización, rentas de 4ta y 5ta categoría. Brinda asesoría estratégica y de alto rigor para trabajadores independientes y empresas que buscan tranquilidad y cumplimiento fiscal.",
+      "en": "Tax & accounting specialist and former SUNAT officer with extensive expertise in tax regulations, audits, and 4th and 5th category personal and payroll taxes in Peru."
+    },
+    "lanzamientoFecha": "2020-03-15",
+    "logo": "/imgwii/logo_square.webp",
+    "logoFull": "/imgwii/logo_full.webp",
+    "imagenSede": "/imgwii/Woman_smiling_in_law_office.jpeg"
+  },
+
+  "contacto": {
+    "telefono": "+51 933 878 512",
+    "whatsapp": "51933878512",
+    "whatsappMensaje": {
+      "es": "¡Hola Lourdes! Deseo una asesoría tributaria para mi RUC / declaración de 4ta y 5ta categoría ante SUNAT.",
+      "en": "Hello Lourdes! I would like tax advice regarding my 4th/5th category taxes with SUNAT."
+    },
+    "email": "contacto@contabilidadwii.com",
+    "horario": {
+      "es": "Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m.",
+      "en": "Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m."
+    }
+  },
+
+  "horarios": {
+    "semana": { "abre": "08:30", "cierra": "19:00" },
+    "sabado": { "abre": "09:00", "cierra": "13:00" }
+  },
+
+  "ubicacion": {
+    "direccion": "Jr. Dante 260",
+    "referencia": "Cerca a Av. Angamos y Av. Paseo de la República",
+    "distrito": "Surquillo",
+    "ciudad": "Lima",
+    "pais": "PE",
+    "codigoPostal": "15047",
+    "mapsUrl": "",
+    "coordenadas": {
+      "lat": -12.1125,
+      "lng": -77.0258
+    }
+  },
+
+  "sedes": [
+    {
+      "id": "surquillo",
+      "nombre": "Sede Surquillo",
+      "distrito": "Surquillo",
+      "modalidad": "Presencial",
+      "direccion": "Jr. Dante 260, Surquillo",
+      "referencia": "Cerca a Av. Angamos y Av. Paseo de la República",
+      "atencion": {
+        "es": "Lunes a Viernes (Previa Cita)",
+        "en": "Monday to Friday (By Appointment)"
+      },
+      "mapsUrl": "",
+      "coordenadas": { "lat": -12.1125, "lng": -77.0258 },
+      "tag": {
+        "es": "Sede Surquillo",
+        "en": "Surquillo Office"
+      },
+      "activo": true
+    },
+    {
+      "id": "virtual",
+      "nombre": "Modalidad Online / Todo el Perú",
+      "distrito": "Online",
+      "modalidad": "Virtual",
+      "direccion": "Google Meet / Zoom / WhatsApp (Nivel Nacional)",
+      "referencia": "Asesoría tributaria en vivo 100% personalizada",
+      "atencion": {
+        "es": "Horarios Flexibles",
+        "en": "Flexible Schedule"
+      },
+      "mapsUrl": "",
+      "coordenadas": { "lat": 0, "lng": 0 },
+      "tag": {
+        "es": "100% Online",
+        "en": "100% Online"
+      },
+      "activo": true
+    }
+  ],
+
+  "metricas": {
+    "pacientes": "+240",
+    "confidencialidad": "100%",
+    "satisfaccion": "99.4%",
+    "years": "10+"
+  },
+
+  "redes": {
+    "facebook": "https://facebook.com/estudiocusihuaman",
+    "instagram": "https://instagram.com/estudiocusihuaman",
+    "tiktok": "https://tiktok.com/@estudiocusihuaman",
+    "linkedin": "https://linkedin.com/in/lourdes-cusihuaman"
+  },
+
+  "seo": {
+    "titulo": {
+      "es": "Estudio Cusihuaman | Asesoría Contable & Tributaria SUNAT (4ta y 5ta Categoría)",
+      "en": "Estudio Cusihuaman | Tax & Accounting Services in Peru (4th & 5th Category)"
+    },
+    "descripcion": {
+      "es": "Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME, suspensión de retenciones y auditoría de Buzón SOL.",
+      "en": "Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer. 4th & 5th category tax filings, payroll, and audit defense in Lima & Online."
+    },
+    "keywords": {
+      "es": [
+        "contabilidad 4ta categoria",
+        "declaracion 5ta categoria",
+        "recibos por honorarios sunat",
+        "suspension retenciones formulario 1609",
+        "deduccion 3 uit sunat",
+        "ex funcionaria sunat contadora",
+        "asesor tributario lima",
+        "estudio contable surquillo",
+        "auditoria buzon sol sunat",
+        "planillas plame t-registro"
+      ],
+      "en": [
+        "peru tax consultant",
+        "4th category tax filing peru",
+        "payroll services lima",
+        "sunat tax advisory",
+        "accounting firm surquillo lima"
+      ]
+    },
+    "imagen": {
+      "url": "/imgwii/Woman_smiling_in_law_office.jpeg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "alt": "Estudio Cusihuaman - Lourdes Cusihuaman Gálvez, Asesoría Tributaria SUNAT",
+      "caption": "Asesoría tributaria y contable experta en 4ta y 5ta categoría ante SUNAT"
+    },
+    "schema": {
+      "tipo": ["AccountingService", "FinancialService", "ProfessionalService"],
+      "especialidades": ["TaxPreparation", "PayrollServices", "TaxConsulting", "SUNATAdvisory"],
+      "descripcionCorta": {
+        "es": "Estudio de asesoría contable y tributaria en Surquillo y modalidad online a nivel nacional. Especializado en rentas de 4ta y 5ta categoría, planillas y fiscalización SUNAT.",
+        "en": "Accounting and tax advisory firm in Surquillo, Lima and online nationwide. Specialized in 4th/5th category income taxes and SUNAT compliance."
+      }
+    },
+    "audiencia": {
+      "es": ["trabajadores independientes", "profesionales con RHE", "empresas con planilla", "personas naturales con negocio"],
+      "en": ["freelancers", "independent contractors", "corporations", "businesses"]
+    },
+    "intencion": {
+      "es": "asesoria tributaria sunat, declaracion renta 4ta categoria, regularizacion buzon sol y planillas",
+      "en": "book tax advisory consultation, 4th category income tax and sunat compliance"
+    }
+  }
+}

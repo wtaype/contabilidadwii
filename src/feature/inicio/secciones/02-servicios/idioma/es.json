@@ -1,0 +1,16 @@
+{
+  "badge": "Especialidades Clínicas",
+  "titulo": "Terapias Psicológicas Especializadas",
+  "subtitulo": "Abordajes clínicos fundamentados en Terapias Basadas en Evidencia (TCC, Contextual, Sistémica y Humanista) adaptados a cada etapa de la vida.",
+  "duracion_label": "Duración:",
+  "enfoque_label": "Enfoque:",
+  "modalidad_label": "Modalidad:",
+  "garantia_titulo": "Compromiso Terapéutico",
+  "delivery_label": "Atención",
+  "btn_ws_servicio": "Agendar por WhatsApp",
+  "sin_productos": "No hay servicios disponibles por el momento.",
+  "pill_popular": "Más Solicitado",
+  "pill_recomendado": "Recomendado",
+  "pill_especializado": "Especializado",
+  "ws_msg_servicio": "Hola Lic. Sofía, deseo agendar una consulta para: {producto}"
+}

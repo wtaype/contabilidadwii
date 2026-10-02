@@ -1,0 +1,55 @@
+---
+// src/feature/inicio/inicioPage.astro
+// Orquestador Principal de Secciones de Inicio (01 a 09) - Consultorio Psicológico América
+import Principal from '../../core/layouts/Principal.astro';
+import type { Idioma } from '../../core/idioma/idioma';
+import { buildRuta } from '../../core/idioma/idioma';
+import Hero from './secciones/01-hero/Hero.astro';
+import Servicios from './secciones/02-servicios/Servicios.astro';
+import Talleres from './secciones/03-talleres/Talleres.astro';
+import Calculadora from './secciones/04-calculadora/Calculadora.astro';
+import Separador from './secciones/05-separador/Separador.astro';
+import Compania from './secciones/06-compania/Compania.astro';
+import Mapa from './secciones/07-mapa/Mapa.astro';
+import Nosotros from './secciones/08-nosotros/Nosotros.astro';
+import Faq from './secciones/09-faq/Faq.astro';
+import inicioCss from './inicio.css?inline';
+
+interface Props {
+  idioma?: Idioma;
+}
+
+const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
+const ruta = buildRuta('/', idioma);
+---
+
+<Principal idioma={idioma} ruta={ruta}>
+  <style slot="head" is:global set:html={inicioCss}></style>
+  
+  <!-- 01. Hero Autónomo: Bienvenida Empática, C.Ps.P. 49425 y Test de Orientación -->
+  <Hero idioma={idioma} />
+
+  <!-- 02. Catálogo Oficial de Especialidades Clínicas (Grilla 3x2 Fija) -->
+  <Servicios idioma={idioma} />
+
+  <!-- 03. Espacios Vivenciales y Talleres Psicoeducativos (Grilla 3x2 Fija) -->
+  <Talleres idioma={idioma} />
+
+  <!-- 04. Tarifas Transparentes y Calculadora de Ahorro Familiar -->
+  <Calculadora idioma={idioma} />
+
+  <!-- 05. Separador de Orientación Empática Directa SOS -->
+  <Separador idioma={idioma} />
+
+  <!-- 06. Acompañamiento Terapéutico y Metodología Clínica en 3 Pasos -->
+  <Compania idioma={idioma} />
+
+  <!-- 07. Sedes Oficiales (Miraflores, Villa El Salvador y Online) -->
+  <Mapa idioma={idioma} />
+
+  <!-- 08. Trayectoria, Compromiso y Vocación (+6 Años) -->
+  <Nosotros idioma={idioma} />
+
+  <!-- 09. Preguntas Frecuentes Clínicas y Asistencia -->
+  <Faq idioma={idioma} />
+</Principal>

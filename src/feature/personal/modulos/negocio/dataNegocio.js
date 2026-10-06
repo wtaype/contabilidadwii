@@ -1,17 +1,17 @@
 // src/feature/personal/modulos/negocio/dataNegocio.js
-// 🎯 Capa Canónica Local-First de Negocio: Firestore + Caché Local + Semilla src/feature/semillas/negocio.json
+// 🎯 Capa Canónica Local-First de Negocio: Firestore + Caché Local + Semilla src/semillas/negocio.json
 // Colección: 'negocio' · Documento: 'principal'
 // Integrado con @widev y Firebase SDK
 
 import { savels, getls, formatearFechaParaInput } from '@widev';
-import negocioSemilla from '../../../semillas/negocio.json';
+import negocioSemilla from '../../../../semillas/negocio.json';
 
 export const STORAGE_KEY = 'minegocio';
 export const OLD_STORAGE_KEY = 'gaswii_negocio_config';
 export const COLECCION_NEGOCIO = 'negocio';
 export const DOC_NEGOCIO_ID = 'principal';
 
-// 1. Lector canónico de semilla inicial de despegue (lee src/feature/semillas/negocio.json)
+// 1. Lector canónico de semilla inicial de despegue (lee src/semillas/negocio.json)
 export function obtenerSemillaLocal() {
   return negocioSemilla && typeof negocioSemilla === 'object' ? negocioSemilla : null;
 }
@@ -31,7 +31,7 @@ export function parseFirestoreDoc(fields = {}) {
   return res;
 }
 
-// 3. Normalizador neutro: SOLO UN FALLBACK (src/feature/semillas/negocio.json). Cero textos quemados en código.
+// 3. Normalizador neutro: SOLO UN FALLBACK (src/semillas/negocio.json). Cero textos quemados en código.
 export function normalizarConfig(c = {}) {
   const cfg = c && typeof c === 'object' ? c : {};
   const base = negocioSemilla || {};
@@ -44,7 +44,7 @@ export function normalizarConfig(c = {}) {
   const wsBase = base.contacto?.whatsappMensaje;
   const wsCfg = cfg.contacto?.whatsappMensaje;
   const wsEs = (typeof wsCfg === 'object' && wsCfg?.es) || (typeof wsCfg === 'string' && wsCfg) || (typeof wsBase === 'object' ? wsBase?.es : wsBase) || '';
-  const wsEn = (typeof wsCfg === 'object' && wsCfg?.en) || cfg.contacto?.whatsappMensajeEn || (typeof wsBase === 'object' ? wsBase?.en : '') || "Hello Lic. Sofia Reynaga! I'd like to book a psychological consultation.";
+  const wsEn = (typeof wsCfg === 'object' && wsCfg?.en) || cfg.contacto?.whatsappMensajeEn || (typeof wsBase === 'object' ? wsBase?.en : '') || '';
 
   const horBase = base.contacto?.horario || {};
   const horCfg = cfg.contacto?.horario;
@@ -55,9 +55,20 @@ export function normalizarConfig(c = {}) {
     id: cfg.id || base.id || DOC_NEGOCIO_ID,
     principal: Boolean(cfg.principal ?? base.principal ?? true),
     moneda: cfg.moneda || base.moneda || 'PEN',
+    subtitulo: cfg.subtitulo ?? base.subtitulo ?? '',
+    hero: {
+      titulo: cfg.hero?.titulo ?? base.hero?.titulo ?? '',
+      subtitulo: cfg.hero?.subtitulo ?? base.hero?.subtitulo ?? '',
+      imagen: cfg.hero?.imagen ?? base.hero?.imagen ?? '',
+      alt: cfg.hero?.alt ?? base.hero?.alt ?? '',
+      precioHero: cfg.hero?.precioHero ?? base.hero?.precioHero ?? '',
+      servicio: cfg.hero?.servicio ?? base.hero?.servicio ?? '',
+      descripcion: cfg.hero?.descripcion ?? base.hero?.descripcion ?? ''
+    },
     identidad: {
       nombre: cfg.identidad?.nombre || base.identidad?.nombre || '',
       nombreCorto: cfg.identidad?.nombreCorto || base.identidad?.nombreCorto || '',
+      subtitulo: cfg.identidad?.subtitulo || base.identidad?.subtitulo || '',
       especialista: cfg.identidad?.especialista || base.identidad?.especialista || '',
       colegiatura: cfg.identidad?.colegiatura || base.identidad?.colegiatura || '',
       titulo: cfg.identidad?.titulo || base.identidad?.titulo || '',
@@ -70,10 +81,10 @@ export function normalizarConfig(c = {}) {
         es: bioEs,
         en: bioEn
       },
-      lanzamientoFecha: cfg.identidad?.lanzamientoFecha || base.identidad?.lanzamientoFecha || '2020-03-15',
-      logo: cfg.identidad?.logo || base.identidad?.logo || '/imgwii/logo.webp',
-      logoFull: cfg.identidad?.logoFull || base.identidad?.logoFull || '/imgwii/logo_full.webp',
-      imagenSede: cfg.identidad?.imagenSede || base.identidad?.imagenSede || '/imgwii/hero/psicologa-sofia-reynaga.webp'
+      lanzamientoFecha: cfg.identidad?.lanzamientoFecha || base.identidad?.lanzamientoFecha || '',
+      logo: cfg.identidad?.logo || base.identidad?.logo || '',
+      logoFull: cfg.identidad?.logoFull || base.identidad?.logoFull || '',
+      imagenSede: cfg.identidad?.imagenSede || base.identidad?.imagenSede || ''
     },
     contacto: {
       telefono: cfg.contacto?.telefono || base.contacto?.telefono || '',
@@ -90,33 +101,33 @@ export function normalizarConfig(c = {}) {
     },
     horarios: {
       semana: {
-        abre: cfg.horarios?.semana?.abre || base.horarios?.semana?.abre || '08:00',
-        cierra: cfg.horarios?.semana?.cierra || base.horarios?.semana?.cierra || '20:00'
+        abre: cfg.horarios?.semana?.abre || base.horarios?.semana?.abre || '',
+        cierra: cfg.horarios?.semana?.cierra || base.horarios?.semana?.cierra || ''
       },
       sabado: {
-        abre: cfg.horarios?.sabado?.abre || base.horarios?.sabado?.abre || '08:00',
-        cierra: cfg.horarios?.sabado?.cierra || base.horarios?.sabado?.cierra || '20:00'
+        abre: cfg.horarios?.sabado?.abre || base.horarios?.sabado?.abre || '',
+        cierra: cfg.horarios?.sabado?.cierra || base.horarios?.sabado?.cierra || ''
       }
     },
     ubicacion: {
       direccion: cfg.ubicacion?.direccion || base.ubicacion?.direccion || '',
       referencia: cfg.ubicacion?.referencia || base.ubicacion?.referencia || '',
-      distrito: cfg.ubicacion?.distrito || base.ubicacion?.distrito || 'Villa El Salvador',
-      ciudad: cfg.ubicacion?.ciudad || base.ubicacion?.ciudad || 'Lima',
-      pais: cfg.ubicacion?.pais || base.ubicacion?.pais || 'PE',
-      codigoPostal: cfg.ubicacion?.codigoPostal || base.ubicacion?.codigoPostal || '15834',
+      distrito: cfg.ubicacion?.distrito || base.ubicacion?.distrito || '',
+      ciudad: cfg.ubicacion?.ciudad || base.ubicacion?.ciudad || '',
+      pais: cfg.ubicacion?.pais || base.ubicacion?.pais || '',
+      codigoPostal: cfg.ubicacion?.codigoPostal || base.ubicacion?.codigoPostal || '',
       mapsUrl: cfg.ubicacion?.mapsUrl || base.ubicacion?.mapsUrl || '',
       coordenadas: {
-        lat: Number(cfg.ubicacion?.coordenadas?.lat ?? base.ubicacion?.coordenadas?.lat ?? -12.2084),
-        lng: Number(cfg.ubicacion?.coordenadas?.lng ?? base.ubicacion?.coordenadas?.lng ?? -76.9387)
+        lat: Number(cfg.ubicacion?.coordenadas?.lat ?? base.ubicacion?.coordenadas?.lat ?? 0),
+        lng: Number(cfg.ubicacion?.coordenadas?.lng ?? base.ubicacion?.coordenadas?.lng ?? 0)
       }
     },
     sedes: Array.isArray(cfg.sedes) && cfg.sedes.length > 0 ? cfg.sedes : (Array.isArray(base.sedes) ? base.sedes : []),
     metricas: {
-      pacientes: cfg.metricas?.pacientes || base.metricas?.pacientes || '450+',
-      confidencialidad: cfg.metricas?.confidencialidad || base.metricas?.confidencialidad || '100%',
-      satisfaccion: cfg.metricas?.satisfaccion || base.metricas?.satisfaccion || '98%',
-      years: cfg.metricas?.years || calcularAnosTrayectoria(cfg.identidad?.lanzamientoFecha || base.identidad?.lanzamientoFecha)
+      pacientes: cfg.metricas?.pacientes || base.metricas?.pacientes || '',
+      confidencialidad: cfg.metricas?.confidencialidad || base.metricas?.confidencialidad || '',
+      satisfaccion: cfg.metricas?.satisfaccion || base.metricas?.satisfaccion || '',
+      years: cfg.metricas?.years || base.metricas?.years || ''
     },
     redes: {
       facebook: cfg.redes?.facebook || base.redes?.facebook || '',
@@ -155,7 +166,7 @@ if (typeof window === 'undefined') {
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 4000);
-    const projectId = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'psicologiawii';
+    const projectId = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'contabilidadwii';
     const res = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/negocio/principal`, {
       signal: controller.signal
     });
@@ -225,7 +236,7 @@ export function obtenerDatosNegocio() {
     return _memoriaNegocio;
   }
 
-  // 3. Fallback limpio a src/feature/semillas/negocio.json
+  // 3. Fallback limpio a src/semillas/negocio.json
   _memoriaNegocio = normalizarConfig(negocioSemilla || {});
   return _memoriaNegocio;
 }
@@ -239,7 +250,7 @@ export function guardarDatosNegocioLocal(config) {
     _memoriaNegocio = normalizado;
     savels(STORAGE_KEY, normalizado);
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('psicologia:negocio-actualizado', { detail: normalizado }));
+      window.dispatchEvent(new CustomEvent('contabilidad:negocio-actualizado', { detail: normalizado }));
     }
   } catch (e) {}
 }

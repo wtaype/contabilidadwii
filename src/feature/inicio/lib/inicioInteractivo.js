@@ -156,7 +156,7 @@ function initSelectorTemas() {
       }
 
       try {
-        localStorage.setItem('psicologia_motivo_activo', tema);
+        localStorage.setItem('contabilidad_motivo_activo', tema);
       } catch (e) {}
     });
   });

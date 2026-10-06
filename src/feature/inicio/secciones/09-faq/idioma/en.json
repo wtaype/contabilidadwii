@@ -1,37 +1,37 @@
 {
   "top_badge": "Frequently Asked Questions",
-  "titulo": "Clear Answers to Your Therapy Questions",
-  "subtitulo": "Everything you need to know about session duration, appointment formats, therapeutic approaches, and getting started.",
-  "side_foto_badge_1": "100% Ethical Confidentiality",
-  "side_foto_badge_2": "C.Ps.P. N° 34892",
-  "side_titulo": "Personalized Care & Quick Booking",
-  "side_desc": "Message us on WhatsApp or call our clinic directly to coordinate your appointment in Miraflores, Villa El Salvador, or Live Online.",
+  "titulo": "Clear Answers About Taxes and SUNAT Compliance",
+  "subtitulo": "Everything you need to know about 4th and 5th categories, withholding suspensions, tax deductions, and audit defense.",
+  "side_foto_badge_1": "100% Ex-SUNAT Criteria",
+  "side_foto_badge_2": "Full Confidentiality",
+  "side_titulo": "Personalized Care & Swift Tax Shielding",
+  "side_desc": "Contact us via WhatsApp to review your tax status at our Surquillo office or via online consultation nationwide across Peru.",
   "btn_ws": "Inquire via WhatsApp",
-  "ws_msg": "Hello Lic. Sofía, I have a question regarding psychological sessions",
+  "ws_msg": "Hello Lourdes, I have a tax inquiry regarding my situation with SUNAT.",
   "faqs": [
     {
-      "pregunta": "How long does each therapy session last?",
-      "respuesta": "The initial assessment consultation lasts a full 60 minutes to thoroughly review your background and provide immediate guidance. Regular ongoing sessions last 45 minutes."
+      "pregunta": "At what amount is the 8% 4th-category tax withheld?",
+      "respuesta": "If you issue an Electronic Fee Receipt (RHE) to a company exceeding S/ 1,500, the company is required to withhold 8% income tax, unless you have obtained an official Withholding Suspension Certificate (Form 1609)."
     },
     {
-      "pregunta": "Which clinical approaches do you use?",
-      "respuesta": "We utilize exclusively evidence-based therapeutic models: Cognitive Behavioral Therapy (CBT), Contextual Therapy (ACT), Systemic Psychotherapy for couples and families, and Humanistic Psychotherapy."
+      "pregunta": "How and when should I file for Withholding Suspension (Form 1609)?",
+      "respuesta": "This procedure is completed online through SUNAT Operaciones en Línea when you project that your annual 4th and 5th category earnings will not exceed SUNAT's legal threshold for the tax year (approx. S/ 45,063). We file your certificate promptly so you receive your full fee payments without unnecessary deductions."
     },
     {
-      "pregunta": "How does ADHD & ASD diagnostic screening work?",
-      "respuesta": "It is a comprehensive assessment package (S/ 600.00) including clinical interviews, standardized psychometric batteries, behavioral observation, and a formal signed report by a Licensed Psychologist."
+      "pregunta": "How does the additional 3 UIT deduction work to claim tax refunds?",
+      "respuesta": "Every worker in 4th or 5th categories receives an automatic 7 UIT deduction, plus up to 3 additional UITs supported by electronic invoices bearing their DNI: restaurants/bars (15%), hotels (15%), independent professional services (30%), and domestic worker healthcare contributions (100%). This generates credit balances eligible for direct bank account refunds."
     },
     {
-      "pregunta": "Where are your physical offices located?",
-      "respuesta": "We operate from two locations: Miraflores Office (Av. Alfredo Benavides 620, Zafiro Building, Suite 403) on Saturdays, and South Lima Office (Av. 3 de Octubre Ruta B, Villa El Salvador) Monday to Friday. We also provide secure online sessions."
+      "pregunta": "What should I do if I receive an audit notice in my SUNAT SOL mailbox?",
+      "respuesta": "Do not ignore the deadline. Inductive letters or formal citations frequently stem from bank transfer cross-checks (ITF) or payroll discrepancies. As a former SUNAT auditor, we examine the technical file, determine the issue, and prepare an evidentiary response before it turns into a fine or full tax audit."
     },
     {
-      "pregunta": "What are the benefits of the 10-Session Package?",
-      "respuesta": "The 10-session package costs S/ 600.00, providing more than 30% savings over individual sessions. It includes the 1-hour initial intake, 9 regular sessions, and ongoing takeaways between meetings."
+      "pregunta": "What makes Estudio Cusihuaman different from a general accountant?",
+      "respuesta": "We specialize strictly in Personal Income Taxes (4th and 5th categories) and SUNAT tax audits. Having served inside the tax agency, we understand the exact detection routines, cross-referencing criteria, and legal interpretations used by tax auditors."
     },
     {
-      "pregunta": "What payment methods are accepted?",
-      "respuesta": "We accept Yape, Plin digital wallets, direct bank transfers (BCP, BBVA), and Cash at the clinic."
+      "pregunta": "Where are you located and what payment methods do you accept?",
+      "respuesta": "We offer in-person consultations by appointment at Jr. Dante 260, Surquillo, Lima, as well as live online video consultations nationwide via Meet / Zoom. We accept bank transfers (BCP, BBVA, Interbank) and digital wallets Yape and Plin."
     }
   ]
 }

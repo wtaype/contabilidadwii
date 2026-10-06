@@ -1,95 +1,88 @@
 // src/feature/inicio/lib/modales/test/plantillas.js
-// 🎯 Plantillas de Escucha Empática y Respaldo Clínico Instantáneo (0ms)
-// Genera respuestas cálidas, humanas y comprensivas analizando la emoción y el texto libre.
+// 🎯 Plantillas de Diagnóstico Tributario Preventivo Instantáneo (0ms)
+// Genera respuestas técnicas, claras y preventivas basadas en criterio Ex-SUNAT.
 
 /**
- * Genera una devolución empática en vivo según la emoción y el desahogo libre del paciente
+ * Genera una devolución diagnóstica en vivo según la consulta y el caso del contribuyente
  * @param {Object} datos - { emocionId, emocionTexto, desahogo, tiempo }
  * @param {string} [lang='es'] - Idioma ('es' o 'en')
- * @returns {string} Devolución empática
+ * @returns {string} Devolución diagnóstica
  */
 export function generarDevolucionEmpatica(datos = {}, lang = 'es') {
   const esEn = lang === 'en';
   const textoLibre = (datos.desahogo || '').toLowerCase();
-  const emocionId = datos.emocionId || 'triste';
-  const tiempo = datos.tiempo || '';
+  const casoId = datos.emocionId || '4ta';
 
-  // 1. Análisis Heurístico de Temas Sensibles y Desahogo Libre
-  if (textoLibre.includes('no se que') || textoLibre.includes('no sé qué') || textoLibre.includes('muchas cosas') || textoLibre.includes('mi vida') || textoLibre.includes('abrumad') || textoLibre.includes('perdido')) {
+  // 1. Análisis Heurístico de Términos Críticos en Consulta Libre
+  if (textoLibre.includes('multa') || textoLibre.includes('esquela') || textoLibre.includes('carta inductiva') || textoLibre.includes('notificac') || textoLibre.includes('plazo') || textoLibre.includes('cierre')) {
     return esEn
-      ? `I hold what you are experiencing with deep compassion and respect. Feeling that life has presented you with so many burdens at once, until your path feels unclear, does not mean you have failed; it is the natural response of someone who has been carrying too much alone for too long.\n\nPlease remember that you are not lost and you do not need to resolve everything today. Together in session with Lic. Sofía Reynaga, we will gently untangle each burden step by step, soothing that overthinking and restoring your peace, direction, and clarity.`
-      : `Abrazo con profundo respeto lo que estás experimentando. Sentir que la vida te ha puesto tantas pruebas juntas y que el camino se vuelve difuso no significa que hayas fallado; es la respuesta natural de un corazón que ha resistido en soledad durante demasiado tiempo.\n\nQuiero recordarte que no estás a la deriva ni tienes que resolver todo hoy. Juntas en sesión iremos ordenando cada una de esas situaciones paso a paso, ayudándote a calmar la mente y a recuperar el rumbo, la serenidad y la claridad que mereces.`;
+      ? `Important notice regarding SUNAT deadlines: Receiving an audit notice or inductive letter requires prompt action before legal deadlines expire. Inductive processes usually grant between 3 to 10 business days to file formal responses or amend returns.\n\nDo not worry; most initial SUNAT observations can be rectified with proper evidentiary documentation and legal grounds. With our Ex-SUNAT technical assessment, we will analyze your case file and draft a solid defense before fines are assessed.`
+      : `Atención prioritaria con los plazos de SUNAT: Recibir una esquela o carta inductiva exige actuar de inmediato antes del vencimiento del requerimiento. La administración otorga usualmente entre 3 y 10 días hábiles para subsanar inconsistencias o formular descargos.\n\nNo te preocupes; la gran mayoría de observaciones preliminares de SUNAT pueden subsanarse favorablemente si se cuenta con el sustento técnico y probatorio adecuado. Con nuestro criterio de Ex-SUNAT analizaremos tu expediente para presentar un descargo fundamentado y blindar tu caso de multas.`;
   }
 
-  if (textoLibre.includes('mascota') || textoLibre.includes('perr') || textoLibre.includes('gat') || textoLibre.includes('pet')) {
+  if (textoLibre.includes('suspension') || textoLibre.includes('suspensión') || textoLibre.includes('1609') || textoLibre.includes('8%') || textoLibre.includes('retencion') || textoLibre.includes('retención')) {
     return esEn
-      ? `I honor and deeply validate this intimate grief. The passing of a beloved pet leaves a profound stillness in your home and in your heart, because their daily presence and unconditional loyalty touched every corner of your days.\n\nYou do not have to rush your healing or hide your tears over this loss. We are here to stand by your side with immense empathy, helping you navigate this journey and gently heal your heart at your own pace.`
-      : `Reconozco y valido de corazón este duelo tan íntimo. La partida de un compañero animal deja un silencio enorme en el hogar y en el alma, porque su lealtad, su presencia diaria y su ternura incondicional marcaron cada rincón de tus días.\n\nNo tienes que apresurar tus tiempos ni esconder las lágrimas por haber perdido a tu mascota. Estamos aquí para acompañarte paso a paso con infinita empatía, ayudándote a sanar esta ausencia y a encontrar un nuevo sentido de calma en tu camino.`;
+      ? `Analysis on 4th Category Withholding Suspension: When issuing Electronic Fee Receipts over S/ 1,500, a mandatory 8% withholding applies unless Form 1609 has been approved by SUNAT for the current fiscal year.\n\nWe verify your income projection so you can safely obtain your withholding suspension certificate, allowing you to collect 100% of your earnings legitimately without improper discounts.`
+      : `Análisis de Suspensión de Retenciones de 4ta Categoría: Al emitir Recibos por Honorarios mayores a S/ 1,500, la empresa contratante debe descontar el 8% salvo que cuentes con la constancia vigente del Formulario 1609 emitido en SUNAT Operaciones en Línea.\n\nVerificamos tu proyección anual de ingresos para tramitar oportunamente tu suspensión o, si ya te retuvieron en exceso, determinar tu saldo a favor acumulado para solicitar la devolución en tu cuenta bancaria.`;
   }
 
-  if (textoLibre.includes('perdi') || textoLibre.includes('perdí') || textoLibre.includes('fallec') || textoLibre.includes('muri') || textoLibre.includes('muert') || textoLibre.includes('loss') || textoLibre.includes('died') || textoLibre.includes('duelo')) {
+  if (textoLibre.includes('devolucion') || textoLibre.includes('devolución') || textoLibre.includes('saldo a favor') || textoLibre.includes('3 uit') || textoLibre.includes('saldo')) {
     return esEn
-      ? `I stand with your sorrow with the utmost gentleness and respect. Saying goodbye to someone you loved so dearly leaves a deep ache in the chest, especially when memories of their shared companionship return in everyday moments.\n\nAllow yourself to experience this grief without pressure to quickly recover after this loss. We are here to support you with boundless empathy, helping you process this departure and find peace once more.`
-      : `Acompaño tu sentir con máxima delicadeza y respeto. Despedir a alguien que amaste tanto deja un vacío que duele en el pecho, sobre todo cuando los recuerdos cotidianos y los momentos compartidos tocan la memoria a cada instante.\n\nPermítete vivir este dolor sin presiones ni exigencias de recuperarte de golpe tras esta pérdida. Estamos aquí para sostener este proceso a tu lado con infinita empatía, ayudándote a sanar el dolor de la partida y a encontrar, a tu propio ritmo, serenidad en tu camino.`;
+      ? `Analysis on Tax Refund & 3 Additional UITs: Peruvian tax law grants independent and payroll workers (4th and 5th categories) the right to deduct 7 automatic UITs plus up to 3 additional UITs for expenses backed by electronic receipts bearing their DNI.\n\nWe audit your eligible deductible expenses in SUNAT records (restaurants, hotels, professional services, EsSalud domestic worker fees) to calculate your exact refundable balance and expedite your direct deposit.`
+      : `Análisis de Devolución de Impuestos y 3 UIT Adicionales: La normativa tributaria permite a los trabajadores de 4ta y 5ta categoría deducir automáticamente 7 UIT fijas y hasta 3 UIT adicionales acreditando gastos con boleta electrónica vinculada a su DNI.\n\nAuditamos tu historial de consumos deducibles en la plataforma de SUNAT (restaurantes, hoteles, servicios independientes y aportes de EsSalud) para calcular tu saldo a favor exacto y gestionar tu solicitud de devolución directa a tu cuenta bancaria.`;
   }
 
-  if (textoLibre.includes('pareja') || textoLibre.includes('ruptura') || textoLibre.includes('termin') || textoLibre.includes('infiel') || textoLibre.includes('breakup') || textoLibre.includes('divorce') || textoLibre.includes('separac')) {
+  if (textoLibre.includes('itf') || textoLibre.includes('banco') || textoLibre.includes('deposito') || textoLibre.includes('transferencia') || textoLibre.includes('desbalance') || textoLibre.includes('patrimonio')) {
     return esEn
-      ? `I recognize how painful it is to experience the end of a meaningful bond. Navigating a relationship breakup shakes your deepest sense of emotional safety, bringing repetitive worry and deep uncertainty about the future.\n\nAs dark as this chapter may feel, this pain is not your permanent destination. With evidence-based tools, we will help you heal emotional wounds, rebuild confidence, and regain total serenity.`
-      : `Sé lo doloroso que resulta ver transformarse un vínculo importante. Atravesar una separación o herida de pareja sacude nuestras certezas más profundas, despertando pensamientos repetitivos, temor a la soledad y una intensa incertidumbre sobre el futuro.\n\nPor difícil que parezca este momento, el dolor no durará para siempre. Con herramientas terapéuticas claras ordenaremos tus emociones y fortaleceremos tu autoestima, para que recuperes el control de tu vida y una profunda paz personal.`;
+      ? `Analysis on ITF Financial Cross-Checks & Unjustified Wealth: SUNAT routinely monitors monthly bank transactions via the Financial Transaction Tax (ITF). When deposits exceed declared earnings, algorithmic alerts flag potential discrepancies.\n\nWe reconstruct your financial traceability and prepare formal supporting documents (contracts, donations, non-taxable income) to ensure full compliance and safeguard your assets.`
+      : `Análisis de Cruces de ITF e Incremento Patrimonial No Justificado: SUNAT monitorea permanentemente los movimientos en cuentas bancarias a través del ITF. Si los depósitos o abonos anuales superan tus ingresos declarados en 4ta o 5ta categoría, el sistema emite alertas de fiscalización.\n\nReconstruimos la trazabilidad de tus operaciones financieras y preparamos el sustento documentario (contratos, préstamos, donaciones o rentas inafectas) para justificar tus movimientos y dejar tu patrimonio 100% blindado.`;
   }
 
-  if (textoLibre.includes('trabajo') || textoLibre.includes('laboral') || textoLibre.includes('jefe') || textoLibre.includes('estudio') || textoLibre.includes('work') || textoLibre.includes('burnout') || textoLibre.includes('presion')) {
-    return esEn
-      ? `I value your honesty in recognizing this boundary. Chronic work burnout and non-stop pressure are never signs of weakness; they are your nervous system's urgent signal after giving far more than is sustainably possible.\n\nYour mental peace and vitality belong at the forefront. Together, we will build protective boundaries and restful routines so you can recharge your strength and enjoy life again.`
-      : `Valoro tu sinceridad al reconocer este límite. La sobrecarga continua y el agotamiento laboral no son una señal de flaqueza, sino la voz de alerta de tu organismo al haber entregado más de lo humanamente sostenible.\n\nTu tranquilidad vale más que cualquier exigencia externa. Juntas aprenderemos a establecer límites protectores y desconectar la mente, recuperando la energía y la vitalidad que necesitas para volver a disfrutar de tus días.`;
-  }
-
-  // 2. Respuesta según el estado emocional seleccionado
-  switch (emocionId) {
-    case 'triste':
+  // 2. Respuesta según el caso tributario seleccionado
+  switch (casoId) {
+    case '4ta':
       return esEn
-        ? `I recognize how heavy daily routines become when sadness sets in. Living with persistent sadness or discouragement makes even simple tasks feel overwhelming, as if carrying an invisible weight upon your shoulders.\n\nPlease know you never have to pretend you are fine or face this sadness alone. Together in therapy with Lic. Sofía Reynaga, we will take gentle steps to lift this heavy weight, transforming that discouragement into lasting relief, motivation, and well-being.`
-        : `Sé lo desgastante que se vuelve la rutina cuando el desánimo se hace presente. Sentirte triste o sin energías hace que hasta el gesto más simple requiera un esfuerzo descomunal, como si llevaras un peso invisible sobre los hombros.\n\nQuiero que sepas que no tienes que fingir fortaleza ni quedarte a solas con este desánimo. Juntas en sesión iremos recuperando tu bienestar paso a paso, brindándote un espacio seguro donde ese desánimo se transforme en alivio, fortaleza y renovadas ganas de vivir.`;
+        ? `Preliminary Diagnostic · 4th Category (Independent Fees): Independent professionals must monitor monthly invoicing thresholds, issue electronic fee receipts correctly, and plan for annual tax returns.\n\nWe guide you on filing Form 1609 to prevent 8% withholdings and optimizing additional deductible expenses so you pay only what is fair or receive a legitimate refund.`
+        : `Diagnóstico Preliminar · 4ta Categoría (Honorarios Independientes): Los profesionales independientes deben cuidar los topes mensuales de facturación, la correcta emisión de RHE y el cómputo de retenciones acumuladas en el año.\n\nTe asesoramos en la tramitación del Formulario 1609 para evitar descuentos indebidos del 8% y en la deducción de gastos para pagar lo justo o recuperar saldos a favor directamente de SUNAT.`;
 
-    case 'agotado':
+    case '5ta':
       return esEn
-        ? `I honor the accumulated weariness you have been carrying. Reaching severe mental exhaustion is the natural consequence of shouldering endless pressures and quiet battles without a genuine pause.\n\nIt is completely valid to stop and allow yourself to receive dedicated care. Here you will find a sanctuary of calm and practical tools to silence the mental pressure, release the weight of exhaustion, and recharge your inner vitality.`
-        : `Escucho con total respeto el cansancio que llevas acumulado. Llegar a un punto de agotamiento mental es la consecuencia de haber sostenido demasiadas exigencias, preocupaciones y batallas silenciosas sin darte un respiro genuino.\n\nEs completamente legítimo detenerte y pedir ayuda para aliviar este agotamiento mental tan pesado. Aquí encontrarás un refugio de verdadera calma y técnicas prácticas para desconectar, apagar el ruido constante y recargar tus energías con tranquilidad.`;
+        ? `Preliminary Diagnostic · 5th Category (Payroll Workers): Payroll income is subject to progressive cumulative tax brackets (8% to 30%). Employers often miscalculate withholdings across job transitions.\n\nWe verify your tax withholdings, integrate your eligible 3 UIT deductible expenses, and file your annual tax return to claim direct refunds from SUNAT.`
+        : `Diagnóstico Preliminar · 5ta Categoría (Trabajadores en Planilla): Las rentas de quinta categoría están afectas a escalas progresivas acumulativas (del 8% al 30%). Es muy común que existan retenciones en exceso si cambiaste de empleador o tuviste bonificaciones extraordinarias.\n\nAuditamos tu liquidación anual de quinta categoría, incorporamos tus 3 UIT de gastos deducibles y tramitamos la devolución correspondiente ante la administración tributaria.`;
 
-    case 'perdida':
+    case 'buzon':
       return esEn
-        ? `I hold your grief tenderly in the face of such a meaningful absence. Experiencing the loss of someone or something vital alters your world, awakening echoes of treasured moments and irreplaceable companionship.\n\nYou do not have to force a smile or walk this path of loss alone. We are here to stand beside you with unconditional empathy, helping you heal the pain of losing someone so meaningful and gradually rediscover peace and comfort on your journey.`
-        : `Abrazo tu dolor frente a esta ausencia tan significativa. Perder a alguien o algo vital en tu vida es un proceso doloroso que transforma por completo tu mundo, trayendo a la memoria el eco de los días compartidos y su compañía irremplazable.\n\nNo tienes que apresurarte ni guardar silencio sobre lo que sientes tras esta pérdida. Estamos aquí para sostener este proceso a tu lado con infinita empatía, ayudándote a sanar el dolor de haber perdido a alguien tan valioso y a encontrar, a tu propio ritmo, un nuevo sentido de calma y paz en tu camino.`;
+        ? `Preliminary Diagnostic · SUNAT SOL Mailbox Notice: Notifications deposited in your electronic SOL mailbox are considered legally delivered. Ignoring them risks automatic fines of up to 50% of the UIT.\n\nWith former SUNAT tax officer expertise, we review the exact administrative code and grounds of the notice to draft an effective, compliant response.`
+        : `Diagnóstico Preliminar · Notificación en Buzón SOL de SUNAT: Toda notificación depositada en el Buzón Electrónico SOL surte efectos legales de forma automática. Dejarla pasar puede acarrear multas pecuniarias de hasta el 50% de la UIT.\n\nCon criterio técnico de Ex-SUNAT, revisamos el contenido técnico de la esquela, identificamos la inconsistencia detectada y redactamos la subsanación oportuna para archivar la observación.`;
 
-    case 'sobrepensar':
+    case 'itf':
       return esEn
-        ? `I recognize how deeply tiring it is when your mind cannot find the pause button. Relentless overthinking and anxiety trigger an exhausting cycle of worry, where your thoughts constantly anticipate worst-case scenarios.\n\nPlease know with total clarity that there is a proven path to quiet this mental noise. With evidence-based cognitive tools, we will help you break free from repetitive thoughts and return clarity, control, and peace to your daily life.`
-        : `Comprendo lo agotador que resulta cuando la mente no encuentra el botón de pausa. El sobrepensamiento continuo y la angustia generan un estado de alerta constante, donde la cabeza se llena de dudas y escenarios difíciles en bucle que no se apagan, impidiéndote descansar o disfrutar de tu presente.\n\nQuiero que tengas la certeza de que sí es posible ponerle un alto a este sobrepensamiento y calmar esa angustia. Con técnicas cognitivas claras aprenderás a frenar los pensamientos repetitivos, devolviéndole a tu mente el silencio, el control y la serenidad que tanto anhelas.`;
+        ? `Preliminary Diagnostic · ITF Bank Cross-Checks: Banking movements are constantly matched against monthly and annual tax declarations. High transaction volume without declared revenue requires preventive documentation.\n\nWe organize your financial evidence and prepare technical documentation so your banking transactions are fully supported before any inquiry from the tax authority.`
+        : `Diagnóstico Preliminar · Cruces de ITF y Cuentas Bancarias: Toda transferencia o depósito bancario es reportado por los bancos a SUNAT mediante el ITF. Mover importes relevantes sin la debida declaración tributaria activa cruces automatizados.\n\nEstructuramos el soporte contable y bancario preventivo de tus ingresos para que toda operación cuente con respaldo técnico antes de cualquier requerimiento formal de SUNAT.`;
 
     default:
       return esEn
-        ? `I hold immense appreciation for your courage in opening this space of honesty. Every emotion you experience deserves attentive listening, free from judgment, wrapped in compassionate therapeutic care.\n\nYou do not have to navigate this journey alone. Therapy offers the safe haven and practical guidance you need to find clarity, comfort, and lasting peace.`
-        : `Valoro profundamente tu valentía al abrir este espacio de sinceridad. Cada una de tus vivencias y emociones merece una mirada atenta, sin juicios y con la más cálida contención terapéutica.\n\nNo tienes que afrontar esto a solas. La terapia te brindará el espacio de contención y las herramientas necesarias para transformar el malestar en bienestar y paz interior.`;
+        ? `Preliminary Diagnostic · General Tax Advisory: Every taxpayer scenario requires a tailored technical approach. Proper tax planning prevents costly surprises with the tax authority.\n\nAt Estudio Cusihuaman, we provide specialized advice backed by former SUNAT audit criteria to safeguard your finances.`
+        : `Diagnóstico Preliminar · Asesoría Tributaria Especializada: Cada contribuyente presenta particularidades fiscales que requieren un enfoque técnico preventivo. Una adecuada planificación tributaria evita contingencias y pagos innecesarios.\n\nEn Estudio Cusihuaman te brindamos el respaldo de criterio experto de Ex-SUNAT para proteger tu economía con total legalidad.`;
   }
 }
 
 /**
- * Ficha de Derivación final para la etapa 2
+ * Ficha de Consulta final para la etapa 2
  */
 export function obtenerPlantillaDerivacion(datos = {}, lang = 'es') {
   const esEn = lang === 'en';
-  const nombre = datos.nombre?.trim() || (esEn ? 'Patient' : 'Paciente');
-  const emocionTexto = datos.emocionTexto || (esEn ? 'Emotional distress' : 'Malestar emocional');
+  const nombre = datos.nombre?.trim() || (esEn ? 'Taxpayer' : 'Contribuyente');
+  const casoTexto = datos.emocionTexto || (esEn ? 'Tax consultation' : 'Consulta tributaria');
 
   return {
-    tituloPerfil: esEn ? `Orientation Profile for ${nombre}` : `Perfil de Orientación para ${nombre}`,
+    tituloPerfil: esEn ? `Tax Consultation Profile for ${nombre}` : `Perfil de Consulta Tributaria para ${nombre}`,
     enfoqueRecomendado: esEn
-      ? 'Integrative Cognitive Behavioral & Empathic Support'
-      : 'Psicoterapia Cognitivo Conductual & Acompañamiento Empático',
+      ? 'Ex-SUNAT Tax Assessment & Preventive Shielding'
+      : 'Diagnóstico y Blindaje Tributario Ex-SUNAT',
     sintesis: esEn
-      ? `The patient expresses feeling ${emocionTexto.toLowerCase()}, seeking an empathetic, confidential space to process their current challenges with Lic. Sofía Reynaga.`
-      : `El/la paciente manifiesta sentirse ${emocionTexto.toLowerCase()}, buscando un espacio seguro, confidencial y sin juicios para abordar su situación junto a la Lic. Sofía Reynaga.`
+      ? `The taxpayer requests advisory regarding: ${casoTexto.toLowerCase()}, seeking technical review with Lourdes Cusihuaman Gálvez.`
+      : `El/la contribuyente consulta sobre: ${casoTexto.toLowerCase()}, solicitando revisión técnica y acompañamiento con Lourdes Cusihuaman Gálvez.`
   };
 }
 

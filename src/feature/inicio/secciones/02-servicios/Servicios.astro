@@ -17,7 +17,7 @@ const t = resolverIdioma({ es, en }, idioma);
 
 // Consulta fresca directa de servicios (Firestore o Fallback Canónico infoServicios.json)
 const todos = await consultarProductosFirestoreFresco();
-const serviciosActivos = todos.filter((p: any) => (!p.tipo || p.tipo === 'psicologia') && p.activo !== false);
+const serviciosActivos = todos.filter((p: any) => (!p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad') && p.activo !== false);
 const whatsappNumero = datosNegocio.whatsappLimpio;
 ---
 
@@ -29,7 +29,7 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
     <!-- Encabezado de la Sección -->
     <header class="sec-prods-header">
       <span class="badge-serenidad sec-prods-badge">
-        <i class="fa-solid fa-brain"></i> <span>{t.badge.toUpperCase()}</span>
+        <i class="fa-solid fa-scale-balanced"></i> <span>{t.badge.toUpperCase()}</span>
       </span>
       <h2 class="sec-prods-title">{t.titulo}</h2>
       <p class="sec-prods-sub">{t.subtitulo}</p>
@@ -97,7 +97,7 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
                 <!-- Imagen Fotográfica con Pastilla de Duración -->
                 <div class="producto-media-frame card-img-box">
                   <img 
-                    src={p.imagen || '/imgwii/Psychologist_listening_in_therapy.jpeg'} 
+                    src={p.imagen || '/imgwii/Attorney_reviewing_documents.jpeg'} 
                     alt={nombre} 
                     class="producto-img-tag card-img" 
                     loading="lazy" 
@@ -124,7 +124,7 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
                 <!-- Filas de Especificaciones Clave con Iconos Clínicos -->
                 <ul class="card-specs-list">
                   <li class="card-spec-row">
-                    <i class="fa-solid fa-brain card-spec-icon" style="color: var(--brand-primary, #104356);"></i>
+                    <i class="fa-solid fa-file-invoice-dollar card-spec-icon" style="color: var(--brand-primary, #104356);"></i>
                     <span><strong class="card-spec-label">{t.enfoque_label} </strong>{enfoque}</span>
                   </li>
                   <li class="card-spec-row">

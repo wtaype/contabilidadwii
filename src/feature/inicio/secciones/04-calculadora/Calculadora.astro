@@ -15,7 +15,7 @@ const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.pro
 const t = resolverIdioma({ es, en }, idioma);
 
 const todosServicios = await consultarProductosFirestoreFresco();
-const serviciosClinicos = todosServicios.filter((p: any) => (!p.tipo || p.tipo === 'psicologia') && p.activo !== false);
+const serviciosClinicos = todosServicios.filter((p: any) => (!p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad') && p.activo !== false);
 
 const telefonoLimpio = datosNegocio.telefonoLimpio;
 const whatsappNumero = datosNegocio.whatsappLimpio;
@@ -47,7 +47,7 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
           <!-- Selector 1: Servicio Clínico Dinámico desde Firestore/infoServicios -->
           <div class="calc-select-group mb-4">
             <label class="calc-range-label" for="calcServicio">
-              <span><i class="fa-solid fa-brain"></i> {t.personas_label}</span>
+              <span><i class="fa-solid fa-file-invoice-dollar"></i> {t.personas_label}</span>
             </label>
             <select id="calcServicio" class="calc-select-tamano">
               {serviciosClinicos.map((s: any, idx: number) => {
@@ -68,9 +68,9 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
               <option 
                 value="600" 
                 data-fijo="true" 
-                data-nombre={idioma === 'en' ? 'Family Savings Package (10 Sessions)' : 'Paquete 10 Sesiones Ahorro Familiar'}
+                data-nombre={idioma === 'en' ? 'Annual Comprehensive Tax Shielding' : 'Blindaje Anual 4ta y 5ta Categoría'}
               >
-                {idioma === 'en' ? 'Family Savings Package (10 Sessions - S/ 600.00)' : 'Paquete 10 Sesiones (S/ 600.00 - Ahorro 30%)'}
+                {idioma === 'en' ? 'Annual Tax Shielding (S/ 600.00 - Full Coverage)' : 'Blindaje Anual 4ta y 5ta (S/ 600.00 - Cobertura Anual)'}
               </option>
             </select>
           </div>
@@ -141,8 +141,8 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
         <div>
           <div class="calc-tips-media">
             <img 
-              src="/imgwii/Couple_holding_hands_in_therapy.jpeg" 
-              alt="Acompañamiento psicológico profesional - Consultorio América" 
+              src="/imgwii/Woman_smiling_in_law_office.jpeg" 
+              alt="Asesoría contable y tributaria profesional - Estudio Cusihuaman" 
               width="600" 
               height="350" 
               loading="lazy" 
@@ -151,7 +151,7 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
             />
             <div class="calc-tips-badge-overlay">
               <span class="badge-serenidad calc-media-badge">
-                <i class="fa-solid fa-heart"></i> {t.foto_badge}
+                <i class="fa-solid fa-shield-halved"></i> {t.foto_badge}
               </span>
             </div>
           </div>

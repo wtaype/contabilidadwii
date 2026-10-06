@@ -1,37 +1,37 @@
 {
   "top_badge": "Preguntas Frecuentes",
-  "titulo": "Resolvemos tus Dudas sobre la Terapia Psicológica",
-  "subtitulo": "Todo lo que necesitas saber sobre horarios, modalidades de atención, enfoques clínicos y cómo iniciar tu proceso terapéutico.",
-  "side_foto_badge_1": "100% Confidencialidad Ética",
-  "side_foto_badge_2": "C.Ps.P. N° 34892",
-  "side_titulo": "Atención Personalizada y Reserva Rápida",
-  "side_desc": "Escríbenos por WhatsApp o llámanos directamente para coordinar tu horario ideal en Miraflores, Villa El Salvador o Modalidad Online.",
+  "titulo": "Resolvemos tus Dudas sobre Impuestos y SUNAT",
+  "subtitulo": "Todo lo que necesitas saber sobre 4ta y 5ta categoría, suspensión de retenciones, deducciones y defensa tributaria.",
+  "side_foto_badge_1": "100% Criterio Ex-SUNAT",
+  "side_foto_badge_2": "Confidencialidad Total",
+  "side_titulo": "Atención Personalizada y Blindaje Rápido",
+  "side_desc": "Escríbenos por WhatsApp para analizar tu situación tributaria en nuestra oficina de Surquillo o vía asesoría online en todo el Perú.",
   "btn_ws": "Consultar por WhatsApp",
-  "ws_msg": "Hola Lic. Sofía, tengo una consulta sobre las sesiones psicológicas",
+  "ws_msg": "Hola Lourdes, tengo una consulta sobre mi situación con SUNAT.",
   "faqs": [
     {
-      "pregunta": "¿Cuánto dura cada sesión psicológica?",
-      "respuesta": "La primera consulta de evaluación inicial tiene una duración completa de 1 hora para conocer tu historia a profundidad y brindar las primeras pautas. Las sesiones regulares de tratamiento tienen una duración de 45 minutos."
+      "pregunta": "¿A partir de qué monto me retienen el 8% de 4ta categoría?",
+      "respuesta": "Si emites un Recibo por Honorarios Electrónico (RHE) a una empresa por un monto superior a S/ 1,500, la empresa está obligada a retenerte el 8% del Impuesto a la Renta, a menos que cuentes con la constancia de Suspensión de Retenciones (Formulario 1609)."
     },
     {
-      "pregunta": "¿Qué enfoques de terapia aplican en el consultorio?",
-      "respuesta": "Aplicamos exclusivamente Terapias Basadas en Evidencia: Terapia Cognitivo Conductual (TCC), Psicoterapia Contextual (ACT), Psicoterapia Sistémica para parejas y familias, y Psicoterapia Humanista, asegurando rigor científico y calidez humana."
+      "pregunta": "¿Cómo y cuándo debo tramitar la Suspensión de Retenciones (Form. 1609)?",
+      "respuesta": "El trámite se realiza en SUNAT Operaciones en Línea cuando proyectas que tus ingresos anuales por 4ta y 5ta categoría no superarán el límite fijado por SUNAT para el ejercicio fiscal (aprox. S/ 45,063 anuales). Gestionamos tu formulario oportunamente para que cobres tus honorarios completos sin retenciones indebidas."
     },
     {
-      "pregunta": "¿Cómo se realiza el descarte diagnóstico de TDAH y TEA?",
-      "respuesta": "Es un proceso de evaluación neuropsicológica integral con un valor de S/ 600.00. Incluye anamnesis clínica, pruebas estandarizadas validadas, observación conductual y la entrega de un informe psicológico formal firmado por Psicóloga Colegiada y Habilitada."
+      "pregunta": "¿Cómo funciona la deducción de las 3 UIT adicionales para solicitar devolución a SUNAT?",
+      "respuesta": "Todo trabajador de 4ta o 5ta categoría tiene derecho a deducir automáticamente 7 UIT fijas, y hasta 3 UIT adicionales acreditando gastos con boleta electrónica donde figure su DNI: consumo en restaurantes y bares (15%), hoteles (15%), servicios de cuarta categoría (30%), y aportes de EsSalud de trabajadoras del hogar (100%). Esto genera saldos a favor con devolución directa en cuenta bancaria."
     },
     {
-      "pregunta": "¿En qué sedes atienden de manera presencial?",
-      "respuesta": "Atendemos en dos sedes estratégicas: Sede Miraflores (Av. Alfredo Benavides 620, Edificio Zafiro, Of. 403, a 2 cuadras de estación Benavides) los días sábados, y Sede Lima Sur (Av. 3 de Octubre Ruta B, Villa El Salvador) de lunes a viernes. Además, brindamos atención virtual para todo el Perú."
+      "pregunta": "¿Qué debo hacer si recibo una esquela o notificación en mi Buzón SOL de SUNAT?",
+      "respuesta": "No dejes pasar el plazo. Las esquelas de citación o cartas inductivas responden frecuentemente a cruces de información bancaria (ITF) o discrepancias en planillas. Como ex-funcionaria de SUNAT, revisamos el expediente técnico, identificamos la inconsistencia y redactamos el descargo con sustento probatorio antes de que devenga en una resolución de multa o fiscalización definitiva."
     },
     {
-      "pregunta": "¿Qué beneficios tiene el Paquete de 10 Sesiones?",
-      "respuesta": "El paquete completo tiene un valor de S/ 600.00, lo que representa un ahorro de más del 30% frente a sesiones individuales. Incluye la primera consulta de 1 hora, 9 sesiones regulares de 45 min y acompañamiento con recomendaciones continuas."
+      "pregunta": "¿Qué diferencia existe entre un contador general y el enfoque de Estudio Cusihuaman?",
+      "respuesta": "Nos especializamos estrictamente en Rentas de Personas Naturales (4ta y 5ta categoría) y fiscalización de SUNAT. Al contar con experiencia directa en el órgano recaudador, conocemos con exactitud los algoritmos de detección, las líneas de cruce tributario y los criterios resolutivos que utiliza la administración tributaria."
     },
     {
-      "pregunta": "¿Qué medios de pago aceptan?",
-      "respuesta": "Aceptamos billeteras digitales Yape y Plin, Transferencia bancaria directa (BCP, BBVA) y Efectivo en consultorio presencial."
+      "pregunta": "¿En qué sedes atienden y cuáles son las modalidades de pago?",
+      "respuesta": "Atendemos de manera presencial en Jr. Dante 260, Surquillo, Lima (previa cita) y en modalidad virtual vía Meet / Zoom para profesionales de todo el Perú. Aceptamos transferencias bancarias (BCP, BBVA, Interbank) y billeteras digitales Yape y Plin."
     }
   ]
 }

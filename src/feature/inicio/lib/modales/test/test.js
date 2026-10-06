@@ -751,15 +751,15 @@ export function abrirModalTest(motivoOId = null) {
 
   estadoTest = crearEstadoTest();
 
-  // Si viene con un motivo preseleccionado desde el Hero
-  const motivoGuardado = motivoOId || (typeof localStorage !== 'undefined' ? localStorage.getItem('psicologia_motivo_activo') : '');
+  // Si viene con un caso preseleccionado desde el Hero
+  const motivoGuardado = motivoOId || (typeof localStorage !== 'undefined' ? localStorage.getItem('contabilidad_motivo_activo') : '');
   if (motivoGuardado) {
     const t = obtenerTextos();
     const term = motivoGuardado.toLowerCase();
     const match = (t.opcionesEmocion || []).find(c => {
       const cId = c.id.toLowerCase();
       const cTxt = c.texto.toLowerCase();
-      return cId.includes(term) || cTxt.includes(term) || (term.includes('triste') && cId === 'triste') || (term.includes('ansiedad') && cId === 'sobrepensar') || (term.includes('agotad') && cId === 'agotado');
+      return cId.includes(term) || cTxt.includes(term) || (term.includes('4ta') && cId === '4ta') || (term.includes('5ta') && cId === '5ta') || (term.includes('buzon') && cId === 'buzon') || (term.includes('itf') && cId === 'itf');
     });
     if (match) {
       estadoTest.emocionId = match.id;

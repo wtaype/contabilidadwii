@@ -26,18 +26,18 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
       <!-- Columna Izquierda: Información de Metodología y Pasos -->
       <div>
         <span class="badge-serenidad seguridad-badge">
-          <i class="fa-solid fa-hand-holding-heart"></i> 
+          <i class="fa-solid fa-scale-balanced"></i> 
           <span>{t.badge.toUpperCase()}</span>
         </span>
 
         <h2 class="seguridad-title">{t.titulo}</h2>
         <p class="seguridad-desc">{t.descripcion}</p>
 
-        <!-- 3 Pasos con Iconos Clínicos -->
+        <!-- 3 Pasos con Iconos Contables -->
         <ul class="seguridad-steps-list">
           <li class="seguridad-step-item">
-            <div class="seguridad-icon-box orange" style="background: var(--brand-soft); color: var(--brand-primary); border: 1px solid rgba(50,83,70,0.2);">
-              <i class="fa-solid fa-clipboard-user"></i>
+            <div class="seguridad-icon-box orange" style="background: rgba(197, 168, 128, 0.15); color: #c5a880; border: 1px solid rgba(197, 168, 128, 0.3);">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
             </div>
             <div class="seguridad-step-content">
               <h3>{t.paso_1_titulo}</h3>
@@ -46,8 +46,8 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           </li>
 
           <li class="seguridad-step-item">
-            <div class="seguridad-icon-box blue" style="background: rgba(35,101,125,0.12); color: var(--brand-blue); border: 1px solid rgba(35,101,125,0.25);">
-              <i class="fa-solid fa-map-location-dot"></i>
+            <div class="seguridad-icon-box blue" style="background: rgba(11, 34, 57, 0.5); color: #f3e5c8; border: 1px solid rgba(197, 168, 128, 0.25);">
+              <i class="fa-solid fa-shield-halved"></i>
             </div>
             <div class="seguridad-step-content">
               <h3>{t.paso_2_titulo}</h3>
@@ -56,8 +56,8 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           </li>
 
           <li class="seguridad-step-item">
-            <div class="seguridad-icon-box emerald" style="background: rgba(38,122,87,0.12); color: var(--green); border: 1px solid rgba(38,122,87,0.25);">
-              <i class="fa-solid fa-seedling"></i>
+            <div class="seguridad-icon-box emerald" style="background: rgba(37, 211, 102, 0.12); color: #25d366; border: 1px solid rgba(37, 211, 102, 0.25);">
+              <i class="fa-solid fa-file-circle-check"></i>
             </div>
             <div class="seguridad-step-content">
               <h3>{t.paso_3_titulo}</h3>
@@ -66,14 +66,14 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           </li>
         </ul>
 
-        <!-- Botón de Inicio Terapéutico -->
+        <!-- Botón de Inicio por WhatsApp -->
         <a 
           href={wsLink} 
           target="_blank" 
           rel="noopener noreferrer" 
           class="btn-whatsapp btn-seguridad-cta"
           title={t.btn_pedir}
-          style="background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-hover) 100%); color:#fff; border-radius: 1vh; box-shadow: 0 0.8vh 2.2vh var(--brand-glow-primary);"
+          style="background: #25d366; color:#fff; font-weight: 700; border-radius: 1vh; box-shadow: 0 0.8vh 2.2vh rgba(37, 211, 102, 0.35);"
         >
           <i class="fa-brands fa-whatsapp"></i> 
           <span>{t.btn_pedir}</span>
@@ -85,8 +85,8 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <div class="seguridad-image-card">
           <div class="seguridad-media-box">
             <img 
-              src="/imgwii/Therapist_holding_notebook.jpeg" 
-              alt="Atención psicológica personalizada - Consultorio Psicológico América" 
+              src="/imgwii/Attorney_reviewing_documents.jpeg" 
+              alt="Asesoría tributaria profesional - Estudio Cusihuaman" 
               width="500" 
               height="400" 
               loading="lazy"

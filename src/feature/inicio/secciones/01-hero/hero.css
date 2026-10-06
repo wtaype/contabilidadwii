@@ -302,35 +302,36 @@
 }
 
 .hero-btn-cta.btn-test {
-  background: #0284c7;
-  color: #ffffff !important;
-  border: 1px solid #0284c7;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  background: var(--mco, #c5a880);
+  color: #071626 !important;
+  border: 1px solid var(--mco, #c5a880);
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(197, 168, 128, 0.35);
   flex: 1 1 auto;
 }
 
 .hero-btn-cta.btn-test:hover {
-  background: #0369a1;
-  border-color: #0369a1;
-  color: #ffffff !important;
+  background: #d4bc96;
+  border-color: #d4bc96;
+  color: #071626 !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+  box-shadow: 0 6px 18px rgba(197, 168, 128, 0.45);
 }
 
 :root[data-theme="futuro"] .hero-btn-cta.btn-test,
 :root[data-theme="dark"] .hero-btn-cta.btn-test {
-  background: #0284c7;
-  color: #ffffff !important;
-  border: 1px solid #38bdf8;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+  background: var(--mco, #c5a880);
+  color: #071626 !important;
+  border: 1px solid rgba(243, 229, 200, 0.4);
+  box-shadow: 0 4px 14px rgba(197, 168, 128, 0.25);
 }
 
 :root[data-theme="futuro"] .hero-btn-cta.btn-test:hover,
 :root[data-theme="dark"] .hero-btn-cta.btn-test:hover {
-  background: #0369a1;
-  border-color: #7dd3fc;
-  color: #ffffff !important;
-  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.55);
+  background: #f3e5c8;
+  border-color: #f3e5c8;
+  color: #071626 !important;
+  box-shadow: 0 6px 18px rgba(243, 229, 200, 0.4);
 }
 
 .hero-btn-icon {

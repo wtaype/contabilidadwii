@@ -31,21 +31,21 @@ function asegurarModalEnDOM() {
   const sedes = obtenerSedesDisponibles();
   const user = obtenerUsuarioActivo() || {};
 
-  const primerServ = servs[0] || { id: 'terapia-individual', nombre: 'Psicoterapia Individual para Adultos', precioPEN: 85 };
-  const precioUnitario = primerServ.precioPEN || 85;
+  const primerServ = servs[0] || { id: 'renta-cuarta-categoria', nombre: 'Asesoría y Declaración de 4ta Categoría (RHE)', precioPEN: 80 };
+  const precioUnitario = primerServ.precioPEN || 80;
 
   const html = `
     <div id="wi_modal_pedido" class="wiModal" role="dialog" aria-modal="true" aria-labelledby="modalPedTitle">
-      <div class="wiModal-content" style="max-width: 540px; padding: 2.5vh 2.5vw; border-radius: 1.4vh; background: var(--bg-card, #ffffff); border: 1px solid var(--border-card, #e1e9ec); box-shadow: 0 20px 50px rgba(16, 67, 86, 0.25);">
+      <div class="wiModal-content" style="max-width: 540px; padding: 2.5vh 2.5vw; border-radius: 1.4vh; background: var(--bg-card, #ffffff); border: 1px solid var(--border-card, #e1e9ec); box-shadow: 0 20px 50px rgba(11, 34, 57, 0.25);">
         
         <!-- Header del Modal -->
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.8vh; border-bottom: 1px solid var(--border-card, #e1e9ec); padding-bottom: 1.2vh;">
           <div>
-            <span style="font-size: 0.76rem; font-weight: 700; padding: 0.3vh 0.8vw; border-radius: 999px; background: var(--brand-soft, #e5f4fa); color: var(--brand-primary, #104356); display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4vh;">
-              <i class="fa-solid fa-calendar-check"></i> Cita Psicológica · Lic. Sofía Reynaga
+            <span style="font-size: 0.76rem; font-weight: 700; padding: 0.3vh 0.8vw; border-radius: 999px; background: rgba(197, 168, 128, 0.15); color: #c5a880; display: inline-flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4vh;">
+              <i class="fa-solid fa-file-invoice-dollar"></i> Asesoría Tributaria · Lourdes Cusihuaman
             </span>
             <h3 id="modalPedTitle" style="font-size: clamp(1.15rem, 1.3vw, 1.4rem); font-weight: 800; margin: 0; color: var(--text-bright, #071923); font-family: 'Outfit', sans-serif;">
-              Agendar Sesión de Consulta
+              Agendar Asesoría Tributaria
             </h3>
           </div>
           <button id="btnCerrarModalPed" class="modalX" type="button" aria-label="Cerrar modal" style="background: none; border: none; font-size: 1.4rem; color: var(--text-muted, #486576); cursor: pointer; padding: 0.4rem; line-height: 1; border-radius: 0.6vh;">
@@ -187,19 +187,19 @@ function asegurarModalEnDOM() {
     const nomServicio = selOpt?.getAttribute('data-nombre') || 'Consulta Psicológica';
     const precio = selOpt?.getAttribute('data-precio') || '85.00';
     const sede = document.getElementById('pedSelectSede')?.value || 'Sede Miraflores';
-    const nombre = document.getElementById('pedInputNombre')?.value || 'Paciente';
+    const nombre = document.getElementById('pedInputNombre')?.value || 'Contribuyente';
     const celular = document.getElementById('pedInputCelular')?.value || '';
     
     const pagoActivo = modalEl.querySelector('.btn-ped-pago.active');
     const metodoPago = pagoActivo?.getAttribute('data-pago') || 'Yape';
 
-    const mensaje = `Hola Lic. Sofía Reynaga, deseo agendar una sesión terapéutica:\n\n` +
-      `• Especialidad: ${nomServicio} (S/ ${precio})\n` +
+    const mensaje = `Hola Lourdes Cusihuaman, deseo solicitar una asesoría tributaria:\n\n` +
+      `• Servicio: ${nomServicio} (S/ ${precio})\n` +
       `• Modalidad / Sede: ${sede}\n` +
-      `• Paciente: ${nombre}\n` +
+      `• Contribuyente: ${nombre}\n` +
       (celular ? `• Celular: ${celular}\n` : '') +
       `• Medio de Pago: ${metodoPago}\n\n` +
-      `¿Qué horarios tiene disponibles esta semana? Gracias.`;
+      `¿Qué horarios tiene disponibles para coordinar la asesoría? Muchas gracias.`;
 
     const url = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank', 'noopener,noreferrer');

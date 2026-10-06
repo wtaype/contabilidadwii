@@ -1,16 +1,16 @@
 {
-  "badge": "Clinical Specialties",
-  "titulo": "Specialized Psychological Therapies",
-  "subtitulo": "Evidence-based clinical treatments (CBT, Contextual, Systemic, Humanistic) designed for children, teens, couples, and adults.",
-  "duracion_label": "Duration:",
-  "enfoque_label": "Approach:",
+  "badge": "Tax & Accounting Specialties",
+  "titulo": "Specialized Tax & Accounting Services",
+  "subtitulo": "Strategic tax shielding and accounting compliance with former SUNAT tax officer expertise.",
+  "duracion_label": "Timeline:",
+  "enfoque_label": "Specialty:",
   "modalidad_label": "Format:",
-  "garantia_titulo": "Therapeutic Commitment",
-  "delivery_label": "Care Format",
-  "btn_ws_servicio": "Book via WhatsApp",
-  "sin_productos": "No clinical services available at this time.",
+  "garantia_titulo": "Service Guarantee",
+  "delivery_label": "Format",
+  "btn_ws_servicio": "Inquire via WhatsApp",
+  "sin_productos": "No services available at this time.",
   "pill_popular": "Most Requested",
   "pill_recomendado": "Recommended",
   "pill_especializado": "Specialized",
-  "ws_msg_servicio": "Hello Lic. Sofia, I would like to book a session for: {producto}"
+  "ws_msg_servicio": "Hello Lourdes, I would like to inquire about: {producto}"
 }

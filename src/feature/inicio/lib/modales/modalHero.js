@@ -15,11 +15,11 @@ export function syncMotivoHero(nuevoMotivo = null) {
   if (nuevoMotivo !== null) {
     motivoActivo = nuevoMotivo;
     try {
-      localStorage.setItem('psicologia_motivo_activo', nuevoMotivo);
+      localStorage.setItem('contabilidad_motivo_activo', nuevoMotivo);
     } catch (e) {}
   } else if (!motivoActivo) {
     try {
-      motivoActivo = localStorage.getItem('psicologia_motivo_activo') || '';
+      motivoActivo = localStorage.getItem('contabilidad_motivo_activo') || '';
     } catch (e) {}
   }
   return motivoActivo;

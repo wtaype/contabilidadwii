@@ -1,34 +1,34 @@
 {
   "topbar": {
-    "sede_label": "Miraflores & Villa El Salvador Offices",
-    "despacho_label": "In-Person & Online Appointments",
-    "dias_ano": "days of clinical care",
+    "sede_label": "Jr. Dante 260, Surquillo · Lima",
+    "despacho_label": "In-Person & Nationwide Online Advisory",
+    "dias_ano": "Former SUNAT Tax Officer",
     "llamar_movil": "Call",
-    "llamar_titulo": "Call Clinic"
+    "llamar_titulo": "Call Estudio Cusihuaman"
   },
   "nav": {
-    "slogan_brand": "Comprehensive Psychological & Psychotherapy Care",
+    "slogan_brand": "Accounting Advisory & SUNAT Tax Shield",
     "servicios": "Services",
-    "talleres": "Workshops",
+    "talleres": "Simulator",
     "productos": "Services",
-    "balanza": "Workshops",
-    "seguridad": "Process",
+    "balanza": "Diagnosis",
+    "seguridad": "Shield",
     "calculadora": "Fees",
-    "ubicacion": "Offices",
-    "nosotros": "About Us",
+    "ubicacion": "Office",
+    "nosotros": "Experience",
     "faq": "FAQs",
     "login": "Staff",
-    "pedir": "Book Appointment",
-    "sticky_test": "I feel sad",
+    "pedir": "Book Advisory",
+    "sticky_test": "SUNAT Check",
     "sticky_pedir": "WhatsApp",
     "ir_tienda_publica": "Go to Home",
-    "inicio_titulo": "América Psychology Clinic"
+    "inicio_titulo": "Estudio Cusihuaman"
   },
   "footer": {
-    "bio": "América Psychology Clinic. Professional clinical care with scientific rigor and human warmth. Specialized in individual, couples, and family therapy, ADHD/ASD screening, and personal development workshops.",
-    "cobertura_titulo": "Our Clinical Offices",
+    "bio": "Estudio Cusihuaman. Strategic accounting and tax advisory specialized in personal and corporate compliance with SUNAT. 4th and 5th category income taxes, payroll, regularization, and preventive audits backed by former SUNAT expertise.",
+    "cobertura_titulo": "In-Person & Remote Consultations",
     "pagos_titulo": "Payment Methods & Hours",
-    "pagos_desc": "We accept the following payment methods for sessions and packages:",
+    "pagos_desc": "We accept the following payment methods for professional accounting services:",
     "horario_etiqueta": "Business Hours:",
     "pago_yape": "YAPE",
     "pago_plin": "PLIN",
@@ -38,7 +38,7 @@
     "reclamos_desc": "In accordance with INDECOPI Consumer Protection and Defense Code regulations.",
     "derechos": "All rights reserved.",
     "desarrollo": "High performance development by",
-    "delivery_central": "Appointments Desk:",
+    "delivery_central": "Advisory Desk:",
     "volver_arriba": "Back to top"
   },
   "sistema": {

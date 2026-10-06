@@ -21,33 +21,33 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
 
 <style is:global set:html={separadorCss}></style>
 
-<section class="sos-banner-wrapper" style="background: linear-gradient(135deg, #104356 0%, #1e5e75 60%, #0284c7 100%);">
+<section class="sos-banner-wrapper" style="background: linear-gradient(135deg, #071626 0%, #0B2239 60%, #11283e 100%); border-top: 1px solid rgba(197, 168, 128, 0.2); border-bottom: 1px solid rgba(197, 168, 128, 0.2);">
   <div class="pagewii sos-banner-content">
     
     <!-- Bloque Informativo Izquierdo -->
     <div class="sos-info-block">
-      <div class="sos-icon-box" style="background: rgba(255,255,255,0.18); color: #fff;">
-        <i class="fa-solid fa-heart-pulse"></i>
+      <div class="sos-icon-box" style="background: rgba(197, 168, 128, 0.2); color: #C5A880;">
+        <i class="fa-solid fa-shield-halved"></i>
       </div>
       <div class="sos-text-box">
         <h2 class="sos-title" style="color: #fff;">{t.titulo}</h2>
-        <p class="sos-sub" style="color: rgba(255,255,255,0.92);">
-          {t.sub_1} <strong>{t.sub_destacado}</strong> {t.sub_2} <span>{telefonoMostrado}</span> {t.sub_3}
+        <p class="sos-sub" style="color: rgba(243, 229, 200, 0.9);">
+          {t.sub_1} <strong style="color: #C5A880;">{t.sub_destacado}</strong> {t.sub_2} <span style="color: #fff; font-weight: 700;">{telefonoMostrado}</span> {t.sub_3}
         </p>
       </div>
     </div>
 
-    <!-- Bloque de Botones Dual: Test y WhatsApp -->
+    <!-- Bloque de Botones Dual: Diagnóstico y WhatsApp -->
     <div class="sos-actions-block">
       <button 
         type="button" 
         onclick="window.abrirModalTest && window.abrirModalTest()" 
         class="btn-sos-call"
-        title="Realizar Test de Orientación"
-        style="background: #ffffff; color: #104356; font-weight: 700; border-radius: 1vh; cursor: pointer; border: none;"
+        title="Realizar Diagnóstico Tributario"
+        style="background: #C5A880; color: #071626; font-weight: 700; border-radius: 1vh; cursor: pointer; border: none;"
       >
         <i class="fa-solid fa-clipboard-question"></i>
-        <span>Hacer Test</span>
+        <span>{t.btn_llamada}</span>
       </button>
 
       <a 

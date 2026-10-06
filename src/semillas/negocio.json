@@ -5,33 +5,46 @@
   "idiomaDefecto": "es",
   "idiomasSoportados": ["es", "en"],
 
+  "subtitulo": "Contabilidad & Tributación • Lima - Perú",
+
+  "hero": {
+    "titulo": "Liliana Cusihuaman Galvez",
+    "subtitulo": "Contabilidad & Tributación • Lima - Perú",
+    "imagen": "/imgwii/hero.webp",
+    "alt": "Liliana Cusihuaman Galvez",
+    "precioHero": "80 soles",
+    "servicio": "Orientación Inicial",
+    "descripcion": "Evaluación clara de tu caso por videollamada o presencial en Surquillo. Te explicamos en sencillo qué hacer sin enredos."
+  },
+
   "identidad": {
-    "nombre": "Estudio Cusihuaman",
+    "nombre": "Liliana Cusihuaman Galvez",
     "nombreCorto": "Estudio Cusihuaman",
-    "especialista": "Lourdes Cusihuaman Gálvez",
+    "subtitulo": "Contabilidad & Tributación • Lima - Perú",
+    "especialista": "Liliana Cusihuaman Gálvez",
     "colegiatura": "",
-    "titulo": "Especialista Contable & Asesora Tributaria SUNAT",
-    "grado": "Ex-funcionaria de SUNAT · Experta en Fiscalización y Rentas de Trabajo",
-    "enfoques": "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Auditoría Preventiva Buzón SOL",
+    "titulo": "Asesora Contable y Tributaria",
+    "grado": "Ex-funcionaria de SUNAT · Universidad de Lima",
+    "enfoques": "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Orientación Preventiva Buzón SOL",
     "nombreEn": "Cusihuaman Accounting & Tax Firm",
     "nombreCortoEn": "Estudio Cusihuaman",
-    "enfoquesEn": "4th Category Income (Independent Fees) • 5th Category Payroll • SUNAT Tax Regularization • SOL Mailbox Audit",
+    "enfoquesEn": "4th Category Income (Independent Fees) • 5th Category Payroll • SUNAT Tax Compliance • SOL Mailbox Advisory",
     "bio": {
-      "es": "Especialista contable y ex-funcionaria de SUNAT con amplia experiencia en normativa tributaria, fiscalización, rentas de 4ta y 5ta categoría. Brinda asesoría estratégica y de alto rigor para trabajadores independientes y empresas que buscan tranquilidad y cumplimiento fiscal.",
-      "en": "Tax & accounting specialist and former SUNAT officer with extensive expertise in tax regulations, audits, and 4th and 5th category personal and payroll taxes in Peru."
+      "es": "Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria. Brinda asesoría cercana y sin complicaciones para profesionales independientes y empresas que buscan tener sus cuentas al día y total tranquilidad fiscal.",
+      "en": "Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience. Providing clear, friendly, and reliable tax advisory."
     },
     "lanzamientoFecha": "2020-03-15",
-    "logo": "/imgwii/logo_square.webp",
+    "logo": "/imgwii/logo.webp",
     "logoFull": "/imgwii/logo_full.webp",
-    "imagenSede": "/imgwii/Woman_smiling_in_law_office.jpeg"
+    "imagenSede": "/imgwii/hero.webp"
   },
 
   "contacto": {
     "telefono": "+51 933 878 512",
     "whatsapp": "51933878512",
     "whatsappMensaje": {
-      "es": "¡Hola Lourdes! Deseo una asesoría tributaria para mi RUC / declaración de 4ta y 5ta categoría ante SUNAT.",
-      "en": "Hello Lourdes! I would like tax advice regarding my 4th/5th category taxes with SUNAT."
+      "es": "¡Hola Liliana! Tengo dudas con mis recibos por honorarios / trámites de SUNAT y deseo orientación.",
+      "en": "Hello Liliana! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."
     },
     "email": "contacto@contabilidadwii.com",
     "horario": {

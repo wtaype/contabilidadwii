@@ -1,34 +1,34 @@
 {
   "topbar": {
-    "sede_label": "Sedes Miraflores y Villa El Salvador",
-    "despacho_label": "Atención Presencial y Online",
-    "dias_ano": "días de atención",
+    "sede_label": "Jr. Dante 260, Surquillo · Lima",
+    "despacho_label": "Atención Presencial y Online a Nivel Nacional",
+    "dias_ano": "Ex-funcionaria de SUNAT",
     "llamar_movil": "Llamar",
-    "llamar_titulo": "Llamar a Consultorio"
+    "llamar_titulo": "Llamar a Estudio Cusihuaman"
   },
   "nav": {
-    "slogan_brand": "Atención Psicológica y Psicoterapia Integral",
+    "slogan_brand": "Asesoría Contable & Blindaje Tributario SUNAT",
     "servicios": "Servicios",
-    "talleres": "Talleres",
+    "talleres": "Simulador",
     "productos": "Servicios",
-    "balanza": "Talleres",
-    "seguridad": "Acompañamiento",
+    "balanza": "Diagnóstico",
+    "seguridad": "Blindaje",
     "calculadora": "Tarifas",
-    "ubicacion": "Sedes",
-    "nosotros": "Nosotros",
+    "ubicacion": "Sede",
+    "nosotros": "Trayectoria",
     "faq": "FAQs",
     "login": "Acceso",
-    "pedir": "Agendar Cita",
-    "sticky_test": "Me siento triste",
+    "pedir": "Agendar Asesoría",
+    "sticky_test": "Diagnóstico SUNAT",
     "sticky_pedir": "WhatsApp",
     "ir_tienda_publica": "Ir al Inicio",
-    "inicio_titulo": "Consultorio Psicológico América"
+    "inicio_titulo": "Estudio Cusihuaman"
   },
   "footer": {
-    "bio": "Consultorio Psicológico América. Atención clínica profesional con rigor científico y calidez humana. Especialistas en psicoterapia individual, pareja, familia, descarte TDAH/TEA y talleres de desarrollo integral.",
-    "cobertura_titulo": "Nuestras Sedes de Atención",
+    "bio": "Estudio Cusihuaman. Asesoría contable y tributaria estratégica especializada en personas naturales y empresas ante SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME, regularización y auditoría preventiva con criterio de ex-funcionaria de SUNAT.",
+    "cobertura_titulo": "Atención Presencial y Remota",
     "pagos_titulo": "Medios de Pago y Horarios",
-    "pagos_desc": "Aceptamos los siguientes medios de pago para tus consultas y paquetes:",
+    "pagos_desc": "Aceptamos los siguientes medios de pago para tus consultas y honorarios contables:",
     "horario_etiqueta": "Horario de Atención:",
     "pago_yape": "YAPE",
     "pago_plin": "PLIN",
@@ -38,7 +38,7 @@
     "reclamos_desc": "Conforme a lo establecido por el Código de Protección y Defensa del Consumidor de INDECOPI.",
     "derechos": "Todos los derechos reservados.",
     "desarrollo": "Desarrollado con alta velocidad por",
-    "delivery_central": "Central de Citas:",
+    "delivery_central": "Central de Asesoría:",
     "volver_arriba": "Volver arriba"
   },
   "sistema": {

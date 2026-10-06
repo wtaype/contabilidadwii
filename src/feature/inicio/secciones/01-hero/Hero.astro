@@ -15,11 +15,19 @@ const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.pro
 const t = resolverIdioma({ es, en }, idioma);
 
 const primerServicio = datosNegocio.servicios[0];
-const precioBase = primerServicio ? primerServicio.precioPEN.toFixed(2) : '85.00';
+const precioBase = primerServicio ? primerServicio.precioPEN.toFixed(2) : '50.00';
 const whatsappTexto = datosNegocio.getWhatsappMensaje(idioma) || datosNegocio.whatsappMensaje;
 const whatsappLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(whatsappTexto)}`;
 const colegiaturaNum = datosNegocio.colegiaturaNumero;
-const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
+
+const heroData = datosNegocio.hero || {};
+const imagenHero = heroData.imagen || '/imgwii/hero.webp';
+const altHero = heroData.alt || heroData.titulo || datosNegocio.especialista;
+const tituloHero = heroData.titulo || datosNegocio.especialista;
+const subtituloHero = heroData.subtitulo || datosNegocio.subtitulo;
+const servicioHero = heroData.servicio || t.driver_card_titulo;
+const descHero = heroData.descripcion || t.driver_card_desc;
+const precioHero = heroData.precioHero || `S/ ${precioBase}`;
 ---
 
 <style is:global set:html={heroCss}></style>
@@ -28,15 +36,15 @@ const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
   <div class="pagewii hero-page-container">
     <div class="hero-layout">
       
-      <!-- Columna Izquierda: Acompañamiento Emocional Humano ➔ Solución Profesional -->
+      <!-- Columna Izquierda: Blindaje Tributario & Criterio Ex-SUNAT -->
       <div class="hero-txt">
         
         <!-- Badge Oficial de Registro Profesional -->
         <div class="hero-meta-group">
           <div class="hero-saludo">
             <span class="badge-serenidad hero-badge">
-              <i class="fa-solid fa-circle hero-badge-dot"></i> 
-              <span data-negocio-badge>{datosNegocio.registroColegio}</span>
+              <i class="fa-solid fa-award hero-badge-dot"></i> 
+              <span data-negocio-badge>{t.badge_prefijo}</span>
               <i class="fa-solid fa-circle-check hero-badge-check"></i>
             </span>
           </div>
@@ -50,104 +58,105 @@ const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
           </span>
         </h1>
 
-        <!-- Subtítulo Explicativo y Cálido -->
+        <!-- Subtítulo Explicativo -->
         <p class="hero-main-sub">
           {t.subtitulo}
         </p>
 
-        <!-- Selector Interactivo de Temas Clínicos (Tipo Gaswii: actualiza feedback en vivo y prepara mensaje sin saltar de golpe) -->
+        <!-- Selector Interactivo de Trámites Tributarios -->
         <div class="hero-district-card hero-temas-card">
           <div class="hero-district-title">
-            <i class="fa-solid fa-head-side-virus"></i> <span>{t.motivos_titulo}</span>
+            <i class="fa-solid fa-circle-question"></i> <span>{t.motivos_titulo}</span>
           </div>
           
           <div class="hero-district-grid" id="temaSelector">
             <button 
               type="button" 
               class="hero-district-btn active" 
-              data-tema="ansiedad"
+              data-tema="cuarta"
               data-label={t.motivo_ansiedad}
               data-info={t.info_ansiedad}
             >
-              <div class="hero-district-name"><i class="fa-solid fa-cloud-bolt"></i> {t.motivo_ansiedad}</div>
-              <div class="hero-district-time"><i class="fa-solid fa-brain"></i> Enfoque TCC</div>
+              <div class="hero-district-name"><i class="fa-solid fa-file-invoice"></i> {t.motivo_ansiedad}</div>
+              <div class="hero-district-time"><i class="fa-solid fa-check"></i> {t.sub_ansiedad}</div>
             </button>
 
             <button 
               type="button" 
               class="hero-district-btn" 
-              data-tema="pareja"
+              data-tema="quinta"
               data-label={t.motivo_pareja}
               data-info={t.info_pareja}
             >
-              <div class="hero-district-name"><i class="fa-solid fa-heart-crack"></i> {t.motivo_pareja}</div>
-              <div class="hero-district-time"><i class="fa-solid fa-people-arrows"></i> Terapia Vincular</div>
+              <div class="hero-district-name"><i class="fa-solid fa-users"></i> {t.motivo_pareja}</div>
+              <div class="hero-district-time"><i class="fa-solid fa-receipt"></i> {t.sub_pareja}</div>
             </button>
 
             <button 
               type="button" 
               class="hero-district-btn" 
-              data-tema="apoyo"
+              data-tema="buzon"
               data-label={t.motivo_apoyo}
               data-info={t.info_apoyo}
             >
-              <div class="hero-district-name"><i class="fa-solid fa-comments"></i> {t.motivo_apoyo}</div>
-              <div class="hero-district-time"><i class="fa-solid fa-heart-pulse"></i> Escucha Activa</div>
+              <div class="hero-district-name"><i class="fa-solid fa-envelope-open-text"></i> {t.motivo_apoyo}</div>
+              <div class="hero-district-time"><i class="fa-solid fa-triangle-exclamation"></i> {t.sub_apoyo}</div>
             </button>
           </div>
 
           <!-- Feedback Dinámico Inmediato -->
           <div class="hero-district-footer">
             <span class="hero-footer-info">
-              <i class="fa-solid fa-shield-halved color-primary"></i> 
+              <i class="fa-solid fa-circle-info color-primary"></i> 
               <span id="temaActualInfo">{t.info_ansiedad}</span>
             </span>
             <span class="hero-footer-badge color-emerald font-bold">
-              <i class="fa-solid fa-user-shield"></i> <span>100% Confidencial</span>
+              <i class="fa-solid fa-user-check"></i> <span>{t.badge_footer_selector}</span>
             </span>
           </div>
         </div>
 
-        <!-- Botones Principales CTAs: Agendar y Me siento triste -->
+        <!-- Botones Principales CTAs: Agendar y Diagnóstico Fiscal -->
         <div class="hero-ctas-group">
-          <!-- CTA 1: Agendar por WhatsApp (Abre Modal Agendar) -->
-          <button 
-            type="button" 
-            onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
+          <!-- CTA 1: Agendar por WhatsApp -->
+          <a 
+            href={whatsappLink} 
+            target="_blank"
+            rel="noopener noreferrer"
             class="btn-whatsapp hero-btn-cta"
             id="btnHeroWsp"
-            title="Agendar Consulta por WhatsApp"
+            title="Agendar Asesoría por WhatsApp"
           >
             <i class="fa-brands fa-whatsapp hero-btn-icon"></i>
             <span>{t.btn_wsp_main}</span>
-          </button>
+          </a>
 
-          <!-- CTA 2: Me siento triste -->
+          <!-- CTA 2: Diagnóstico Fiscal Express -->
           <button 
             type="button" 
-            onclick="window.abrirModalTest && window.abrirModalTest()" 
+            onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
             class="btn-test hero-btn-cta"
             id="btnHeroTest"
-            title="Orientación Psicológica Inmediata"
+            title="Diagnóstico Tributario Express"
           >
-            <i class="fa-regular fa-compass hero-btn-icon"></i>
+            <i class="fa-solid fa-magnifying-glass-chart hero-btn-icon"></i>
             <span>{t.btn_test_main}</span>
           </button>
         </div>
 
-        <!-- Métricas de Trayectoria Clínica -->
+        <!-- Métricas de Trayectoria Tributaria -->
         <div class="stats-grid hero-stats-box">
           <div>
-            <div class="hero-stat-val">+450</div>
+            <div class="hero-stat-val">+12 Años</div>
+            <div class="hero-stat-label">{t.stat_anos}</div>
+          </div>
+          <div>
+            <div class="hero-stat-val">+250</div>
             <div class="hero-stat-label">{t.stat_clientes}</div>
           </div>
           <div>
-            <div class="hero-stat-val">{colegiaturaNum}</div>
+            <div class="hero-stat-val">+500</div>
             <div class="hero-stat-label">{t.stat_colegiatura}</div>
-          </div>
-          <div>
-            <div class="hero-stat-val">+6 Años</div>
-            <div class="hero-stat-label">{t.stat_anos}</div>
           </div>
           <div>
             <div class="hero-stat-val">100%</div>
@@ -164,7 +173,7 @@ const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
           <div class="hero-img-box">
             <img 
               src={imagenHero} 
-              alt={datosNegocio.especialista} 
+              alt={altHero} 
               width="600"
               height="600"
               loading="eager"
@@ -174,34 +183,35 @@ const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
             <div class="hero-specialist-overlay">
               <div class="hero-specialist-header">
                 <span class="hero-specialist-badge">
-                  <i class="fa-solid fa-briefcase"></i> {datosNegocio.especialista}
+                  <i class="fa-solid fa-briefcase"></i> {tituloHero}
                 </span>
                 <span class="hero-badge-available">
-                  <span class="hero-available-dot"></span> Disponible Hoy
+                  <span class="hero-available-dot"></span> Agenda Abierta
                 </span>
               </div>
-              <span class="hero-specialist-sub">Directora Terapéutica • TCC</span>
+              <span class="hero-specialist-sub">{subtituloHero}</span>
             </div>
           </div>
 
           <div class="hero-guarantee-box">
             <div class="hero-guarantee-left">
               <div class="hero-guarantee-icon">
-                <i class="fa-solid fa-spa"></i>
+                <i class="fa-solid fa-file-invoice-dollar"></i>
               </div>
               <div>
                 <div class="hero-guarantee-title">
-                  {t.driver_card_titulo}
+                  {servicioHero}
                 </div>
                 <div class="hero-guarantee-sub">
-                  {t.driver_card_desc}
+                  {descHero}
                 </div>
               </div>
             </div>
+
             <div class="hero-guarantee-price">
               <div class="hero-price-sub">{t.precio_desde}</div>
               <div class="hero-price-val">
-                S/ {precioBase}
+                {precioHero}
               </div>
             </div>
           </div>
@@ -237,7 +247,7 @@ const imagenHero = '/imgwii/Psychologist_listening_in_therapy.jpeg';
         }
 
         try {
-          localStorage.setItem('psicologia_motivo_activo', tema);
+          localStorage.setItem('contabilidad_motivo_activo', tema);
         } catch (e) {}
       });
     });

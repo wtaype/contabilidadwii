@@ -26,22 +26,21 @@ export async function solicitarDevolucionChatWii(datos = {}, lang = 'es') {
       setTimeout(() => reject(new Error('Timeout ChatWii')), 2200)
     );
 
-    const promptIa = `El paciente está completando el test de orientación psicológica y comparte lo siguiente:
-- Estado actual: ${datos.emocionTexto || datos.emocionId}
-- Desahogo libre: "${datos.desahogo.trim()}"
-- Tiempo de evolución: ${datos.tiempo || 'Reciente'}
+    const promptIa = `El contribuyente está completando el diagnóstico tributario preventivo y consulta lo siguiente:
+- Régimen / Caso seleccionado: ${datos.emocionTexto || datos.emocionId}
+- Detalle de su caso: "${datos.desahogo.trim()}"
+- Periodo fiscal: ${datos.tiempo || 'Reciente'}
 Idioma requerido: ${esEn ? 'English' : 'Spanish'}.
 
 REGLAS OBLIGATORIAS DE ESTRUCTURA EN DOS PÁRRAFOS:
-1. PÁRRAFO 1 (Comprensión + Concepto):
-   - Inicia con una apertura empática, natural y variada (evita fórmulas clichés repetitivas como "Te entiendo y te comprendo"). Usa frases diversas y profundas como: "Abrazo tu dolor...", "Sé lo abrumador que resulta...", "Valoro que te permitas expresar esto...", "Comprendo el cansancio silencioso de...", "Reconozco el peso de...", "Acompaño tu sentir con profundo respeto..." (en inglés: "I hold what you are experiencing with deep compassion...", "I recognize how heavy...", "I honor your courage...").
-   - Cita directamente el motivo exacto que seleccionó (${datos.emocionTexto || datos.emocionId}) y lo que expresó en su desahogo. Explica con cercanía y tacto humano qué le ocurre internamente y por qué duele, desgasta o genera tanta angustia ese problema específico.
-2. PÁRRAFO 2 (Esperanza y Acompañamiento):
-   - Vuelve a hacer referencia directa a esa vivencia específica (ej. "esta pérdida tan significativa", "este desánimo", "este agotamiento mental", "este sobrepensamiento").
-   - Transmite un mensaje sincero de esperanza: no tiene que apresurarse ni resolverlo a solas; con la psicoterapia y la Lic. Sofía Reynaga irá sanando y recuperando la calma y la claridad paso a paso.
+1. PÁRRAFO 1 (Diagnóstico Técnico y Marco Legal SUNAT):
+   - Inicia con una evaluación técnica, profesional y tranquilizadora.
+   - Analiza el caso tributario específico (${datos.emocionTexto || datos.emocionId}) y lo que detalló en su consulta. Explica con claridad de auditor tributario qué aspectos de la normativa de SUNAT aplican (Rentas de 4ta/5ta categoría, retenciones del 8%, deducción 7+3 UIT, esquelas de SOL o cruces de ITF).
+2. PÁRRAFO 2 (Estrategia Preventiva y Acompañamiento Ex-SUNAT):
+   - Explica cómo con la asesoría de Lourdes Cusihuaman Gálvez (ex-funcionaria de SUNAT) se puede blindar la situación, subsanar contingencias o recuperar saldos a favor con total seguridad jurídica.
 Separa ambos párrafos con un salto doble de línea exacto (\\n\\n).`;
 
-    const systemInstruction = `Eres ChatWii, el asistente clínico y orientador empático de la Lic. Sofía Reynaga (Psicóloga Colegiada C.Ps.P. 49425). Tu tono es cálido, humano, compasivo y esperanzador, sin fórmulas trilladas ni frases repetitivas.`;
+    const systemInstruction = `Eres ChatWii, el asesor tributario inteligente de Estudio Cusihuaman y de Lourdes Cusihuaman Gálvez (ex-funcionaria de SUNAT y especialista en 4ta y 5ta categoría). Tu tono es técnico, seguro, preventivo y claro.`;
 
     const aiPromise = consultarGemini({
       prompt: promptIa,
@@ -61,13 +60,13 @@ Separa ambos párrafos con un salto doble de línea exacto (\\n\\n).`;
 }
 
 /**
- * Construye el mensaje estructurado de WhatsApp para derivar el caso a la Lic. Sofía Reynaga
+ * Construye el mensaje estructurado de WhatsApp para derivar el caso a Lourdes Cusihuaman
  * @param {Object} datos - Datos completos de Etapa 1 y Etapa 2
  * @param {Object} t - Diccionario de textos
  * @returns {string} URL de WhatsApp con texto prellenado
  */
 export function construirUrlWhatsApp(datos = {}, t = {}) {
-  const nombre = datos.nombre?.trim() || 'Paciente';
+  const nombre = datos.nombre?.trim() || 'Contribuyente';
   const celular = datos.celular?.trim() || '';
   const correo = datos.correo?.trim() || '';
   const estado = datos.emocionTexto || datos.emocionId || 'Consulta';

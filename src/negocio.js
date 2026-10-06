@@ -1,9 +1,9 @@
 // src/negocio.js
 // 🎯 Fachada Canónica y Reactiva de Negocio y Servicios (Consultorio Psicológico América)
 // Fuente Primaria: Base de Datos Firestore ('negocio/principal' y 'servicios')
-// Respaldo Seguro Offline / Semilla: src/feature/semillas/servicios.json
+// Respaldo Seguro Offline / Semilla: src/semillas/servicios.json
 
-import serviciosSemilla from './feature/semillas/servicios.json';
+import serviciosSemilla from './semillas/servicios.json';
 import { obtenerDatosNegocio, parseFirestoreDoc } from './feature/personal/modulos/negocio/dataNegocio.js';
 
 /**
@@ -16,7 +16,7 @@ export function normalizarProductoFirestore(docRaw = {}) {
   
   return {
     id,
-    tipo: item.tipo || 'psicologia',
+    tipo: item.tipo || 'tributario',
     nombre: typeof item.nombre === 'object' && item.nombre !== null ? (item.nombre.es || '') : (item.nombre || ''),
     nombreEn: typeof item.nombre === 'object' && item.nombre !== null ? (item.nombre.en || '') : (item.nombreEn || ''),
     descripcion: typeof item.descripcion === 'object' && item.descripcion !== null ? (item.descripcion.es || '') : (item.descripcion || ''),
@@ -45,7 +45,7 @@ let _serviciosBuildFirestore = Array.isArray(serviciosSemilla) ? serviciosSemill
 export async function consultarProductosFirestoreFresco() {
   if (typeof window !== 'undefined') {
     try {
-      const local = localStorage.getItem('psicologia_servicios');
+      const local = localStorage.getItem('contabilidad_servicios');
       if (local) {
         const parsed = JSON.parse(local);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -58,7 +58,7 @@ export async function consultarProductosFirestoreFresco() {
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 4000);
-    const projectId = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'psicologiawii';
+    const projectId = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'contabilidadwii';
     const res = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/servicios`, {
       signal: controller.signal
     });
@@ -88,6 +88,8 @@ export const datosNegocio = {
   get raw() { return obtenerDatosNegocio(); },
   get nombre() { return this.raw.identidad?.nombre || ''; },
   get nombreCorto() { return this.raw.identidad?.nombreCorto || ''; },
+  get subtitulo() { return this.raw.subtitulo || this.raw.identidad?.subtitulo || ''; },
+  get hero() { return this.raw.hero || {}; },
   get razonSocial() { return this.nombre; },
   get especialista() { return this.raw.identidad?.especialista || ''; },
   get colegiatura() { return this.raw.identidad?.colegiatura || ''; },
@@ -176,7 +178,7 @@ export const datosNegocio = {
     return _serviciosBuildFirestore && _serviciosBuildFirestore.length > 0 ? _serviciosBuildFirestore : infoServicios;
   },
   get servicios() {
-    return this.productos.filter(p => !p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad' || p.tipo === 'psicologia');
+    return this.productos.filter(p => !p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad');
   },
   get talleres() {
     return this.productos.filter(p => p.tipo === 'taller');
@@ -187,7 +189,7 @@ export const datosNegocio = {
   get seo() { return this.raw.seo || null; },
   get mediosPago() {
     return [
-      { id: 'efectivo', nombre: 'Efectivo', icon: 'fa-money-bill-wave', desc: 'Pago en consultorio' },
+      { id: 'efectivo', nombre: 'Efectivo', icon: 'fa-money-bill-wave', desc: 'Pago en oficina' },
       { id: 'yape', nombre: 'Yape', icon: 'fa-mobile-screen-button', desc: 'Billetera digital' },
       { id: 'plin', nombre: 'Plin', icon: 'fa-mobile-screen-button', desc: 'Billetera digital' },
       { id: 'transferencia', nombre: 'Transferencia Bancaria', icon: 'fa-building-columns', desc: 'BCP y otros bancos' }

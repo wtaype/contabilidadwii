@@ -18,7 +18,7 @@ const direccionSede = datosNegocio.direccionSede;
 const telefonoMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
 const horarioDespacho = datosNegocio.horario;
 const mapsUrl = datosNegocio.mapsUrl;
-const mapEmbedUrl = `https://maps.google.com/maps?q=-12.1264,-77.0278&hl=${idioma}&z=16&output=embed`;
+const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Dante 260, Surquillo, Lima')}&hl=${idioma}&z=16&output=embed`;
 ---
 
 <style is:global set:html={mapaCss}></style>
@@ -83,7 +83,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=-12.1264,-77.0278&hl=${idiom
             rel="noopener noreferrer" 
             class="mapa-btn-action"
             title={t.btn_maps}
-            style="background: var(--brand-primary); color: #fff; border-radius: 1vh;"
+            style="background: var(--mco, #c5a880); color: #071626; font-weight: 600; border-radius: 1vh;"
           >
             <i class="fa-solid fa-arrow-up-right-from-square"></i> 
             <span>{t.btn_maps}</span>

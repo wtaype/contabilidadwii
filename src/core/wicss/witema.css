@@ -53,203 +53,203 @@
 }
 
 /* ============================================================ */
-/* ☀️ TEMA LUZ (LIGHT) - MARFIL SEDA & ORO MOSTAZA PROFESIONAL   */
+/* ☀️ TEMA LUZ (LIGHT) - MARFIL SEDA & ORO BRONCE NOBLE         */
 /* ============================================================ */
 :root[data-theme="luz"] {
   /* 1. Lienzos y Superficies */
-  --bg:                  #fdfbf7;
-  --bg1:                 #fdfbf7;
+  --bg:                  #f9f7f2;
+  --bg1:                 #f9f7f2;
   --bg2:                 #ffffff;
-  --bg3:                 #f8f3e8;
-  --bg4:                 #f1e6d2;
-  --bg5:                 #e6d6bc;
-  --bg-body:             #fdfbf7;
-  --bg_body:             #fdfbf7;
+  --bg3:                 #f2ede2;
+  --bg4:                 #e8dfc9;
+  --bg5:                 #dccfb7;
+  --bg-body:             #f9f7f2;
+  --bg_body:             #f9f7f2;
   --wb:                  #ffffff;
   --surface:             #ffffff;
   --bg-surface:          #ffffff;
-  --raised:              #f8f3e8;
-  --bg-surface-elevated: #f8f3e8;
+  --raised:              #f2ede2;
+  --bg-surface-elevated: #f2ede2;
   --bg-card:             #ffffff;
   --bg_card:             #ffffff;
-  --bg-card-hover:       #fbf7ee;
-  --bg_card_hv:          #fbf7ee;
-  --bg-subtle:           rgba(142, 104, 18, 0.04);
-  --line:                #ece0cb;
-  --brd:                 #ece0cb;
-  --border:              #ece0cb;
-  --border-card:         rgba(142, 104, 18, 0.12);
-  --border_card:         rgba(142, 104, 18, 0.12);
-  --border-accent:       rgba(142, 104, 18, 0.38);
-  --border_accent:       rgba(142, 104, 18, 0.38);
+  --bg-card-hover:       #fcfaf5;
+  --bg_card_hv:          #fcfaf5;
+  --bg-subtle:           rgba(158, 123, 79, 0.04);
+  --line:                #e5dccb;
+  --brd:                 #e5dccb;
+  --border:              #e5dccb;
+  --border-card:         rgba(158, 123, 79, 0.16);
+  --border_card:         rgba(158, 123, 79, 0.16);
+  --border-accent:       rgba(158, 123, 79, 0.38);
+  --border_accent:       rgba(158, 123, 79, 0.38);
 
   /* 2. Tipografía y Textos */
-  --tx:                  #0b1928;
-  --tx1:                 #0b1928;
-  --tx2:                 #4a5768;
-  --tx3:                 #778598;
+  --tx:                  #071626;
+  --tx1:                 #071626;
+  --tx2:                 #475569;
+  --tx3:                 #64748b;
   --txa:                 #ffffff;
-  --txe:                 #8e6812;
-  --ink:                 #0b1928;
-  --muted:               #4a5768;
-  --text-main:           #0b1928;
-  --text_main:           #0b1928;
-  --text-muted:          #4a5768;
-  --text_muted:          #4a5768;
-  --text-bright:         #06101c;
+  --txe:                 #9e7b4f;
+  --ink:                 #071626;
+  --muted:               #475569;
+  --text-main:           #071626;
+  --text_main:           #071626;
+  --text-muted:          #475569;
+  --text_muted:          #475569;
+  --text-bright:         #030b14;
 
-  /* 3. Colores de Identidad y Marca Tributaria */
-  --mco:                 #8e6812;
-  --mbg:                 #fbf2df;
-  --p_v1:                #ad821a;
-  --p_v2:                #8e6812;
-  --primary:             #8e6812;
-  --primary-hover:       #6d4f08;
-  --primary_hv:          #6d4f08;
-  --brand-primary:       #8e6812;
-  --brand-primary-hover: #6d4f08;
-  --brand-soft:          #fbf2df;
-  --brand-accent:        #c28518;
-  --brand-accent-soft:   #fdf5e7;
-  --brand-teal:          #0b1928;
-  --brand-blue:          #15283e;
-  --brand-blue-hover:    #0e1d2e;
-  --brand-sky:           #d99b26;
-  --brand-sky-hover:     #b87f14;
-  --brand-orange:        #8e6812;
-  --brand-orange-hover:  #6d4f08;
-  --accent:              #d99b26;
-  --accent-hover:        #b87f14;
-  --accent_hv:           #b87f14;
-  --accent-cyan:         #ad821a;
-  --accent-gold:         #c28518;
-  --accent-emerald:      #15803d;
-  --bt:                  #8e6812;
-  --hv:                  #6d4f08;
-  --hva:                 #c28518;
+  /* 3. Colores de Identidad y Marca Tributaria (Inspirado en view7.astro) */
+  --mco:                 #9e7b4f;
+  --mbg:                 #f5efe3;
+  --p_v1:                #c5a880;
+  --p_v2:                #9e7b4f;
+  --primary:             #9e7b4f;
+  --primary-hover:       #7a5c35;
+  --primary_hv:          #7a5c35;
+  --brand-primary:       #9e7b4f;
+  --brand-primary-hover: #7a5c35;
+  --brand-soft:          #f5efe3;
+  --brand-accent:        #c5a880;
+  --brand-accent-soft:   #faf6ed;
+  --brand-teal:          #071626;
+  --brand-blue:          #0e2c48;
+  --brand-blue-hover:    #071626;
+  --brand-sky:           #c5a880;
+  --brand-sky-hover:     #9e7b4f;
+  --brand-orange:        #9e7b4f;
+  --brand-orange-hover:  #7a5c35;
+  --accent:              #c5a880;
+  --accent-hover:        #9e7b4f;
+  --accent_hv:           #9e7b4f;
+  --accent-cyan:         #c5a880;
+  --accent-gold:         #c5a880;
+  --accent-emerald:      #10b981;
+  --bt:                  #9e7b4f;
+  --hv:                  #7a5c35;
+  --hva:                 #c5a880;
 
   /* 4. Inputs, Formularios y Diálogos */
-  --inp:                 #f8f3e8;
-  --input-bg:            #f8f3e8;
-  --inp_brd:             #ece0cb;
+  --inp:                 #f2ede2;
+  --input-bg:            #f2ede2;
+  --inp_brd:             #e5dccb;
   --modal-bg:            #ffffff;
   --modal_bg:            #ffffff;
   --modal_card:          #ffffff;
 
   /* 5. Cabeceras, Vidrio (Glass) y Sombras */
-  --header-bg:           rgba(253, 251, 247, 0.97);
-  --header_bg:           rgba(253, 251, 247, 0.97);
-  --topbar-bg:           linear-gradient(90deg, #09131f 0%, #15283e 50%, #09131f 100%);
-  --topbar_bg:           linear-gradient(90deg, #09131f 0%, #15283e 50%, #09131f 100%);
+  --header-bg:           rgba(249, 247, 242, 0.97);
+  --header_bg:           rgba(249, 247, 242, 0.97);
+  --topbar-bg:           linear-gradient(90deg, #071626 0%, #0e2c48 50%, #071626 100%);
+  --topbar_bg:           linear-gradient(90deg, #071626 0%, #0e2c48 50%, #071626 100%);
   --topbar-text:         #ffffff;
-  --glass-bg:            rgba(253, 251, 247, 0.96);
-  --glass_bg:            rgba(253, 251, 247, 0.96);
-  --glass-brd:           rgba(142, 104, 18, 0.14);
-  --glass_brd:           rgba(142, 104, 18, 0.14);
-  --glass-shd:           0 15px 35px rgba(11, 25, 40, 0.07);
-  --glass_shd:           0 15px 35px rgba(11, 25, 40, 0.07);
+  --glass-bg:            rgba(249, 247, 242, 0.96);
+  --glass_bg:            rgba(249, 247, 242, 0.96);
+  --glass-brd:           rgba(158, 123, 79, 0.16);
+  --glass_brd:           rgba(158, 123, 79, 0.16);
+  --glass-shd:           0 15px 35px rgba(7, 22, 38, 0.07);
+  --glass_shd:           0 15px 35px rgba(7, 22, 38, 0.07);
   --glass-blur:          20px;
-  --shadow-card:         0 0.8vh 2.5vh rgba(11, 25, 40, 0.05);
-  --shd_card:            0 0.8vh 2.5vh rgba(11, 25, 40, 0.05);
-  --shadow-hover:        0 1.5vh 4vh rgba(142, 104, 18, 0.12);
-  --shd_hover:           0 1.5vh 4vh rgba(142, 104, 18, 0.12);
-  --shadow-xl:           0 15px 35px rgba(11, 25, 40, 0.07);
+  --shadow-card:         0 0.8vh 2.5vh rgba(7, 22, 38, 0.05);
+  --shd_card:            0 0.8vh 2.5vh rgba(7, 22, 38, 0.05);
+  --shadow-hover:        0 1.5vh 4vh rgba(158, 123, 79, 0.12);
+  --shd_hover:           0 1.5vh 4vh rgba(158, 123, 79, 0.12);
+  --shadow-xl:           0 15px 35px rgba(7, 22, 38, 0.07);
 }
 
 /* ============================================================ */
-/* 🌙 TEMA FUTURO (DARK) - AZUL MARINO PROFUNDO & ORO MOSTAZA    */
+/* 🌙 TEMA FUTURO (DARK) - AZUL MEDIANOCHE & ORO CHAMPÁN (VIEW7) */
 /* ============================================================ */
 :root[data-theme="futuro"] {
-  /* 1. Lienzos y Superficies */
-  --bg:                  #09131f;
-  --bg1:                 #09131f;
-  --bg2:                 #0e1d2e;
-  --bg3:                 #15283e;
-  --bg4:                 #1e344e;
-  --bg5:                 #294363;
-  --bg-body:             #09131f;
-  --bg_body:             #09131f;
-  --wb:                  #0e1d2e;
-  --surface:             #0e1d2e;
-  --bg-surface:          #0e1d2e;
-  --raised:              #15283e;
-  --bg-surface-elevated: #15283e;
-  --bg-card:             rgba(14, 29, 46, 0.94);
-  --bg_card:             rgba(14, 29, 46, 0.94);
-  --bg-card-hover:       rgba(21, 40, 62, 0.98);
-  --bg_card_hv:          rgba(21, 40, 62, 0.98);
-  --bg-subtle:           rgba(229, 168, 35, 0.05);
-  --line:                #1e344e;
-  --brd:                 #1e344e;
-  --border:              #1e344e;
-  --border-card:         #1e344e;
-  --border_card:         #1e344e;
-  --border-accent:       rgba(229, 168, 35, 0.45);
-  --border_accent:       rgba(229, 168, 35, 0.45);
+  /* 1. Lienzos y Superficies (Exacto view7.astro) */
+  --bg:                  #071626;
+  --bg1:                 #071626;
+  --bg2:                 #0b2239;
+  --bg3:                 #0e2c48;
+  --bg4:                 #13385b;
+  --bg5:                 #194670;
+  --bg-body:             #071626;
+  --bg_body:             #071626;
+  --wb:                  #0b2239;
+  --surface:             #0b2239;
+  --bg-surface:          #0b2239;
+  --raised:              #0e2c48;
+  --bg-surface-elevated: #0e2c48;
+  --bg-card:             rgba(13, 37, 61, 0.78);
+  --bg_card:             rgba(13, 37, 61, 0.78);
+  --bg-card-hover:       rgba(19, 51, 83, 0.92);
+  --bg_card_hv:          rgba(19, 51, 83, 0.92);
+  --bg-subtle:           rgba(197, 168, 128, 0.05);
+  --line:                rgba(255, 255, 255, 0.08);
+  --brd:                 rgba(255, 255, 255, 0.08);
+  --border:              rgba(255, 255, 255, 0.08);
+  --border-card:         rgba(197, 168, 128, 0.28);
+  --border_card:         rgba(197, 168, 128, 0.28);
+  --border-accent:       rgba(197, 168, 128, 0.45);
+  --border_accent:       rgba(197, 168, 128, 0.45);
 
   /* 2. Tipografía y Textos */
-  --tx:                  #fbf8f2;
-  --tx1:                 #fbf8f2;
-  --tx2:                 #9bb1cb;
-  --tx3:                 #778ca7;
-  --txa:                 #09131f;
-  --txe:                 #e5a823;
-  --ink:                 #fbf8f2;
-  --muted:               #9bb1cb;
-  --text-main:           #fbf8f2;
-  --text_main:           #fbf8f2;
-  --text-muted:          #9bb1cb;
-  --text_muted:          #9bb1cb;
+  --tx:                  #ffffff;
+  --tx1:                 #ffffff;
+  --tx2:                 #94a3b8;
+  --tx3:                 #cbd5e1;
+  --txa:                 #071626;
+  --txe:                 #c5a880;
+  --ink:                 #ffffff;
+  --muted:               #94a3b8;
+  --text-main:           #ffffff;
+  --text_main:           #ffffff;
+  --text-muted:          #94a3b8;
+  --text_muted:          #94a3b8;
   --text-bright:         #ffffff;
 
-  /* 3. Colores de Identidad y Marca Tributaria */
-  --mco:                 #e5a823;
-  --mbg:                 rgba(229, 168, 35, 0.16);
-  --p_v1:                #e5a823;
-  --p_v2:                #f3be45;
-  --primary:             #e5a823;
-  --primary-hover:       #f3be45;
-  --primary_hv:          #f3be45;
-  --brand-primary:       #e5a823;
-  --brand-primary-hover: #f3be45;
-  --brand-soft:          rgba(229, 168, 35, 0.16);
-  --brand-accent:        #f2c94c;
-  --brand-accent-soft:   rgba(242, 201, 76, 0.16);
-  --brand-teal:          #09131f;
-  --brand-blue:          #15283e;
-  --brand-blue-hover:    #1e344e;
-  --brand-sky:           #e5a823;
-  --brand-sky-hover:     #f3be45;
-  --brand-orange:        #e5a823;
-  --brand-orange-hover:  #f3be45;
-  --accent:              #f2c94c;
-  --accent-hover:        #f4d166;
-  --accent_hv:           #f4d166;
-  --accent-cyan:         #e5a823;
-  --accent-gold:         #f2c94c;
-  --accent-emerald:      #22c55e;
-  --bt:                  #e5a823;
-  --hv:                  #f3be45;
-  --hva:                 #f2c94c;
+  /* 3. Colores de Identidad y Marca Tributaria (Exacto view7.astro) */
+  --mco:                 #c5a880;
+  --mbg:                 rgba(197, 168, 128, 0.14);
+  --p_v1:                #c5a880;
+  --p_v2:                #f3e5c8;
+  --primary:             #c5a880;
+  --primary-hover:       #e5d3b8;
+  --primary_hv:          #e5d3b8;
+  --brand-primary:       #c5a880;
+  --brand-primary-hover: #e5d3b8;
+  --brand-soft:          rgba(197, 168, 128, 0.14);
+  --brand-accent:        #f3e5c8;
+  --brand-accent-soft:   rgba(243, 229, 200, 0.16);
+  --brand-teal:          #071626;
+  --brand-blue:          #0e2c48;
+  --brand-blue-hover:    #13385b;
+  --brand-sky:           #c5a880;
+  --brand-sky-hover:     #e5d3b8;
+  --brand-orange:        #c5a880;
+  --brand-orange-hover:  #e5d3b8;
+  --accent:              #c5a880;
+  --accent-hover:        #e5d3b8;
+  --accent_hv:           #e5d3b8;
+  --accent-cyan:         #c5a880;
+  --accent-gold:         #c5a880;
+  --accent-emerald:      #10b981;
+  --bt:                  #c5a880;
+  --hv:                  #e5d3b8;
+  --hva:                 #f3e5c8;
 
   /* 4. Inputs, Formularios y Diálogos */
-  --inp:                 #15283e;
-  --input-bg:            #15283e;
-  --inp_brd:             #1e344e;
-  --modal-bg:            #0e1d2e;
-  --modal_bg:            #0e1d2e;
-  --modal_card:          #0e1d2e;
+  --inp:                 #0b2239;
+  --input-bg:            #0b2239;
+  --inp_brd:             rgba(197, 168, 128, 0.28);
+  --modal-bg:            #0b2239;
+  --modal_bg:            #0b2239;
+  --modal_card:          #0b2239;
 
   /* 5. Cabeceras, Vidrio (Glass) y Sombras */
-  --header-bg:           rgba(9, 19, 31, 0.96);
-  --header_bg:           rgba(9, 19, 31, 0.96);
-  --topbar-bg:           linear-gradient(90deg, #09131f, #15283e, #09131f);
-  --topbar_bg:           linear-gradient(90deg, #09131f, #15283e, #09131f);
+  --header-bg:           rgba(7, 22, 38, 0.96);
+  --header_bg:           rgba(7, 22, 38, 0.96);
+  --topbar-bg:           linear-gradient(90deg, #071626, #0b2239, #071626);
+  --topbar_bg:           linear-gradient(90deg, #071626, #0b2239, #071626);
   --topbar-text:         #ffffff;
-  --glass-bg:            rgba(14, 29, 46, 0.92);
-  --glass_bg:            rgba(14, 29, 46, 0.92);
-  --glass-brd:           rgba(229, 168, 35, 0.22);
-  --glass_brd:           rgba(229, 168, 35, 0.22);
+  --glass-bg:            rgba(11, 34, 57, 0.88);
+  --glass_bg:            rgba(11, 34, 57, 0.88);
+  --glass-brd:           rgba(197, 168, 128, 0.28);
+  --glass_brd:           rgba(197, 168, 128, 0.28);
   --glass-shd:           0 20px 40px rgba(0, 0, 0, 0.60);
   --glass_shd:           0 20px 40px rgba(0, 0, 0, 0.60);
   --glass-blur:          24px;

@@ -1,16 +1,16 @@
 {
-  "badge": "Especialidades Clínicas",
-  "titulo": "Terapias Psicológicas Especializadas",
-  "subtitulo": "Abordajes clínicos fundamentados en Terapias Basadas en Evidencia (TCC, Contextual, Sistémica y Humanista) adaptados a cada etapa de la vida.",
-  "duracion_label": "Duración:",
-  "enfoque_label": "Enfoque:",
+  "badge": "Especialidades Tributarias",
+  "titulo": "Servicios Contables y Tributarios Especializados",
+  "subtitulo": "Asesoramiento estratégico y blindaje tributario ante SUNAT con criterio experto de ex-funcionaria pública.",
+  "duracion_label": "Tiempo:",
+  "enfoque_label": "Especialidad:",
   "modalidad_label": "Modalidad:",
-  "garantia_titulo": "Compromiso Terapéutico",
+  "garantia_titulo": "Garantía de Servicio",
   "delivery_label": "Atención",
-  "btn_ws_servicio": "Agendar por WhatsApp",
+  "btn_ws_servicio": "Consultar por WhatsApp",
   "sin_productos": "No hay servicios disponibles por el momento.",
   "pill_popular": "Más Solicitado",
   "pill_recomendado": "Recomendado",
   "pill_especializado": "Especializado",
-  "ws_msg_servicio": "Hola Lic. Sofía, deseo agendar una consulta para: {producto}"
+  "ws_msg_servicio": "Hola Lourdes, deseo solicitar asesoría para: {producto}"
 }

@@ -36,7 +36,7 @@ const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
   <div class="page-container header-container">
     
     <!-- Logo y Título -->
-    <a href={urlInicio} title={esPersonal || esCliente ? (t.ir_tienda_publica || 'Ir al Sitio Web') : (t.inicio_titulo || 'Consultorio Psicológico América')} class="header-brand-link">
+    <a href={urlInicio} title={esPersonal || esCliente ? (t.ir_tienda_publica || 'Ir al Sitio Web') : (t.inicio_titulo || 'Estudio Cusihuaman')} class="header-brand-link">
       <img 
         src={datosNegocio.logo} 
         alt={datosNegocio.nombre} 
@@ -50,11 +50,11 @@ const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
         </span>
         <span class="desktop-only header-brand-sub">
           {esPersonal ? (
-            <span class="inline-flex items-center gap-1"><i class="fa-solid fa-user-doctor"></i> Consola de Consultas</span>
+            <span class="inline-flex items-center gap-1"><i class="fa-solid fa-calculator"></i> Consola de Gestión Tributaria</span>
           ) : esCliente ? (
-            <span class="inline-flex items-center gap-1"><i class="fa-solid fa-user-check"></i> Portal de Pacientes</span>
+            <span class="inline-flex items-center gap-1"><i class="fa-solid fa-user-check"></i> Portal de Clientes</span>
           ) : (
-            <span>{t.slogan_brand}</span>
+            <span class="hsubtitulo">{datosNegocio.subtitulo}</span>
           )}
         </span>
       </div>
@@ -64,7 +64,7 @@ const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
     {esPersonal ? (
       <div class="desktop-only header-group-desktop">
         <span class="header-badge-status personal">
-          <i class="fa-solid fa-hospital-user"></i> Sede <span data-negocio-direccion>{datosNegocio.direccionSede}</span>
+          <i class="fa-solid fa-briefcase"></i> Sede <span data-negocio-direccion>{datosNegocio.direccionSede}</span>
         </span>
         <a href="/" class="btn-outline btn-compact" title="Ver Web Pública">
           <i class="fa-solid fa-globe icon-brand-orange"></i> <span>Ver Web</span>
@@ -73,16 +73,15 @@ const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
     ) : esCliente ? (
       <div class="desktop-only header-group-desktop">
         <span class="header-badge-status cliente">
-          <i class="fa-solid fa-heart-pulse"></i> Área de Pacientes
+          <i class="fa-solid fa-scale-balanced"></i> Área de Clientes
         </span>
-        <a href="/" class="btn-outline btn-compact" title="Ver Terapias y Talleres">
-          <i class="fa-solid fa-brain icon-brand-orange"></i> <span>Terapias y Talleres</span>
+        <a href="/" class="btn-outline btn-compact" title="Ver Servicios Tributarios">
+          <i class="fa-solid fa-file-invoice-dollar icon-brand-orange"></i> <span>Servicios Tributarios</span>
         </a>
       </div>
     ) : (
       <nav class="desktop-only header-nav-desktop">
         <a href="#servicios" class="header-nav-item">{t.servicios}</a>
-        <a href="#talleres" class="header-nav-item">{t.talleres}</a>
         <a href="#paquetes" class="header-nav-item">{t.calculadora}</a>
         <a href="#metodologia" class="header-nav-item">{t.seguridad}</a>
         <a href="#sedes" class="header-nav-item">{t.ubicacion}</a>

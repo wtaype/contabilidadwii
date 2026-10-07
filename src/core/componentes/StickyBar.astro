@@ -1,6 +1,6 @@
 ---
 // src/core/componentes/StickyBar.astro
-// 11. BARRA FLOTANTE STICKY PARA SMARTPHONES - Consultorio Psicológico América
+// BARRA FLOTANTE STICKY PARA SMARTPHONES - Estudio Cusihuaman
 import { datosNegocio } from '../../negocio.js';
 import { getI18n, type Idioma } from '../idioma/idioma';
 
@@ -10,24 +10,25 @@ interface Props {
 
 const { idioma = 'es' } = Astro.props;
 const t = getI18n(idioma).nav;
+const whatsappLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(datosNegocio.getWhatsappMensaje(idioma))}`;
 ---
 
 <div class="mobile-sticky-bar">
   <button 
     type="button" 
-    onclick="window.abrirModalTest && window.abrirModalTest()" 
-    class="btn-test sticky-btn-test" 
-    title="Orientación Psicológica - Me siento triste"
-  >
-    <i class="fa-solid fa-heart-pulse"></i> <span>{t.sticky_test}</span>
-  </button>
-  <button 
-    type="button" 
     onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
+    class="btn-test sticky-btn-test" 
+    title="Agendar Asesoría"
+  >
+    <i class="fa-solid fa-calendar-check"></i> <span>{t.sticky_test}</span>
+  </button>
+  <a 
+    href={whatsappLink} 
+    target="_blank"
+    rel="noopener noreferrer"
     class="btn-whatsapp sticky-btn-order" 
-    title="Agendar por WhatsApp"
-    style="cursor: pointer; border: none;"
+    title="Contactar por WhatsApp"
   >
     <i class="fa-brands fa-whatsapp"></i> <span>{t.sticky_pedir}</span>
-  </button>
+  </a>
 </div>

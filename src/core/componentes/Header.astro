@@ -37,13 +37,14 @@ const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
     
     <!-- Logo y Título -->
     <a href={urlInicio} title={esPersonal || esCliente ? (t.ir_tienda_publica || 'Ir al Sitio Web') : (t.inicio_titulo || 'Estudio Cusihuaman')} class="header-brand-link">
-      <img 
-        src={datosNegocio.logo} 
-        alt={datosNegocio.nombre} 
-        width="44"
-        height="44"
-        class="header-logo-img"
-      />
+      <picture class="header-brand-picture">
+        <source media="(max-width: 900px)" srcset={datosNegocio.logoFull} />
+        <img 
+          src={datosNegocio.logo} 
+          alt={datosNegocio.nombre} 
+          class="header-logo-img"
+        />
+      </picture>
       <div>
         <span class="desktop-only header-brand-title">
           {datosNegocio.nombre.split(' ')[0]} <span>{datosNegocio.nombre.split(' ').slice(1).join(' ')}</span>

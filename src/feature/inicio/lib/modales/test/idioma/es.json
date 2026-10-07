@@ -1,7 +1,7 @@
 {
-  "badge": "Diagnóstico Tributario · Ex-SUNAT",
+  "badge": "Diagnóstico Tributario · Estudio Cusihuaman",
   "titulo": "Diagnóstico Tributario y Evaluación Preventiva",
-  "subtitulo": "Evaluación confidencial de tu situación fiscal, contingencias y ahorro legítimo",
+  "subtitulo": "Evaluación confidencial de tu situación fiscal con criterio de ex-funcionaria de SUNAT",
   "cerrar": "Cerrar ventana",
   "etapa1Progreso": "Paso 1 de 2 · Tu Situación Tributaria",
   "etapa2Progreso": "Paso 2 de 2 · Coordinación y Contacto",
@@ -10,7 +10,7 @@
   "opcionesEmocion": [
     { "id": "4ta", "texto": "📄 Emito Recibos por Honorarios (4ta) y quiero evitar retenciones o pedir devolución" },
     { "id": "5ta", "texto": "💼 Estoy en Planilla (5ta) y tengo dudas con retenciones o deducción de 3 UIT" },
-    { "id": "buzon", "texto": "📬 Recibí una notificación, esquela o carta inductiva en mi Buzón SOL" },
+    { "id": "carta", "texto": "📬 Recibí una carta o requerimiento de SUNAT y necesito responder" },
     { "id": "itf", "texto": "💳 Mis cuentas bancarias tienen movimientos altos y temo un cruce por ITF" }
   ],
   "lblDesahogo": "2. Detalla brevemente tu caso o consulta:",

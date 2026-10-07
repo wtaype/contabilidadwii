@@ -84,7 +84,7 @@ function asegurarModalEnDOM() {
         <div class="modal-agendar-header">
           <div>
             <span class="modal-agendar-badge">
-              <i class="fa-solid fa-stethoscope"></i> ${t.badge}
+              <i class="fa-solid fa-calculator"></i> ${t.badge}
             </span>
             <h3 id="modalAgendarTitle" class="modal-agendar-title">
               ${t.titulo}
@@ -109,7 +109,7 @@ function asegurarModalEnDOM() {
               <!-- 1. Tema de Consulta (Sin precios) -->
               <div class="modal-agendar-field">
                 <label for="agendarSelectMotivo" class="modal-agendar-label">
-                  <i class="fa-solid fa-brain"></i> ${t.lblTema}
+                  <i class="fa-solid fa-file-invoice"></i> ${t.lblTema}
                 </label>
                 <select id="agendarSelectMotivo" class="modal-agendar-input">
                   ${t.temas.map(s => {

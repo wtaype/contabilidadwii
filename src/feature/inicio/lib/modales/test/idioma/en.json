@@ -1,7 +1,7 @@
 {
-  "badge": "Tax Diagnostic · Ex-SUNAT",
+  "badge": "Tax Diagnostic · Estudio Cusihuaman",
   "titulo": "Tax Diagnostic & Preventive Assessment",
-  "subtitulo": "Confidential evaluation of your tax regime, SUNAT contingencies, and legitimate savings",
+  "subtitulo": "Confidential evaluation of your tax situation with former SUNAT officer expertise",
   "cerrar": "Close window",
   "etapa1Progreso": "Step 1 of 2 · Your Tax Situation",
   "etapa2Progreso": "Step 2 of 2 · Coordination & Contact",
@@ -10,7 +10,7 @@
   "opcionesEmocion": [
     { "id": "4ta", "texto": "📄 Issue Electronic Fee Receipts (4th Cat) & want to avoid 8% withholding or claim refund" },
     { "id": "5ta", "texto": "💼 On Payroll (5th Cat) & have questions about withholdings or 3 UIT deduction" },
-    { "id": "buzon", "texto": "📬 Received a notice, inductive letter, or audit notice in SUNAT SOL mailbox" },
+    { "id": "carta", "texto": "📬 Received a SUNAT notice or formal letter and need to respond" },
     { "id": "itf", "texto": "💳 High bank account activity and concerned about ITF cross-checks" }
   ],
   "lblDesahogo": "2. Briefly describe your case or questions:",

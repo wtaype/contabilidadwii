@@ -52,8 +52,9 @@ export async function consultarProductosFirestoreFresco() {
       const local = localStorage.getItem('contabilidad_servicios');
       if (local) {
         const parsed = JSON.parse(local);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+        const lista = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.value) ? parsed.value : null);
+        if (Array.isArray(lista) && lista.length > 0) {
+          return lista;
         }
       }
     } catch (e) {}

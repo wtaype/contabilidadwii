@@ -20,7 +20,7 @@ import productosCss from './modulos/productos/productos.css?inline';
 import Sunat from './modulos/sunat/Sunat.astro';
 import sunatCss from './modulos/sunat/sunat.css?inline';
 
-// Módulos 7 a 14 (Fase 3 Completada)
+// Módulos 7 a 16 (Fase 3 & Expansión Operativa)
 import Clientes from './modulos/clientes/Clientes.astro';
 import clientesCss from './modulos/clientes/clientes.css?inline';
 import Whatsapp from './modulos/whatsapp/Whatsapp.astro';
@@ -37,6 +37,8 @@ import Perfil from './modulos/perfil/Perfil.astro';
 import perfilCss from './modulos/perfil/perfil.css?inline';
 import Ajustes from './modulos/ajustes/Ajustes.astro';
 import ajustesCss from './modulos/ajustes/ajustes.css?inline';
+import Ayuda from './modulos/ayuda/Ayuda.astro';
+import ayudaCss from './modulos/ayuda/ayuda.css?inline';
 
 import { moduloDefecto } from './modulos.js';
 
@@ -62,12 +64,13 @@ const estilosModulos = [
   paginasCss,
   personalModCss,
   perfilCss,
-  ajustesCss
+  ajustesCss,
+  ayudaCss
 ].join('\n');
 ---
 
 <Sonrisa titulo={`Panel de Gestión · ${datosNegocio.nombreCorto || 'Estudio Cusihuaman'}`} moduloActivo={moduloActivo} idioma={idioma}>
-  <!-- Inyección limpia de CSS de los 14 módulos (0 CSS en runtime) -->
+  <!-- Inyección limpia de CSS de los 15 módulos (0 CSS en runtime) -->
   <style slot="modulo-css" is:global set:html={estilosModulos}></style>
 
   <!-- MÓDULO 1: DASHBOARD -->
@@ -111,4 +114,7 @@ const estilosModulos = [
 
   <!-- MÓDULO 14: AJUSTES (Switch Maestro & Centro de Respaldo JSON) -->
   <Ajustes esActivo={moduloActivo === 'ajustes'} />
+
+  <!-- MÓDULO 15: AYUDA (Generador de Tickets -> wtaypeee@gmail.com) -->
+  <Ayuda esActivo={moduloActivo === 'ayuda'} />
 </Sonrisa>

@@ -51,6 +51,10 @@ export const wiTema = {
   },
 
   init: () => {
+    try {
+      localStorage.removeItem('wiTema_gaswii');
+      localStorage.removeItem('contabilidad_theme_cliente');
+    } catch {}
     wiTema.set(wiTema.get(), false);
     wiTema.listen();
   }

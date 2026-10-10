@@ -28,13 +28,15 @@ export const wiAuth = {
   },
 
   login(wi, h = 144, keep = []) {
-    removels.except(['wiTema_gaswii', 'wiTema', 'cookiesPrivacidad', 'wiSmart', ...keep]);
+    try { localStorage.removeItem('wiTema_gaswii'); localStorage.removeItem('contabilidad_theme_cliente'); } catch {}
+    removels.except(['wiTema', 'cookiesPrivacidad', 'wiSmart', ...keep]);
     savels('wiSmile', wi, h);
     this.emit(wi);
   },
 
   logout(keep = []) {
-    removels.except(['wiTema_gaswii', 'wiTema', 'cookiesPrivacidad', 'wiSmart', ...keep]);
+    try { localStorage.removeItem('wiTema_gaswii'); localStorage.removeItem('contabilidad_theme_cliente'); } catch {}
+    removels.except(['wiTema', 'cookiesPrivacidad', 'wiSmart', ...keep]);
     this.emit(null);
   }
 };

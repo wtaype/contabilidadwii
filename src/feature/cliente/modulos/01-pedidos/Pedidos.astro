@@ -56,21 +56,47 @@ const prodsFiltrados = prodsRaw
   .filter(p => p.estado !== 'pausado' && p.estado !== 'inactivo')
   .sort((a, b) => (a.orden || 999) - (b.orden || 999));
 
+// Helper para sanitizar strings seguros desde objetos bilingües o primitivos
+function extraerTexto(val: any, defecto = ''): string {
+  if (!val) return defecto;
+  if (typeof val === 'string') return val.trim();
+  if (typeof val === 'object') {
+    return String(val.es || val.nombre || val.label || Object.values(val)[0] || defecto).trim();
+  }
+  return String(val).trim();
+}
+
 // Fallback canónico de seguridad tributaria si Firestore no devolvió registros en build
-const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx) => ({
-  id: p.id || `prod-${idx}`,
-  nombre: typeof p.nombre === 'object' ? (p.nombre.es || 'Servicio Contable') : (p.nombre || 'Servicio Contable'),
-  nombreCorto: typeof p.nombre === 'object' ? (p.nombre.es || 'Servicio') : (p.nombreCorto || p.nombre || 'Servicio'),
-  badge: p.badge || (idx === 0 ? 'MÁS SOLICITADO' : (p.tipo === 'asesoria' ? 'ASESORÍA 1 A 1' : 'MENSUAL')),
-  tagClase: p.tagClase || (idx === 0 ? 'badge-fire' : 'badge-blue'),
-  precioPEN: Number(p.precioPEN ?? (p.precio ?? 0)),
-  imagen: p.imagen || '/imgwii/productos/orientacion.webp',
-  valvula: p.modalidad || 'Online vía Meet y Presencial Surquillo',
-  balanza: (Array.isArray(p.caracteristicas) && p.caracteristicas.length > 0) 
-    ? p.caracteristicas[0] 
-    : (p.enfoque || 'Atención personalizada por CPC Lourdes Cusihuaman'),
-  defaultQty: idx === 0 ? 1 : 0
-})) : [
+const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx) => {
+  const nombre = extraerTexto(p.nombre, 'Servicio Contable');
+  const nombreCorto = extraerTexto(p.nombreCorto, nombre);
+  const badgeRaw = extraerTexto(p.badge, '');
+  const badge = badgeRaw || (idx === 0 ? 'MÁS SOLICITADO' : (p.tipo === 'asesoria' ? 'ASESORÍA 1 A 1' : 'MENSUAL'));
+  const tagClase = p.tagClase || (idx === 0 ? 'badge-fire' : 'badge-blue');
+  const precioPEN = Number(p.precioPEN ?? (p.precio ?? 0));
+  const imagen = p.imagen || '/imgwii/productos/orientacion.webp';
+  const modalidad = extraerTexto(p.modalidad, 'Online vía Meet y Presencial Surquillo');
+  const enfoque = (Array.isArray(p.caracteristicas) && p.caracteristicas.length > 0)
+    ? extraerTexto(p.caracteristicas[0], '')
+    : (Array.isArray(p.garantias?.es) && p.garantias.es.length > 0)
+      ? extraerTexto(p.garantias.es[0], '')
+      : (Array.isArray(p.garantias) && p.garantias.length > 0)
+        ? extraerTexto(p.garantias[0], '')
+        : extraerTexto(p.enfoque, 'Atención personalizada por CPC Lourdes Cusihuaman');
+
+  return {
+    id: p.id || `prod-${idx}`,
+    nombre,
+    nombreCorto,
+    badge,
+    tagClase,
+    precioPEN,
+    imagen,
+    modalidad,
+    enfoque,
+    defaultQty: idx === 0 ? 1 : 0
+  };
+}) : [
   {
     id: 'serv-mype',
     nombre: 'Declaración Mensual & Contabilidad MYPE',
@@ -79,8 +105,8 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
     tagClase: 'badge-fire',
     precioPEN: 150.00,
     imagen: '/imgwii/productos/mype.webp',
-    valvula: 'Mensual · SIRE, IGV/Renta y Planilla',
-    balanza: 'Evita multas y fiscalizaciones de SUNAT',
+    modalidad: 'Mensual · SIRE, IGV/Renta y Planilla',
+    enfoque: 'Evita multas y fiscalizaciones de SUNAT',
     defaultQty: 1
   },
   {
@@ -91,8 +117,8 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
     tagClase: 'badge-blue',
     precioPEN: 100.00,
     imagen: '/imgwii/productos/rer.webp',
-    valvula: 'Mensual · Compras, Ventas y Formulario 621',
-    balanza: 'Para pequeños comercios y servicios',
+    modalidad: 'Mensual · Compras, Ventas y Formulario 621',
+    enfoque: 'Para pequeños comercios y servicios',
     defaultQty: 0
   },
   {
@@ -103,8 +129,8 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
     tagClase: 'badge-gold',
     precioPEN: 80.00,
     imagen: '/imgwii/productos/orientacion.webp',
-    valvula: 'Videollamada Google Meet o Presencial Surquillo',
-    balanza: 'Resolución de dudas tributarias específicas',
+    modalidad: 'Videollamada Google Meet o Presencial Surquillo',
+    enfoque: 'Resolución de dudas tributarias específicas',
     defaultQty: 0
   },
   {
@@ -115,8 +141,8 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
     tagClase: 'badge-fire',
     precioPEN: 120.00,
     imagen: '/imgwii/productos/orientacion.webp',
-    valvula: 'Revisión urgente de Buzón SOL y descargos',
-    balanza: 'Subsanación antes del cierre de plazo',
+    modalidad: 'Revisión urgente de Buzón SOL y descargos',
+    enfoque: 'Subsanación antes del cierre de plazo',
     defaultQty: 0
   }
 ];
@@ -169,8 +195,8 @@ const whatsappSede = datosNegocio.whatsapp || '51987594558';
                 <span class="cl-h-title">{prod.nombre}</span>
               </div>
               <div class="cl-h-checks">
-                <span><i class="fa-solid fa-check"></i> {prod.valvula}</span>
-                <span><i class="fa-solid fa-check"></i> {prod.balanza}</span>
+                <span><i class="fa-solid fa-check"></i> {prod.modalidad}</span>
+                <span><i class="fa-solid fa-check"></i> {prod.enfoque}</span>
               </div>
             </div>
 

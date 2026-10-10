@@ -8,7 +8,9 @@ interface Props {
 }
 
 const { moduloActivo = 'dashboard' } = Astro.props;
-const listaModulos = getModulosActivos();
+const todosModulos = getModulosActivos();
+const listaModulos = todosModulos.filter(m => m.id !== 'ayuda');
+const moduloAyuda = todosModulos.find(m => m.id === 'ayuda');
 ---
 
 <aside class="ps-sidebar" id="sidebarMenu">
@@ -44,8 +46,18 @@ const listaModulos = getModulosActivos();
     })}
   </nav>
 
-  <!-- Pie con Botón Colapsar -->
+  <!-- Pie con Botón Ayuda (separado de ajustes) y Botón Colapsar -->
   <div class="ps-sidebar-footer">
+    {moduloAyuda && (
+      <button 
+        class={`ps-nav-item ${moduloActivo === 'ayuda' ? 'active' : ''}`} 
+        data-panel-target="ayuda"
+        title="Ayuda y Soporte Técnico"
+      >
+        <i class={moduloAyuda.icono}></i>
+        <span class="ps-nav-text">{moduloAyuda.nombre}</span>
+      </button>
+    )}
     <button class="ps-btn-collapse" id="btnCollapseSidebar" title="Colapsar menú lateral">
       <i class="fa-solid fa-angles-left" id="iconCollapse"></i>
       <span id="labelCollapse">Colapsar</span>

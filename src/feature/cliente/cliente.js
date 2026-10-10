@@ -1,7 +1,4 @@
-// src/feature/cliente/cliente.js
-// Orquestador maestro del feature/cliente
-// Control de paneles, navegación sidebar y dock móvil, temas, sesión y dropdowns
-import { getls, avatar } from '@widev';
+import { getls, savels, avatar, wiTema } from '@widev';
 import { salir } from '../auth/sesion.js';
 import { inicializarPedidos } from './modulos/01-pedidos/pedidos.js';
 import { inicializarDirecciones, renderizarDirecciones } from './modulos/02-direccion/direccion.js';
@@ -121,22 +118,19 @@ function inicializarDropdowns() {
 }
 
 function inicializarTemaYSidebar() {
-  // Conmutador de tema
+  // Conmutador de tema universal con wiTema
   const btnTheme = document.getElementById('btnThemeToggle');
   btnTheme?.addEventListener('click', () => {
-    const cur = document.documentElement.dataset.theme;
-    const next = cur === 'luz' ? 'futuro' : 'luz';
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem('contabilidad_theme_cliente', next);
+    wiTema.toggle();
   });
 
-  // Botón colapsar sidebar
+  // Botón colapsar sidebar idéntico a personal
   const btnCollapse = document.getElementById('btnCollapseSidebar');
   const iconCollapse = document.getElementById('iconCollapse');
   const labelCollapse = document.getElementById('labelCollapse');
   btnCollapse?.addEventListener('click', () => {
     const isCollapsed = document.documentElement.classList.toggle('is-collapsed');
-    localStorage.setItem('contabilidad_sidebar_cliente', isCollapsed ? 'true' : 'false');
+    savels('contabilidad_sidebar_collapsed', isCollapsed);
     if (iconCollapse && labelCollapse) {
       iconCollapse.className = isCollapsed ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left';
       labelCollapse.textContent = isCollapsed ? 'Expandir' : 'Colapsar';

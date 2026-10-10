@@ -6,7 +6,6 @@ export const moduloDefecto = 'dashboard';
 
 export const modulos = [
   { id: 'dashboard', nombre: 'Dashboard',  icono: 'fa-solid fa-chart-pie',          activo: true },
-  { id: 'notepad',   nombre: 'Notepad',    icono: 'fa-solid fa-note-sticky',        activo: true },
   { id: 'negocio',   nombre: 'Mi negocio', icono: 'fa-solid fa-store',              activo: true },
   { id: 'productos', nombre: 'Productos',  icono: 'fa-solid fa-box-archive',        activo: true },
   { id: 'sunat',     nombre: 'SUNAT',      icono: 'fa-solid fa-file-invoice-dollar', activo: true },
@@ -17,8 +16,10 @@ export const modulos = [
   { id: 'personal',  nombre: 'Personal',   icono: 'fa-solid fa-users',              activo: true },
   { id: 'clientes',  nombre: 'Clientes',   icono: 'fa-solid fa-address-book',       activo: true, badge: '3' },
   { id: 'whatsapp',  nombre: 'WhatsApp',   icono: 'fa-brands fa-whatsapp',          activo: true },
+  { id: 'notepad',   nombre: 'Notepad',    icono: 'fa-solid fa-note-sticky',        activo: true },
   { id: 'perfil',    nombre: 'Mi perfil',  icono: 'fa-solid fa-user-gear',          activo: true },
-  { id: 'ajustes',   nombre: 'Ajustes',    icono: 'fa-solid fa-gear',               activo: true }
+  { id: 'ajustes',   nombre: 'Ajustes',    icono: 'fa-solid fa-gear',               activo: true },
+  { id: 'ayuda',     nombre: 'Ayuda',      icono: 'fa-solid fa-headset',            activo: true }
 ];
 
 // Obtener solo los módulos habilitados para el sidebar y rutas dinámicas

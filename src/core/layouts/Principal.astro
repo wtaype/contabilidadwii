@@ -157,6 +157,9 @@ const jsonLd = getJsonLd(ruta, idioma);
     };
 
     (window as any).abrirDrawer = () => {
+      if (typeof (window as any).sincronizarAuthHeader === 'function') {
+        (window as any).sincronizarAuthHeader();
+      }
       document.getElementById('mobileDrawer')?.classList.add('open');
       document.getElementById('drawerBackdrop')?.classList.add('active');
     };

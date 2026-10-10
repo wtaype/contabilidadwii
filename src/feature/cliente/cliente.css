@@ -1,4 +1,4 @@
-﻿/* ============================================================ */
+/* ============================================================ */
 /* 🎨 ESTILOS BASE DEL SHELL CLIENTE (ESTUDIO CUSIHUAMAN)       */
 /*    100% Apoyado en variables y tokens de witema.css          */
 /* ============================================================ */
@@ -424,29 +424,61 @@ html.is-collapsed .cl-sidebar { width: var(--side-collapsed-w); }
   border-radius: 999px;
 }
 
+html.is-collapsed .cl-nav-item {
+  justify-content: center;
+  padding: 9px 0;
+  gap: 0;
+}
+
 html.is-collapsed .cl-nav-text,
 html.is-collapsed .cl-nav-badge,
-html.is-collapsed #lblCollapseCliente { display: none; }
+html.is-collapsed #labelCollapse,
+html.is-collapsed #lblCollapseCliente { 
+  display: none !important; 
+}
 
+.cl-sidebar-footer,
 .cl-sidebar-foot {
-  padding-top: 10px;
+  padding: 10px;
   border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface);
 }
 
 .cl-btn-collapse {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
-  padding: 7px 10px;
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: none;
+  border: 1px solid transparent;
   color: var(--muted);
   cursor: pointer;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: var(--fz_s4, 0.8rem);
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.cl-btn-collapse:hover {
+  background: var(--raised);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.cl-btn-collapse i {
+  font-size: 13px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+html.is-collapsed .cl-btn-collapse {
+  justify-content: center;
+  padding: 8px 0;
 }
 
 /* ============================================================

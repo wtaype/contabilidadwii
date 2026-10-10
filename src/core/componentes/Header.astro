@@ -121,14 +121,14 @@ const urlInicio = buildRuta('/', idioma);
         </button>
         <script is:inline>try{const t=document.documentElement.dataset.theme,i=document.getElementById('themeIcon');if(i&&t)i.className=t==='futuro'?'fa-solid fa-moon':'fa-solid fa-sun';}catch(e){}</script>
 
-        <!-- Contenedor Auth Desktop (Opción A: 100% Autónomo y Rápido) -->
-        <div id="headerAuthContainer" class="desktop-only header-auth-box">
-          <!-- 1. Botón LOGIN (Se muestra si NO hay sesión) -->
-          <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="header-btn-login" title="Iniciar Sesión o Registrarse">
+        <!-- Contenedor Auth (Visible en Desktop y Mobile si hay sesión) -->
+        <div id="headerAuthContainer" class="header-auth-box">
+          <!-- 1. Botón LOGIN (Desktop Only: en móvil se usa el login del Drawer si no hay sesión) -->
+          <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="desktop-only header-btn-login" title="Iniciar Sesión o Registrarse">
             <i class="fa-solid fa-circle-user"></i> <span>{t.login}</span>
           </button>
 
-          <!-- 2. Botón USUARIO (Avatar + Nombre -> al hacer clic va a /personal o /cliente) -->
+          <!-- 2. Botón USUARIO (Avatar + Nombre -> visible en desktop Y móvil si hay sesión) -->
           <a href="/cliente" id="headerUserBtn" class="header-user-btn" style="display: none;" title="Ir a mi panel">
             <img id="headerUserAvatar" src="" alt="Avatar" class="header-user-avatar" />
             <span id="headerUserNombre" class="header-user-name">Usuario</span>
@@ -151,9 +151,10 @@ const urlInicio = buildRuta('/', idioma);
                 const dPerfilLink = document.getElementById('drawerPerfilLink');
                 const dUserAvatar = document.getElementById('drawerUserAvatar');
                 const dUserNombre = document.getElementById('drawerUserNombre');
+                const dUserBadge = document.getElementById('drawerUserBadge');
 
                 if (!raw) {
-                  if (btnLogin) btnLogin.style.display = 'inline-flex';
+                  if (btnLogin) btnLogin.style.display = '';
                   if (userBtn) userBtn.style.display = 'none';
                   if (dBtnLogin) dBtnLogin.style.display = 'flex';
                   if (dUserPerfil) dUserPerfil.style.display = 'none';
@@ -167,14 +168,18 @@ const urlInicio = buildRuta('/', idioma);
                 // Si tiene expiry y expiró, invalidar
                 if (parsed && parsed.expiry && Date.now() > parsed.expiry) {
                   localStorage.removeItem('wiSmile');
-                  if (btnLogin) btnLogin.style.display = 'inline-flex';
+                  if (btnLogin) btnLogin.style.display = '';
                   if (userBtn) userBtn.style.display = 'none';
+                  if (dBtnLogin) dBtnLogin.style.display = 'flex';
+                  if (dUserPerfil) dUserPerfil.style.display = 'none';
                   return;
                 }
 
                 if (!u || (!u.uid && !u.nombre && !u.usuario)) {
-                  if (btnLogin) btnLogin.style.display = 'inline-flex';
+                  if (btnLogin) btnLogin.style.display = '';
                   if (userBtn) userBtn.style.display = 'none';
+                  if (dBtnLogin) dBtnLogin.style.display = 'flex';
+                  if (dUserPerfil) dUserPerfil.style.display = 'none';
                   return;
                 }
 
@@ -185,7 +190,7 @@ const urlInicio = buildRuta('/', idioma);
                 const rutaFinal = isEn ? `/en${baseDestino}` : baseDestino;
 
                 const primerNombre = (u.nombre || u.usuario || 'Usuario').trim().split(' ')[0];
-                const foto = u.avatar || u.foto || u.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(primerNombre)}&background=4f46e5&color=fff&rounded=true&bold=true`;
+                const foto = u.avatar || u.foto || u.photoURL || `https://imgwii.web.app/smile.avif`;
 
                 if (btnLogin) btnLogin.style.display = 'none';
                 if (userBtn) {
@@ -204,6 +209,7 @@ const urlInicio = buildRuta('/', idioma);
                 if (dUserPerfil) dUserPerfil.style.display = 'flex';
                 if (dPerfilLink) dPerfilLink.href = rutaFinal;
                 if (dUserNombre) dUserNombre.textContent = primerNombre;
+                if (dUserBadge) dUserBadge.textContent = esStaff ? 'Personal / Staff' : 'Cliente Registrado';
                 if (dUserAvatar) {
                   dUserAvatar.src = foto;
                   dUserAvatar.alt = primerNombre;
@@ -211,11 +217,25 @@ const urlInicio = buildRuta('/', idioma);
               } catch(e) {}
             }
 
+            window.sincronizarAuthHeader = sincronizarAuth;
+            window.cerrarSesionHeader = function() {
+              try {
+                localStorage.removeItem('wiSmile');
+                sessionStorage.removeItem('wiSmile');
+                sincronizarAuth();
+                window.location.replace('/');
+              } catch(e) {
+                window.location.href = '/';
+              }
+            };
+
             sincronizarAuth();
+            document.addEventListener('DOMContentLoaded', sincronizarAuth);
             document.addEventListener('astro:page-load', sincronizarAuth);
             window.addEventListener('storage', function(e) {
               if (e.key === 'wiSmile') sincronizarAuth();
             });
+            window.addEventListener('wi-auth-cambio', sincronizarAuth);
           })();
         </script>
 

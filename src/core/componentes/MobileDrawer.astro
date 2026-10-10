@@ -105,4 +105,13 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
       <i class="fa-solid fa-clock"></i> <span data-negocio-horario>{horarioTexto}</span>
     </div>
   </div>
+
+  <!-- Sincronización Inmediata Anti-Race-Condition al montarse en el DOM -->
+  <script is:inline>
+    try {
+      if (typeof window.sincronizarAuthHeader === 'function') {
+        window.sincronizarAuthHeader();
+      }
+    } catch(e) {}
+  </script>
 </aside>

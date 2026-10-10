@@ -1,4 +1,4 @@
-﻿/* src/feature/personal/modulos/correo/correo.css */
+/* src/feature/personal/modulos/correo/correo.css */
 /* Estilos exclusivos del Módulo Correo Estilo Hotmail / Outlook (Estudio Cusihuaman) */
 /* 100% Nativo · Integrado con witema, Poppins, Outfit y Markdown Tools */
 
@@ -29,24 +29,28 @@
   color: #ffffff;
   border: none;
   font-family: var(--ff_P, 'Poppins', sans-serif);
-  font-size: var(--fz_s2, 0.85rem);
+  font-size: var(--fz_s2, 0.88rem);
   font-weight: 700;
-  padding: 11px 16px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  box-shadow: 0 2px 10px rgba(158, 123, 79, 0.28);
-  transition: all 0.2s ease;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(158, 123, 79, 0.28);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
 }
 
 .cr-btn-compose:hover {
   background: var(--brand-primary-hover, #7a5c35);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(158, 123, 79, 0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(158, 123, 79, 0.38);
+}
+
+.cr-btn-compose:active {
+  transform: translateY(0);
 }
 
 .cr-folder-nav {
@@ -59,35 +63,36 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 12px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
   color: var(--ink);
   font-family: var(--ff_P, 'Poppins', sans-serif);
-  font-size: var(--fz_s3, 0.82rem);
+  font-size: var(--fz_s3, 0.84rem);
   font-weight: 500;
   cursor: pointer;
   background: transparent;
   border: none;
   width: 100%;
   text-align: left;
-  transition: all 0.15s ease;
+  transition: all 0.18s ease;
 }
 
 .cr-folder-item-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .cr-folder-item-left i {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--muted);
   width: 18px;
   text-align: center;
+  transition: color 0.18s ease;
 }
 
 .cr-folder-item:hover {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--brand-primary, var(--mco, #9e7b4f));
 }
 
@@ -96,7 +101,7 @@
 }
 
 .cr-folder-item.active {
-  background: var(--mbg, rgba(158, 123, 79, 0.12));
+  background: var(--mbg, rgba(158, 123, 79, 0.14));
   color: var(--brand-primary, var(--mco, #9e7b4f));
   font-weight: 700;
 }
@@ -108,8 +113,8 @@
 .cr-folder-badge {
   font-size: 11px;
   font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 10px;
+  padding: 2px 9px;
+  border-radius: 999px;
   background: var(--line);
   color: var(--muted);
 }
@@ -183,30 +188,31 @@
 
 .cr-search-box i {
   position: absolute;
-  left: 12px;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .cr-search-input {
   width: 100%;
   box-sizing: border-box;
-  padding: 8px 12px 8px 34px;
-  border-radius: 6px;
+  padding: 10px 14px 10px 40px;
+  border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--canvas);
   color: var(--ink);
   font-family: var(--ff_P, 'Poppins', sans-serif);
-  font-size: 12px;
+  font-size: 12.5px;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cr-search-input:focus {
   border-color: var(--brand-primary, var(--mco, #9e7b4f));
   background: var(--surface);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
 .cr-message-list {
@@ -217,15 +223,15 @@
 }
 
 .cr-msg-item {
-  padding: 12px 16px;
+  padding: 13px 16px;
   border-bottom: 1px solid var(--line);
   cursor: pointer;
   background: var(--surface);
-  transition: all 0.15s ease;
+  transition: all 0.18s ease;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 
 .cr-msg-item:hover {
@@ -257,17 +263,17 @@
 .cr-msg-from-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   min-width: 0;
 }
 
 .cr-msg-avatar {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--brand-primary, var(--mco, #9e7b4f));
   color: #fff;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -322,17 +328,22 @@
 
 .cr-msg-tag {
   font-size: 10px;
-  font-weight: 600;
-  padding: 1px 6px;
-  border-radius: 4px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
   background: var(--canvas);
   color: var(--muted);
   border: 1px solid var(--line);
+  letter-spacing: 0.3px;
 }
 
-.cr-msg-tag.tag-pedido { color: var(--brand-primary, var(--mco, #9e7b4f)); background: rgba(255,106,0,0.08); border-color: rgba(255,106,0,0.2); }
-.cr-msg-tag.tag-comprobante { color: #10b981; background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.2); }
-.cr-msg-tag.tag-cotizacion { color: #0284c7; background: rgba(2,132,199,0.08); border-color: rgba(2,132,199,0.2); }
+.cr-msg-tag.tag-liquidacion,
+.cr-msg-tag.tag-declaracion { color: var(--brand-primary, var(--mco, #9e7b4f)); background: rgba(158, 123, 79, 0.1); border-color: rgba(158, 123, 79, 0.25); }
+.cr-msg-tag.tag-comprobante { color: #10b981; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.25); }
+.cr-msg-tag.tag-cotizacion,
+.cr-msg-tag.tag-cronograma { color: #0284c7; background: rgba(2,132,199,0.1); border-color: rgba(2,132,199,0.25); }
+.cr-msg-tag.tag-consulta,
+.cr-msg-tag.tag-sunat { color: #8b5cf6; background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.25); }
 
 .cr-msg-btn-del {
   opacity: 0;
@@ -607,15 +618,15 @@
   border: 1px solid var(--line);
   color: var(--muted);
   font-family: var(--ff_P, 'Poppins', sans-serif);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 7px 16px;
+  border-radius: 999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .cr-pill-btn:hover {
@@ -649,14 +660,14 @@
   font-size: 11.5px;
   font-weight: 600;
   color: var(--ink);
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .cr-label-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .cr-link-btn {
@@ -677,21 +688,29 @@
 .cr-textarea {
   width: 100%;
   box-sizing: border-box;
-  padding: 9px 12px;
+  padding: 10px 14px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--ink);
   font-family: var(--ff_P, 'Poppins', sans-serif);
   font-size: 13px;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cr-input:focus,
 .cr-textarea:focus {
   border-color: var(--brand-primary, var(--mco, #9e7b4f));
-  box-shadow: 0 0 0 2px var(--mbg, rgba(158, 123, 79, 0.12));
+  box-shadow: 0 0 0 3px rgba(158, 123, 79, 0.15);
+}
+
+#crInputSubject {
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 11px 14px;
+  background: var(--surface);
+  border-radius: 8px;
 }
 
 .cr-code-editor {
@@ -701,24 +720,27 @@
   resize: vertical;
 }
 
-/* Cajas dinámicas por categoría */
+/* Cajas dinámicas por categoría (Cuadritos Fáciles) */
 .cr-cat-box {
-  background: var(--canvas);
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--brand-primary, var(--mco, #9e7b4f));
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 12px;
+  border-left: 4px solid var(--brand-primary, var(--mco, #9e7b4f));
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
 }
 
 .cr-cat-box-title {
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--ink);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  letter-spacing: 0.2px;
 }
 
 /* ── BARRA DE HERRAMIENTAS MARKDOWN ── */

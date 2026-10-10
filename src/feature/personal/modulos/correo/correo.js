@@ -401,7 +401,7 @@ export function inicializarModuloCorreo() {
     });
 
     if (folder === 'ajustes') {
-      if (titleFolder) titleFolder.innerHTML = `<i class="fa-solid fa-sliders"></i> Ajustes de Emisor`;
+      if (titleFolder) titleFolder.innerHTML = `<i class="fa-solid fa-sliders"></i> Ajustes`;
       mostrarVista('settings');
       if (messageList) {
         messageList.innerHTML = `
@@ -416,15 +416,15 @@ export function inicializarModuloCorreo() {
     }
 
     if (folder === 'plantillas') {
-      if (titleFolder) titleFolder.innerHTML = `<i class="fa-solid fa-tags"></i> Plantillas Oficiales`;
+      if (titleFolder) titleFolder.innerHTML = `<i class="fa-solid fa-tags"></i> Plantillas`;
       abrirRedactor();
       return;
     }
 
-    let titulo = 'Bandeja de entrada';
+    let titulo = 'Principal';
     let icono = 'fa-inbox';
     if (folder === 'enviados') {
-      titulo = 'Elementos enviados';
+      titulo = 'Enviados';
       icono = 'fa-paper-plane';
     } else if (folder === 'borradores') {
       titulo = 'Borradores';

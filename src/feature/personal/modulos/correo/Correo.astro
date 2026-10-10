@@ -19,7 +19,7 @@ const { esActivo = false } = Astro.props;
         Correo & Mensajería Tributaria
       </h1>
       <p class="ps-section-sub">
-        Gestor oficial institucional: Bandeja de entrada, enviados, borradores y redactor con Live Preview de liquidaciones y vencimientos SUNAT.
+        Gestor oficial institucional: Principal, enviados, borradores, plantillas y redactor con Live Preview de liquidaciones y vencimientos SUNAT.
       </p>
     </div>
     <div class="ps-header-actions">
@@ -45,7 +45,7 @@ const { esActivo = false } = Astro.props;
         <button type="button" class="cr-folder-item active" data-folder="recibidos">
           <div class="cr-folder-item-left">
             <i class="fa-solid fa-inbox"></i>
-            <span>Bandeja de entrada</span>
+            <span>Principal</span>
           </div>
           <span class="cr-folder-badge highlight" id="badgeRecibidosCount">3</span>
         </button>
@@ -53,7 +53,7 @@ const { esActivo = false } = Astro.props;
         <button type="button" class="cr-folder-item" data-folder="enviados">
           <div class="cr-folder-item-left">
             <i class="fa-solid fa-paper-plane"></i>
-            <span>Elementos enviados</span>
+            <span>Enviados</span>
           </div>
           <span class="cr-folder-badge" id="badgeEnviadosCount">0</span>
         </button>
@@ -69,7 +69,7 @@ const { esActivo = false } = Astro.props;
         <button type="button" class="cr-folder-item" data-folder="plantillas">
           <div class="cr-folder-item-left">
             <i class="fa-solid fa-tags"></i>
-            <span>Plantillas Contables</span>
+            <span>Plantillas</span>
           </div>
           <span class="cr-folder-badge">5</span>
         </button>
@@ -77,7 +77,7 @@ const { esActivo = false } = Astro.props;
         <button type="button" class="cr-folder-item" data-folder="ajustes">
           <div class="cr-folder-item-left">
             <i class="fa-solid fa-sliders"></i>
-            <span>Ajustes de Emisor</span>
+            <span>Ajustes</span>
           </div>
         </button>
       </nav>
@@ -94,7 +94,7 @@ const { esActivo = false } = Astro.props;
       <div class="cr-inbox-header">
         <div class="cr-inbox-title-row">
           <h2 class="cr-inbox-title" id="crCurrentFolderTitle">
-            <i class="fa-solid fa-inbox"></i> Bandeja de entrada
+            <i class="fa-solid fa-inbox"></i> Principal
           </h2>
           <span class="cr-inbox-count" id="crFolderTotalCount">3 correos</span>
         </div>
@@ -227,6 +227,15 @@ const { esActivo = false } = Astro.props;
               <input type="text" id="crInputCc" class="cr-input" placeholder="administracion@empresa.com" />
             </div>
 
+            <!-- Asunto Oficial (Ubicado arriba, estilo Gmail) -->
+            <div class="cr-form-group" style="margin-bottom: 16px;">
+              <label class="cr-label" for="crInputSubject">
+                <i class="fa-solid fa-heading" style="color:var(--brand-primary, var(--mco, #9e7b4f)); margin-right:4px;"></i> Asunto Oficial *
+              </label>
+              <input type="text" id="crInputSubject" class="cr-input cr-live-input" value="📊 Liquidación de Impuestos Agosto 2026 · Estudio Cusihuaman" required />
+            </div>
+
+            <!-- BLOQUES DINÁMICOS POR PLANTILLA (CUADRITOS FÁCILES DE AUTOCOMPLETADO) -->
             <!-- BLOQUE DINÁMICO 1: LIQUIDACIÓN DE IMPUESTOS -->
             <div id="crFieldsLiquidacion" class="cr-cat-box">
               <div class="cr-cat-box-title">
@@ -349,12 +358,6 @@ const { esActivo = false } = Astro.props;
                 <label class="cr-label" for="crCotValidez">Validez de la Oferta</label>
                 <input type="text" id="crCotValidez" class="cr-input cr-live-input" value="15 días calendario" />
               </div>
-            </div>
-
-            <!-- Asunto -->
-            <div class="cr-form-group">
-              <label class="cr-label" for="crInputSubject">Asunto Oficial *</label>
-              <input type="text" id="crInputSubject" class="cr-input cr-live-input" value="📊 Liquidación de Impuestos Agosto 2026 · Estudio Cusihuaman" required />
             </div>
 
             <!-- Editor Markdown con Toolbar -->

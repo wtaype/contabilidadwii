@@ -4,8 +4,8 @@
 const ACCOUNT_ID = import.meta.env.PUBLIC_R2_ACCOUNT_ID;
 const ACCESS_KEY_ID = import.meta.env.PUBLIC_R2_ACCESS_KEY_ID;
 const SECRET_ACCESS_KEY = import.meta.env.PUBLIC_R2_SECRET_ACCESS_KEY;
-const BUCKET_NAME = import.meta.env.PUBLIC_R2_BUCKET_NAME || 'gaswii-media';
-const PUBLIC_R2_URL = import.meta.env.PUBLIC_R2_URL || 'https://media.solgassurquillo.com';
+const BUCKET_NAME = import.meta.env.PUBLIC_R2_BUCKET_NAME || 'contabilidadwii-media';
+const PUBLIC_R2_URL = import.meta.env.PUBLIC_R2_URL || '';
 
 // Utilidades criptográficas nativas usando crypto.subtle del navegador
 async function hmacSha256(key, data) {
@@ -121,7 +121,8 @@ export async function subirImagenR2(file, slug = '') {
   }
 
   // 10. URL pública oficial servida por la CDN de Cloudflare
-  const publicUrl = `${PUBLIC_R2_URL.replace(/\/$/, '')}/${fileName}`;
+  const baseUrl = PUBLIC_R2_URL ? PUBLIC_R2_URL.replace(/\/$/, '') : `https://${ACCOUNT_ID}.r2.cloudflarestorage.com/${BUCKET_NAME}`;
+  const publicUrl = `${baseUrl}/${fileName}`;
   return {
     ok: true,
     url: publicUrl,

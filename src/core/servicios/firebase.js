@@ -4,7 +4,7 @@
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'firebase/app-check';
+import { initializeAppCheck, ReCaptchaV3Provider, ReCaptchaEnterpriseProvider } from 'firebase/app-check';
 
 export const app = getApps()[0] || initializeApp({
   apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
@@ -23,12 +23,21 @@ if (typeof window !== 'undefined' && import.meta.env.PUBLIC_RECAPTCHA_WEB) {
     self.FIREBASE_APPCHECK_DEBUG_TOKEN = import.meta.env.PUBLIC_APPCHECK_DEBUG_TOKEN || true;
   }
   try {
+    const siteKey = import.meta.env.PUBLIC_RECAPTCHA_WEB;
+    const provider = new ReCaptchaV3Provider(siteKey);
     appCheck = initializeAppCheck(app, {
-      provider: new ReCaptchaEnterpriseProvider(import.meta.env.PUBLIC_RECAPTCHA_WEB),
+      provider,
       isTokenAutoRefreshEnabled: true
     });
   } catch (err) {
-    console.warn('[Firebase AppCheck] Inicialización ignorada:', err?.message || err);
+    try {
+      appCheck = initializeAppCheck(app, {
+        provider: new ReCaptchaEnterpriseProvider(import.meta.env.PUBLIC_RECAPTCHA_WEB),
+        isTokenAutoRefreshEnabled: true
+      });
+    } catch (e) {
+      console.warn('[Firebase AppCheck] Inicialización omitida:', e?.message || e);
+    }
   }
 }
 

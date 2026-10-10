@@ -1,6 +1,8 @@
 ---
 // src/feature/acercas/secciones/01-acerca/Acerca.astro
-// Sección 01: Acerca de Nosotros · Autoridad Histórica de 26 Años en Surquillo
+// Sección 01: Acerca de Nosotros · Estudio Contable CPC Lourdes Cusihuaman Gálvez
+// Diseño Editorial en 2 Columnas (TOC Sticky + Artículo de Autoridad Contable)
+
 import { datosNegocio } from '../../../../negocio.js';
 import { resolverIdiomaSeccion } from '../../idioma/idioma';
 import AcercasHeader from '../../componentes/AcercasHeader.astro';
@@ -18,15 +20,12 @@ interface Props {
 const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
 const t = resolverIdiomaSeccion({ es, en }, idioma);
 
-const anos = String(datosNegocio.experienciaAnos || 26);
-const distritosNum = String(datosNegocio.distritos.length || 7);
-const telLimpio = datosNegocio.telefonoLimpio;
-const telMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
-const wsNumero = datosNegocio.whatsapp;
+const anos = String(datosNegocio.experienciaAnos || '10+');
+const wsNumero = datosNegocio.whatsappLimpio || '51936369384';
 const wsMsg = encodeURIComponent(
   idioma === 'en'
-    ? `Hello ${datosNegocio.nombre}, I would like to learn more about your official distribution service.`
-    : `Hola ${datosNegocio.nombre}, deseo conocer más sobre su garantía y servicio de distribución oficial.`
+    ? `Hello CPC Lourdes, I would like to learn more about your accounting and tax advisory services.`
+    : `Hola CPC Lourdes, le escribo desde su web para coordinar una asesoría contable y tributaria.`
 );
 const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
 ---
@@ -50,151 +49,231 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
     <!-- Navegación Institucional por Tabs -->
     <AcercasNav seccionActiva="acerca" idioma={idioma} />
 
-    <!-- 1. Historia y Grid Fotográfico Oficial -->
-    <section class="acerca-story-grid">
-      <div class="acerca-story-content">
-        <h2>{t.historia_titulo}</h2>
-        <p>{t.historia_parrafo_1}</p>
-        <p>{t.historia_parrafo_2}</p>
+    <!-- LAYOUT EDITORIAL EN 2 COLUMNAS -->
+    <div class="acercas-2col-layout">
 
-        <!-- Métricas Rápidas -->
-        <div class="acerca-stats-row">
-          <div class="acerca-stat-card">
-            <div class="acerca-stat-num">+{anos}</div>
-            <div class="acerca-stat-label">{idioma === 'en' ? 'Years of Clinical Practice' : 'Años de Experiencia'}</div>
-          </div>
-          <div class="acerca-stat-card">
-            <div class="acerca-stat-num">+450</div>
-            <div class="acerca-stat-label">{idioma === 'en' ? 'Supported Patients' : 'Pacientes Atendidos'}</div>
-          </div>
-          <div class="acerca-stat-card">
-            <div class="acerca-stat-num">100%</div>
-            <div class="acerca-stat-label">{idioma === 'en' ? 'Ethical Confidentiality' : 'Confidencialidad y Ética'}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tarjetas Fotográficas de Sede y Calidad -->
-      <div class="acerca-photos-container">
-        <div class="acerca-photo-item">
-          <img 
-            src="/imgwii/Psychotherapy_office_interior.jpeg" 
-            alt="Consultorio Psicológico América - Espacio Seguro y Confidencial" 
-            width="400" 
-            height="260"
-            loading="lazy"
-          />
-          <div class="acerca-photo-caption">
-            <i class="fa-solid fa-couch color-primary"></i>
-            <span>{datosNegocio.nombreCorto || 'Psicología América'} · Espacio Seguro</span>
-          </div>
-        </div>
-
-        <div class="acerca-photo-item">
-          <img 
-            src="/imgwii/hero/psicologa-sofia-reynaga.webp" 
-            alt="Lic. Sofia Reynaga Pachas - Psicóloga Clínica Colegiada C.Ps.P. 49425" 
-            width="400" 
-            height="260"
-            loading="lazy"
-          />
-          <div class="acerca-photo-caption">
-            <i class="fa-solid fa-user-doctor color-primary"></i>
-            <span>Lic. Sofia Reynaga · C.Ps.P. 49425</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. Los 4 Pilares Innegociables -->
-    <section class="acerca-pilares-section">
-      <h2 class="acerca-section-subtitle">{t.pilares_titulo}</h2>
-      <div class="acerca-pilares-grid">
+      <!-- COLUMNA IZQUIERDA: SIDEBAR STICKY DE APOYO -->
+      <aside class="acercas-sidebar-sticky">
         
-        <div class="acerca-pilar-card">
-          <div class="acerca-pilar-icon">
-            <i class="fa-solid fa-user-shield"></i>
+        <!-- Ficha de la Especialista -->
+        <div class="acerca-specialist-card">
+          <div class="acerca-specialist-img-wrap">
+            <img 
+              src="/imgwii/lourdes.webp" 
+              alt="CPC Lourdes Cusihuaman Gálvez" 
+              class="acerca-specialist-img" 
+              loading="lazy" 
+            />
+            <span class="acerca-specialist-badge">Ex-SUNAT</span>
           </div>
-          <div>
-            <h3 class="acerca-pilar-title">{t.pilar_1_titulo}</h3>
-            <p class="acerca-pilar-desc">{t.pilar_1_desc}</p>
-          </div>
-        </div>
-
-        <div class="acerca-pilar-card">
-          <div class="acerca-pilar-icon">
-            <i class="fa-solid fa-brain"></i>
-          </div>
-          <div>
-            <h3 class="acerca-pilar-title">{t.pilar_2_titulo}</h3>
-            <p class="acerca-pilar-desc">{t.pilar_2_desc}</p>
-          </div>
-        </div>
-
-        <div class="acerca-pilar-card">
-          <div class="acerca-pilar-icon">
-            <i class="fa-solid fa-laptop-medical"></i>
-          </div>
-          <div>
-            <h3 class="acerca-pilar-title">{t.pilar_3_titulo}</h3>
-            <p class="acerca-pilar-desc">{t.pilar_3_desc}</p>
+          <div class="acerca-specialist-info">
+            <h3 class="acerca-specialist-name">CPC Lourdes Cusihuaman</h3>
+            <p class="acerca-specialist-title">Asesora Contable y Tributaria</p>
+            <p class="acerca-specialist-meta">
+              <i class="fa-solid fa-graduation-cap"></i> Universidad de Lima<br>
+              <i class="fa-solid fa-location-dot"></i> Jr. Dante 260, Surquillo
+            </p>
+            <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acerca-consultar">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>{idioma === 'en' ? 'Book Consultation' : 'Agendar Asesoría'}</span>
+            </a>
           </div>
         </div>
 
-        <div class="acerca-pilar-card">
-          <div class="acerca-pilar-icon">
+        <!-- Tabla de Contenido Sticky (TOC) -->
+        <nav class="acercas-toc-card" aria-label="Índice de la página">
+          <div class="acercas-toc-title">
+            <i class="fa-solid fa-list-ul color-primary"></i>
+            <span>{idioma === 'en' ? 'Table of Contents' : 'En Esta Página'}</span>
+          </div>
+          <ul class="acercas-toc-list">
+            <li><a href="#historia" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Trayectoria & Historia</a></li>
+            <li><a href="#pilares" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Pilares Innegociables</a></li>
+            <li><a href="#mision-vision" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Misión y Visión</a></li>
+            <li><a href="#valores" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Valores Éticos</a></li>
+            <li><a href="#sede" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Sede y Atención</a></li>
+          </ul>
+        </nav>
+
+        <!-- Sello de Cumplimiento -->
+        <div class="acercas-quickcard">
+          <div class="acercas-quickcard-title">
+            <i class="fa-solid fa-shield-check color-primary"></i>
+            <span>Garantía Profesional</span>
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Colegiatura CPC:</strong> Habilitada para dictámenes y balances ante SUNAT y bancos.
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Marco Legal:</strong> Conforme a Ley N° 28951 y Código de Ética Contable.
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- COLUMNA DERECHA: ARTÍCULO EDITORIAL PRINCIPAL -->
+      <main class="acercas-article-container">
+
+        <!-- 1. Historia y Métricas -->
+        <article class="acercas-article-card" id="historia">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-building-columns color-primary"></i>
+              {t.historia_titulo}
+            </h2>
+            <span class="acercas-meta-tag">+10 Años de Trayectoria</span>
+          </div>
+          
+          <p class="acercas-article-p">{t.historia_parrafo_1}</p>
+          <p class="acercas-article-p">{t.historia_parrafo_2}</p>
+
+          <!-- Métricas Rápidas -->
+          <div class="acerca-stats-row">
+            <div class="acerca-stat-card">
+              <div class="acerca-stat-num">+{anos}</div>
+              <div class="acerca-stat-label">{idioma === 'en' ? 'Years of Experience' : 'Años de Trayectoria'}</div>
+            </div>
+            <div class="acerca-stat-card">
+              <div class="acerca-stat-num">+240</div>
+              <div class="acerca-stat-label">{idioma === 'en' ? 'Advised Businesses' : 'Clientes Asesorados'}</div>
+            </div>
+            <div class="acerca-stat-card">
+              <div class="acerca-stat-num">100%</div>
+              <div class="acerca-stat-label">{idioma === 'en' ? 'Tax Confidentiality' : 'Confidencialidad Fiscal'}</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Pilares Innegociables -->
+        <article class="acercas-article-card" id="pilares">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-award color-primary"></i>
+              {t.pilares_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Rigor & Ética</span>
+          </div>
+
+          <div class="acerca-pilares-grid">
+            <div class="acerca-pilar-item">
+              <div class="acerca-pilar-num">01</div>
+              <h4>{t.pilar_1_titulo}</h4>
+              <p>{t.pilar_1_desc}</p>
+            </div>
+            <div class="acerca-pilar-item">
+              <div class="acerca-pilar-num">02</div>
+              <h4>{t.pilar_2_titulo}</h4>
+              <p>{t.pilar_2_desc}</p>
+            </div>
+            <div class="acerca-pilar-item">
+              <div class="acerca-pilar-num">03</div>
+              <h4>{t.pilar_3_titulo}</h4>
+              <p>{t.pilar_3_desc}</p>
+            </div>
+            <div class="acerca-pilar-item">
+              <div class="acerca-pilar-num">04</div>
+              <h4>{t.pilar_4_titulo}</h4>
+              <p>{t.pilar_4_desc}</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Misión y Visión -->
+        <article class="acercas-article-card" id="mision-vision">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-compass color-primary"></i>
+              {t.mision_titulo} & {t.vision_titulo}
+            </h2>
+          </div>
+
+          <div class="acercas-callout">
             <i class="fa-solid fa-bullseye"></i>
+            <div>
+              <strong>{t.mision_titulo}:</strong>
+              <p style="margin: 4px 0 0;">{t.mision_desc}</p>
+            </div>
           </div>
-          <div>
-            <h3 class="acerca-pilar-title">{t.pilar_4_titulo}</h3>
-            <p class="acerca-pilar-desc">{t.pilar_4_desc}</p>
+
+          <div class="acercas-callout" style="background: rgba(158, 123, 79, 0.05); border-left-color: #9e7b4f;">
+            <i class="fa-solid fa-eye"></i>
+            <div>
+              <strong>{t.vision_titulo}:</strong>
+              <p style="margin: 4px 0 0;">{t.vision_desc}</p>
+            </div>
           </div>
-        </div>
+        </article>
 
-      </div>
-    </section>
+        <!-- 4. Valores Éticos -->
+        <article class="acercas-article-card" id="valores">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-heart-pulse color-primary"></i>
+              {t.valores_titulo}
+            </h2>
+          </div>
 
-    <!-- 3. Misión, Visión y Valores -->
-    <section class="acerca-mv-grid">
-      <div class="acerca-mv-card">
-        <h3><i class="fa-solid fa-bullseye color-primary"></i> {t.mision_titulo}</h3>
-        <p>{t.mision_desc}</p>
-      </div>
+          <div class="acerca-valores-grid">
+            <div class="acerca-valor-card">
+              <i class="fa-solid fa-handshake color-primary"></i>
+              <strong>{t.valor_1}</strong>
+            </div>
+            <div class="acerca-valor-card">
+              <i class="fa-solid fa-microscope color-primary"></i>
+              <strong>{t.valor_2}</strong>
+            </div>
+            <div class="acerca-valor-card">
+              <i class="fa-solid fa-clock-rotate-left color-primary"></i>
+              <strong>{t.valor_3}</strong>
+            </div>
+            <div class="acerca-valor-card">
+              <i class="fa-solid fa-users-gear color-primary"></i>
+              <strong>{t.valor_4}</strong>
+            </div>
+          </div>
+        </article>
 
-      <div class="acerca-mv-card">
-        <h3><i class="fa-solid fa-eye color-primary"></i> {t.vision_titulo}</h3>
-        <p>{t.vision_desc}</p>
-      </div>
-    </section>
+        <!-- 5. Galería de Sede y Espacio de Asesoría -->
+        <article class="acercas-article-card" id="sede">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-location-dot color-primary"></i>
+              Sede Presencial en Surquillo & Soporte Nacional
+            </h2>
+          </div>
 
-    <div class="acerca-valores-box">
-      <div>
-        <h4 style="font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700; margin: 0; color: var(--text-bright);">
-          <i class="fa-solid fa-heart color-primary" style="margin-right: 0.4rem;"></i> {t.valores_titulo}
-        </h4>
-      </div>
-      <div class="acerca-valores-list">
-        <span class="acerca-valor-chip"><i class="fa-solid fa-shield-halved"></i> {t.valor_1}</span>
-        <span class="acerca-valor-chip"><i class="fa-solid fa-hand-holding-dollar"></i> {t.valor_2}</span>
-        <span class="acerca-valor-chip"><i class="fa-solid fa-stopwatch"></i> {t.valor_3}</span>
-        <span class="acerca-valor-chip"><i class="fa-solid fa-people-carry-box"></i> {t.valor_4}</span>
-      </div>
-    </div>
+          <p class="acercas-article-p">
+            Atendemos a nuestros clientes de forma presencial en nuestra oficina ubicada en <strong>Jr. Dante 260, Surquillo (Lima)</strong> con previa cita, así como de forma 100% virtual a través de videollamadas y correo para empresas de todo el país.
+          </p>
 
-    <!-- 4. Banner de Asistencia Directa (Común Padre) -->
-    <div class="acercas-help-banner">
-      <div class="acercas-help-info">
-        <h4>{t.comun.ayuda_titulo}</h4>
-        <p>{t.comun.ayuda_desc}</p>
-      </div>
-      <div class="acercas-help-actions">
-        <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary">
-          <i class="fa-brands fa-whatsapp"></i> {t.comun.btn_whatsapp}
-        </a>
-        <a href={`tel:${telLimpio}`} class="btn-acercas-action secondary">
-          <i class="fa-solid fa-phone"></i> {telMostrado}
-        </a>
-      </div>
+          <div class="acerca-photos-grid">
+            <div class="acerca-photo-item">
+              <img 
+                src="/imgwii/oficina.webp" 
+                alt="Sede Estudio Cusihuaman en Jr. Dante 260, Surquillo" 
+                loading="lazy"
+              />
+              <div class="acerca-photo-caption">
+                <i class="fa-solid fa-building color-primary"></i>
+                <span>Oficina Jr. Dante 260, Surquillo</span>
+              </div>
+            </div>
+            <div class="acerca-photo-item">
+              <img 
+                src="/imgwii/experiencia.webp" 
+                alt="Balances y asesoría tributaria profesional" 
+                loading="lazy"
+              />
+              <div class="acerca-photo-caption">
+                <i class="fa-solid fa-briefcase color-primary"></i>
+                <span>Asesoría Contable & Balances</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </main>
+
     </div>
 
   </div>

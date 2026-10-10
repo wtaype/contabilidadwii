@@ -1,6 +1,8 @@
 ---
 // src/feature/acercas/secciones/02-terminos/Terminos.astro
-// Sección 02: Términos y Condiciones Oficiales del Servicio de GLP
+// Sección 02: Términos y Condiciones Oficiales del Servicio Contable (Estudio Cusihuaman)
+// Diseño Editorial en 2 Columnas (TOC Sticky + Artículos Cláusula a Cláusula)
+
 import { datosNegocio } from '../../../../negocio.js';
 import { resolverIdiomaSeccion } from '../../idioma/idioma';
 import AcercasHeader from '../../componentes/AcercasHeader.astro';
@@ -18,26 +20,26 @@ interface Props {
 const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
 const t = resolverIdiomaSeccion({ es, en }, idioma);
 
-const telLimpio = datosNegocio.telefonoLimpio;
-const telMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
-const wsNumero = datosNegocio.whatsapp;
+const telLimpio = datosNegocio.telefonoLimpio || '987594558';
+const telMostrado = datosNegocio.telefonoMostrado || '987 594 558';
+const wsNumero = datosNegocio.whatsappLimpio || '51936369384';
 const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(
   idioma === 'en'
-    ? `Hello ${datosNegocio.nombre}, I have a question regarding terms of service.`
-    : `Hola ${datosNegocio.nombre}, tengo una consulta sobre los términos del servicio.`
+    ? `Hello CPC Lourdes, I have a question regarding accounting terms of service.`
+    : `Hola CPC Lourdes, tengo una consulta sobre los términos del servicio contable.`
 )}`;
 
 const clausulas = [
-  { num: '1', tit: t.clausula_1_tit, desc: t.clausula_1_desc },
-  { num: '2', tit: t.clausula_2_tit, desc: t.clausula_2_desc },
-  { num: '3', tit: t.clausula_3_tit, desc: t.clausula_3_desc },
-  { num: '4', tit: t.clausula_4_tit, desc: t.clausula_4_desc },
-  { num: '5', tit: t.clausula_5_tit, desc: t.clausula_5_desc },
-  { num: '6', tit: t.clausula_6_tit, desc: t.clausula_6_desc },
-  { num: '7', tit: t.clausula_7_tit, desc: t.clausula_7_desc },
-  { num: '8', tit: t.clausula_8_tit, desc: t.clausula_8_desc },
-  { num: '9', tit: t.clausula_9_tit, desc: t.clausula_9_desc },
-  { num: '10', tit: t.clausula_10_tit, desc: t.clausula_10_desc }
+  { id: 'clausula-1', num: '01', tit: t.clausula_1_tit, desc: t.clausula_1_desc, icon: 'fa-solid fa-id-card' },
+  { id: 'clausula-2', num: '02', tit: t.clausula_2_tit, desc: t.clausula_2_desc, icon: 'fa-solid fa-file-invoice-dollar' },
+  { id: 'clausula-3', num: '03', tit: t.clausula_3_tit, desc: t.clausula_3_desc, icon: 'fa-solid fa-key' },
+  { id: 'clausula-4', num: '04', tit: t.clausula_4_tit, desc: t.clausula_4_desc, icon: 'fa-solid fa-calendar-days' },
+  { id: 'clausula-5', num: '05', tit: t.clausula_5_tit, desc: t.clausula_5_desc, icon: 'fa-solid fa-scale-balanced' },
+  { id: 'clausula-6', num: '06', tit: t.clausula_6_tit, desc: t.clausula_6_desc, icon: 'fa-solid fa-receipt' },
+  { id: 'clausula-7', num: '07', tit: t.clausula_7_tit, desc: t.clausula_7_desc, icon: 'fa-solid fa-building-columns' },
+  { id: 'clausula-8', num: '08', tit: t.clausula_8_tit, desc: t.clausula_8_desc, icon: 'fa-solid fa-user-shield' },
+  { id: 'clausula-9', num: '09', tit: t.clausula_9_tit, desc: t.clausula_9_desc, icon: 'fa-solid fa-headset' },
+  { id: 'clausula-10', num: '10', tit: t.clausula_10_tit, desc: t.clausula_10_desc, icon: 'fa-solid fa-gavel' }
 ];
 ---
 
@@ -57,39 +59,93 @@ const clausulas = [
 
     <AcercasNav seccionActiva="terminos" idioma={idioma} />
 
-    <div class="terminos-container">
-      <div class="terminos-notice-banner">
-        <i class="fa-solid fa-scale-balanced"></i>
-        <span>{t.vigencia_nota}</span>
-      </div>
+    <!-- LAYOUT EDITORIAL EN 2 COLUMNAS -->
+    <div class="acercas-2col-layout">
 
-      <div class="terminos-grid">
+      <!-- COLUMNA IZQUIERDA: SIDEBAR STICKY DE NAVEGACIÓN -->
+      <aside class="acercas-sidebar-sticky">
+        
+        <!-- Tabla de Contenido Sticky (TOC) -->
+        <nav class="acercas-toc-card" aria-label="Índice de Cláusulas">
+          <div class="acercas-toc-title">
+            <i class="fa-solid fa-list-check color-primary"></i>
+            <span>{idioma === 'en' ? 'Contract Clauses' : 'Índice de Cláusulas'}</span>
+          </div>
+          <ul class="acercas-toc-list">
+            {clausulas.map(c => (
+              <li>
+                <a href={`#${c.id}`} class="acercas-toc-link">
+                  <span style="font-weight:700; color:var(--mco); font-size:0.75rem;">{c.num}</span>
+                  <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{c.tit.replace(/^[0-9.]+\s*/, '')}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <!-- Ficha de Proveedor y Marco Jurídico -->
+        <div class="acercas-quickcard">
+          <div class="acercas-quickcard-title">
+            <i class="fa-solid fa-scale-balanced color-primary"></i>
+            <span>Marco Legal Peruano</span>
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Régimen Contractual:</strong> Código Civil Peruano (Art. 1756 - Locación de Servicios Profesionales).
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Bancarización:</strong> D.L. N° 1529 para transacciones bancarias.
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Colegiatura:</strong> Ley N° 28951 del Contador Público.
+          </div>
+          <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--brd);">
+            <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" style="width:100%; justify-content:center; box-sizing:border-box;">
+              <i class="fa-brands fa-whatsapp"></i> {idioma === 'en' ? 'Ask a Question' : 'Consultar Términos'}
+            </a>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- COLUMNA DERECHA: CUERPO EDITORIAL DE CLÁUSULAS -->
+      <main class="acercas-article-container">
+
+        <!-- Banner de Vigencia Legal -->
+        <div class="terminos-notice-banner">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <span>{t.vigencia_nota}</span>
+        </div>
+
         {clausulas.map((c) => (
-          <article class="terminos-clause-card">
-            <div class="terminos-clause-header">
-              <span class="terminos-clause-num">{c.num}</span>
-              <h2 class="terminos-clause-title">{c.tit}</h2>
+          <article class="acercas-article-card" id={c.id}>
+            <div class="acercas-article-head">
+              <h2 class="acercas-article-title">
+                <i class={`${c.icon} color-primary`}></i>
+                {c.tit}
+              </h2>
+              <span class="acercas-meta-tag">Cláusula {c.num}</span>
             </div>
-            <p class="terminos-clause-body">{c.desc}</p>
+            <p class="acercas-article-p">{c.desc}</p>
           </article>
         ))}
-      </div>
 
-      <!-- Banner de Asistencia Directa Padre -->
-      <div class="acercas-help-banner">
-        <div class="acercas-help-info">
-          <h4>{t.comun.ayuda_titulo}</h4>
-          <p>{t.comun.ayuda_desc}</p>
+        <!-- Banner de Asistencia Directa Padre -->
+        <div class="acercas-help-banner">
+          <div class="acercas-help-info">
+            <h4>¿Tienes dudas sobre los términos o necesitas un contrato específico?</h4>
+            <p>Escríbenos directamente para coordinar tu servicio contable con total transparencia.</p>
+          </div>
+          <div class="acercas-help-actions">
+            <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp Directo
+            </a>
+            <a href={`tel:${telLimpio}`} class="btn-acercas-action secondary">
+              <i class="fa-solid fa-phone"></i> {telMostrado}
+            </a>
+          </div>
         </div>
-        <div class="acercas-help-actions">
-          <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary">
-            <i class="fa-brands fa-whatsapp"></i> {t.comun.btn_whatsapp}
-          </a>
-          <a href={`tel:${telLimpio}`} class="btn-acercas-action secondary">
-            <i class="fa-solid fa-phone"></i> {telMostrado}
-          </a>
-        </div>
-      </div>
+
+      </main>
 
     </div>
 

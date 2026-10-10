@@ -20,11 +20,11 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
 
 const motivos = [
   { id: 'puntualidad', label: t.motivo_1, icon: 'fa-solid fa-stopwatch' },
-  { id: 'balanza', label: t.motivo_2, icon: 'fa-solid fa-scale-balanced' },
-  { id: 'trato', label: t.motivo_3, icon: 'fa-solid fa-handshake' },
-  { id: 'balon', label: t.motivo_4, icon: 'fa-solid fa-certificate' },
-  { id: 'pagos', label: t.motivo_5, icon: 'fa-solid fa-mobile-screen-button' },
-  { id: 'instalacion', label: t.motivo_6, icon: 'fa-solid fa-shield-halved' }
+  { id: 'claridad', label: t.motivo_2, icon: 'fa-solid fa-chalkboard-user' },
+  { id: 'ahorro', label: t.motivo_3, icon: 'fa-solid fa-piggy-bank' },
+  { id: 'planillas', label: t.motivo_4, icon: 'fa-solid fa-file-invoice-dollar' },
+  { id: 'trato', label: t.motivo_5, icon: 'fa-solid fa-handshake' },
+  { id: 'buzon', label: t.motivo_6, icon: 'fa-solid fa-shield-halved' }
 ];
 ---
 
@@ -225,7 +225,7 @@ const motivos = [
         rating: formData.get('rating') || '5',
         motivos: Array.from(selectedMotivos),
         comentario: formData.get('comentario') || '',
-        nombre: formData.get('nombre') || 'Vecino Anónimo',
+        nombre: formData.get('nombre') || 'Cliente / Contribuyente',
         contacto: formData.get('contacto') || '',
         fecha: new Date().toISOString()
       };
@@ -241,7 +241,8 @@ const motivos = [
           fecha: { stringValue: payload.fecha }
         };
 
-        await fetch('https://firestore.googleapis.com/v1/projects/gaswii/databases/(default)/documents/feedbacks', {
+        const projectId = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'contabilidadwii';
+        await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/feedbacks`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fields })

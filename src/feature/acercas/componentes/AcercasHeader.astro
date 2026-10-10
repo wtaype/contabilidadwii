@@ -13,16 +13,16 @@ interface Props {
 }
 
 const {
-  badge = datosNegocio.registroColegio || 'C.Ps.P. N° 49425 · Colegiada y Habilitada',
+  badge = datosNegocio.registroColegio || 'CPC Lourdes Cusihuaman · Ex-funcionaria SUNAT',
   badgeIcon = 'fa-solid fa-shield-halved',
   titulo,
   desc,
-  fechaActualizacion = 'Septiembre 2026',
+  fechaActualizacion = 'Octubre 2026',
   idioma = 'es'
 } = Astro.props;
 
 const labelActualizado = idioma === 'en' ? 'Last updated:' : 'Vigencia oficial:';
-const sedeDistrito = (datosNegocio.distritoSede || 'Miraflores').toUpperCase();
+const sedeDistrito = (datosNegocio.distritoSede || 'Surquillo').toUpperCase();
 ---
 
 <header class="acercas-header">
@@ -43,11 +43,11 @@ const sedeDistrito = (datosNegocio.distritoSede || 'Miraflores').toUpperCase();
     <div class="acercas-header-meta">
       <div class="acercas-meta-item">
         <i class="fa-solid fa-location-dot color-primary"></i>
-        <span>{datosNegocio.nombreCorto || 'Psicología América'} · {sedeDistrito}</span>
+        <span>{datosNegocio.nombreCorto || 'Estudio Cusihuaman'} · {sedeDistrito}</span>
       </div>
       <div class="acercas-meta-item">
         <i class="fa-solid fa-certificate color-primary"></i>
-        <span>{datosNegocio.colegiatura || 'C.Ps.P. N° 49425'}</span>
+        <span>{datosNegocio.colegiatura || 'Ex-orientadora SUNAT · U. de Lima'}</span>
       </div>
       <div class="acercas-meta-item">
         <i class="fa-solid fa-calendar-check color-primary"></i>

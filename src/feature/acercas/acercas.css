@@ -1,7 +1,7 @@
 /* ==========================================================================
-   ACERCAS GLOBAL FEATURE STYLES (MADRE) - CONSULTORIO PSICOLÓGICO AMÉRICA
+   ACERCAS GLOBAL FEATURE STYLES - ESTUDIO CONTABLE CUSIHUAMAN
    Contenedor .pagewii (85vw), tokens witema.css y componentes transversales
-   100% Dependiente de Variables de witema.css
+   100% Dependiente de Variables de witema.css · Poppins & Outfit
    ========================================================================== */
 
 /* ── 0. CONTENEDOR MAESTRO INSTITUCIONAL (.pagewii = 85vw) ── */
@@ -240,3 +240,199 @@
   color: var(--mco);
   transform: translateY(-2px);
 }
+
+/* ── 6. SISTEMA EDITORIAL EN 2 COLUMNAS (Estilo Artículo con TOC Sticky) ── */
+.acercas-2col-layout {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 2.2rem;
+  align-items: start;
+  margin-bottom: 4vh;
+}
+
+@media (max-width: 960px) {
+  .acercas-2col-layout {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+}
+
+.acercas-sidebar-sticky {
+  position: sticky;
+  top: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.acercas-toc-card {
+  background: var(--wb);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r_m, 12px);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-card);
+}
+
+.acercas-toc-title {
+  font-family: var(--ff_O);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tx);
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.acercas-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.acercas-toc-link {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--ff_P);
+  font-size: 0.84rem;
+  color: var(--tx2);
+  text-decoration: none;
+  padding: 0.45rem 0.7rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  line-height: 1.35;
+}
+
+.acercas-toc-link:hover,
+.acercas-toc-link.active {
+  color: var(--mco);
+  background: var(--mbg);
+  font-weight: 600;
+  transform: translateX(3px);
+}
+
+.acercas-quickcard {
+  background: var(--wb);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r_m, 12px);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-card);
+}
+
+.acercas-quickcard-title {
+  font-family: var(--ff_O);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--tx);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.acercas-quickcard-item {
+  font-family: var(--ff_P);
+  font-size: 0.82rem;
+  color: var(--tx2);
+  margin-bottom: 0.55rem;
+  line-height: 1.4;
+}
+
+.acercas-quickcard-item strong {
+  color: var(--tx);
+  display: block;
+}
+
+.acercas-article-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.acercas-article-card {
+  background: var(--wb);
+  border: 1px solid var(--border-card);
+  border-radius: var(--r_l, 16px);
+  padding: 2.2rem 2.4rem;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.2s ease;
+  scroll-margin-top: 100px;
+}
+
+.acercas-article-card:hover {
+  border-color: var(--border-accent);
+}
+
+.acercas-article-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--brd);
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.acercas-article-title {
+  font-family: var(--ff_O);
+  font-size: 1.38rem;
+  font-weight: 700;
+  color: var(--tx);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.acercas-meta-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  background: var(--mbg);
+  color: var(--mco);
+  border: 1px solid var(--border-accent);
+}
+
+.acercas-article-p {
+  font-family: var(--ff_P);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--tx2);
+  margin-bottom: 1rem;
+}
+
+.acercas-article-p:last-child {
+  margin-bottom: 0;
+}
+
+.acercas-callout {
+  padding: 1.1rem 1.3rem;
+  border-radius: 10px;
+  background: var(--mbg);
+  border-left: 4px solid var(--mco);
+  font-size: 0.88rem;
+  color: var(--tx);
+  margin: 1.2rem 0;
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+
+.acercas-callout i {
+  color: var(--mco);
+  font-size: 1.1rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+

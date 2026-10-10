@@ -1,6 +1,8 @@
 ---
 // src/feature/acercas/secciones/05-libro-reclamaciones/LibroReclamaciones.astro
 // Sección 05: Libro de Reclamaciones Virtual Conforme a INDECOPI (Leyes N° 29571 y 31435)
+// Flujo Guiado con Stepper de 4 Pasos · 100% Adaptado a Estudio Contable Cusihuaman
+
 import { datosNegocio } from '../../../../negocio.js';
 import { resolverIdiomaSeccion } from '../../idioma/idioma';
 import AcercasHeader from '../../componentes/AcercasHeader.astro';
@@ -39,49 +41,287 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
 
       <!-- Ficha Oficial del Proveedor (Establecimiento Comercial) -->
       <section class="reclamos-proveedor-card">
-        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text-bright); margin: 0;">
+        <h3 style="font-family: var(--ff_O); font-size: 1.15rem; font-weight: 700; color: var(--tx); margin: 0;">
           <i class="fa-solid fa-store color-primary" style="margin-right: 0.4rem;"></i>
           {t.datos_proveedor_tit}
         </h3>
         <div class="reclamos-proveedor-grid">
           <div class="reclamos-proveedor-item">
-            <strong>{t.proveedor_razon}</strong> {datosNegocio.razonSocial}
+            <strong>{t.proveedor_razon}</strong> {datosNegocio.nombre || 'CPC Lourdes Cusihuaman Gálvez'}
           </div>
           <div class="reclamos-proveedor-item">
-            <strong>{t.proveedor_ruc}</strong> {datosNegocio.ruc}
+            <strong>{t.proveedor_ruc}</strong> {datosNegocio.ruc || '10414732151'}
           </div>
           <div class="reclamos-proveedor-item">
-            <strong>{t.proveedor_direccion}</strong> {datosNegocio.direccionSede}
+            <strong>{t.proveedor_direccion}</strong> {datosNegocio.direccionSede || 'Jr. Dante 260'}
           </div>
           <div class="reclamos-proveedor-item">
-            <strong>{t.proveedor_sede}</strong> {datosNegocio.nombreCorto || 'Solgas'} · Sede {datosNegocio.distritoSede}
+            <strong>{t.proveedor_sede}</strong> {datosNegocio.nombreCorto || 'Estudio Cusihuaman'} · Sede {datosNegocio.distritoSede || 'Surquillo'}
           </div>
         </div>
       </section>
 
-      <!-- Ficha de Éxito / Confirmación Imprimible -->
+      <!-- BARRA DE PROGRESO STEPPER (4 PASOS) -->
+      <div class="reclamos-stepper" id="reclamosStepper">
+        <div class="reclamos-step-item active" data-step="1" id="stepIndicator1">
+          <div class="reclamos-step-circle">1</div>
+          <div class="reclamos-step-info">
+            <span class="reclamos-step-title">{t.stepper_paso1}</span>
+            <span class="reclamos-step-sub">{idioma === 'en' ? 'Personal Data' : 'Tus Datos'}</span>
+          </div>
+        </div>
+        <div class="reclamos-step-line" id="stepLine1"></div>
+
+        <div class="reclamos-step-item" data-step="2" id="stepIndicator2">
+          <div class="reclamos-step-circle">2</div>
+          <div class="reclamos-step-info">
+            <span class="reclamos-step-title">{t.stepper_paso2}</span>
+            <span class="reclamos-step-sub">{idioma === 'en' ? 'Accounting Service' : 'Servicio Contable'}</span>
+          </div>
+        </div>
+        <div class="reclamos-step-line" id="stepLine2"></div>
+
+        <div class="reclamos-step-item" data-step="3" id="stepIndicator3">
+          <div class="reclamos-step-circle">3</div>
+          <div class="reclamos-step-info">
+            <span class="reclamos-step-title">{t.stepper_paso3}</span>
+            <span class="reclamos-step-sub">{idioma === 'en' ? 'Claim or Complaint' : 'Reclamo o Queja'}</span>
+          </div>
+        </div>
+        <div class="reclamos-step-line" id="stepLine3"></div>
+
+        <div class="reclamos-step-item" data-step="4" id="stepIndicator4">
+          <div class="reclamos-step-circle">4</div>
+          <div class="reclamos-step-info">
+            <span class="reclamos-step-title">{t.stepper_paso4}</span>
+            <span class="reclamos-step-sub">{idioma === 'en' ? 'Official Sheet' : 'Constancia Legal'}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMULARIO OFICIAL CON STEP PANES -->
+      <form id="formLibroReclamaciones" novalidate>
+
+        <!-- ── PASO 1: IDENTIFICACIÓN DEL CONSUMIDOR ── -->
+        <div class="reclamos-step-pane active" id="paneStep1">
+          <fieldset class="reclamos-form-card">
+            <div class="reclamos-form-header">
+              <i class="fa-solid fa-user-tag"></i>
+              <h2>{t.sec_1_tit}</h2>
+            </div>
+
+            <div class="reclamos-inputs-grid">
+              <div class="reclamos-field-box reclamos-input-full">
+                <label for="reclamoNombre">{t.lbl_nombre}</label>
+                <input type="text" id="reclamoNombre" name="nombre" required placeholder="Ej. Juan Pérez Quispe" class="reclamos-input" />
+              </div>
+
+              <div class="reclamos-field-box">
+                <label for="reclamoTipoDoc">{t.lbl_tipo_doc}</label>
+                <select id="reclamoTipoDoc" name="tipoDoc" required class="reclamos-select">
+                  <option value="DNI">DNI (Documento Nacional de Identidad)</option>
+                  <option value="CE">Carné de Extranjería (CE)</option>
+                  <option value="RUC">RUC (Persona Natural con Negocio)</option>
+                  <option value="Pasaporte">Pasaporte</option>
+                </select>
+              </div>
+
+              <div class="reclamos-field-box">
+                <label for="reclamoNumDoc">{t.lbl_num_doc}</label>
+                <input type="text" id="reclamoNumDoc" name="numDoc" required placeholder="Número de documento" class="reclamos-input" />
+              </div>
+
+              <div class="reclamos-field-box">
+                <label for="reclamoTelefono">{t.lbl_telefono}</label>
+                <input type="tel" id="reclamoTelefono" name="telefono" required placeholder="Ej. 987 594 558" class="reclamos-input" />
+              </div>
+
+              <div class="reclamos-field-box">
+                <label for="reclamoEmail">{t.lbl_email}</label>
+                <input type="email" id="reclamoEmail" name="email" required placeholder="ejemplo@correo.com" class="reclamos-input" />
+              </div>
+
+              <div class="reclamos-field-box reclamos-input-full">
+                <label for="reclamoDireccion">{t.lbl_direccion}</label>
+                <input type="text" id="reclamoDireccion" name="direccion" required placeholder="Ej. Av. Angamos 1234 Dpto 301, Surquillo, Lima" class="reclamos-input" />
+              </div>
+
+              <div class="reclamos-field-box reclamos-input-full">
+                <label for="reclamoApoderado" style="color: var(--tx2); font-weight: normal;">
+                  {t.lbl_apoderado}
+                </label>
+                <input type="text" id="reclamoApoderado" name="apoderado" placeholder="Opcional" class="reclamos-input" />
+              </div>
+            </div>
+
+            <div class="reclamos-step-actions">
+              <button type="button" class="btn-step-nav next" id="btnNext1">
+                <span>{t.btn_siguiente}</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </button>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- ── PASO 2: BIEN O SERVICIO CONTRATADO ── -->
+        <div class="reclamos-step-pane" id="paneStep2">
+          <fieldset class="reclamos-form-card">
+            <div class="reclamos-form-header">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+              <h2>{t.sec_2_tit}</h2>
+            </div>
+
+            <div class="reclamos-inputs-grid">
+              <div class="reclamos-field-box reclamos-input-full">
+                <label>{t.lbl_tipo_bien}</label>
+                <div class="reclamos-radio-group">
+                  <label class="reclamos-radio-tile">
+                    <input type="radio" name="tipoBien" value="Servicio" checked />
+                    <div class="reclamos-radio-content">
+                      <strong>{t.bien_servicio}</strong>
+                      <span>{t.bien_servicio_desc}</span>
+                    </div>
+                  </label>
+                  <label class="reclamos-radio-tile">
+                    <input type="radio" name="tipoBien" value="Producto" />
+                    <div class="reclamos-radio-content">
+                      <strong>{t.bien_producto}</strong>
+                      <span>{t.bien_producto_desc}</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="reclamos-field-box">
+                <label for="reclamoMonto">{t.lbl_monto}</label>
+                <input type="number" step="0.10" id="reclamoMonto" name="monto" placeholder="S/ 0.00" class="reclamos-input" />
+              </div>
+
+              <div class="reclamos-field-box reclamos-input-full">
+                <label for="reclamoDescBien">{t.lbl_desc_bien}</label>
+                <input 
+                  type="text" 
+                  id="reclamoDescBien" 
+                  name="descBien" 
+                  required 
+                  placeholder="Ej. Declaración mensual Régimen MYPE Tributario, asesoría tributaria 4ta categoría o planilla PLAME" 
+                  class="reclamos-input" 
+                />
+              </div>
+            </div>
+
+            <div class="reclamos-step-actions">
+              <button type="button" class="btn-step-nav prev" id="btnPrev2">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                <span>{t.btn_atras}</span>
+              </button>
+              <button type="button" class="btn-step-nav next" id="btnNext2">
+                <span>{t.btn_siguiente}</span>
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </button>
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- ── PASO 3: DETALLE DE LA RECLAMACIÓN ── -->
+        <div class="reclamos-step-pane" id="paneStep3">
+          <fieldset class="reclamos-form-card">
+            <div class="reclamos-form-header">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <h2>{t.sec_3_tit}</h2>
+            </div>
+
+            <div class="reclamos-inputs-grid">
+              <div class="reclamos-field-box reclamos-input-full">
+                <label>{t.lbl_tipo_reclamo}</label>
+                <div class="reclamos-radio-group">
+                  <label class="reclamos-radio-tile">
+                    <input type="radio" name="tipoReclamacion" value="Reclamo" checked />
+                    <div class="reclamos-radio-content">
+                      <strong>Reclamo (Servicio Contable)</strong>
+                      <span>{t.tipo_reclamo_opt}</span>
+                    </div>
+                  </label>
+                  <label class="reclamos-radio-tile">
+                    <input type="radio" name="tipoReclamacion" value="Queja" />
+                    <div class="reclamos-radio-content">
+                      <strong>Queja (Atención o Trato)</strong>
+                      <span>{t.tipo_queja_opt}</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <div class="reclamos-field-box reclamos-input-full">
+                <label for="reclamoDetalle">{t.lbl_detalle}</label>
+                <textarea 
+                  id="reclamoDetalle" 
+                  name="detalle" 
+                  required 
+                  placeholder="Explica detalladamente lo sucedido con fecha, período tributario u observaciones pertinentes..." 
+                  class="reclamos-textarea"
+                ></textarea>
+              </div>
+
+              <div class="reclamos-field-box reclamos-input-full">
+                <label for="reclamoPedido">{t.lbl_pedido}</label>
+                <textarea 
+                  id="reclamoPedido" 
+                  name="pedido" 
+                  required 
+                  placeholder="Especifica qué solución o rectificación solicitas (ej. rectificación de declaración, informe tributario motivado, aclaración de cálculo)..." 
+                  class="reclamos-textarea" 
+                  style="min-height: 90px;"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Declaración Legal Checkbox -->
+            <div class="reclamos-checkbox-box">
+              <input type="checkbox" id="reclamoCheckLegal" required />
+              <label for="reclamoCheckLegal">
+                {t.declaracion_ley}
+              </label>
+            </div>
+
+            <div class="reclamos-step-actions">
+              <button type="button" class="btn-step-nav prev" id="btnPrev3">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                <span>{t.btn_atras}</span>
+              </button>
+              <button type="submit" id="btnSubmitReclamo" class="btn-step-nav submit">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>{t.btn_enviar}</span>
+              </button>
+            </div>
+          </fieldset>
+        </div>
+
+      </form>
+
+      <!-- ── PASO 4: FICHA DE ÉXITO / COMPROBANTE FINAL INDECOPI ── -->
       <div id="reclamosSuccessBox" class="reclamos-success-box">
         <div class="reclamos-success-icon">
           <i class="fa-solid fa-circle-check"></i>
         </div>
-        <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--text-bright); margin-bottom: 0.8rem;">
+        <h2 style="font-family: var(--ff_O); font-size: 1.85rem; font-weight: 800; color: var(--tx); margin-bottom: 0.8rem;">
           {t.exito_titulo}
         </h2>
-        <p style="color: var(--text-muted); font-size: 1rem; max-width: 650px; margin: 0 auto;">
+        <p style="color: var(--tx2); font-size: 1rem; max-width: 650px; margin: 0 auto; line-height: 1.6;">
           {t.exito_desc}
         </p>
         
         <div>
-          <span style="font-size: 0.85rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); display: block; margin-top: 1rem;">
+          <span style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--tx2); display: block; margin-top: 1.2rem; letter-spacing: 0.05em;">
             {t.exito_codigo}
           </span>
           <span id="reclamoCodigoDisplay" class="reclamos-codigo-badge">HR-2026-0000</span>
         </div>
 
-        <p style="color: var(--cl-emerald); font-weight: 600; font-size: 0.92rem; margin: 1rem 0 2rem;">
-          <i class="fa-solid fa-calendar-check" style="margin-right: 0.4rem;"></i>
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 10px; padding: 14px 18px; max-width: 600px; margin: 1.2rem auto 2.2rem; color: #047857; font-weight: 600; font-size: 0.94rem;">
+          <i class="fa-solid fa-scale-balanced" style="margin-right: 0.5rem;"></i>
           {t.exito_plazo}
-        </p>
+        </div>
 
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;" class="btn-print-hide">
           <button type="button" onclick="window.print()" class="btn-acercas-action primary">
@@ -92,156 +332,6 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
           </button>
         </div>
       </div>
-
-      <!-- Formulario Oficial de Reclamación INDECOPI -->
-      <form id="formLibroReclamaciones" novalidate>
-
-        <!-- SECCIÓN 1: IDENTIFICACIÓN DEL CONSUMIDOR -->
-        <fieldset class="reclamos-form-card">
-          <div class="reclamos-form-header">
-            <i class="fa-solid fa-user-tag"></i>
-            <h2>{t.sec_1_tit}</h2>
-          </div>
-
-          <div class="reclamos-inputs-grid">
-            <div class="reclamos-field-box reclamos-input-full">
-              <label for="reclamoNombre">{t.lbl_nombre}</label>
-              <input type="text" id="reclamoNombre" name="nombre" required placeholder="Ej. Juan Pérez Quispe" class="reclamos-input" />
-            </div>
-
-            <div class="reclamos-field-box">
-              <label for="reclamoTipoDoc">{t.lbl_tipo_doc}</label>
-              <select id="reclamoTipoDoc" name="tipoDoc" required class="reclamos-select">
-                <option value="DNI">DNI (Documento Nacional de Identidad)</option>
-                <option value="CE">Carné de Extranjería (CE)</option>
-                <option value="Pasaporte">Pasaporte</option>
-                <option value="RUC">RUC</option>
-              </select>
-            </div>
-
-            <div class="reclamos-field-box">
-              <label for="reclamoNumDoc">{t.lbl_num_doc}</label>
-              <input type="text" id="reclamoNumDoc" name="numDoc" required placeholder="Número de documento" class="reclamos-input" />
-            </div>
-
-            <div class="reclamos-field-box">
-              <label for="reclamoTelefono">{t.lbl_telefono}</label>
-              <input type="tel" id="reclamoTelefono" name="telefono" required placeholder="Ej. 936369384" class="reclamos-input" />
-            </div>
-
-            <div class="reclamos-field-box">
-              <label for="reclamoEmail">{t.lbl_email}</label>
-              <input type="email" id="reclamoEmail" name="email" required placeholder="ejemplo@correo.com" class="reclamos-input" />
-            </div>
-
-            <div class="reclamos-field-box reclamos-input-full">
-              <label for="reclamoDireccion">{t.lbl_direccion}</label>
-              <input type="text" id="reclamoDireccion" name="direccion" required placeholder="Ej. Av. Angamos 1234 Dpto 301, Surquillo" class="reclamos-input" />
-            </div>
-
-            <div class="reclamos-field-box reclamos-input-full">
-              <label for="reclamoApoderado" style="color: var(--text-muted); font-weight: normal;">
-                {t.lbl_apoderado} (Solo si el reclamante es menor de edad)
-              </label>
-              <input type="text" id="reclamoApoderado" name="apoderado" placeholder="Opcional" class="reclamos-input" />
-            </div>
-          </div>
-        </fieldset>
-
-        <!-- SECCIÓN 2: BIEN CONTRATADO -->
-        <fieldset class="reclamos-form-card">
-          <div class="reclamos-form-header">
-            <i class="fa-solid fa-box-open"></i>
-            <h2>{t.sec_2_tit}</h2>
-          </div>
-
-          <div class="reclamos-inputs-grid">
-            <div class="reclamos-field-box reclamos-input-full">
-              <label>{t.lbl_tipo_bien}</label>
-              <div class="reclamos-radio-group">
-                <label class="reclamos-radio-tile">
-                  <input type="radio" name="tipoBien" value="Producto" checked />
-                  <div class="reclamos-radio-content">
-                    <strong>{idioma === 'en' ? 'Product' : 'Producto'}</strong>
-                    <span>{t.bien_producto}</span>
-                  </div>
-                </label>
-                <label class="reclamos-radio-tile">
-                  <input type="radio" name="tipoBien" value="Servicio" />
-                  <div class="reclamos-radio-content">
-                    <strong>{idioma === 'en' ? 'Service' : 'Servicio'}</strong>
-                    <span>{t.bien_servicio}</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <div class="reclamos-field-box">
-              <label for="reclamoMonto">{t.lbl_monto}</label>
-              <input type="number" step="0.10" id="reclamoMonto" name="monto" placeholder="S/ 0.00" class="reclamos-input" />
-            </div>
-
-            <div class="reclamos-field-box reclamos-input-full">
-              <label for="reclamoDescBien">{t.lbl_desc_bien}</label>
-              <input type="text" id="reclamoDescBien" name="descBien" required placeholder="Ej. Balón Solgas 10kg válvula normal con delivery" class="reclamos-input" />
-            </div>
-          </div>
-        </fieldset>
-
-        <!-- SECCIÓN 3: DETALLE DE LA RECLAMACIÓN -->
-        <fieldset class="reclamos-form-card">
-          <div class="reclamos-form-header">
-            <i class="fa-solid fa-file-pen"></i>
-            <h2>{t.sec_3_tit}</h2>
-          </div>
-
-          <div class="reclamos-inputs-grid">
-            <div class="reclamos-field-box reclamos-input-full">
-              <label>{t.lbl_tipo_reclamo}</label>
-              <div class="reclamos-radio-group">
-                <label class="reclamos-radio-tile">
-                  <input type="radio" name="tipoReclamacion" value="Reclamo" checked />
-                  <div class="reclamos-radio-content">
-                    <strong>{idioma === 'en' ? 'Claim (Product/Service)' : 'Reclamo'}</strong>
-                    <span>{t.tipo_reclamo_opt}</span>
-                  </div>
-                </label>
-                <label class="reclamos-radio-tile">
-                  <input type="radio" name="tipoReclamacion" value="Queja" />
-                  <div class="reclamos-radio-content">
-                    <strong>{idioma === 'en' ? 'Complaint (Customer Service)' : 'Queja'}</strong>
-                    <span>{t.tipo_queja_opt}</span>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <div class="reclamos-field-box reclamos-input-full">
-              <label for="reclamoDetalle">{t.lbl_detalle}</label>
-              <textarea id="reclamoDetalle" name="detalle" required placeholder="Explica detalladamente lo sucedido con fecha y hora de los hechos..." class="reclamos-textarea"></textarea>
-            </div>
-
-            <div class="reclamos-field-box reclamos-input-full">
-              <label for="reclamoPedido">{t.lbl_pedido}</label>
-              <textarea id="reclamoPedido" name="pedido" required placeholder="Especifica qué solución solicitas (ej. cambio de balón, devolución, calibración)..." class="reclamos-textarea" style="min-height: 90px;"></textarea>
-            </div>
-          </div>
-
-          <!-- Declaración Legal Checkbox -->
-          <div class="reclamos-checkbox-box">
-            <input type="checkbox" id="reclamoCheckLegal" required />
-            <label for="reclamoCheckLegal">
-              {t.declaracion_ley}
-            </label>
-          </div>
-
-          <button type="submit" id="btnSubmitReclamo" class="btn-reclamos-submit">
-            <i class="fa-solid fa-paper-plane"></i>
-            <span>{t.btn_enviar}</span>
-          </button>
-        </fieldset>
-
-      </form>
 
     </div>
 
@@ -272,7 +362,88 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
     }
   } catch (e) {}
 
-  // 2. Manejo de Envío de Formulario
+  // 2. Control de Stepper de 4 Pasos
+  let pasoActual = 1;
+
+  function irAlPaso(nuevoPaso: number) {
+    if (nuevoPaso < 1 || nuevoPaso > 4) return;
+    pasoActual = nuevoPaso;
+
+    // Actualizar Panes
+    document.querySelectorAll('.reclamos-step-pane').forEach((pane, idx) => {
+      pane.classList.toggle('active', idx + 1 === pasoActual);
+    });
+
+    // Actualizar Indicadores de Stepper
+    for (let i = 1; i <= 4; i++) {
+      const ind = document.getElementById(`stepIndicator${i}`);
+      const line = document.getElementById(`stepLine${i}`);
+      if (ind) {
+        ind.classList.toggle('active', i === pasoActual);
+        ind.classList.toggle('completed', i < pasoActual);
+      }
+      if (line) {
+        line.classList.toggle('completed', i < pasoActual);
+      }
+    }
+
+    const stepper = document.getElementById('reclamosStepper');
+    stepper?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Validaciones Paso 1
+  document.getElementById('btnNext1')?.addEventListener('click', () => {
+    const inpNombre = document.getElementById('reclamoNombre') as HTMLInputElement | null;
+    const inpNumDoc = document.getElementById('reclamoNumDoc') as HTMLInputElement | null;
+    const inpTel = document.getElementById('reclamoTelefono') as HTMLInputElement | null;
+    const inpEmail = document.getElementById('reclamoEmail') as HTMLInputElement | null;
+    const inpDir = document.getElementById('reclamoDireccion') as HTMLInputElement | null;
+
+    if (!inpNombre?.value.trim()) {
+      alert('Por favor ingrese sus Nombres y Apellidos completos.');
+      inpNombre?.focus();
+      return;
+    }
+    if (!inpNumDoc?.value.trim()) {
+      alert('Por favor ingrese su Número de Documento de Identidad.');
+      inpNumDoc?.focus();
+      return;
+    }
+    if (!inpTel?.value.trim()) {
+      alert('Por favor ingrese su Teléfono o Celular de contacto.');
+      inpTel?.focus();
+      return;
+    }
+    if (!inpEmail?.value.trim() || !inpEmail.checkValidity()) {
+      alert('Por favor ingrese un Correo Electrónico válido para remitir su copia legal.');
+      inpEmail?.focus();
+      return;
+    }
+    if (!inpDir?.value.trim()) {
+      alert('Por favor ingrese su Domicilio o Dirección.');
+      inpDir?.focus();
+      return;
+    }
+
+    irAlPaso(2);
+  });
+
+  // Navegación Paso 2
+  document.getElementById('btnPrev2')?.addEventListener('click', () => irAlPaso(1));
+  document.getElementById('btnNext2')?.addEventListener('click', () => {
+    const inpDesc = document.getElementById('reclamoDescBien') as HTMLInputElement | null;
+    if (!inpDesc?.value.trim()) {
+      alert('Por favor describa el servicio contable o asesoría contratada.');
+      inpDesc?.focus();
+      return;
+    }
+    irAlPaso(3);
+  });
+
+  // Navegación Paso 3
+  document.getElementById('btnPrev3')?.addEventListener('click', () => irAlPaso(2));
+
+  // 3. Envío y Generación de la Hoja Oficial (Paso 4)
   const form = document.getElementById('formLibroReclamaciones') as HTMLFormElement | null;
   const successBox = document.getElementById('reclamosSuccessBox');
   const codigoDisplay = document.getElementById('reclamoCodigoDisplay');
@@ -283,14 +454,23 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const inpDetalle = document.getElementById('reclamoDetalle') as HTMLTextAreaElement | null;
+      const inpPedido = document.getElementById('reclamoPedido') as HTMLTextAreaElement | null;
       const check = document.getElementById('reclamoCheckLegal') as HTMLInputElement | null;
-      if (check && !check.checked) {
-        alert('Por favor acepte la declaración de veracidad conforme a ley para registrar su reclamación.');
+
+      if (!inpDetalle?.value.trim()) {
+        alert('Por favor detalle los hechos de su reclamo o queja.');
+        inpDetalle?.focus();
         return;
       }
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
+      if (!inpPedido?.value.trim()) {
+        alert('Por favor detalle la solución concreta solicitada.');
+        inpPedido?.focus();
+        return;
+      }
+      if (!check?.checked) {
+        alert('Debe aceptar la declaración de veracidad conforme a la Ley N° 29571 para continuar.');
+        check?.focus();
         return;
       }
 
@@ -327,18 +507,17 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
       };
 
       try {
-        // Guardado dual: Firestore + Envío de copia al cliente
         await guardarReclamoFirestore(payload);
         await enviarConfirmacionCorreo(payload);
       } catch (err) {
-        console.warn('[LibroReclamaciones] Registro local:', err);
+        console.warn('[LibroReclamaciones] Error de persistencia:', err);
       }
 
-      // Mostrar confirmación
+      // Pasar al Paso 4
       codigoDisplay.textContent = codigoHR;
       form.style.display = 'none';
       successBox.classList.add('visible');
-      successBox.scrollIntoView({ behavior: 'smooth' });
+      irAlPaso(4);
     });
 
     if (btnNuevo) {
@@ -348,7 +527,7 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
         successBox.classList.remove('visible');
         btnSubmit.disabled = false;
         btnSubmit.innerHTML = '<i class="fa-solid fa-paper-plane"></i> <span>Registrar Hoja de Reclamación Oficial</span>';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        irAlPaso(1);
       });
     }
   }

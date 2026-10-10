@@ -1,6 +1,8 @@
 ---
 // src/feature/acercas/secciones/03-privacidad/Privacidad.astro
 // Sección 03: Política de Privacidad y Derechos ARCO (Ley N° 29733 Perú)
+// Diseño Editorial en 2 Columnas (TOC Sticky + Artículos Normativos)
+
 import { datosNegocio } from '../../../../negocio.js';
 import { resolverIdiomaSeccion } from '../../idioma/idioma';
 import AcercasHeader from '../../componentes/AcercasHeader.astro';
@@ -18,11 +20,11 @@ interface Props {
 const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
 const t = resolverIdiomaSeccion({ es, en }, idioma);
 
-const emailLegal = datosNegocio.email || 'atencion@gaswii.pe';
+const emailLegal = datosNegocio.email || 'contacto@contabilidadwii.com';
 const emailSubject = encodeURIComponent(
   idioma === 'en'
-    ? `Request for ARCO Rights Exercise - ${datosNegocio.nombre}`
-    : `Solicitud de Ejercicio de Derechos ARCO - ${datosNegocio.nombre}`
+    ? `Request for ARCO Rights Exercise - ${datosNegocio.nombre || 'Estudio Cusihuaman'}`
+    : `Solicitud de Ejercicio de Derechos ARCO - ${datosNegocio.nombre || 'Estudio Cusihuaman'}`
 );
 const mailtoArco = `mailto:${emailLegal}?subject=${emailSubject}`;
 ---
@@ -43,116 +45,168 @@ const mailtoArco = `mailto:${emailLegal}?subject=${emailSubject}`;
 
     <AcercasNav seccionActiva="privacidad" idioma={idioma} />
 
-    <div class="privacidad-container">
-      
-      <!-- Banner de Marco Legal Peruano -->
-      <div class="privacidad-banner-law">
-        <i class="fa-solid fa-gavel"></i>
-        <span>{t.marco_legal}</span>
-      </div>
+    <!-- LAYOUT EDITORIAL EN 2 COLUMNAS -->
+    <div class="acercas-2col-layout">
 
-      <!-- 1. Titular del Banco de Datos -->
-      <article class="privacidad-card">
-        <div class="privacidad-card-header">
-          <i class="fa-solid fa-database"></i>
-          <h2 class="privacidad-card-title">{t.banco_titulo}</h2>
-        </div>
-        <p class="privacidad-card-body">{t.banco_desc}</p>
-      </article>
-
-      <!-- 2. Finalidad del Tratamiento -->
-      <article class="privacidad-card">
-        <div class="privacidad-card-header">
-          <i class="fa-solid fa-bullseye"></i>
-          <h2 class="privacidad-card-title">{t.finalidad_titulo}</h2>
-        </div>
-        <p class="privacidad-card-body">{t.finalidad_desc}</p>
-      </article>
-
-      <!-- 3. Consentimiento Libre e Informado -->
-      <article class="privacidad-card">
-        <div class="privacidad-card-header">
-          <i class="fa-solid fa-handshake-angle"></i>
-          <h2 class="privacidad-card-title">{t.consentimiento_titulo}</h2>
-        </div>
-        <p class="privacidad-card-body">{t.consentimiento_desc}</p>
-      </article>
-
-      <!-- 4. No Transferencia -->
-      <article class="privacidad-card">
-        <div class="privacidad-card-header">
-          <i class="fa-solid fa-shield-halved"></i>
-          <h2 class="privacidad-card-title">{t.transferencia_titulo}</h2>
-        </div>
-        <p class="privacidad-card-body">{t.transferencia_desc}</p>
-      </article>
-
-      <!-- 5. Derechos ARCO -->
-      <article class="privacidad-card">
-        <div class="privacidad-card-header">
-          <i class="fa-solid fa-key"></i>
-          <h2 class="privacidad-card-title">{t.arco_titulo}</h2>
-        </div>
-        <p class="privacidad-card-body">{t.arco_desc}</p>
-
-        <!-- Grilla de las 4 letras ARCO -->
-        <div class="arco-chips-grid">
-          <div class="arco-chip">
-            <span class="arco-chip-letter">A</span>
-            <span class="arco-chip-label">{idioma === 'en' ? 'Access' : 'Acceso'}</span>
+      <!-- COLUMNA IZQUIERDA: SIDEBAR STICKY DE NAVEGACIÓN -->
+      <aside class="acercas-sidebar-sticky">
+        
+        <!-- Tabla de Contenido Sticky (TOC) -->
+        <nav class="acercas-toc-card" aria-label="Índice de Privacidad">
+          <div class="acercas-toc-title">
+            <i class="fa-solid fa-shield-halved color-primary"></i>
+            <span>{idioma === 'en' ? 'Privacy Sections' : 'Puntos Clave'}</span>
           </div>
-          <div class="arco-chip">
-            <span class="arco-chip-letter">R</span>
-            <span class="arco-chip-label">{idioma === 'en' ? 'Rectification' : 'Rectificación'}</span>
+          <ul class="acercas-toc-list">
+            <li><a href="#banco-datos" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Titular del Banco de Datos</a></li>
+            <li><a href="#finalidad" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Finalidad Tributaria</a></li>
+            <li><a href="#consentimiento" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Consentimiento Expreso</a></li>
+            <li><a href="#no-transferencia" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Secreto Profesional</a></li>
+            <li><a href="#derechos-arco" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Derechos ARCO</a></li>
+            <li><a href="#seguridad" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Seguridad y Local-First</a></li>
+          </ul>
+        </nav>
+
+        <!-- Ficha de Cumplimiento ANPDP -->
+        <div class="acercas-quickcard">
+          <div class="acercas-quickcard-title">
+            <i class="fa-solid fa-scale-balanced color-primary"></i>
+            <span>Garantías Ley N° 29733</span>
           </div>
-          <div class="arco-chip">
-            <span class="arco-chip-letter">C</span>
-            <span class="arco-chip-label">{idioma === 'en' ? 'Cancellation' : 'Cancelación'}</span>
+          <div class="acercas-quickcard-item">
+            <strong>Plazo Acceso:</strong> 20 días hábiles conforme al Art. 55 del D.S. 003-2013-JUS.
           </div>
-          <div class="arco-chip">
-            <span class="arco-chip-letter">O</span>
-            <span class="arco-chip-label">{idioma === 'en' ? 'Opposition' : 'Oposición'}</span>
+          <div class="acercas-quickcard-item">
+            <strong>Plazo Rectificación:</strong> 10 días hábiles (Rectificación, Cancelación u Oposición).
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Custodio:</strong> CPC Lourdes Cusihuaman Gálvez.
+          </div>
+          <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--brd);">
+            <a href={mailtoArco} class="btn-acercas-action primary" style="width:100%; justify-content:center; box-sizing:border-box;">
+              <i class="fa-solid fa-envelope"></i> {t.btn_enviar_solicitud}
+            </a>
           </div>
         </div>
 
-        <p class="privacidad-card-body" style="font-size: 0.88rem; margin-top: 1rem;">
-          <i class="fa-solid fa-clock color-emerald" style="margin-right: 0.4rem;"></i>
-          {t.arco_plazos}
-        </p>
+      </aside>
 
-        <!-- Caja de Contacto Directo para ARCO -->
-        <div class="arco-channel-box">
-          <div class="arco-channel-info">
-            <h4>{t.contacto_legal_titulo}</h4>
-            <p><i class="fa-solid fa-envelope"></i> {emailLegal}</p>
+      <!-- COLUMNA DERECHA: ARTÍCULOS NORMATIVOS -->
+      <main class="acercas-article-container">
+
+        <!-- Banner de Marco Legal Peruano -->
+        <div class="privacidad-banner-law">
+          <i class="fa-solid fa-gavel"></i>
+          <span>{t.marco_legal}</span>
+        </div>
+
+        <!-- 1. Titular del Banco de Datos -->
+        <article class="acercas-article-card" id="banco-datos">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-database color-primary"></i>
+              {t.banco_titulo}
+            </h2>
+            <span class="acercas-meta-tag">LPDP Art. 10</span>
           </div>
-          <a href={mailtoArco} class="btn-acercas-action primary">
-            <i class="fa-solid fa-paper-plane"></i> {t.btn_enviar_solicitud}
-          </a>
-        </div>
-      </article>
+          <p class="acercas-article-p">{t.banco_desc}</p>
+        </article>
 
-      <!-- 6. Seguridad y Enfoque Local-First -->
-      <article class="privacidad-card">
-        <div class="privacidad-card-header">
-          <i class="fa-solid fa-laptop-code"></i>
-          <h2 class="privacidad-card-title">{t.seguridad_titulo}</h2>
-        </div>
-        <p class="privacidad-card-body">{t.seguridad_desc}</p>
-      </article>
+        <!-- 2. Finalidad del Tratamiento de Datos -->
+        <article class="acercas-article-card" id="finalidad">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-bullseye color-primary"></i>
+              {t.finalidad_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Principio de Finalidad</span>
+          </div>
+          <p class="acercas-article-p">{t.finalidad_desc}</p>
+        </article>
 
-      <!-- Banner de Asistencia Directa Padre -->
-      <div class="acercas-help-banner">
-        <div class="acercas-help-info">
-          <h4>{t.comun.ayuda_titulo}</h4>
-          <p>{t.comun.ayuda_desc}</p>
-        </div>
-        <div class="acercas-help-actions">
-          <a href={`tel:${datosNegocio.telefonoLimpio}`} class="btn-acercas-action secondary">
-            <i class="fa-solid fa-phone"></i> {datosNegocio.telefonoMostrado}
-          </a>
-        </div>
-      </div>
+        <!-- 3. Consentimiento Libre, Previo e Informado -->
+        <article class="acercas-article-card" id="consentimiento">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-signature color-primary"></i>
+              {t.consentimiento_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Consentimiento Válido</span>
+          </div>
+          <p class="acercas-article-p">{t.consentimiento_desc}</p>
+        </article>
+
+        <!-- 4. No Transferencia a Terceros -->
+        <article class="acercas-article-card" id="no-transferencia">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-lock color-primary"></i>
+              {t.transferencia_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Secreto Profesional</span>
+          </div>
+          <p class="acercas-article-p">{t.transferencia_desc}</p>
+          <div class="acercas-callout">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+              <strong>Compromiso Ético Inviolable:</strong> Su información tributaria y Clave SOL jamás serán compartidas con agencias de publicidad o entidades comerciales ajenas al mandato contable.
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Derechos ARCO -->
+        <article class="acercas-article-card" id="derechos-arco">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-id-card-clip color-primary"></i>
+              {t.arco_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Derechos del Titular</span>
+          </div>
+          <p class="acercas-article-p">{t.arco_desc}</p>
+
+          <div class="privacidad-arco-grid">
+            <div class="privacidad-arco-item">
+              <div class="privacidad-arco-badge">A</div>
+              <h4>Acceso</h4>
+              <p>Conocer qué datos contables suyos custodiamos y cómo son tratados.</p>
+            </div>
+            <div class="privacidad-arco-item">
+              <div class="privacidad-arco-badge">R</div>
+              <h4>Rectificación</h4>
+              <p>Actualizar o corregir datos fiscales inexactos o incompletos.</p>
+            </div>
+            <div class="privacidad-arco-item">
+              <div class="privacidad-arco-badge">C</div>
+              <h4>Cancelación</h4>
+              <p>Solicitar la supresión de datos no requeridos por mandato tributario.</p>
+            </div>
+            <div class="privacidad-arco-item">
+              <div class="privacidad-arco-badge">O</div>
+              <h4>Oposición</h4>
+              <p>Oponerse a tratamientos específicos por motivos fundados legítimos.</p>
+            </div>
+          </div>
+
+          <div class="privacidad-plazos-box">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>{t.arco_plazos}</span>
+          </div>
+        </article>
+
+        <!-- 6. Seguridad y Enfoque Local-First -->
+        <article class="acercas-article-card" id="seguridad">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-microchip color-primary"></i>
+              {t.seguridad_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Arquitectura Segura</span>
+          </div>
+          <p class="acercas-article-p">{t.seguridad_desc}</p>
+        </article>
+
+      </main>
 
     </div>
 

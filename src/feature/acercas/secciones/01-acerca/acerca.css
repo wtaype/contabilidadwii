@@ -1,51 +1,118 @@
 /* ==========================================================================
-   SECCIÓN 01-ACERCA (CSS HIJO) - CONSULTORIO PSICOLÓGICO AMÉRICA
-   Historia, 4 Pilares, Misión/Visión y Grid Fotográfico Institucional
-   100% Dependiente de Variables de witema.css
+   SECCIÓN 01-ACERCA (CSS HIJO) - ESTUDIO CONTABLE CUSIHUAMAN
+   Historia, 4 Pilares, Misión/Visión y Grid Fotográfico Oficial
+   100% Adaptado a witema.css · Tipografía Poppins y Outfit
    ========================================================================== */
 
-.acerca-story-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 3.5rem;
-  align-items: center;
-  margin-bottom: 5vh;
+/* ── FICHA DE LA ESPECIALISTA (SIDEBAR IZQUIERDO) ── */
+.acerca-specialist-card {
+  background: var(--wb, #ffffff);
+  border: 1px solid var(--border-card, #e2e8f0);
+  border-radius: var(--r_l, 16px);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  text-align: center;
 }
 
-@media (max-width: 960px) {
-  .acerca-story-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
+.acerca-specialist-img-wrap {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--mco, #9e7b4f);
+  box-shadow: 0 4px 14px var(--mbg, rgba(158, 123, 79, 0.2));
 }
 
-.acerca-story-content h2 {
+.acerca-specialist-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.acerca-specialist-badge {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--mco, #9e7b4f);
+  color: var(--txa, #ffffff);
   font-family: var(--ff_O);
-  font-size: clamp(1.8rem, 2.4vw, 2.5rem);
-  font-weight: 800;
-  color: var(--tx);
-  line-height: 1.2;
-  margin-bottom: 1.2rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--r_full);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.acerca-story-content p {
+.acerca-specialist-name {
+  font-family: var(--ff_O);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--tx, #0f172a);
+  margin: 0 0 0.25rem;
+}
+
+.acerca-specialist-title {
   font-family: var(--ff_P);
-  font-size: 1rem;
-  color: var(--tx2);
-  line-height: 1.7;
-  margin-bottom: 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--mco, #9e7b4f);
+  margin: 0 0 0.8rem;
 }
 
+.acerca-specialist-meta {
+  font-family: var(--ff_P);
+  font-size: 0.78rem;
+  color: var(--tx2, #64748b);
+  line-height: 1.6;
+  margin: 0 0 1.2rem;
+}
+
+.acerca-specialist-meta i {
+  color: var(--mco, #9e7b4f);
+  margin-right: 0.3rem;
+}
+
+.btn-acerca-consultar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--r_full);
+  background: #25d366;
+  color: #ffffff;
+  font-family: var(--ff_P);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.btn-acerca-consultar:hover {
+  background: #1eb855;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+/* ── MÉTRICAS DE TRAYECTORIA ── */
 .acerca-stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--brd);
+  gap: 1.2rem;
+  margin-top: 1.8rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--brd, #e2e8f0);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .acerca-stats-row {
     grid-template-columns: 1fr;
     gap: 0.8rem;
@@ -53,225 +120,157 @@
 }
 
 .acerca-stat-card {
-  background: var(--mbg);
-  border: 1px solid var(--border-accent);
-  border-radius: var(--r_m, 1vh);
-  padding: 1.1rem 1rem;
+  background: var(--mbg, #fdfbf7);
+  border: 1px solid var(--border-accent, #e6d8c3);
+  border-radius: var(--r_m, 12px);
+  padding: 1.2rem 1rem;
   text-align: center;
 }
 
 .acerca-stat-num {
   font-family: var(--ff_O);
-  font-size: 1.8rem;
+  font-size: 1.85rem;
   font-weight: 800;
-  color: var(--mco);
+  color: var(--mco, #9e7b4f);
   line-height: 1;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .acerca-stat-label {
-  font-size: 0.78rem;
+  font-family: var(--ff_P);
+  font-size: 0.76rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--tx2);
+  color: var(--tx2, #64748b);
   letter-spacing: 0.04em;
 }
 
-/* Fotos institucionales */
-.acerca-photos-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.2rem;
-  position: relative;
-}
-
-.acerca-photo-item {
-  border-radius: var(--r_l, 1.5vh);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--border-card);
-  background: var(--wb);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.acerca-photo-item:hover {
-  transform: translateY(-4px);
-  border-color: var(--mco);
-}
-
-.acerca-photo-item img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-}
-
-.acerca-photo-caption {
-  padding: 0.85rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: var(--fz_s3);
-  font-weight: 600;
-  color: var(--tx);
-  background: var(--wb);
-  border-top: 1px solid var(--brd);
-}
-
-.acerca-photo-caption i {
-  color: var(--mco);
-  font-size: 1rem;
-}
-
-/* 2. Sección Pilares */
-.acerca-pilares-section {
-  margin-bottom: 5vh;
-}
-
-.acerca-section-subtitle {
-  text-align: center;
-  font-family: var(--ff_O);
-  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
-  font-weight: 800;
-  color: var(--tx);
-  margin-bottom: 3vh;
-}
-
+/* ── PILARES INNEGOCIABLES GRID ── */
 .acerca-pilares-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 1.4rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 680px) {
   .acerca-pilares-grid {
     grid-template-columns: 1fr;
   }
 }
 
-.acerca-pilar-card {
-  background: var(--wb);
-  border: 1px solid var(--border-card);
-  border-radius: var(--r_l, 1.5vh);
-  padding: 1.8rem;
-  display: flex;
-  gap: 1.3rem;
-  align-items: flex-start;
-  transition: all 0.25s ease;
+.acerca-pilar-item {
+  background: var(--inp, #f8fafc);
+  border: 1px solid var(--brd, #e2e8f0);
+  border-radius: var(--r_m, 12px);
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
-.acerca-pilar-card:hover {
-  border-color: var(--mco);
-  box-shadow: var(--shadow-hover);
+.acerca-pilar-item:hover {
+  border-color: var(--mco, #9e7b4f);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-.acerca-pilar-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--r_m, 1vh);
-  background: var(--mbg);
-  color: var(--mco);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  flex-shrink: 0;
-}
-
-.acerca-pilar-title {
+.acerca-pilar-num {
   font-family: var(--ff_O);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--tx);
-  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--mco, #9e7b4f);
+  margin-bottom: 0.6rem;
 }
 
-.acerca-pilar-desc {
-  font-size: 0.92rem;
-  color: var(--tx2);
-  line-height: 1.6;
+.acerca-pilar-item h4 {
+  font-family: var(--ff_O);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tx, #0f172a);
+  margin: 0 0 0.5rem;
+}
+
+.acerca-pilar-item p {
+  font-family: var(--ff_P);
+  font-size: 0.88rem;
+  color: var(--tx2, #64748b);
+  line-height: 1.55;
   margin: 0;
 }
 
-/* 3. Misión, Visión y Valores */
-.acerca-mv-grid {
+/* ── VALORES GRID ── */
+.acerca-valores-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 4vh;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
 @media (max-width: 768px) {
-  .acerca-mv-grid {
-    grid-template-columns: 1fr;
+  .acerca-valores-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.acerca-mv-card {
-  background: var(--wb);
-  border: 1px solid var(--border-card);
-  border-radius: var(--r_l, 1.5vh);
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.acerca-mv-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--mco);
-}
-
-.acerca-mv-card h3 {
-  font-family: var(--ff_O);
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--tx);
-  margin-bottom: 0.6rem;
+.acerca-valor-card {
+  background: var(--inp, #f8fafc);
+  border: 1px solid var(--brd, #e2e8f0);
+  border-radius: var(--r_m, 12px);
+  padding: 1.2rem;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 0.6rem;
 }
 
-.acerca-mv-card p {
-  color: var(--tx2);
-  line-height: 1.6;
-  font-size: 0.94rem;
-  margin: 0;
+.acerca-valor-card i {
+  font-size: 1.5rem;
+  color: var(--mco, #9e7b4f);
 }
 
-.acerca-valores-box {
-  background: var(--wb);
-  border: 1px solid var(--border-card);
-  border-radius: var(--r_l, 1.5vh);
-  padding: 1.8rem 2.2rem;
+.acerca-valor-card strong {
+  font-family: var(--ff_P);
+  font-size: 0.86rem;
+  color: var(--tx, #0f172a);
+}
+
+/* ── FOTOS GRID DE SEDE ── */
+.acerca-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 640px) {
+  .acerca-photos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.acerca-photo-item {
+  border-radius: var(--r_m, 12px);
+  overflow: hidden;
+  border: 1px solid var(--border-card, #e2e8f0);
+  background: var(--wb, #ffffff);
+  box-shadow: var(--shadow-card);
+}
+
+.acerca-photo-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.acerca-photo-caption {
+  padding: 0.8rem 1rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.acerca-valores-list {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.acerca-valor-chip {
-  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1.1rem;
-  background: var(--mbg);
-  border: 1px solid var(--border-accent);
-  border-radius: var(--r_full);
-  font-size: 0.88rem;
+  font-family: var(--ff_P);
+  font-size: 0.82rem;
   font-weight: 600;
-  color: var(--mco);
+  color: var(--tx, #0f172a);
+  background: var(--wb, #ffffff);
+  border-top: 1px solid var(--brd, #e2e8f0);
 }

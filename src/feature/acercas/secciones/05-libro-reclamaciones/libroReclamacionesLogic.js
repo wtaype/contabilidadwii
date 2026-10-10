@@ -1,9 +1,12 @@
 // src/feature/acercas/secciones/05-libro-reclamaciones/libroReclamacionesLogic.js
-// Lógica de Persistencia y Despacho Legal para el Libro de Reclamaciones
+// Lógica de Persistencia y Despacho Legal para el Libro de Reclamaciones (Estudio Cusihuaman)
+// Conforme a INDECOPI: Ley N° 29571 y Ley N° 31435 (Plazo improrrogable de 15 días hábiles)
+
 import { datosNegocio } from '../../../../negocio.js';
 
-const CLOUDFLARE_CORREO_ENDPOINT = 'https://gaswii-correo.lourdesinformatica10.workers.dev/enviar';
-const FIRESTORE_BASE = 'https://firestore.googleapis.com/v1/projects/gaswii/databases/(default)/documents';
+const FIRESTORE_PROJECT_ID = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'contabilidadwii';
+const FIRESTORE_BASE = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents`;
+const CLOUDFLARE_CORREO_ENDPOINT = 'https://contabilidad-correo.lourdesinformatica10.workers.dev/enviar';
 
 /**
  * Guarda la reclamación en Firestore (colección 'reclamaciones') y en caché local
@@ -14,7 +17,7 @@ export async function guardarReclamoFirestore(reclamo) {
     const listRaw = localStorage.getItem('wiReclamaciones');
     const lista = listRaw ? JSON.parse(listRaw) : [];
     lista.unshift(reclamo);
-    localStorage.setItem('wiReclamaciones', JSON.stringify(lista.slice(0, 10)));
+    localStorage.setItem('wiReclamaciones', JSON.stringify(lista.slice(0, 15)));
   } catch (e) {}
 
   // 2. Guardar en Firestore REST API
@@ -31,15 +34,16 @@ export async function guardarReclamoFirestore(reclamo) {
       email: { stringValue: reclamo.email || '' },
       direccion: { stringValue: reclamo.direccion || '' },
       apoderado: { stringValue: reclamo.apoderado || '' },
-      tipoBien: { stringValue: reclamo.tipoBien || 'Producto' },
+      tipoBien: { stringValue: reclamo.tipoBien || 'Servicio' },
       monto: { stringValue: String(reclamo.monto || '0.00') },
       descBien: { stringValue: reclamo.descBien || '' },
       tipoReclamacion: { stringValue: reclamo.tipoReclamacion || 'Reclamo' },
       detalle: { stringValue: reclamo.detalle || '' },
       pedido: { stringValue: reclamo.pedido || '' },
       estado: { stringValue: 'pendiente' },
-      proveedorRuc: { stringValue: datosNegocio.ruc },
-      proveedorRazon: { stringValue: datosNegocio.razonSocial }
+      plazoLegal: { stringValue: '15 días hábiles (Ley N° 31435)' },
+      proveedorRuc: { stringValue: datosNegocio.ruc || '10414732151' },
+      proveedorRazon: { stringValue: datosNegocio.razonSocial || 'CPC Lourdes Cusihuaman Gálvez' }
     };
 
     const res = await fetch(`${FIRESTORE_BASE}/reclamaciones?documentId=${docId}`, {
@@ -62,43 +66,47 @@ export async function enviarConfirmacionCorreo(reclamo) {
   if (!reclamo.email) return;
 
   try {
-    const asunto = `📋 Hoja de Reclamación ${reclamo.codigoHR} · ${datosNegocio.nombre}`;
+    const asunto = `📋 Hoja de Reclamación ${reclamo.codigoHR} · Estudio Contable Cusihuaman`;
     const html = `
-      <div style="font-family:'Segoe UI',sans-serif; max-width:620px; margin:0 auto; padding:24px; border:1px solid #e2e8f0; border-radius:12px; background:#ffffff;">
-        <div style="background:#ea580c; padding:16px 20px; border-radius:8px 8px 0 0; color:#ffffff;">
-          <h2 style="margin:0; font-size:1.3rem;">LIBRO DE RECLAMACIONES VIRTUAL</h2>
-          <p style="margin:4px 0 0; font-size:0.85rem; opacity:0.9;">${datosNegocio.razonSocial} · RUC ${datosNegocio.ruc}</p>
+      <div style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; max-width:620px; margin:0 auto; padding:24px; border:1px solid #e2e8f0; border-radius:12px; background:#ffffff;">
+        <div style="background:#9e7b4f; padding:18px 22px; border-radius:8px 8px 0 0; color:#ffffff;">
+          <h2 style="margin:0; font-size:1.3rem; letter-spacing:0.02em;">LIBRO DE RECLAMACIONES VIRTUAL</h2>
+          <p style="margin:4px 0 0; font-size:0.85rem; opacity:0.95;">${datosNegocio.nombre || 'CPC Lourdes Cusihuaman Gálvez'} · Sede Jr. Dante 260, Surquillo, Lima</p>
         </div>
-        <div style="padding:20px; color:#334155; font-size:0.95rem; line-height:1.6;">
+        <div style="padding:22px; color:#334155; font-size:0.95rem; line-height:1.6;">
           <p>Estimado(a) <strong>${reclamo.nombre}</strong>,</p>
-          <p>Le confirmamos que su <strong>${reclamo.tipoReclamacion.toUpperCase()}</strong> ha sido ingresado(a) con éxito en nuestro sistema conforme a las disposiciones del Código de Protección y Defensa del Consumidor de INDECOPI.</p>
+          <p>Le confirmamos que su <strong>${reclamo.tipoReclamacion.toUpperCase()}</strong> ha sido ingresado(a) formalmente en nuestro sistema en cumplimiento del Código de Protección y Defensa del Consumidor de INDECOPI (Ley N° 29571).</p>
           
-          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin:20px 0;">
-            <p style="margin:0; font-size:1.1rem; font-weight:bold; color:#ea580c;">Código: ${reclamo.codigoHR}</p>
-            <p style="margin:6px 0 0; font-size:0.85rem; color:#64748b;">Fecha de Registro: ${reclamo.fechaTexto}</p>
-            <hr style="border:none; border-top:1px solid #e2e8f0; margin:12px 0;" />
-            <p style="margin:0; font-size:0.9rem;"><strong>Tipo:</strong> ${reclamo.tipoReclamacion}</p>
-            <p style="margin:4px 0 0; font-size:0.9rem;"><strong>Bien Afectado:</strong> ${reclamo.tipoBien} (${reclamo.descBien})</p>
-            <p style="margin:6px 0 0; font-size:0.88rem; color:#475569;"><strong>Detalle:</strong> ${reclamo.detalle}</p>
-            <p style="margin:6px 0 0; font-size:0.88rem; color:#0f172a;"><strong>Pedido Solicitado:</strong> ${reclamo.pedido}</p>
+          <div style="background:#fdfbf7; border:1px solid #e6d8c3; border-radius:8px; padding:18px; margin:20px 0;">
+            <p style="margin:0; font-size:1.15rem; font-weight:bold; color:#9e7b4f;">Código Oficial: ${reclamo.codigoHR}</p>
+            <p style="margin:6px 0 0; font-size:0.85rem; color:#64748b;">Fecha y Hora de Registro: ${reclamo.fechaTexto}</p>
+            <hr style="border:none; border-top:1px solid #e2e8f0; margin:14px 0;" />
+            <p style="margin:0; font-size:0.9rem;"><strong>Tipo:</strong> ${reclamo.tipoReclamacion} (${reclamo.tipoReclamacion === 'Reclamo' ? 'Disconformidad con el servicio contable' : 'Queja sobre atención'})</p>
+            <p style="margin:6px 0 0; font-size:0.9rem;"><strong>Servicio / Prestación:</strong> ${reclamo.tipoBien} - ${reclamo.descBien}</p>
+            ${reclamo.monto && reclamo.monto !== '0.00' ? `<p style="margin:4px 0 0; font-size:0.9rem;"><strong>Monto Reclamado:</strong> S/ ${reclamo.monto}</p>` : ''}
+            <p style="margin:8px 0 0; font-size:0.88rem; color:#475569;"><strong>Detalle Expuesto:</strong> ${reclamo.detalle}</p>
+            <p style="margin:6px 0 0; font-size:0.88rem; color:#0f172a;"><strong>Solución Solicitada:</strong> ${reclamo.pedido}</p>
           </div>
 
-          <p style="font-size:0.88rem; color:#059669; font-weight:600;">
-            ⚖️ Conforme a la Ley N° 31435, le brindaremos respuesta motivada en un plazo máximo e improrrogable de 15 días hábiles.
-          </p>
+          <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:8px; padding:12px 16px; margin:16px 0;">
+            <p style="font-size:0.9rem; color:#065f46; font-weight:600; margin:0;">
+              ⚖️ Plazo Legal Obligatorio (Ley N° 31435): Le brindaremos respuesta formal debidamente motivada en un plazo máximo e improrrogable de 15 días hábiles a su correo electrónico.
+            </p>
+          </div>
           
-          <p style="font-size:0.85rem; color:#64748b; margin-top:20px;">
+          <p style="font-size:0.85rem; color:#64748b; margin-top:22px;">
             Atentamente,<br />
-            <strong>${datosNegocio.nombre}</strong><br />
-            ${datosNegocio.direccionSede}<br />
-            Central: ${datosNegocio.telefonoMostrado}
+            <strong>${datosNegocio.nombre || 'CPC Lourdes Cusihuaman Gálvez'}</strong><br />
+            Asesoría Contable y Tributaria SUNAT<br />
+            Jr. Dante 260, Surquillo · Lima, Perú<br />
+            Central Telefónica: ${datosNegocio.telefonoMostrado || '987 594 558'}
           </p>
         </div>
       </div>
     `;
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 7000);
+    const timeout = setTimeout(() => controller.abort(), 6000);
 
     await fetch(CLOUDFLARE_CORREO_ENDPOINT, {
       method: 'POST',
@@ -109,7 +117,7 @@ export async function enviarConfirmacionCorreo(reclamo) {
         para: reclamo.email,
         nombre: reclamo.nombre,
         asunto,
-        resumen: `Hoja de Reclamación ${reclamo.codigoHR} registrada en Solgas Surquillo.`,
+        resumen: `Hoja de Reclamación ${reclamo.codigoHR} registrada en Estudio Cusihuaman.`,
         html
       })
     });

@@ -1,6 +1,7 @@
 /* ==========================================================================
-   SECCIÓN 05-LIBRO DE RECLAMACIONES (CSS HIJO) - GASWII
-   Formulario oficial normativo INDECOPI y comprobante descargable/imprimible
+   SECCIÓN 05: LIBRO DE RECLAMACIONES (CSS HIJO) - ESTUDIO CUSIHUAMAN
+   Formulario normativo INDECOPI (Leyes N° 29571 y 31435) con Stepper de 4 Pasos
+   100% Integrado con witema.css · Tipografía Poppins y Outfit
    ========================================================================== */
 
 .reclamos-container {
@@ -8,15 +9,15 @@
   margin: 0 auto;
 }
 
-/* Ficha del Proveedor */
+/* ── 1. FICHA OFICIAL DEL PROVEEDOR ── */
 .reclamos-proveedor-card {
-  background: var(--bg-surface, #ffffff);
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
-  border-left: 5px solid var(--cl-orange, #ea580c);
-  border-radius: 1.15rem;
+  background: var(--wb, #ffffff);
+  border: 1px solid var(--border-card, #e2e8f0);
+  border-left: 5px solid var(--mco, #9e7b4f);
+  border-radius: var(--r_l, 16px);
   padding: 1.6rem 2rem;
-  margin-bottom: 3.5vh;
-  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+  margin-bottom: 3vh;
+  box-shadow: var(--shadow-card);
 }
 
 .reclamos-proveedor-grid {
@@ -34,22 +35,133 @@
 }
 
 .reclamos-proveedor-item {
-  color: var(--text-muted, #64748b);
+  color: var(--tx2, #64748b);
+  font-family: var(--ff_P);
 }
 
 .reclamos-proveedor-item strong {
-  color: var(--text-bright, #0f172a);
-  margin-right: 0.3rem;
+  color: var(--tx, #0f172a);
+  margin-right: 0.35rem;
 }
 
-/* Secciones del Formulario */
-.reclamos-form-card {
-  background: var(--bg-surface, #ffffff);
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
-  border-radius: 1.25rem;
-  padding: 2.2rem;
+/* ── 2. STEPPER DE 4 PASOS (BARRA DE PROGRESO INTERACTIVA) ── */
+.reclamos-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--wb, #ffffff);
+  border: 1px solid var(--border-card, #e2e8f0);
+  border-radius: var(--r_l, 16px);
+  padding: 1.4rem 2rem;
   margin-bottom: 2.5rem;
-  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow-x: auto;
+  gap: 0.8rem;
+}
+
+.reclamos-step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: default;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.reclamos-step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ff_O);
+  font-weight: 700;
+  font-size: 0.95rem;
+  background: var(--inp, #f1f5f9);
+  color: var(--tx2, #64748b);
+  border: 2px solid var(--brd, #e2e8f0);
+  transition: all 0.25s ease;
+}
+
+.reclamos-step-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.reclamos-step-title {
+  font-family: var(--ff_O);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--tx2, #64748b);
+  transition: color 0.2s ease;
+}
+
+.reclamos-step-sub {
+  font-family: var(--ff_P);
+  font-size: 0.75rem;
+  color: var(--tx3, #94a3b8);
+}
+
+.reclamos-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--brd, #e2e8f0);
+  margin: 0 0.8rem;
+  min-width: 24px;
+  transition: background 0.3s ease;
+}
+
+/* Estados del Stepper */
+.reclamos-step-item.active .reclamos-step-circle {
+  background: var(--mco, #9e7b4f);
+  color: var(--txa, #ffffff);
+  border-color: var(--mco, #9e7b4f);
+  box-shadow: 0 0 0 4px var(--mbg, rgba(158, 123, 79, 0.15));
+}
+
+.reclamos-step-item.active .reclamos-step-title {
+  color: var(--mco, #9e7b4f);
+}
+
+.reclamos-step-item.completed .reclamos-step-circle {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.reclamos-step-item.completed .reclamos-step-title {
+  color: var(--tx, #0f172a);
+}
+
+.reclamos-step-line.completed {
+  background: #10b981;
+}
+
+/* ── 3. PANES DE PASO (STEP PANES) ── */
+.reclamos-step-pane {
+  display: none;
+  animation: reclamosFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reclamos-step-pane.active {
+  display: block;
+}
+
+@keyframes reclamosFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tarjeta del formulario */
+.reclamos-form-card {
+  background: var(--wb, #ffffff);
+  border: 1px solid var(--border-card, #e2e8f0);
+  border-radius: var(--r_l, 16px);
+  padding: 2.2rem 2.4rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-card);
 }
 
 .reclamos-form-header {
@@ -58,19 +170,19 @@
   gap: 0.8rem;
   margin-bottom: 1.6rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+  border-bottom: 1px solid var(--brd, #e2e8f0);
 }
 
 .reclamos-form-header i {
-  color: var(--cl-orange, #ea580c);
-  font-size: 1.3rem;
+  color: var(--mco, #9e7b4f);
+  font-size: 1.35rem;
 }
 
 .reclamos-form-header h2 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.25rem;
+  font-family: var(--ff_O);
+  font-size: 1.3rem;
   font-weight: 700;
-  color: var(--text-bright, #0f172a);
+  color: var(--tx, #0f172a);
   margin: 0;
 }
 
@@ -97,33 +209,33 @@
 }
 
 .reclamos-field-box label {
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.85rem;
+  font-family: var(--ff_P);
+  font-size: 0.86rem;
   font-weight: 600;
-  color: var(--text-bright, #0f172a);
+  color: var(--tx, #0f172a);
 }
 
 .reclamos-input,
 .reclamos-select,
 .reclamos-textarea {
   width: 100%;
-  padding: 0.85rem 1.1rem;
-  border-radius: 0.85rem;
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.15));
-  background: var(--bg-surface, #ffffff);
-  color: var(--text-bright, #0f172a);
-  font-family: 'Poppins', sans-serif;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: var(--inp, #f8fafc);
+  border: 1px solid var(--brd, #cbd5e1);
+  color: var(--tx, #0f172a);
+  font-family: var(--ff_P);
   font-size: 0.92rem;
   box-sizing: border-box;
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .reclamos-input:focus,
 .reclamos-select:focus,
 .reclamos-textarea:focus {
   outline: none;
-  border-color: var(--cl-orange, #ea580c);
-  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+  border-color: var(--mco, #9e7b4f);
+  box-shadow: 0 0 0 3px var(--mbg, rgba(158, 123, 79, 0.12));
 }
 
 .reclamos-textarea {
@@ -131,14 +243,15 @@
   resize: vertical;
 }
 
-/* Radio Tiles Especiales */
+/* Radio Tiles para Bien y Reclamo/Queja */
 .reclamos-radio-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  margin-top: 0.25rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .reclamos-radio-group {
     grid-template-columns: 1fr;
   }
@@ -148,100 +261,142 @@
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  padding: 1.1rem;
-  border-radius: 0.85rem;
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.12));
-  background: var(--bg-surface, #ffffff);
+  padding: 1.1rem 1.2rem;
+  border-radius: 10px;
+  border: 1px solid var(--brd, #cbd5e1);
+  background: var(--inp, #f8fafc);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .reclamos-radio-tile:hover {
-  border-color: var(--cl-orange, #ea580c);
+  border-color: var(--mco, #9e7b4f);
 }
 
 .reclamos-radio-tile input[type="radio"] {
-  accent-color: var(--cl-orange, #ea580c);
-  margin-top: 0.2rem;
+  margin-top: 3px;
+  accent-color: var(--mco, #9e7b4f);
+}
+
+.reclamos-radio-tile:has(input[type="radio"]:checked) {
+  border-color: var(--mco, #9e7b4f);
+  background: var(--mbg, rgba(158, 123, 79, 0.08));
+  box-shadow: 0 2px 8px var(--mbg, rgba(158, 123, 79, 0.1));
 }
 
 .reclamos-radio-content strong {
   display: block;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.95rem;
-  color: var(--text-bright, #0f172a);
+  font-family: var(--ff_O);
+  font-size: 0.92rem;
+  color: var(--tx, #0f172a);
   margin-bottom: 0.2rem;
 }
 
 .reclamos-radio-content span {
-  font-size: 0.8rem;
-  color: var(--text-muted, #64748b);
-  line-height: 1.4;
   display: block;
+  font-family: var(--ff_P);
+  font-size: 0.8rem;
+  color: var(--tx2, #64748b);
+  line-height: 1.4;
 }
 
-/* Checkbox Declaración */
+/* Checkbox Legal */
 .reclamos-checkbox-box {
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  padding: 1.2rem;
-  border-radius: 0.85rem;
-  background: rgba(2, 43, 73, 0.04);
-  border: 1px solid rgba(2, 43, 73, 0.1);
-  margin: 1.5rem 0;
-  font-size: 0.85rem;
-  color: var(--text-muted, #64748b);
-  line-height: 1.6;
+  padding: 1.1rem;
+  border-radius: 10px;
+  background: var(--inp, #f8fafc);
+  border: 1px solid var(--brd, #cbd5e1);
+  margin-top: 1.6rem;
 }
 
 .reclamos-checkbox-box input[type="checkbox"] {
-  accent-color: var(--cl-orange, #ea580c);
-  margin-top: 0.25rem;
+  margin-top: 3px;
+  accent-color: var(--mco, #9e7b4f);
+  width: 18px;
+  height: 18px;
 }
 
-/* Botón Submit */
-.btn-reclamos-submit {
-  width: 100%;
-  padding: 1.1rem 2rem;
-  border-radius: 999px;
-  background: var(--cl-orange, #ea580c);
-  color: #ffffff;
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  border: none;
+.reclamos-checkbox-box label {
+  font-family: var(--ff_P);
+  font-size: 0.84rem;
+  color: var(--tx2, #64748b);
+  line-height: 1.5;
   cursor: pointer;
+}
+
+/* ── 4. BOTONES DE ACCIÓN DEL STEPPER ── */
+.reclamos-step-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
-  transition: all 0.25s ease;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--brd, #e2e8f0);
 }
 
-.btn-reclamos-submit:hover {
-  background: #c2410c;
+.btn-step-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: var(--r_full);
+  font-family: var(--ff_P);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-step-nav.next {
+  background: var(--mco, #9e7b4f);
+  color: var(--txa, #ffffff);
+  margin-left: auto;
+}
+
+.btn-step-nav.next:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.45);
+  filter: brightness(1.1);
+  box-shadow: 0 4px 14px var(--mbg, rgba(158, 123, 79, 0.25));
 }
 
-.btn-reclamos-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+.btn-step-nav.prev {
+  background: var(--wb, #ffffff);
+  color: var(--tx, #0f172a);
+  border: 1px solid var(--brd, #cbd5e1);
 }
 
-/* Ficha de Confirmación Exitosa */
+.btn-step-nav.prev:hover {
+  border-color: var(--mco, #9e7b4f);
+  color: var(--mco, #9e7b4f);
+}
+
+.btn-step-nav.submit {
+  background: #10b981;
+  color: #ffffff;
+  margin-left: auto;
+}
+
+.btn-step-nav.submit:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+}
+
+/* ── 5. FICHA DE ÉXITO / COMPROBANTE FINAL (PASO 4) ── */
 .reclamos-success-box {
   display: none;
-  background: var(--bg-surface, #ffffff);
-  border: 2px solid var(--cl-emerald, #059669);
-  border-radius: 1.5rem;
-  padding: 3rem 2.5rem;
+  background: var(--wb, #ffffff);
+  border: 1px solid var(--border-card, #e2e8f0);
+  border-radius: var(--r_l, 16px);
+  padding: 2.8rem 2.2rem;
   text-align: center;
-  box-shadow: 0 10px 30px -5px rgba(5, 150, 105, 0.15);
-  margin-bottom: 5vh;
+  box-shadow: var(--shadow-card);
+  animation: reclamosFadeIn 0.3s ease;
 }
 
 .reclamos-success-box.visible {
@@ -249,33 +404,32 @@
 }
 
 .reclamos-success-icon {
-  width: 72px;
-  height: 72px;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 1.4rem;
   border-radius: 50%;
-  background: rgba(5, 150, 105, 0.1);
-  color: var(--cl-emerald, #059669);
-  font-size: 2.2rem;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1.5rem;
+  font-size: 2.2rem;
 }
 
 .reclamos-codigo-badge {
   display: inline-block;
-  font-family: monospace;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--cl-orange, #ea580c);
-  background: rgba(234, 88, 12, 0.08);
-  border: 2px dashed var(--cl-orange, #ea580c);
   padding: 0.6rem 1.6rem;
-  border-radius: 0.85rem;
-  margin: 1.2rem 0;
-  letter-spacing: 0.05em;
+  background: var(--mbg, #fdfbf7);
+  border: 2px dashed var(--mco, #9e7b4f);
+  border-radius: 10px;
+  color: var(--mco, #9e7b4f);
+  font-family: var(--ff_O);
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: 0.04em;
+  margin: 0.6rem 0 1.2rem;
 }
 
-/* Opciones de Impresión */
 @media print {
   body * {
     visibility: hidden;

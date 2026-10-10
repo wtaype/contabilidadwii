@@ -11,14 +11,14 @@
   },
   "comun": {
     "volver_inicio": "Volver al Inicio",
-    "distribuidor_oficial": "Distribuidor Oficial Autorizado",
-    "sede_oficial": "Sede Central Surquillo, Lima",
+    "distribuidor_oficial": "Estudio Contable y Asesoría Tributaria",
+    "sede_oficial": "Sede Jr. Dante 260, Surquillo, Lima",
     "actualizado": "Última actualización:",
-    "garantia_seguridad": "Garantía de Seguridad y Balanza Calibrada",
-    "ayuda_titulo": "¿Necesitas atención o consultar un pedido?",
-    "ayuda_desc": "Nuestro equipo de atención al cliente en Surquillo está disponible de lunes a domingo.",
+    "garantia_seguridad": "Colegiada CPC y Ex-orientadora SUNAT",
+    "ayuda_titulo": "¿Necesitas una consulta contable o tributaria?",
+    "ayuda_desc": "Nuestro equipo contable en Surquillo está listo para evaluar tu situación ante SUNAT y proteger tu negocio.",
     "btn_whatsapp": "Chatear por WhatsApp",
     "btn_llamar": "Llamar a Central",
-    "btn_volver": "Ir al Catálogo"
+    "btn_volver": "Ver Servicios Contables"
   }
 }

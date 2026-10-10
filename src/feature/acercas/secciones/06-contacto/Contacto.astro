@@ -23,8 +23,8 @@ const telMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
 const wsNumero = datosNegocio.whatsapp;
 const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(
   idioma === 'en'
-    ? `Hello ${datosNegocio.nombre}, I want to request a cylinder delivery.`
-    : `Hola ${datosNegocio.nombre}, deseo solicitar un balón de gas con balanza digital.`
+    ? `Hello CPC Lourdes, I would like to consult regarding your accounting and tax services.`
+    : `Hola CPC Lourdes, deseo consultar sobre sus servicios contables y tributarios.`
 )}`;
 
 const mapsUrl = datosNegocio.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(datosNegocio.direccionSede + ' ' + datosNegocio.distritoSede)}`;
@@ -127,7 +127,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
           </div>
           <div class="contacto-actions-row">
             <span class="cookie-type-pill" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
-              <i class="fa-solid fa-shield-check color-emerald"></i> Atención 365 días
+              <i class="fa-solid fa-calendar-check color-emerald"></i> Previa Cita & Modalidad Online
             </span>
           </div>
         </article>
@@ -137,7 +137,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
       <!-- Distritos de Cobertura -->
       <section class="contacto-distritos-box">
         <h3>
-          <i class="fa-solid fa-motorcycle color-primary"></i>
+          <i class="fa-solid fa-laptop-file color-primary"></i>
           {t.distritos_titulo}
         </h3>
         <div class="contacto-distritos-chips">

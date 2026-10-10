@@ -4,21 +4,21 @@
     "terminos": "Terms",
     "privacidad": "Privacy",
     "cookies": "Cookies",
-    "libro_reclamaciones": "Claims Book",
+    "libro_reclamaciones": "Complaints Book",
     "contacto": "Contact",
     "redes": "Social Media",
     "feedback": "Feedback"
   },
   "comun": {
     "volver_inicio": "Back to Home",
-    "distribuidor_oficial": "Official Authorized Distributor",
-    "sede_oficial": "Headquarters in Surquillo, Lima",
+    "distribuidor_oficial": "Certified Accounting & Tax Advisory Firm",
+    "sede_oficial": "Headquarters: Jr. Dante 260, Surquillo, Lima",
     "actualizado": "Last updated:",
-    "garantia_seguridad": "Safety Guarantee & Calibrated Scale",
-    "ayuda_titulo": "Need assistance or order inquiry?",
-    "ayuda_desc": "Our customer support team in Surquillo is available Monday to Sunday.",
-    "btn_whatsapp": "Chat via WhatsApp",
-    "btn_llamar": "Call Hotline",
-    "btn_volver": "View Catalog"
+    "garantia_seguridad": "Certified CPA & Former SUNAT Tax Officer",
+    "ayuda_titulo": "Do you need tax or accounting guidance?",
+    "ayuda_desc": "Our accounting team in Surquillo is ready to assess your tax situation with SUNAT.",
+    "btn_whatsapp": "Chat on WhatsApp",
+    "btn_llamar": "Call Office",
+    "btn_volver": "View Accounting Services"
   }
 }

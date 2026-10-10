@@ -1,6 +1,8 @@
 ---
 // src/feature/acercas/secciones/04-cookies/Cookies.astro
-// Sección 04: Política de Cookies y Almacenamiento Local-First
+// Sección 04: Política de Cookies y Almacenamiento Local-First (Estudio Cusihuaman)
+// Diseño Editorial en 2 Columnas (TOC Sticky + Artículos Técnicos Transparentes)
+
 import { datosNegocio } from '../../../../negocio.js';
 import { resolverIdiomaSeccion } from '../../idioma/idioma';
 import AcercasHeader from '../../componentes/AcercasHeader.astro';
@@ -19,11 +21,11 @@ const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.pro
 const t = resolverIdiomaSeccion({ es, en }, idioma);
 
 const itemsStorage = [
-  { clave: t.clave_1_nombre, desc: t.clave_1_desc, tipo: 'UI / Theme', duracion: t.duracion_permanente },
-  { clave: t.clave_2_nombre, desc: t.clave_2_desc, tipo: 'Auth / VIP', duracion: t.duracion_permanente },
-  { clave: t.clave_3_nombre, desc: t.clave_3_desc, tipo: 'Delivery / GPS', duracion: t.duracion_permanente },
-  { clave: t.clave_4_nombre, desc: t.clave_4_desc, tipo: 'Cache / Speed', duracion: t.duracion_sesion },
-  { clave: t.clave_5_nombre, desc: t.clave_5_desc, tipo: 'Helpdesk', duracion: t.duracion_sesion }
+  { clave: t.clave_1_nombre, desc: t.clave_1_desc, tipo: 'UI / Preferencias', duracion: t.duracion_permanente },
+  { clave: t.clave_2_nombre, desc: t.clave_2_desc, tipo: 'Auth / Sesión Segura', duracion: t.duracion_permanente },
+  { clave: t.clave_3_nombre, desc: t.clave_3_desc, tipo: 'Caché / Servicios Contables', duracion: t.duracion_permanente },
+  { clave: t.clave_4_nombre, desc: t.clave_4_desc, tipo: 'CRM / Clientes', duracion: t.duracion_permanente },
+  { clave: t.clave_5_nombre, desc: t.clave_5_desc, tipo: 'Medios / Galería Oficial', duracion: t.duracion_permanente }
 ];
 ---
 
@@ -43,69 +45,122 @@ const itemsStorage = [
 
     <AcercasNav seccionActiva="cookies" idioma={idioma} />
 
-    <div class="cookies-container">
+    <!-- LAYOUT EDITORIAL EN 2 COLUMNAS -->
+    <div class="acercas-2col-layout">
 
-      <!-- 1. Que son y Nuestro Enfoque -->
-      <div class="cookies-intro-grid">
-        <div class="cookies-intro-card">
-          <h3><i class="fa-solid fa-circle-question color-primary"></i> {t.que_son_titulo}</h3>
-          <p>{t.que_son_desc}</p>
+      <!-- COLUMNA IZQUIERDA: SIDEBAR STICKY -->
+      <aside class="acercas-sidebar-sticky">
+        
+        <!-- Tabla de Contenido Sticky (TOC) -->
+        <nav class="acercas-toc-card" aria-label="Índice de Cookies">
+          <div class="acercas-toc-title">
+            <i class="fa-solid fa-laptop-code color-primary"></i>
+            <span>{idioma === 'en' ? 'Topics' : 'En Este Artículo'}</span>
+          </div>
+          <ul class="acercas-toc-list">
+            <li><a href="#que-son" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> ¿Qué es Local-First?</a></li>
+            <li><a href="#enfoque" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Cero Rastreadores</a></li>
+            <li><a href="#inventario" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Inventario de Claves</a></li>
+            <li><a href="#control" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Control y Limpieza</a></li>
+          </ul>
+        </nav>
+
+        <!-- Sello de Transparencia Tecnológica -->
+        <div class="acercas-quickcard">
+          <div class="acercas-quickcard-title">
+            <i class="fa-solid fa-shield-check color-primary"></i>
+            <span>Privacidad por Diseño</span>
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Sin Píxeles:</strong> 0 píxeles publicitarios de Facebook, Google Ads o trackers invasivos.
+          </div>
+          <div class="acercas-quickcard-item">
+            <strong>Velocidad Instantánea:</strong> Local-First para respuesta a 0ms en tu panel.
+          </div>
         </div>
 
-        <div class="cookies-intro-card">
-          <h3><i class="fa-solid fa-shield-halved color-emerald"></i> {t.nuestro_enfoque_titulo}</h3>
-          <p>{t.nuestro_enfoque_desc}</p>
-        </div>
-      </div>
+      </aside>
 
-      <!-- 2. Tabla de Inventario de Almacenamiento Local -->
-      <div class="cookies-table-box">
-        <h3><i class="fa-solid fa-table-list color-primary"></i> {t.tabla_titulo}</h3>
-        <table class="cookies-table">
-          <thead>
-            <tr>
-              <th>{t.col_clave}</th>
-              <th>{t.col_tipo}</th>
-              <th>{t.col_proposito}</th>
-              <th>{t.col_duracion}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {itemsStorage.map((item) => (
-              <tr>
-                <td><span class="cookie-key-badge">{item.clave}</span></td>
-                <td><span class="cookie-type-pill">{item.tipo}</span></td>
-                <td>{item.desc}</td>
-                <td>{item.duracion}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <!-- COLUMNA DERECHA: ARTÍCULOS TÉCNICOS TRANSPARENTES -->
+      <main class="acercas-article-container">
 
-      <!-- 3. Cómo controlar o borrar -->
-      <article class="acercas-card" style="margin-bottom: 3.5vh;">
-        <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.6rem;">
-          <i class="fa-solid fa-sliders color-primary" style="margin-right: 0.4rem;"></i>
-          {t.como_controlar_titulo}
-        </h3>
-        <p style="font-family: 'Poppins', sans-serif; font-size: 0.94rem; color: var(--text-muted); line-height: 1.7; margin: 0;">
-          {t.como_controlar_desc}
-        </p>
-      </article>
+        <!-- 1. ¿Qué son y Nuestro Enfoque? -->
+        <article class="acercas-article-card" id="que-son">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-circle-question color-primary"></i>
+              {t.que_son_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Tecnología Web</span>
+          </div>
+          <p class="acercas-article-p">{t.que_son_desc}</p>
+        </article>
 
-      <!-- Banner de Asistencia Directa Padre -->
-      <div class="acercas-help-banner">
-        <div class="acercas-help-info">
-          <h4>{t.comun.ayuda_titulo}</h4>
-          <p>{t.comun.ayuda_desc}</p>
-        </div>
-        <div class="acercas-help-actions">
-          <a href={`tel:${datosNegocio.telefonoLimpio}`} class="btn-acercas-action secondary">
-            <i class="fa-solid fa-phone"></i> {datosNegocio.telefonoMostrado}
-          </a>
-        </div>
-      </div>
+        <!-- 2. Nuestro Enfoque: Privacidad por Diseño -->
+        <article class="acercas-article-card" id="enfoque">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-shield-halved color-primary"></i>
+              {t.nuestro_enfoque_titulo}
+            </h2>
+            <span class="acercas-meta-tag">100% Ético</span>
+          </div>
+          <p class="acercas-article-p">{t.nuestro_enfoque_desc}</p>
+          <div class="acercas-callout">
+            <i class="fa-solid fa-check-double"></i>
+            <div>
+              <strong>Seguridad del Contribuyente:</strong> Toda la gestión de Clave SOL, comprobantes y clientes se ejecuta localmente en tu navegador sin enviar registros a brokers de datos publicitarios.
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Inventario de Almacenamiento Local -->
+        <article class="acercas-article-card" id="inventario">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-table-list color-primary"></i>
+              {t.tabla_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Inventario Técnico</span>
+          </div>
+
+          <div class="cookies-table-wrap" style="overflow-x: auto; margin-top: 1rem;">
+            <table class="cookies-table">
+              <thead>
+                <tr>
+                  <th>{t.col_clave}</th>
+                  <th>{t.col_tipo}</th>
+                  <th>{t.col_proposito}</th>
+                  <th>{t.col_duracion}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {itemsStorage.map((it) => (
+                  <tr>
+                    <td><code>{it.clave}</code></td>
+                    <td><span class="cookies-badge-tipo">{it.tipo}</span></td>
+                    <td>{it.desc}</td>
+                    <td><span class="cookies-duracion-txt">{it.duracion}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- 4. Cómo controlar o borrar estos datos -->
+        <article class="acercas-article-card" id="control">
+          <div class="acercas-article-head">
+            <h2 class="acercas-article-title">
+              <i class="fa-solid fa-trash-can color-primary"></i>
+              {t.como_controlar_titulo}
+            </h2>
+            <span class="acercas-meta-tag">Control Total</span>
+          </div>
+          <p class="acercas-article-p">{t.como_controlar_desc}</p>
+        </article>
+
+      </main>
 
     </div>
 

@@ -2,7 +2,7 @@
 export const id = 'contabilidadwii';
 export const app = 'Estudio Cusihuaman';
 export const by = '@wilder.taype';
-export const linkweb = 'https://contabilidadwii.com/';
+export const linkweb = 'https://lourdes.solgassurquillo.com/';
 export const linkme = 'https://wtaype.github.io/';
 export const version = 1.0;
 export const versionName = 'v1';

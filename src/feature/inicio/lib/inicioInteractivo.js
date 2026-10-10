@@ -5,69 +5,7 @@ import { imgwii } from '@widev';
 import { ROL_PATH } from '@core/rutas.js';
 import { obtenerSaludoHora } from './whatsapp.js';
 
-/**
- * Resuelve el destino del panel administrativo o de cliente
- */
-function resolverDestinoDashboard(smile) {
-  if (!smile) return '/login';
-  const isEn = window.location.pathname.startsWith('/en');
-  const rol = smile.rol || 'cliente';
-  const esStaff = rol === 'personal' || rol === 'gestor' || rol === 'admin';
-  const base = ROL_PATH[rol] || (esStaff ? '/personal' : '/cliente');
-  return isEn ? `/en${base}` : base;
-}
 
-/**
- * Actualiza la UI de autenticación en Header y MobileDrawer
- */
-export function actualizarAuthUi(smile) {
-  const btnLogin = document.getElementById('headerBtnLogin');
-  const userPerfil = document.getElementById('headerUserPerfil');
-  const userAvatar = document.getElementById('headerUserAvatar');
-  const userNombre = document.getElementById('headerUserNombre');
-  const userBadge = document.getElementById('headerUserBadge');
-  const perfilLink = document.getElementById('headerPerfilLink');
-
-  const drawerBtnLogin = document.getElementById('drawerBtnLogin');
-  const drawerUserPerfil = document.getElementById('drawerUserPerfil');
-  const drawerUserAvatar = document.getElementById('drawerUserAvatar');
-  const drawerUserNombre = document.getElementById('drawerUserNombre');
-  const drawerUserBadge = document.getElementById('drawerUserBadge');
-  const drawerPerfilLink = document.getElementById('drawerPerfilLink');
-
-  if (smile && (smile.uid || smile.nombre)) {
-    if (btnLogin) btnLogin.style.display = 'none';
-    if (userPerfil) userPerfil.style.display = 'flex';
-    if (drawerBtnLogin) drawerBtnLogin.style.display = 'none';
-    if (drawerUserPerfil) drawerUserPerfil.style.display = 'flex';
-
-    const foto = smile.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(smile.nombre || smile.usuario || 'VIP')}&background=ff6a00&color=fff&rounded=true`;
-    if (userAvatar) userAvatar.src = foto;
-    if (drawerUserAvatar) drawerUserAvatar.src = foto;
-
-    const nombreCorto = smile.nombre ? smile.nombre.split(' ')[0] : (smile.usuario || 'VIP');
-    if (userNombre) userNombre.textContent = nombreCorto;
-    if (drawerUserNombre) drawerUserNombre.textContent = nombreCorto;
-
-    const rol = smile.rol || 'cliente';
-    let rolBadge = smile.usuario ? `@${smile.usuario.replace('@', '')}` : 'VIP';
-    if (rol === 'gestor') rolBadge = 'Gestor';
-    else if (rol === 'admin') rolBadge = 'Admin';
-    else if (rol === 'personal') rolBadge = 'Personal';
-
-    if (userBadge) userBadge.textContent = rolBadge;
-    if (drawerUserBadge) drawerUserBadge.textContent = rolBadge;
-
-    const rutaDestino = resolverDestinoDashboard(smile);
-    if (perfilLink) perfilLink.href = rutaDestino;
-    if (drawerPerfilLink) drawerPerfilLink.href = rutaDestino;
-  } else {
-    if (btnLogin) btnLogin.style.display = 'inline-flex';
-    if (userPerfil) userPerfil.style.display = 'none';
-    if (drawerBtnLogin) drawerBtnLogin.style.display = 'flex';
-    if (drawerUserPerfil) drawerUserPerfil.style.display = 'none';
-  }
-}
 
 /**
  * Switcher de idiomas dinámico preservando ruta y anclas
@@ -236,21 +174,6 @@ export function initInicioInteractivo() {
   // 1. Activar lazy loading inteligente de imágenes
   imgwii.ver();
 
-  // 2. Reactividad de sesión en Header y Drawer
-  try {
-    const raw = localStorage.getItem('wiSmile');
-    if (raw) actualizarAuthUi(JSON.parse(raw));
-  } catch (e) {}
-
-  window.addEventListener('gaswii:auth-change', (e) => {
-    actualizarAuthUi(e.detail);
-  });
-
-  window.cerrarSesionHeader = async () => {
-    const { salir } = await import('@feature/auth/sesion.js');
-    await salir();
-    actualizarAuthUi(null);
-  };
 
   // 3. Switcher de idiomas
   initLanguageSwitcher();

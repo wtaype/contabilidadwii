@@ -121,24 +121,18 @@ const urlInicio = buildRuta('/', idioma);
         </button>
         <script is:inline>try{const t=document.documentElement.dataset.theme,i=document.getElementById('themeIcon');if(i&&t)i.className=t==='futuro'?'fa-solid fa-moon':'fa-solid fa-sun';}catch(e){}</script>
 
-        <!-- Contenedor Auth Desktop (Píldora Pro Directa) -->
+        <!-- Contenedor Auth Desktop (Opción A: 100% Autónomo y Rápido) -->
         <div id="headerAuthContainer" class="desktop-only header-auth-box">
-          <!-- Botón LOGIN -->
+          <!-- 1. Botón LOGIN (Se muestra si NO hay sesión) -->
           <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="header-btn-login" title="Iniciar Sesión o Registrarse">
             <i class="fa-solid fa-circle-user"></i> <span>{t.login}</span>
           </button>
 
-          <!-- Píldora Perfil Usuario (Se muestra automáticamente si hay wiSmile) -->
-          <div id="headerUserPerfil" class="header-user-card" data-idioma={idioma}>
-            <a href="/cliente" id="headerPerfilLink" class="header-user-link" title="Ir a mi panel">
-              <img id="headerUserAvatar" src="" alt="Avatar" class="header-user-avatar" />
-              <span id="headerUserNombre" class="header-user-name">Usuario</span>
-              <span id="headerUserBadge" class="header-user-badge">Cliente</span>
-            </a>
-            <button type="button" onclick="window.cerrarSesionHeader && window.cerrarSesionHeader()" title="Cerrar Sesión" class="header-btn-logout" aria-label="Cerrar Sesión">
-              <i class="fa-solid fa-right-from-bracket"></i>
-            </button>
-          </div>
+          <!-- 2. Botón USUARIO (Avatar + Nombre -> al hacer clic va a /personal o /cliente) -->
+          <a href="/cliente" id="headerUserBtn" class="header-user-btn" style="display: none;" title="Ir a mi panel">
+            <img id="headerUserAvatar" src="" alt="Avatar" class="header-user-avatar" />
+            <span id="headerUserNombre" class="header-user-name">Usuario</span>
+          </a>
         </div>
 
         <!-- Sincronización Inmediata Anti-FOUC (0ms) de Sesión wiSmile -->
@@ -148,66 +142,74 @@ const urlInicio = buildRuta('/', idioma);
               try {
                 const raw = localStorage.getItem('wiSmile');
                 const btnLogin = document.getElementById('headerBtnLogin');
-                const userPerfil = document.getElementById('headerUserPerfil');
-                const perfilLink = document.getElementById('headerPerfilLink');
+                const userBtn = document.getElementById('headerUserBtn');
                 const userAvatar = document.getElementById('headerUserAvatar');
                 const userNombre = document.getElementById('headerUserNombre');
-                const userBadge = document.getElementById('headerUserBadge');
 
                 const dBtnLogin = document.getElementById('drawerBtnLogin');
                 const dUserPerfil = document.getElementById('drawerUserPerfil');
                 const dPerfilLink = document.getElementById('drawerPerfilLink');
                 const dUserAvatar = document.getElementById('drawerUserAvatar');
                 const dUserNombre = document.getElementById('drawerUserNombre');
-                const dUserBadge = document.getElementById('drawerUserBadge');
 
                 if (!raw) {
                   if (btnLogin) btnLogin.style.display = 'inline-flex';
-                  if (userPerfil) userPerfil.style.display = 'none';
+                  if (userBtn) userBtn.style.display = 'none';
                   if (dBtnLogin) dBtnLogin.style.display = 'flex';
                   if (dUserPerfil) dUserPerfil.style.display = 'none';
                   return;
                 }
 
-                const u = JSON.parse(raw);
-                if (!u || (!u.uid && !u.nombre)) {
+                const parsed = JSON.parse(raw);
+                // Extraer el objeto real si está envuelto en { value, expiry } por @widev
+                const u = (parsed && typeof parsed === 'object' && parsed.value) ? parsed.value : parsed;
+
+                // Si tiene expiry y expiró, invalidar
+                if (parsed && parsed.expiry && Date.now() > parsed.expiry) {
+                  localStorage.removeItem('wiSmile');
                   if (btnLogin) btnLogin.style.display = 'inline-flex';
-                  if (userPerfil) userPerfil.style.display = 'none';
+                  if (userBtn) userBtn.style.display = 'none';
+                  return;
+                }
+
+                if (!u || (!u.uid && !u.nombre && !u.usuario)) {
+                  if (btnLogin) btnLogin.style.display = 'inline-flex';
+                  if (userBtn) userBtn.style.display = 'none';
                   return;
                 }
 
                 const rol = (u.rol || 'cliente').toLowerCase();
-                const esStaff = rol === 'personal' || rol === 'gestor' || rol === 'admin';
+                const esStaff = ['personal', 'gestor', 'admin'].includes(rol);
                 const baseDestino = esStaff ? '/personal' : '/cliente';
                 const isEn = location.pathname.startsWith('/en');
                 const rutaFinal = isEn ? `/en${baseDestino}` : baseDestino;
 
-                const primerNombre = (u.nombre || u.usuario || 'VIP').trim().split(' ')[0];
-                const foto = u.foto || `https://ui-avatars.com/api/?name=${encodeURIComponent(primerNombre)}&background=4f46e5&color=fff&rounded=true&bold=true`;
+                const primerNombre = (u.nombre || u.usuario || 'Usuario').trim().split(' ')[0];
+                const foto = u.avatar || u.foto || u.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(primerNombre)}&background=4f46e5&color=fff&rounded=true&bold=true`;
 
                 if (btnLogin) btnLogin.style.display = 'none';
-                if (userPerfil) userPerfil.style.display = 'inline-flex';
-                if (perfilLink) { perfilLink.href = rutaFinal; perfilLink.title = `Ir a ${esStaff ? 'Consola Personal' : 'Portal Clientes'}`; }
+                if (userBtn) {
+                  userBtn.href = rutaFinal;
+                  userBtn.title = `Ir a ${esStaff ? 'Consola Personal' : 'Portal Clientes'}`;
+                  userBtn.style.display = 'inline-flex';
+                }
                 if (userNombre) userNombre.textContent = primerNombre;
-                if (userAvatar) { userAvatar.src = foto; userAvatar.alt = primerNombre; }
-                if (userBadge) userBadge.textContent = esStaff ? (rol === 'admin' ? 'Admin' : (rol === 'gestor' ? 'Gestor' : 'Personal')) : 'Cliente';
+                if (userAvatar) {
+                  userAvatar.src = foto;
+                  userAvatar.alt = primerNombre;
+                }
 
+                // Sincronizar también Drawer Móvil
                 if (dBtnLogin) dBtnLogin.style.display = 'none';
                 if (dUserPerfil) dUserPerfil.style.display = 'flex';
                 if (dPerfilLink) dPerfilLink.href = rutaFinal;
                 if (dUserNombre) dUserNombre.textContent = primerNombre;
-                if (dUserAvatar) { dUserAvatar.src = foto; dUserAvatar.alt = primerNombre; }
-                if (dUserBadge) dUserBadge.textContent = esStaff ? 'Personal' : 'Cliente';
+                if (dUserAvatar) {
+                  dUserAvatar.src = foto;
+                  dUserAvatar.alt = primerNombre;
+                }
               } catch(e) {}
             }
-
-            window.cerrarSesionHeader = function() {
-              try {
-                localStorage.removeItem('wiSmile');
-              } catch(e) {}
-              const isEn = location.pathname.startsWith('/en');
-              window.location.href = isEn ? '/en' : '/';
-            };
 
             sincronizarAuth();
             document.addEventListener('astro:page-load', sincronizarAuth);

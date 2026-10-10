@@ -72,6 +72,12 @@ export function inicializarModuloClientes() {
     if (kpiMype) kpiMype.textContent = String(metricas.mype);
     if (kpiIndependientes) kpiIndependientes.textContent = String(metricas.independientes);
     if (kpiFacturacion) kpiFacturacion.textContent = `S/ ${metricas.facturacionMensual}`;
+
+    // Sincronizar badge dinámico en el sidebar de clientes
+    const badgeSidebar = document.getElementById('navBadge_clientes') || document.querySelector('[data-badge-target="clientes"]');
+    if (badgeSidebar) {
+      badgeSidebar.textContent = String(metricas.total);
+    }
   }
 
   function getClientesFiltrados() {

@@ -15,7 +15,7 @@ export const modulos = [
   { id: 'entradas',  nombre: 'Entradas',   icono: 'fa-solid fa-newspaper',          activo: true },
   { id: 'paginas',   nombre: 'Páginas',    icono: 'fa-solid fa-file-lines',         activo: true },
   { id: 'personal',  nombre: 'Personal',   icono: 'fa-solid fa-users',              activo: true },
-  { id: 'clientes',  nombre: 'Clientes',   icono: 'fa-solid fa-address-book',       activo: true, badge: '124' },
+  { id: 'clientes',  nombre: 'Clientes',   icono: 'fa-solid fa-address-book',       activo: true, badge: '3' },
   { id: 'whatsapp',  nombre: 'WhatsApp',   icono: 'fa-brands fa-whatsapp',          activo: true },
   { id: 'perfil',    nombre: 'Mi perfil',  icono: 'fa-solid fa-user-gear',          activo: true },
   { id: 'ajustes',   nombre: 'Ajustes',    icono: 'fa-solid fa-gear',               activo: true }

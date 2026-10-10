@@ -132,9 +132,15 @@ function inicializarTemaYSidebar() {
 
   // Botón colapsar sidebar
   const btnCollapse = document.getElementById('btnCollapseSidebar');
+  const iconCollapse = document.getElementById('iconCollapse');
+  const labelCollapse = document.getElementById('labelCollapse');
   btnCollapse?.addEventListener('click', () => {
     const isCollapsed = document.documentElement.classList.toggle('is-collapsed');
     localStorage.setItem('contabilidad_sidebar_cliente', isCollapsed ? 'true' : 'false');
+    if (iconCollapse && labelCollapse) {
+      iconCollapse.className = isCollapsed ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left';
+      labelCollapse.textContent = isCollapsed ? 'Expandir' : 'Colapsar';
+    }
   });
 }
 

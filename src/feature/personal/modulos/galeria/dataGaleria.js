@@ -5,82 +5,20 @@
 
 import { getls, savels } from '@widev';
 import { subirImagenR2 } from '@/core/servicios/r2Storage.js';
+import semillasGaleria from '@/semillas/galeria.json';
 
 const STORAGE_KEY = 'minegocio_galeria_media';
 
-const IMAGENES_SEMILLA = [
-  {
-    id: 'img_hero_lourdes',
-    nombre: 'hero.webp',
-    titulo: 'CPC Lourdes Cusihuaman Gálvez',
-    alt: 'Fotografía oficial de la CPC Lourdes Cusihuaman Gálvez, especialista contable y ex-orientadora SUNAT',
-    url: '/imgwii/hero.webp',
-    categoria: 'especialista',
-    pesoKb: 142,
-    dimensiones: '1200x800',
-    fechaSubida: 'Ene 2026'
-  },
-  {
-    id: 'img_lourdes_asesoria',
-    nombre: 'lourdes01.webp',
-    titulo: 'Asesoría Tributaria Personalizada',
-    alt: 'Sesión de asesoría contable y planificación fiscal para profesionales y microempresas',
-    url: '/imgwii/lourdes/lourdes01.webp',
-    categoria: 'especialista',
-    pesoKb: 185,
-    dimensiones: '1000x750',
-    fechaSubida: 'Feb 2026'
-  },
-  {
-    id: 'img_lourdes_capacitacion',
-    nombre: 'lourdes02.webp',
-    titulo: 'Orientación en Rentas de 4ta y 5ta',
-    alt: 'Capacitación en deducción de gastos y emisión de recibos por honorarios electrónicos',
-    url: '/imgwii/lourdes/lourdes02.webp',
-    categoria: 'especialista',
-    pesoKb: 198,
-    dimensiones: '1000x750',
-    fechaSubida: 'Feb 2026'
-  },
-  {
-    id: 'img_logo_oficial',
-    nombre: 'logo.webp',
-    titulo: 'Logotipo Oficial Estudio Cusihuaman',
-    alt: 'Isotipo y logotipo oficial del Estudio Contable CPC Lourdes Cusihuaman Gálvez',
-    url: '/imgwii/logo.webp',
-    categoria: 'institucional',
-    pesoKb: 84,
-    dimensiones: '512x512',
-    fechaSubida: 'Ene 2026'
-  },
-  {
-    id: 'img_sede_surquillo',
-    nombre: 'sede-surquillo-dante.webp',
-    titulo: 'Sede Jr. Dante 260, Surquillo',
-    alt: 'Oficina de atención presencial en Jr. Dante 260, Surquillo, Lima',
-    url: '/imgwii/hero.webp',
-    categoria: 'sede',
-    pesoKb: 165,
-    dimensiones: '1200x800',
-    fechaSubida: 'Ene 2026'
-  },
-  {
-    id: 'img_constancia_sunat',
-    nombre: 'constancia-habilitacion-cpc.webp',
-    titulo: 'Colegiatura y Habilitación Profesional',
-    alt: 'Colegiatura y acreditación oficial de Contadora Pública Colegiada',
-    url: '/imgwii/lourdes/lourdes01.webp',
-    categoria: 'certificaciones',
-    pesoKb: 120,
-    dimensiones: '800x1100',
-    fechaSubida: 'Ene 2026'
-  }
-];
+const IMAGENES_SEMILLA = Array.isArray(semillasGaleria) ? semillasGaleria : [];
 
 export function obtenerImagenesGaleria() {
   const guardadas = getls(STORAGE_KEY);
   if (guardadas && Array.isArray(guardadas) && guardadas.length > 0) {
-    return guardadas;
+    // Si contiene URLs antiguas rotas (/imgwii/lourdes/) o tiene menos fotos que la nueva semilla, refrescar y autorreparar
+    const tieneRotas = guardadas.some(img => img.url && img.url.includes('/imgwii/lourdes/'));
+    if (!tieneRotas && guardadas.length >= IMAGENES_SEMILLA.length) {
+      return guardadas;
+    }
   }
   savels(STORAGE_KEY, IMAGENES_SEMILLA);
   return IMAGENES_SEMILLA;

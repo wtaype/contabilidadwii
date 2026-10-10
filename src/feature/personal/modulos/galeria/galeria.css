@@ -1,5 +1,5 @@
-﻿/* src/feature/personal/modulos/galeria/galeria.css */
-/* Estilos del Módulo Galería (Bucket Cloudflare R2 gaswii-media) */
+/* src/feature/personal/modulos/galeria/galeria.css */
+/* Estilos del Módulo Galería (Estudio Cusihuaman) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
 /* ── TOOLBAR DE GALERÍA ── */
@@ -81,7 +81,7 @@
 .gl-thumb-wrap {
   width: 100%;
   height: 180px;
-  background: #060b13;
+  background: var(--inp, #f1f5f9);
   position: relative;
   overflow: hidden;
   cursor: pointer;

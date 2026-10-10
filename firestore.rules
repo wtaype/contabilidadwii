@@ -7,6 +7,7 @@ service cloud.firestore {
         get(/databases/$(database)/documents/smiles/$(request.auth.uid)).data.rol in ['personal', 'gestor', 'admin'];
     }
 
+    // 1. Colección Canónica de Usuarios (Clientes, Personal, Gestores, Admin)
     match /smiles/{uid} {
       allow get: if request.auth.uid == uid || esPersonal();
       allow list: if esPersonal() || request.query.limit == 1;
@@ -15,7 +16,37 @@ service cloud.firestore {
       allow delete: if esPersonal();
     }
 
+    // 2. Artículos y Blog Tributario SEO
+    match /entradas/{id} {
+      allow read: if true;
+      allow write: if esPersonal();
+    }
+
+    // 3. Páginas Institucionales y Metadata SEO
+    match /paginas/{id} {
+      allow read: if true;
+      allow write: if esPersonal();
+    }
+
+    // 4. Mesa de Ayuda y Consultas SUNAT
+    match /soporte/{id} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || esPersonal());
+      allow update, delete: if esPersonal();
+    }
+
+    // 5. Comprobantes de Pago de Honorarios
+    match /comprobantes/{id} {
+      allow read, write: if esPersonal();
+    }
+
+    // 6. Catálogo de Servicios y Parámetros del Negocio
     match /productos/{id} {
+      allow read: if true;
+      allow write: if esPersonal();
+    }
+
+    match /servicios/{id} {
       allow read: if true;
       allow write: if esPersonal();
     }
@@ -31,11 +62,6 @@ service cloud.firestore {
 
     match /correos/{id} {
       allow read, write: if esPersonal();
-    }
-  
-    match /servicios/{id} {
-      allow read: if true;
-      allow write: if esPersonal();
     }
   }
 }

@@ -36,12 +36,13 @@ const { esActivo = false } = Astro.props;
       <button type="button" class="gl-filter-pill active" data-cat="todas">Todas</button>
       <button type="button" class="gl-filter-pill" data-cat="especialista">Especialista</button>
       <button type="button" class="gl-filter-pill" data-cat="sede">Sede Surquillo</button>
-      <button type="button" class="gl-filter-pill" data-cat="certificaciones">Certificaciones</button>
+      <button type="button" class="gl-filter-pill" data-cat="servicios">Servicios</button>
+      <button type="button" class="gl-filter-pill" data-cat="asesorias">Asesorías</button>
       <button type="button" class="gl-filter-pill" data-cat="institucional">Institucional</button>
     </div>
 
     <div class="gl-toolbar-right">
-      <span class="gl-stats-badge" id="glStatsBadge">6 archivos · Estudio Cusihuaman</span>
+      <span class="gl-stats-badge" id="glStatsBadge">13 archivos · Estudio Cusihuaman</span>
     </div>
   </div>
 
@@ -76,7 +77,8 @@ const { esActivo = false } = Astro.props;
           <select id="glSelectCategoria" class="sn-select">
             <option value="especialista">Especialista (Lourdes Cusihuaman)</option>
             <option value="sede">Sede Surquillo</option>
-            <option value="certificaciones">Certificaciones y Colegiatura</option>
+            <option value="servicios">Servicios (MYPE, SIRE, PLAME, RER)</option>
+            <option value="asesorias">Asesorías (1 a 1, SUNAT, 4ta Cat.)</option>
             <option value="institucional">Institucional y Logos</option>
           </select>
         </div>

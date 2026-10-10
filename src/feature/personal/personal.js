@@ -113,7 +113,7 @@ export function inicializarPersonal() {
     const isCollapsed = document.documentElement.classList.toggle('is-collapsed');
     savels('contabilidad_sidebar_collapsed', isCollapsed);
     if (iconCollapse && labelCollapse) {
-      iconCollapse.className = isCollapsed ? 'fa-solid fa-arrow-right-long' : 'fa-solid fa-arrow-left-long';
+      iconCollapse.className = isCollapsed ? 'fa-solid fa-angles-right' : 'fa-solid fa-angles-left';
       labelCollapse.textContent = isCollapsed ? 'Expandir' : 'Colapsar';
     }
   });
@@ -157,6 +157,27 @@ export function inicializarPersonal() {
       setTimeout(salir, 600);
     }
   });
+
+  // 8. Sincronización de Badges Dinámicos en Sidebar (Clientes)
+  actualizarBadgesSidebar();
+  window.addEventListener('contabilidad:cliente-guardado', actualizarBadgesSidebar);
+  window.addEventListener('contabilidad:cliente-eliminado', actualizarBadgesSidebar);
+  window.addEventListener('contabilidad:clientes-actualizados', actualizarBadgesSidebar);
+}
+
+export function actualizarBadgesSidebar() {
+  const badgeClientes = document.getElementById('navBadge_clientes') || document.querySelector('[data-badge-target="clientes"]');
+  if (!badgeClientes) return;
+
+  try {
+    const clientes = getls('minegocio_crm_clientes');
+    if (Array.isArray(clientes)) {
+      badgeClientes.textContent = String(clientes.length);
+      return;
+    }
+  } catch (e) {}
+
+  badgeClientes.textContent = '3';
 }
 
 if (document.readyState === 'loading') {

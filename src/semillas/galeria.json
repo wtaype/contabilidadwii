@@ -1,0 +1,145 @@
+[
+  {
+    "id": "img_lourdes_oficial",
+    "nombre": "lourdes.webp",
+    "titulo": "CPC Lourdes Cusihuaman Gálvez",
+    "alt": "Fotografía oficial de la CPC Lourdes Cusihuaman Gálvez, especialista contable y tributaria",
+    "url": "/imgwii/lourdes.webp",
+    "categoria": "especialista",
+    "pesoKb": 71,
+    "dimensiones": "800x1000",
+    "fechaSubida": "Ene 2026"
+  },
+  {
+    "id": "img_hero_portada",
+    "nombre": "hero.webp",
+    "titulo": "Estudio Contable Cusihuaman",
+    "alt": "Atención contable profesional y asesoría tributaria en Lima",
+    "url": "/imgwii/hero.webp",
+    "categoria": "especialista",
+    "pesoKb": 61,
+    "dimensiones": "1200x800",
+    "fechaSubida": "Ene 2026"
+  },
+  {
+    "id": "img_experiencia_cpc",
+    "nombre": "experiencia.webp",
+    "titulo": "Más de 10 Años de Trayectoria Contable",
+    "alt": "Experiencia comprobada en contabilidad para empresas, personas naturales y regímenes tributarios",
+    "url": "/imgwii/experiencia.webp",
+    "categoria": "especialista",
+    "pesoKb": 82,
+    "dimensiones": "800x600",
+    "fechaSubida": "Ene 2026"
+  },
+  {
+    "id": "img_sede_surquillo",
+    "nombre": "oficina.webp",
+    "titulo": "Sede Presencial Jr. Dante 260, Surquillo",
+    "alt": "Oficina de atención presencial en Jr. Dante 260, Surquillo, Lima",
+    "url": "/imgwii/oficina.webp",
+    "categoria": "sede",
+    "pesoKb": 95,
+    "dimensiones": "1200x800",
+    "fechaSubida": "Ene 2026"
+  },
+  {
+    "id": "img_servicio_mype",
+    "nombre": "servicio01.webp",
+    "titulo": "Declaración Régimen MYPE Tributario & SIRE",
+    "alt": "Gestión de declaraciones mensuales MYPE y Sistema Integrado de Registros Electrónicos SIRE SUNAT",
+    "url": "/imgwii/servicios/servicio01.webp",
+    "categoria": "servicios",
+    "pesoKb": 64,
+    "dimensiones": "800x600",
+    "fechaSubida": "Feb 2026"
+  },
+  {
+    "id": "img_servicio_rer",
+    "nombre": "servicio02.webp",
+    "titulo": "Régimen Especial de Renta (RER)",
+    "alt": "Liquidación y cálculo mensual de IGV y Renta para empresas en Régimen Especial",
+    "url": "/imgwii/servicios/servicio02.webp",
+    "categoria": "servicios",
+    "pesoKb": 81,
+    "dimensiones": "800x600",
+    "fechaSubida": "Feb 2026"
+  },
+  {
+    "id": "img_servicio_plame",
+    "nombre": "servicio03.webp",
+    "titulo": "Planillas Electrónicas PLAME & 5ta Categoría",
+    "alt": "Gestión de T-Registro, planillas mensuales PLAME, aportes Essalud, AFP y ONP",
+    "url": "/imgwii/servicios/servicio03.webp",
+    "categoria": "servicios",
+    "pesoKb": 85,
+    "dimensiones": "800x600",
+    "fechaSubida": "Feb 2026"
+  },
+  {
+    "id": "img_servicio_clavesol",
+    "nombre": "claves.webp",
+    "titulo": "Gestión de Clave SOL y Plataforma SUNAT",
+    "alt": "Auditoría de buzón SOL, control de notificaciones y trámites en portal SUNAT Operaciones en Línea",
+    "url": "/imgwii/claves.webp",
+    "categoria": "servicios",
+    "pesoKb": 67,
+    "dimensiones": "800x600",
+    "fechaSubida": "Ene 2026"
+  },
+  {
+    "id": "img_asesoria_4ta",
+    "nombre": "asesoria01.webp",
+    "titulo": "Asesoría 1 a 1 y Rentas de 4ta Categoría",
+    "alt": "Consultoría personalizada para profesionales independientes, recibos por honorarios y suspensión de 4ta",
+    "url": "/imgwii/servicios/asesoria01.webp",
+    "categoria": "asesorias",
+    "pesoKb": 91,
+    "dimensiones": "800x600",
+    "fechaSubida": "Feb 2026"
+  },
+  {
+    "id": "img_asesoria_fiscalizacion",
+    "nombre": "asesoria02.webp",
+    "titulo": "Fiscalizaciones, Auditorías y Esquelas SUNAT",
+    "alt": "Defensa tributaria, absolución de esquelas de citación y auditorías contables preventivas",
+    "url": "/imgwii/servicios/asesoria02.webp",
+    "categoria": "asesorias",
+    "pesoKb": 85,
+    "dimensiones": "800x600",
+    "fechaSubida": "Feb 2026"
+  },
+  {
+    "id": "img_asesoria_planificacion",
+    "nombre": "asesoria03.webp",
+    "titulo": "Planificación Tributaria y Regularización",
+    "alt": "Estrategias de ahorro tributario legítimo, subsanación voluntaria y control patrimonial",
+    "url": "/imgwii/servicios/asesoria03.webp",
+    "categoria": "asesorias",
+    "pesoKb": 69,
+    "dimensiones": "800x600",
+    "fechaSubida": "Feb 2026"
+  },
+  {
+    "id": "img_logo_oficial",
+    "nombre": "logo.webp",
+    "titulo": "Isotipo Oficial Estudio Cusihuaman",
+    "alt": "Isotipo y emblema distintivo del Estudio Contable CPC Lourdes Cusihuaman Gálvez",
+    "url": "/imgwii/logo.webp",
+    "categoria": "institucional",
+    "pesoKb": 13,
+    "dimensiones": "512x512",
+    "fechaSubida": "Ene 2026"
+  },
+  {
+    "id": "img_logo_completo",
+    "nombre": "logo_full.webp",
+    "titulo": "Logotipo Institucional Completo",
+    "alt": "Logotipo oficial e identidad corporativa de CPC Lourdes Cusihuaman",
+    "url": "/imgwii/logo_full.webp",
+    "categoria": "institucional",
+    "pesoKb": 20,
+    "dimensiones": "512x512",
+    "fechaSubida": "Ene 2026"
+  }
+]

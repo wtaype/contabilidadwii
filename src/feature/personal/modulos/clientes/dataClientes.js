@@ -1,33 +1,38 @@
 // src/feature/personal/modulos/clientes/dataClientes.js
 // 🎯 Gestor Canónico Local-First para Directorio CRM Tributario (Estudio Cusihuaman)
-// Prioridad: 1° Firestore REST ('clientes') · 2° Semilla src/semillas/clientes.json · Caché Local
+// Fuente Canónica: Colección 'smiles' · Semilla src/semillas/smiles.json · Local-First
 // 100% JS Nativo · Integrado con @widev y Firebase
 
 import { getls, savels } from '@widev';
-import clientesSemilla from '../../../../semillas/clientes.json';
+import smilesSemilla from '../../../../semillas/smiles.json';
 
 export const STORAGE_KEY = 'minegocio_crm_clientes';
-export const COLECCION_CLIENTES = 'clientes';
+export const COLECCION_SMILES = 'smiles';
 
 // Memoria volátil
 let _memoriaClientes = null;
 
 /**
- * Normaliza los datos de un cliente contable
+ * Normaliza los datos de un cliente contribuyente desde el esquema smiles
  */
 export function normalizarCliente(c = {}) {
   const ruc = String(c.documento || '').trim();
   const ultimoDigito = ruc.length >= 1 ? parseInt(ruc.slice(-1), 10) : (c.ultimoDigitoRuc ?? 0);
+  const uid = c.uid || c.id || `cli_${Date.now()}`;
+  const nombreContacto = c.contacto || `${c.nombre || ''} ${c.apellidos || ''}`.trim() || c.razonSocial || 'Contribuyente';
 
   return {
-    id: c.id || `cli_${Date.now()}`,
-    nombre: c.nombre || 'Cliente Contable',
-    contacto: c.contacto || c.nombre || '',
+    id: uid,
+    uid: uid,
+    nombre: c.razonSocial || c.nombre || 'Cliente Contable',
+    contacto: nombreContacto,
+    apellidos: c.apellidos || '',
+    usuario: c.usuario || (c.email ? c.email.split('@')[0] : 'cliente'),
     documentoTipo: c.documentoTipo || (ruc.length === 11 ? 'RUC' : 'DNI'),
     documento: ruc,
     celular: c.celular || '',
     email: c.email || '',
-    direccion: c.direccion || 'Surquillo, Lima',
+    direccion: c.direccion || (Array.isArray(c.direcciones) && c.direcciones[0] ? `${c.direcciones[0].calle}, ${c.direcciones[0].distrito}` : 'Surquillo, Lima'),
     regimenTributario: c.regimenTributario || 'Régimen MYPE Tributario (RMT)',
     servicioContratado: c.servicioContratado || 'Contabilidad Mensual MYPE & SIRE',
     honorarioPEN: parseFloat(c.honorarioPEN) || 150.00,
@@ -35,12 +40,14 @@ export function normalizarCliente(c = {}) {
     estadoTributario: c.estadoTributario || 'al_dia', // 'al_dia' | 'pendiente' | 'por_vencer'
     fechaInicio: c.fechaInicio || 'Ene 2026',
     observaciones: c.observaciones || 'Declaraciones mensuales y libros electrónicos al día.',
-    avatar: c.avatar || 'https://imgwii.web.app/smile.avif'
+    avatar: c.avatar || 'https://imgwii.web.app/smile.avif',
+    rol: 'cliente',
+    activo: Boolean(c.activo ?? true)
   };
 }
 
 /**
- * Obtiene la lista de clientes (Caché local primero, luego semilla)
+ * Obtiene la lista de clientes (Caché local primero, luego semilla smiles.json con rol 'cliente')
  */
 export function obtenerClientes() {
   if (_memoriaClientes) return _memoriaClientes;
@@ -53,14 +60,18 @@ export function obtenerClientes() {
     }
   } catch (e) {}
 
-  const inicial = (Array.isArray(clientesSemilla) ? clientesSemilla : []).map(normalizarCliente);
+  // Semilla de preview: filtrar exclusivamente los usuarios con rol 'cliente' en smiles.json
+  const clientesSemilla = (Array.isArray(smilesSemilla) ? smilesSemilla : [])
+    .filter(s => s.rol === 'cliente');
+
+  const inicial = clientesSemilla.map(normalizarCliente);
   _memoriaClientes = inicial;
   savels(STORAGE_KEY, inicial);
   return _memoriaClientes;
 }
 
 /**
- * Guarda o actualiza un cliente en caché local y sincroniza en Firestore
+ * Guarda o actualiza un cliente en caché local y sincroniza en Firestore 'smiles'
  */
 export async function guardarCliente(clienteData) {
   const clientes = obtenerClientes();
@@ -76,18 +87,18 @@ export async function guardarCliente(clienteData) {
   _memoriaClientes = clientes;
   savels(STORAGE_KEY, clientes);
 
-  // Sincronizar asíncronamente con Firestore
+  // Sincronizar en la colección canónica 'smiles'
   try {
     const { db } = await import('@core/servicios/firebase.js');
     if (db) {
       const { doc, setDoc, serverTimestamp } = await import('firebase/firestore');
-      await setDoc(doc(db, COLECCION_CLIENTES, normalizado.id), {
+      await setDoc(doc(db, COLECCION_SMILES, normalizado.id), {
         ...normalizado,
         actualizado: serverTimestamp()
       }, { merge: true });
     }
   } catch (err) {
-    console.warn('[dataClientes] Error al sincronizar con Firestore:', err?.message || err);
+    console.debug('[dataClientes] Sincronización en segundo plano con smiles:', err?.message || err);
   }
 
   if (typeof window !== 'undefined') {
@@ -110,10 +121,14 @@ export async function eliminarCliente(id) {
     const { db } = await import('@core/servicios/firebase.js');
     if (db) {
       const { doc, deleteDoc } = await import('firebase/firestore');
-      await deleteDoc(doc(db, COLECCION_CLIENTES, id));
+      await deleteDoc(doc(db, COLECCION_SMILES, id));
     }
   } catch (err) {
-    console.warn('[dataClientes] Error al eliminar de Firestore:', err?.message || err);
+    console.debug('[dataClientes] Eliminación en Firestore:', err?.message || err);
+  }
+
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('contabilidad:cliente-eliminado', { detail: { id } }));
   }
 
   return clientes;
@@ -141,11 +156,22 @@ export function calcularMetricasClientes(clientes = []) {
  */
 export async function sincronizarClientesDesdeFirestore() {
   try {
-    const { db } = await import('@core/servicios/firebase.js');
+    const { db, auth } = await import('@core/servicios/firebase.js');
     if (!db) return obtenerClientes();
 
-    const { collection, getDocs, query, limit } = await import('firebase/firestore');
-    const q = query(collection(db, COLECCION_CLIENTES), limit(100));
+    // Solo consultar Firestore si hay usuario autenticado para evitar 'insufficient permissions'
+    const usuarioAuth = auth?.currentUser;
+    const usuarioLocal = getls('wiSmile');
+    if (!usuarioAuth && (!usuarioLocal || !['personal', 'gestor', 'admin'].includes(usuarioLocal.rol))) {
+      return obtenerClientes();
+    }
+
+    const { collection, getDocs, query, where, limit } = await import('firebase/firestore');
+    const q = query(
+      collection(db, COLECCION_SMILES),
+      where('rol', '==', 'cliente'),
+      limit(100)
+    );
     const snap = await getDocs(q);
 
     if (!snap.empty) {
@@ -155,7 +181,7 @@ export async function sincronizarClientesDesdeFirestore() {
       return remotos;
     }
   } catch (err) {
-    console.warn('[dataClientes] Lectura remota Firestore:', err?.message || err);
+    console.debug('[dataClientes] Lectura remota Firestore de smiles no disponible (usando local/preview):', err?.message || err);
   }
   return obtenerClientes();
 }

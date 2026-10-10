@@ -1,20 +1,22 @@
 // src/feature/personal/modulos/personal/dataPersonal.js
 // Gestor Canónico del Equipo Profesional del Estudio Contable (Lourdes Cusihuaman)
-// Prioridad: 1° Firestore REST ('personal') · 2° Semilla src/semillas/personal.json · Caché Local
-// 100% JS Nativo · Integrado con @widev
+// Fuente Canónica: Colección 'smiles' · Semilla src/semillas/smiles.json · Local-First
+// 100% JS Nativo · Integrado con @widev y Firebase
 
 import { getls, savels } from '@widev';
-import personalSemilla from '../../../../semillas/personal.json';
+import smilesSemilla from '../../../../semillas/smiles.json';
 
 export const STORAGE_KEY = 'minegocio_equipo_personal';
-export const COLECCION_PERSONAL = 'personal';
+export const COLECCION_SMILES = 'smiles';
 
 let _memoriaPersonal = null;
 
 export function normalizarMiembro(p = {}) {
   const nombreCompleto = p.nombreCompleto || `${p.nombre || ''} ${p.apellidos || ''}`.trim();
+  const uid = p.uid || p.id || `per_${Date.now()}`;
   return {
-    id: p.id || `per_${Date.now()}`,
+    id: uid,
+    uid: uid,
     nombre: p.nombre || 'Especialista',
     apellidos: p.apellidos || '',
     nombreCompleto: nombreCompleto || 'Especialista Contable',
@@ -43,7 +45,11 @@ export function obtenerPersonal() {
     }
   } catch (e) {}
 
-  const inicial = (Array.isArray(personalSemilla) ? personalSemilla : []).map(normalizarMiembro);
+  // Semilla de preview: filtrar exclusivamente los miembros de rol personal de smiles.json
+  const miembrosSemilla = (Array.isArray(smilesSemilla) ? smilesSemilla : [])
+    .filter(s => s.rol === 'personal' || s.rol === 'gestor' || s.rol === 'admin');
+
+  const inicial = miembrosSemilla.map(normalizarMiembro);
   _memoriaPersonal = inicial;
   savels(STORAGE_KEY, inicial);
   return _memoriaPersonal;
@@ -63,17 +69,18 @@ export async function guardarMiembroPersonal(data) {
   _memoriaPersonal = lista;
   savels(STORAGE_KEY, lista);
 
+  // Persistir en Firestore en la colección canónica 'smiles'
   try {
     const { db } = await import('@core/servicios/firebase.js');
     if (db) {
       const { doc, setDoc, serverTimestamp } = await import('firebase/firestore');
-      await setDoc(doc(db, COLECCION_PERSONAL, normalizado.id), {
+      await setDoc(doc(db, COLECCION_SMILES, normalizado.id), {
         ...normalizado,
         actualizado: serverTimestamp()
       }, { merge: true });
     }
   } catch (err) {
-    console.warn('[dataPersonal] Error al sincronizar con Firestore:', err?.message || err);
+    console.debug('[dataPersonal] Sincronización en segundo plano con smiles:', err?.message || err);
   }
 
   return normalizado;
@@ -89,10 +96,10 @@ export async function eliminarMiembroPersonal(id) {
     const { db } = await import('@core/servicios/firebase.js');
     if (db) {
       const { doc, deleteDoc } = await import('firebase/firestore');
-      await deleteDoc(doc(db, COLECCION_PERSONAL, id));
+      await deleteDoc(doc(db, COLECCION_SMILES, id));
     }
   } catch (err) {
-    console.warn('[dataPersonal] Error al eliminar de Firestore:', err?.message || err);
+    console.debug('[dataPersonal] Eliminación en Firestore:', err?.message || err);
   }
 
   return lista;
@@ -100,11 +107,22 @@ export async function eliminarMiembroPersonal(id) {
 
 export async function sincronizarPersonalDesdeFirestore() {
   try {
-    const { db } = await import('@core/servicios/firebase.js');
+    const { db, auth } = await import('@core/servicios/firebase.js');
     if (!db) return obtenerPersonal();
 
-    const { collection, getDocs } = await import('firebase/firestore');
-    const snap = await getDocs(collection(db, COLECCION_PERSONAL));
+    // Solo consultar Firestore si hay usuario autenticado para evitar 'insufficient permissions'
+    const usuarioAuth = auth?.currentUser;
+    const usuarioLocal = getls('wiSmile');
+    if (!usuarioAuth && (!usuarioLocal || !['personal', 'gestor', 'admin'].includes(usuarioLocal.rol))) {
+      return obtenerPersonal();
+    }
+
+    const { collection, getDocs, query, where } = await import('firebase/firestore');
+    const q = query(
+      collection(db, COLECCION_SMILES),
+      where('rol', 'in', ['personal', 'gestor', 'admin'])
+    );
+    const snap = await getDocs(q);
 
     if (!snap.empty) {
       const remotos = snap.docs.map(d => normalizarMiembro({ id: d.id, ...d.data() }));
@@ -113,7 +131,7 @@ export async function sincronizarPersonalDesdeFirestore() {
       return remotos;
     }
   } catch (err) {
-    console.warn('[dataPersonal] Lectura remota Firestore:', err?.message || err);
+    console.debug('[dataPersonal] Lectura remota Firestore de smiles no disponible (usando local/preview):', err?.message || err);
   }
   return obtenerPersonal();
 }

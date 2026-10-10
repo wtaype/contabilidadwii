@@ -1,6 +1,6 @@
 [
   {
-    "id": "cli-01",
+    "id": "cli-01-rincon-criollo",
     "nombre": "Inversiones Gastronómicas El Rincón Criollo S.A.C.",
     "contacto": "Roberto Arévalo Méndez",
     "documentoTipo": "RUC",
@@ -14,10 +14,11 @@
     "ultimoDigitoRuc": 3,
     "estadoTributario": "al_dia",
     "fechaInicio": "15 Feb 2024",
-    "observaciones": "Restaurante con 4 trabajadores en planilla. Declaración mensual con SIRE al día."
+    "observaciones": "Restaurante con 4 colaboradores. Declaración mensual con SIRE al día.",
+    "rol": "cliente"
   },
   {
-    "id": "cli-02",
+    "id": "cli-02-valeria-mendoza",
     "nombre": "Valeria Mendoza Castro",
     "contacto": "Valeria Mendoza",
     "documentoTipo": "RUC",
@@ -31,10 +32,11 @@
     "ultimoDigitoRuc": 1,
     "estadoTributario": "al_dia",
     "fechaInicio": "10 Abr 2025",
-    "observaciones": "Arquitecta independiente. Cuenta con Formulario 1609 de suspensión del 8% autorizado."
+    "observaciones": "Arquitecta independiente. Cuenta con Formulario 1609 de suspensión del 8%.",
+    "rol": "cliente"
   },
   {
-    "id": "cli-03",
+    "id": "cli-03-carlos-ramos",
     "nombre": "Carlos Ramos Peña (Minimarket Los Cedros)",
     "contacto": "Carlos Ramos",
     "documentoTipo": "RUC",
@@ -48,6 +50,43 @@
     "ultimoDigitoRuc": 2,
     "estadoTributario": "al_dia",
     "fechaInicio": "05 Ene 2026",
-    "observaciones": "Comercio de abarrotes. Se le emite comprobante mensual por honorarios profesionales."
+    "observaciones": "Comercio de abarrotes. Se le emite comprobante mensual por honorarios.",
+    "rol": "cliente"
+  },
+  {
+    "id": "cli-04-transportes-surquillo",
+    "nombre": "Transportes & Logística Surquillo S.A.C.",
+    "contacto": "Hugo Cárdenas Tello",
+    "documentoTipo": "RUC",
+    "documento": "20601234567",
+    "celular": "955112233",
+    "email": "gerencia@transportessurquillo.pe",
+    "direccion": "Av. Tomás Marsano 890, Surquillo",
+    "regimenTributario": "Régimen MYPE Tributario (RMT)",
+    "servicioContratado": "Asesoría Contable y Liquidación Detracciones",
+    "honorarioPEN": 200.00,
+    "ultimoDigitoRuc": 7,
+    "estadoTributario": "al_dia",
+    "fechaInicio": "12 Mar 2026",
+    "observaciones": "Servicio de transporte y flete. Control mensual de detracciones Banco de la Nación.",
+    "rol": "cliente"
+  },
+  {
+    "id": "cli-05-fernando-morales",
+    "nombre": "Dr. Fernando Morales Bellido",
+    "contacto": "Fernando Morales",
+    "documentoTipo": "RUC",
+    "documento": "10258963141",
+    "celular": "944556677",
+    "email": "dr.morales@clinicavida.pe",
+    "direccion": "Av. Guardia Civil 450, San Borja, Lima",
+    "regimenTributario": "4ta y 5ta Categoría",
+    "servicioContratado": "Declaración Anual del Impuesto a la Renta",
+    "honorarioPEN": 100.00,
+    "ultimoDigitoRuc": 1,
+    "estadoTributario": "al_dia",
+    "fechaInicio": "01 Feb 2026",
+    "observaciones": "Médico especialista independiente y en planilla. Deducción adicional 3 UIT.",
+    "rol": "cliente"
   }
 ]

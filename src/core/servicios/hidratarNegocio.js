@@ -105,6 +105,13 @@ export function hidratarNegocioEnDOM(datos) {
       el.textContent = especialista;
     });
   }
+
+  const titulo = datos.titulo || '';
+  if (titulo) {
+    document.querySelectorAll('[data-negocio-titulo]').forEach(el => {
+      el.textContent = titulo;
+    });
+  }
 }
 
 /**

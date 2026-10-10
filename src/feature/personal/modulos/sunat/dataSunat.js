@@ -8,7 +8,7 @@ import { db } from '@core/servicios/firebase.js';
 import { collection, getDocs, doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { obtenerDatosNegocio } from '../negocio/dataNegocio.js';
 import comprobantesSemilla from '../../../../semillas/comprobantes.json';
-import clientesSemilla from '../../../../semillas/clientes.json';
+import smilesSemilla from '../../../../semillas/smiles.json';
 
 export const STORAGE_KEY_COMPROBANTES = 'contabilidad_sunat_comprobantes';
 export const STORAGE_KEY_CLIENTES_CACHE = 'contabilidad_crm_clientes';
@@ -191,7 +191,26 @@ export function obtenerClientesSugerencias() {
     if (Array.isArray(guardados) && guardados.length > 0) return guardados;
   } catch (e) {}
 
-  return Array.isArray(clientesSemilla) ? clientesSemilla : [];
+  const lista = Array.isArray(smilesSemilla) ? smilesSemilla : [];
+  return lista
+    .filter(u => u.rol === 'cliente')
+    .map(u => ({
+      id: u.uid || u.id,
+      nombre: u.razonSocial || `${u.nombre || ''} ${u.apellidos || ''}`.trim(),
+      contacto: `${u.nombre || ''} ${u.apellidos || ''}`.trim(),
+      documentoTipo: u.documentoTipo || 'RUC',
+      documento: u.documento || '',
+      celular: u.celular || '',
+      email: u.email || '',
+      direccion: u.direccion || (Array.isArray(u.direcciones) && u.direcciones[0] ? `${u.direcciones[0].calle}, ${u.direcciones[0].distrito}` : ''),
+      regimenTributario: u.regimenTributario || '',
+      servicioContratado: u.servicioContratado || '',
+      honorarioPEN: u.honorarioPEN || 0,
+      ultimoDigitoRuc: u.ultimoDigitoRuc ?? 0,
+      estadoTributario: u.estadoTributario || 'al_dia',
+      observaciones: u.observaciones || '',
+      rol: 'cliente'
+    }));
 }
 
 /**

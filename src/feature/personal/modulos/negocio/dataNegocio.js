@@ -55,6 +55,9 @@ export function normalizarConfig(c = {}) {
     id: cfg.id || base.id || DOC_NEGOCIO_ID,
     principal: Boolean(cfg.principal ?? base.principal ?? true),
     moneda: cfg.moneda || base.moneda || 'PEN',
+    idiomaPrincipal: cfg.idiomaPrincipal || cfg.idiomaDefecto || base.idiomaPrincipal || base.idiomaDefecto || 'es',
+    idiomas: Array.isArray(cfg.idiomas) && cfg.idiomas.length > 0 ? cfg.idiomas : (Array.isArray(cfg.idiomasSoportados) ? cfg.idiomasSoportados : (base.idiomas || base.idiomasSoportados || ['es', 'en'])),
+    titulo: cfg.titulo || base.titulo || '',
     subtitulo: cfg.subtitulo ?? base.subtitulo ?? '',
     hero: {
       titulo: cfg.hero?.titulo ?? base.hero?.titulo ?? '',
@@ -71,7 +74,8 @@ export function normalizarConfig(c = {}) {
       subtitulo: cfg.identidad?.subtitulo || base.identidad?.subtitulo || '',
       especialista: cfg.identidad?.especialista || base.identidad?.especialista || '',
       colegiatura: cfg.identidad?.colegiatura || base.identidad?.colegiatura || '',
-      titulo: cfg.identidad?.titulo || base.identidad?.titulo || '',
+      cargo: cfg.identidad?.cargo || cfg.identidad?.titulo || base.identidad?.cargo || base.identidad?.titulo || '',
+      titulo: cfg.identidad?.titulo || cfg.identidad?.cargo || base.identidad?.titulo || base.identidad?.cargo || '',
       grado: cfg.identidad?.grado || base.identidad?.grado || '',
       enfoques: cfg.identidad?.enfoques || base.identidad?.enfoques || '',
       nombreEn: cfg.identidad?.nombreEn || base.identidad?.nombreEn || base.identidad?.nombre || '',
@@ -88,6 +92,8 @@ export function normalizarConfig(c = {}) {
     },
     contacto: {
       telefono: cfg.contacto?.telefono || base.contacto?.telefono || '',
+      telefonoFijo: cfg.contacto?.telefonoFijo || base.contacto?.telefonoFijo || '',
+      telefonoSecundario: cfg.contacto?.telefonoSecundario ?? base.contacto?.telefonoSecundario ?? '',
       whatsapp: cfg.contacto?.whatsapp || base.contacto?.whatsapp || '',
       email: cfg.contacto?.email || base.contacto?.email || '',
       whatsappMensaje: {
@@ -124,10 +130,11 @@ export function normalizarConfig(c = {}) {
     },
     sedes: Array.isArray(cfg.sedes) && cfg.sedes.length > 0 ? cfg.sedes : (Array.isArray(base.sedes) ? base.sedes : []),
     metricas: {
-      pacientes: cfg.metricas?.pacientes || base.metricas?.pacientes || '',
-      confidencialidad: cfg.metricas?.confidencialidad || base.metricas?.confidencialidad || '',
-      satisfaccion: cfg.metricas?.satisfaccion || base.metricas?.satisfaccion || '',
-      years: cfg.metricas?.years || base.metricas?.years || ''
+      clientes: cfg.metricas?.clientes || cfg.metricas?.pacientes || base.metricas?.clientes || base.metricas?.pacientes || '+240',
+      pacientes: cfg.metricas?.pacientes || cfg.metricas?.clientes || base.metricas?.pacientes || '+240',
+      confidencialidad: cfg.metricas?.confidencialidad || base.metricas?.confidencialidad || '100%',
+      satisfaccion: cfg.metricas?.satisfaccion || base.metricas?.satisfaccion || '99.4%',
+      years: cfg.metricas?.years || base.metricas?.years || '12+'
     },
     redes: {
       facebook: cfg.redes?.facebook || base.redes?.facebook || '',

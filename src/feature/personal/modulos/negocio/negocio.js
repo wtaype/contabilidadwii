@@ -267,8 +267,8 @@ export function inicializarNegocio() {
     if (ngSedeVirtualAtencionEn) ngSedeVirtualAtencionEn.value = typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.en || '') : (sedeVirtual.atencionEn || 'Flexible Schedule');
 
     // Métricas
-    if (inputMetricaPacientes) inputMetricaPacientes.value = cfg.metricas?.pacientes || '450+';
-    if (inputMetricaSatisfaccion) inputMetricaSatisfaccion.value = cfg.metricas?.satisfaccion || '98%';
+    if (inputMetricaPacientes) inputMetricaPacientes.value = cfg.metricas?.clientes || cfg.metricas?.pacientes || '+240';
+    if (inputMetricaSatisfaccion) inputMetricaSatisfaccion.value = cfg.metricas?.satisfaccion || '99.4%';
     if (inputMetricaConfidencialidad) inputMetricaConfidencialidad.value = cfg.metricas?.confidencialidad || '100%';
 
     // Redes
@@ -304,16 +304,18 @@ export function inicializarNegocio() {
 
     return {
       id: 'principal',
-      principal: true,
       moneda: 'PEN',
-      idiomaDefecto: 'es',
-      idiomasSoportados: ['es', 'en'],
+      idiomaPrincipal: 'es',
+      idiomas: ['es', 'en'],
+      titulo: actual.titulo || "Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez",
+      subtitulo: actual.subtitulo || "Contabilidad & Tributación • Lima - Perú",
 
       identidad: {
         nombre: inputNombre?.value?.trim() || actual.identidad?.nombre || "Lourdes Cusihuaman Gálvez",
         nombreCorto: inputNombreCorto?.value?.trim() || actual.identidad?.nombreCorto || "Estudio Cusihuaman",
         especialista: inputEspecialista?.value?.trim() || actual.identidad?.especialista || "Lourdes Cusihuaman Gálvez",
         colegiatura: inputColegiatura?.value?.trim() || "",
+        cargo: inputTitulo?.value?.trim() || actual.identidad?.cargo || actual.identidad?.titulo || "Asesora Contable y Tributaria",
         titulo: inputTitulo?.value?.trim() || actual.identidad?.titulo || "Asesora Contable y Tributaria",
         grado: inputGrado?.value?.trim() || actual.identidad?.grado || "Ex-funcionaria de SUNAT · Universidad de Lima",
         enfoques: inputEnfoques?.value?.trim() || actual.identidad?.enfoques || "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT",
@@ -321,8 +323,8 @@ export function inicializarNegocio() {
         nombreCortoEn: inputNombreCortoEn?.value?.trim() || actual.identidad?.nombreCortoEn || "Estudio Cusihuaman",
         enfoquesEn: inputEnfoquesEn?.value?.trim() || actual.identidad?.enfoquesEn || "4th Category Income (RHE) • 5th Category Payroll • SUNAT Tax Compliance",
         bio: {
-          es: inputBioEs?.value?.trim() || actual.identidad?.bio?.es || "Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria.",
-          en: inputBioEn?.value?.trim() || actual.identidad?.bio?.en || "Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience."
+          es: inputBioEs?.value?.trim() || actual.identidad?.bio?.es || "Soy especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria. Te brindo una asesoría cercana, clara y sin complicaciones.",
+          en: inputBioEn?.value?.trim() || actual.identidad?.bio?.en || "I am a tax and accounting specialist graduated from the University of Lima and former SUNAT tax officer with over 12 years of experience."
         },
         lanzamientoFecha: inputLanzamiento?.value || actual.identidad?.lanzamientoFecha || "2020-03-15",
         logo: inputLogo?.value?.trim() || actual.identidad?.logo || "/imgwii/logo.webp",
@@ -332,11 +334,13 @@ export function inicializarNegocio() {
 
       contacto: {
         telefono: rawTel || actual.contacto?.telefono || "",
+        telefonoFijo: actual.contacto?.telefonoFijo || "(01) 447-6849",
+        telefonoSecundario: "",
         whatsapp: rawWs || (rawTel ? `51${telLimpio}` : (actual.contacto?.whatsapp || "")),
         email: (inputEmail?.value || '').trim() || actual.contacto?.email || "contacto@contabilidadwii.com",
         whatsappMensaje: {
-          es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación.",
-          en: inputWhatsappMensajeEn?.value?.trim() || "Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."
+          es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lourdes! Deseo que evalúes mi caso tributario y me orientes con mis declaraciones ante SUNAT.",
+          en: inputWhatsappMensajeEn?.value?.trim() || "Hello Lourdes! I would like you to review my tax situation and guide me through my SUNAT compliance."
         },
         horario: {
           es: (inputHorario?.value || '').trim() || "Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m.",
@@ -414,8 +418,9 @@ export function inicializarNegocio() {
       ],
 
       metricas: {
+        clientes: inputMetricaPacientes?.value?.trim() || "240+",
         pacientes: inputMetricaPacientes?.value?.trim() || "240+",
-        satisfaccion: inputMetricaSatisfaccion?.value?.trim() || "98%",
+        satisfaccion: inputMetricaSatisfaccion?.value?.trim() || "99.4%",
         confidencialidad: inputMetricaConfidencialidad?.value?.trim() || "100%",
         years: calcularAnosTrayectoria(inputLanzamiento?.value)
       },
@@ -429,12 +434,12 @@ export function inicializarNegocio() {
 
       seo: {
         titulo: {
-          es: inputSeoTituloEs?.value?.trim() || "Estudio Cusihuaman | Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT",
-          en: inputSeoTituloEn?.value?.trim() || "Estudio Cusihuaman | Tax & Accounting Services in Peru (4th & 5th Category)"
+          es: inputSeoTituloEs?.value?.trim() || "Estudio Cusihuaman | CPC Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT",
+          en: inputSeoTituloEn?.value?.trim() || "Estudio Cusihuaman | Lourdes Cusihuaman - Tax & Accounting Firm Peru"
         },
         descripcion: {
-          es: inputSeoDescEs?.value?.trim() || "Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME y regularización.",
-          en: inputSeoDescEn?.value?.trim() || "Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer. 4th & 5th category tax filings and compliance."
+          es: inputSeoDescEs?.value?.trim() || "Asesoría contable y tributaria estratégica con Lourdes Cusihuaman Gálvez, ex-orientadora de SUNAT. Especialista en 4ta categoría (RHE), 5ta categoría (planillas), regularización de Buzón SOL y devoluciones.",
+          en: inputSeoDescEn?.value?.trim() || "Expert tax and accounting advisory in Lima & online with Lourdes Cusihuaman, former SUNAT officer. Specialized in 4th & 5th category taxes, payroll, and audit defense."
         },
         keywords: {
           es: kwEs,
@@ -445,24 +450,24 @@ export function inicializarNegocio() {
           width: 1200,
           height: 630,
           type: "image/webp",
-          alt: "Estudio Cusihuaman - CPC Lourdes Cusihuaman Gálvez en Surquillo y Asesoría Online",
-          caption: "Asesoría contable, rentas de 4ta y 5ta categoría y regularización de inconsistencias SUNAT"
+          alt: "Estudio Cusihuaman - CPC Lourdes Cusihuaman Gálvez, Asesoría Tributaria SUNAT",
+          caption: "Asesoría contable y tributaria especializada ante SUNAT en Surquillo y modalidad online"
         },
         schema: {
-          tipo: ["AccountingService", "ProfessionalService"],
-          especialidades: ["TaxAccounting", "PayrollAccounting", "SUNATCompliance"],
+          tipo: ["AccountingService", "FinancialService", "ProfessionalService"],
+          especialidades: ["TaxPreparation", "PayrollServices", "TaxConsulting", "Bookkeeping", "SUNATCompliance"],
           descripcionCorta: {
-            es: "Estudio contable y asesoría tributaria en Surquillo y modalidad online a nivel nacional. Especializado en rentas de 4ta y 5ta categoría, planillas y regularización de deudas.",
-            en: "Certified accounting and tax advisory firm in Surquillo and online nationwide. Specialized in personal taxes, payroll, and SUNAT compliance."
+            es: "Estudio de asesoría contable y tributaria en Surquillo y modalidad online a nivel nacional. Especializado en rentas de 4ta y 5ta categoría, planillas y fiscalización SUNAT.",
+            en: "Accounting and tax advisory firm in Surquillo, Lima and online nationwide. Specialized in 4th/5th category income taxes and SUNAT compliance."
           }
         },
         audiencia: {
-          es: ["profesionales independientes", "trabajadores en planilla", "mypes", "emprendedores"],
-          en: ["freelancers", "remote workers", "expats", "business owners"]
+          es: ["profesionales independientes y freelancers con RHE (4ta categoría)", "trabajadores en planilla con retenciones en exceso (5ta categoría)", "pequeñas y medianas empresas (MYPEs) con personal en planilla", "personas naturales con negocio y emprendedores"],
+          en: ["independent contractors and freelancers", "salaried workers seeking tax refunds", "small and medium enterprises with payroll", "business owners and entrepreneurs"]
         },
         intencion: {
-          es: "agendar asesoria contable, declaracion anual 4ta categoria y regularizacion sunat",
-          en: "book tax consultation and peru sunat tax filing"
+          es: "asesoria tributaria sunat, declaracion renta 4ta categoria, suspension retenciones 1609, regularizacion buzon sol, planillas plame",
+          en: "tax consulting peru, sunat tax compliance, 4th category tax return, payroll advisory"
         }
       }
     };

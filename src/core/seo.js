@@ -59,7 +59,7 @@ export const seo = {
 export function getMeta(ruta = '/', idioma = 'es') {
   const clave = ruta === '/' || ruta === '/en' ? 'inicio' : ruta.replace(/^\/(en\/)?/, '');
   const data = seo[clave] ? seo[clave][idioma] : seo.inicio[idioma];
-  const urlBase = (app.linkweb || 'https://psicologiawii.com').replace(/\/$/, '');
+  const urlBase = (app.linkweb || 'https://lourdes.solgassurquillo.com').replace(/\/$/, '');
   const canonical = `${urlBase}${ruta}`;
 
   const title = data.title || datosNegocio.nombre;
@@ -110,7 +110,7 @@ export function getMeta(ruta = '/', idioma = 'es') {
  * Genera el marcado de datos estructurados Schema.org JSON-LD para Google Rich Snippets
  */
 export function getJsonLd(ruta = '/', idioma = 'es') {
-  const urlBase = (app.linkweb || 'https://psicologiawii.com').replace(/\/$/, '');
+  const urlBase = (app.linkweb || 'https://lourdes.solgassurquillo.com').replace(/\/$/, '');
   const isEn = idioma === 'en';
   const canonical = `${urlBase}${ruta}`;
   const data = seo.inicio[idioma] || SEO_INICIO.es;
@@ -180,10 +180,10 @@ export function getJsonLd(ruta = '/', idioma = 'es') {
           caption: SEO_IMAGEN.caption
         }
       },
-      // 1. Entidad Clínica Psicológica / MedicalBusiness
+      // 1. Entidad Estudio Contable / AccountingService
       {
-        '@type': schemaData.tipo || ['MedicalBusiness', 'MedicalClinic'],
-        '@id': `${urlBase}/#clinic`,
+        '@type': schemaData.tipo || ['AccountingService', 'FinancialService', 'ProfessionalService'],
+        '@id': `${urlBase}/#firm`,
         name: datosNegocio.nombre,
         description: clinicDesc,
         url: urlBase,
@@ -192,7 +192,7 @@ export function getJsonLd(ruta = '/', idioma = 'es') {
         priceRange: priceRange,
         paymentAccepted: paymentAccepted,
         currenciesAccepted: datosNegocio.moneda || 'PEN',
-        medicalSpecialty: schemaData.especialidades || ['Psychology', 'Psychotherapy'],
+        serviceType: schemaData.especialidades || ['TaxPreparation', 'PayrollServices', 'TaxConsulting', 'Bookkeeping', 'SUNATCompliance'],
         address: {
           '@type': 'PostalAddress',
           streetAddress: datosNegocio.direccionSede,
@@ -212,7 +212,7 @@ export function getJsonLd(ruta = '/', idioma = 'es') {
           name: s.distrito || s.nombre
         }))
       },
-      // 2. Servicios Clínicos y Evaluaciones Dinámicos
+      // 2. Servicios Contables y Asesorías Tributarias Dinámicas
       ...datosNegocio.servicios.map(s => {
         const servNom = isEn ? (s.nombreEn || s.nombre) : s.nombre;
         const servDesc = isEn ? (s.descripcionEn || s.descripcion) : s.descripcion;
@@ -228,7 +228,7 @@ export function getJsonLd(ruta = '/', idioma = 'es') {
           description: servDesc,
           image: imgUrl,
           provider: {
-            '@type': 'MedicalBusiness',
+            '@type': Array.isArray(schemaData.tipo) ? schemaData.tipo[0] : (schemaData.tipo || 'AccountingService'),
             name: datosNegocio.nombre
           },
           offers: {
@@ -239,7 +239,7 @@ export function getJsonLd(ruta = '/', idioma = 'es') {
             priceValidUntil: `${new Date().getFullYear() + 1}-12-31`,
             availability: 'https://schema.org/InStock',
             seller: {
-              '@type': 'MedicalBusiness',
+              '@type': Array.isArray(schemaData.tipo) ? schemaData.tipo[0] : (schemaData.tipo || 'AccountingService'),
               name: datosNegocio.nombre
             }
           }

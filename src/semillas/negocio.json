@@ -1,10 +1,10 @@
 {
   "id": "principal",
-  "principal": true,
   "moneda": "PEN",
-  "idiomaDefecto": "es",
-  "idiomasSoportados": ["es", "en"],
+  "idiomaPrincipal": "es",
+  "idiomas": ["es", "en"],
 
+  "titulo": "Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez",
   "subtitulo": "Contabilidad & Tributación • Lima - Perú",
 
   "hero": {
@@ -14,15 +14,15 @@
     "alt": "Lourdes Cusihuaman Gálvez",
     "precioHero": "80 soles",
     "servicio": "Asesoría y Orientación Tributaria",
-    "descripcion": "Evaluación clara de tu caso 100% online por videollamada o presencial previa cita en Surquillo. Te explicamos en sencillo qué hacer ante SUNAT sin enredos."
+    "descripcion": "Evalúo personalmente tu caso 100% online por videollamada o presencial previa cita en Surquillo. Te explico en sencillo qué hacer ante SUNAT sin enredos técnicos."
   },
 
   "identidad": {
     "nombre": "Lourdes Cusihuaman Gálvez",
     "nombreCorto": "Estudio Cusihuaman",
-    "subtitulo": "Contabilidad & Tributación • Lima - Perú",
     "especialista": "Lourdes Cusihuaman Gálvez",
     "colegiatura": "",
+    "cargo": "Asesora Contable y Tributaria",
     "titulo": "Asesora Contable y Tributaria",
     "grado": "Ex-funcionaria de SUNAT · Universidad de Lima",
     "enfoques": "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Orientación Preventiva Buzón SOL",
@@ -30,8 +30,8 @@
     "nombreCortoEn": "Estudio Cusihuaman",
     "enfoquesEn": "4th Category Income (Independent Fees) • 5th Category Payroll • SUNAT Tax Compliance • SOL Mailbox Advisory",
     "bio": {
-      "es": "Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria. Brinda asesoría cercana y sin complicaciones para profesionales independientes y empresas que buscan tener sus cuentas al día y total tranquilidad fiscal.",
-      "en": "Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience. Providing clear, friendly, and reliable tax advisory."
+      "es": "Soy especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria. Te brindo una asesoría cercana, clara y sin complicaciones para que tengas tus cuentas en orden, aproveches las deducciones de ley y disfrutes de absoluta tranquilidad fiscal.",
+      "en": "I am a tax and accounting specialist graduated from the University of Lima and former SUNAT tax officer with over 12 years of experience. I provide clear, friendly, and reliable tax advisory to keep your finances compliant and stress-free."
     },
     "lanzamientoFecha": "2020-03-15",
     "logo": "/imgwii/logo.webp",
@@ -42,11 +42,11 @@
   "contacto": {
     "telefono": "+51 987 594 558",
     "telefonoFijo": "(01) 447-6849",
-    "telefonoSecundario": "+51 936 369 384",
+    "telefonoSecundario": "",
     "whatsapp": "51987594558",
     "whatsappMensaje": {
-      "es": "¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación.",
-      "en": "Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."
+      "es": "¡Hola Lourdes! Deseo que evalúes mi caso tributario y me orientes con mis declaraciones ante SUNAT.",
+      "en": "Hello Lourdes! I would like you to review my tax situation and guide me through my SUNAT compliance."
     },
     "email": "contacto@contabilidadwii.com",
     "horario": {
@@ -116,10 +116,11 @@
   ],
 
   "metricas": {
+    "clientes": "+240",
     "pacientes": "+240",
     "confidencialidad": "100%",
     "satisfaccion": "99.4%",
-    "years": "10+"
+    "years": "12+"
   },
 
   "redes": {
@@ -131,25 +132,26 @@
 
   "seo": {
     "titulo": {
-      "es": "Estudio Cusihuaman | Asesoría Contable & Tributaria SUNAT (4ta y 5ta Categoría)",
-      "en": "Estudio Cusihuaman | Tax & Accounting Services in Peru (4th & 5th Category)"
+      "es": "Estudio Cusihuaman | CPC Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT",
+      "en": "Estudio Cusihuaman | Lourdes Cusihuaman - Tax & Accounting Firm Peru"
     },
     "descripcion": {
-      "es": "Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME, suspensión de retenciones y auditoría de Buzón SOL.",
-      "en": "Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer. 4th & 5th category tax filings, payroll, and audit defense in Lima & Online."
+      "es": "Asesoría contable y tributaria estratégica con Lourdes Cusihuaman Gálvez, ex-orientadora de SUNAT. Especialista en 4ta categoría (RHE), 5ta categoría (planillas), regularización de Buzón SOL y devoluciones.",
+      "en": "Expert tax and accounting advisory in Lima & online with Lourdes Cusihuaman, former SUNAT officer. Specialized in 4th & 5th category taxes, payroll, and audit defense."
     },
     "keywords": {
       "es": [
+        "asesoria contable sunat",
         "contabilidad 4ta categoria",
         "declaracion 5ta categoria",
         "recibos por honorarios sunat",
         "suspension retenciones formulario 1609",
         "deduccion 3 uit sunat",
         "ex funcionaria sunat contadora",
-        "asesor tributario lima",
-        "estudio contable surquillo",
+        "asesor tributario lima surquillo",
         "auditoria buzon sol sunat",
-        "planillas plame t-registro"
+        "planillas plame t-registro",
+        "devolucion de impuestos sunat"
       ],
       "en": [
         "peru tax consultant",
@@ -160,28 +162,38 @@
       ]
     },
     "imagen": {
-      "url": "/imgwii/Woman_smiling_in_law_office.jpeg",
+      "url": "/imgwii/hero.webp",
       "width": 1200,
       "height": 630,
-      "type": "image/jpeg",
-      "alt": "Estudio Cusihuaman - Lourdes Cusihuaman Gálvez, Asesoría Tributaria SUNAT",
-      "caption": "Asesoría tributaria y contable experta en 4ta y 5ta categoría ante SUNAT"
+      "type": "image/webp",
+      "alt": "Estudio Cusihuaman - CPC Lourdes Cusihuaman Gálvez, Asesoría Tributaria SUNAT",
+      "caption": "Asesoría contable y tributaria especializada ante SUNAT en Surquillo y modalidad online"
     },
     "schema": {
       "tipo": ["AccountingService", "FinancialService", "ProfessionalService"],
-      "especialidades": ["TaxPreparation", "PayrollServices", "TaxConsulting", "SUNATAdvisory"],
+      "especialidades": ["TaxPreparation", "PayrollServices", "TaxConsulting", "Bookkeeping", "SUNATCompliance"],
       "descripcionCorta": {
         "es": "Estudio de asesoría contable y tributaria en Surquillo y modalidad online a nivel nacional. Especializado en rentas de 4ta y 5ta categoría, planillas y fiscalización SUNAT.",
         "en": "Accounting and tax advisory firm in Surquillo, Lima and online nationwide. Specialized in 4th/5th category income taxes and SUNAT compliance."
       }
     },
     "audiencia": {
-      "es": ["trabajadores independientes", "profesionales con RHE", "empresas con planilla", "personas naturales con negocio"],
-      "en": ["freelancers", "independent contractors", "corporations", "businesses"]
+      "es": [
+        "profesionales independientes y freelancers con RHE (4ta categoría)",
+        "trabajadores en planilla con retenciones en exceso (5ta categoría)",
+        "pequeñas y medianas empresas (MYPEs) con personal en planilla",
+        "personas naturales con negocio y emprendedores"
+      ],
+      "en": [
+        "independent contractors and freelancers",
+        "salaried workers seeking tax refunds",
+        "small and medium enterprises with payroll",
+        "business owners and entrepreneurs"
+      ]
     },
     "intencion": {
-      "es": "asesoria tributaria sunat, declaracion renta 4ta categoria, regularizacion buzon sol y planillas",
-      "en": "book tax advisory consultation, 4th category income tax and sunat compliance"
+      "es": "asesoria tributaria sunat, declaracion renta 4ta categoria, suspension retenciones 1609, regularizacion buzon sol, planillas plame",
+      "en": "tax consulting peru, sunat tax compliance, 4th category tax return, payroll advisory"
     }
   }
 }

@@ -53,7 +53,6 @@ export function normalizarConfig(c = {}) {
 
   return {
     id: cfg.id || base.id || DOC_NEGOCIO_ID,
-    principal: Boolean(cfg.principal ?? base.principal ?? true),
     moneda: cfg.moneda || base.moneda || 'PEN',
     idiomaPrincipal: cfg.idiomaPrincipal || cfg.idiomaDefecto || base.idiomaPrincipal || base.idiomaDefecto || 'es',
     idiomas: Array.isArray(cfg.idiomas) && cfg.idiomas.length > 0 ? cfg.idiomas : (Array.isArray(cfg.idiomasSoportados) ? cfg.idiomasSoportados : (base.idiomas || base.idiomasSoportados || ['es', 'en'])),
@@ -161,8 +160,6 @@ export function normalizarConfig(c = {}) {
       intencion: cfg.seo?.intencion || base.seo?.intencion || null
     },
     userId: cfg.userId || '',
-    email: cfg.email || '',
-    autor: cfg.autor || '',
     actualizado: cfg.actualizado || null
   };
 }
@@ -276,8 +273,15 @@ export function guardarDatosNegocio(input = {}) {
   const configActualizada = {
     ...actual,
     id: DOC_NEGOCIO_ID,
-    principal: true,
     moneda: input.moneda || actual.moneda || 'PEN',
+    idiomaPrincipal: input.idiomaPrincipal || actual.idiomaPrincipal || 'es',
+    idiomas: Array.isArray(input.idiomas) ? input.idiomas : (actual.idiomas || ['es', 'en']),
+    titulo: input.titulo || actual.titulo || 'Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez',
+    subtitulo: input.subtitulo || actual.subtitulo || 'Contabilidad & Tributación • Lima - Perú',
+    hero: {
+      ...actual.hero,
+      ...(input.hero || {})
+    },
     identidad: {
       ...actual.identidad,
       ...(input.identidad || {}),
@@ -309,10 +313,20 @@ export function guardarDatosNegocio(input = {}) {
       ...actual.seo,
       ...(input.seo || {})
     },
-    userId: usuario.userId || actual.userId || '',
-    email: usuario.email || actual.email || '',
-    autor: usuario.autor || actual.autor || ''
+    userId: usuario.userId || actual.userId || ''
   };
+
+  // Limpiar campos obsoletos o redundantes
+  delete configActualizada.principal;
+  delete configActualizada.email;
+  delete configActualizada.autor;
+  if (configActualizada.identidad) {
+    delete configActualizada.identidad.lanzamiento;
+    delete configActualizada.identidad.subtitulo;
+  }
+  if (configActualizada.metricas) {
+    delete configActualizada.metricas.pacientes;
+  }
 
   guardarDatosNegocioLocal(configActualizada);
 
@@ -322,38 +336,41 @@ export function guardarDatosNegocio(input = {}) {
   return configActualizada;
 }
 
-// Transforma la fecha a Timestamp nativo y persiste en Firestore
+// Persiste de forma limpia en Firestore
 async function sincronizarNegocioFirestore(config, fechaStr) {
   try {
     const { db } = await import('@core/servicios/firebase.js');
     if (!db) return;
-    const { doc, setDoc, Timestamp, serverTimestamp } = await import('firebase/firestore');
+    const { doc, setDoc, serverTimestamp } = await import('firebase/firestore');
 
-    let timestampLanzamiento = null;
-    if (fechaStr) {
-      try {
-        timestampLanzamiento = Timestamp.fromDate(new Date(`${fechaStr}T12:00:00`));
-      } catch (e) {}
-    }
+    const identidadLimpia = { ...(config.identidad || {}) };
+    delete identidadLimpia.lanzamiento;
+    delete identidadLimpia.subtitulo;
+
+    const metricasLimpias = {
+      clientes: config.metricas?.clientes || config.metricas?.pacientes || '+240',
+      confidencialidad: config.metricas?.confidencialidad || '100%',
+      satisfaccion: config.metricas?.satisfaccion || '99.4%',
+      years: config.metricas?.years || '12+'
+    };
 
     const payload = {
       id: DOC_NEGOCIO_ID,
-      principal: true,
       moneda: config.moneda || 'PEN',
-      identidad: {
-        ...config.identidad,
-        ...(timestampLanzamiento ? { lanzamiento: timestampLanzamiento } : {})
-      },
-      contacto: config.contacto,
-      horarios: config.horarios,
-      ubicacion: config.ubicacion,
-      sedes: config.sedes,
-      metricas: config.metricas,
-      redes: config.redes,
-      seo: config.seo,
-      userId: config.userId,
-      email: config.email,
-      autor: config.autor,
+      idiomaPrincipal: config.idiomaPrincipal || 'es',
+      idiomas: Array.isArray(config.idiomas) ? config.idiomas : ['es', 'en'],
+      titulo: config.titulo || 'Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez',
+      subtitulo: config.subtitulo || 'Contabilidad & Tributación • Lima - Perú',
+      hero: config.hero || {},
+      identidad: identidadLimpia,
+      contacto: config.contacto || {},
+      horarios: config.horarios || {},
+      ubicacion: config.ubicacion || {},
+      sedes: config.sedes || [],
+      metricas: metricasLimpias,
+      redes: config.redes || {},
+      seo: config.seo || {},
+      userId: config.userId || '',
       actualizado: serverTimestamp()
     };
 

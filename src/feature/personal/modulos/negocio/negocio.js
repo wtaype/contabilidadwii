@@ -309,6 +309,15 @@ export function inicializarNegocio() {
       idiomas: ['es', 'en'],
       titulo: actual.titulo || "Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez",
       subtitulo: actual.subtitulo || "Contabilidad & Tributación • Lima - Perú",
+      hero: actual.hero || {
+        titulo: "Lourdes Cusihuaman Gálvez",
+        subtitulo: "Contabilidad & Tributación • Lima - Perú",
+        imagen: "/imgwii/hero.webp",
+        alt: "Lourdes Cusihuaman Gálvez",
+        precioHero: "80 soles",
+        servicio: "Asesoría y Orientación Tributaria",
+        descripcion: "Evalúo personalmente tu caso 100% online por videollamada o presencial previa cita en Surquillo. Te explico en sencillo qué hacer ante SUNAT sin enredos técnicos."
+      },
 
       identidad: {
         nombre: inputNombre?.value?.trim() || actual.identidad?.nombre || "Lourdes Cusihuaman Gálvez",

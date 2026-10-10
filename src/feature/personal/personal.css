@@ -1,4 +1,4 @@
-﻿/* src/feature/personal/personal.css */
+/* src/feature/personal/personal.css */
 /* Estilos maestros del Layout y Navegación para Feature Personal */
 /* Consume variables de witema.css · Doble tema (futuro / luz) · Cero estilos inline */
 
@@ -53,7 +53,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .ps-btn-mobile-toggle {
-  display: none;
+  display: none !important;
 }
 
 .ps-brand {
@@ -62,12 +62,24 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   gap: 12px;
   text-decoration: none;
   color: inherit;
+  min-width: 0;
+}
+
+.ps-brand-picture {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  flex-shrink: 0;
 }
 
 .ps-logo {
-  height: 32px;
+  height: 38px;
+  max-height: 38px;
   width: auto;
   object-fit: contain;
+  border-radius: 1.2vh;
+  box-sizing: border-box !important;
+  flex-shrink: 0;
 }
 
 .ps-brand-text {
@@ -76,11 +88,17 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .ps-brand-title {
+  font-family: var(--ff_O, 'Outfit', sans-serif);
   font-size: var(--fz_m1);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.2px;
   color: var(--ink);
-  line-height: 1.2;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.ps-brand-title span {
+  color: var(--brand-primary, #c5a059);
 }
 
 .ps-brand-sub {
@@ -787,15 +805,16 @@ html.is-collapsed .ps-main-shell {
 /* Pantallas medianas y móviles (< 992px) */
 @media (max-width: 991px) {
   .ps-btn-mobile-toggle {
-    display: inline-flex;
+    display: inline-flex !important;
   }
 
-  .ps-brand-sub {
-    display: none;
+  .ps-brand-text {
+    display: none !important;
   }
 
-  .ps-brand-title {
-    font-size: var(--fz_m);
+  .ps-logo {
+    height: 36px !important;
+    max-height: 36px !important;
   }
 
   .ps-search-box {

@@ -163,22 +163,7 @@ function inicializarNavegacion() {
 }
 
 function inicializarBuscador() {
-  const btnSearchMobile = document.getElementById('btnSearchMobile');
-  const mobileBar = document.getElementById('mobileSearchBar');
-  const btnCloseMobile = document.getElementById('btnCloseMobileSearch');
   const inputDesktop = document.getElementById('clSearchInput');
-  const inputMobile = document.getElementById('clSearchInputMobile');
-
-  btnSearchMobile?.addEventListener('click', () => {
-    mobileBar?.classList.add('open');
-    inputMobile?.focus();
-  });
-
-  btnCloseMobile?.addEventListener('click', () => {
-    mobileBar?.classList.remove('open');
-    if (inputMobile) inputMobile.value = '';
-    buscarGlobal('');
-  });
 
   function filtrarProductos(query) {
     const q = query.trim().toLowerCase();
@@ -205,10 +190,6 @@ function inicializarBuscador() {
   }
 
   inputDesktop?.addEventListener('input', (e) => {
-    buscarGlobal(e.target.value);
-  });
-
-  inputMobile?.addEventListener('input', (e) => {
     buscarGlobal(e.target.value);
   });
 }

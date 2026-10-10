@@ -12,10 +12,15 @@ import { datosNegocio } from '@/negocio.js';
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <a href="/" class="ps-brand" title="Ir al Inicio">
-      <img src={datosNegocio.logo} alt={datosNegocio.nombre} class="ps-logo" />
+    <a href="/" class="ps-brand" title="Ir a la Tienda / Inicio">
+      <picture class="ps-brand-picture">
+        <source media="(max-width: 900px)" srcset={datosNegocio.logoFull} />
+        <img src={datosNegocio.logo} alt={datosNegocio.nombre} class="ps-logo" />
+      </picture>
       <div class="ps-brand-text">
-        <span class="ps-brand-title">{datosNegocio.nombre.toUpperCase()}</span>
+        <span class="ps-brand-title">
+          {datosNegocio.nombre.split(' ')[0]} <span>{datosNegocio.nombre.split(' ').slice(1).join(' ')}</span>
+        </span>
         <span class="ps-brand-sub">
           <span class="ps-badge-online"></span>
           Sede {datosNegocio.distritoSede} · Centro de Operaciones
@@ -34,9 +39,9 @@ import { datosNegocio } from '@/negocio.js';
       <i class="fa-solid fa-circle-half-stroke"></i>
     </button>
 
-    <!-- Ver Web Pública -->
-    <a href="/" target="_blank" class="ps-btn-icon" aria-label="Sitio web público" title="Ver Web Pública">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    <!-- Ver Tienda Pública -->
+    <a href="/" target="_blank" class="ps-btn-icon" aria-label="Ver Tienda / Web Pública" title="Ver Tienda / Web Pública">
+      <i class="fa-solid fa-store"></i>
     </a>
 
     <!-- Badge del Usuario (Solo Avatar + Nombre + Dropdown al hacer clic) -->

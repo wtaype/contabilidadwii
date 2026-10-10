@@ -17,12 +17,17 @@ const { cliente = {} } = Astro.props;
 
 <header class="cl-topbar">
   <!-- Identidad del Estudio Contable -->
-  <a href="/cliente" class="cl-brand">
-    <img src="/imgwii/logo.webp" alt={datosNegocio.nombre || 'Estudio Cusihuaman'} class="cl-logo" />
+  <a href="/" class="cl-brand" title="Ir a la Tienda / Inicio">
+    <picture class="cl-brand-picture">
+      <source media="(max-width: 900px)" srcset={datosNegocio.logoFull} />
+      <img src={datosNegocio.logo} alt={datosNegocio.nombre} class="cl-logo" />
+    </picture>
     <div class="cl-brand-info">
-      <span class="cl-brand-title">ESTUDIO <span>CUSIHUAMAN</span></span>
+      <span class="cl-brand-title">
+        {datosNegocio.nombre.split(' ')[0]} <span>{datosNegocio.nombre.split(' ').slice(1).join(' ')}</span>
+      </span>
       <span class="cl-brand-sub">
-        <span class="cl-live-dot"></span> Sede {datosNegocio.direccionSede || 'Jr. Dante 260'} · Asesoría Activa
+        <span class="cl-live-dot"></span> Sede {datosNegocio.distritoSede} · Portal de Clientes
       </span>
     </div>
   </a>
@@ -43,19 +48,14 @@ const { cliente = {} } = Astro.props;
 
   <!-- Acciones Superiores -->
   <div class="cl-topbar-right">
-    <!-- Icono Buscador en Móvil -->
-    <button type="button" class="cl-btn-icon cl-btn-search-mobile" id="btnSearchMobile" title="Buscar servicios" aria-label="Abrir buscador">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-
     <!-- Alternar Tema -->
     <button type="button" class="cl-btn-icon" id="btnThemeToggle" title="Alternar tema" aria-label="Alternar tema">
       <i class="fa-solid fa-moon"></i>
     </button>
 
-    <!-- Ver Web Principal -->
-    <a href="/" target="_blank" class="cl-btn-icon" title="Ver Web Principal" aria-label="Ver Web Principal">
-      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    <!-- Ver Tienda Pública -->
+    <a href="/" target="_blank" class="cl-btn-icon" title="Ver Tienda / Web Pública" aria-label="Ver Tienda / Web Pública">
+      <i class="fa-solid fa-store"></i>
     </a>
 
     <!-- Dropdown de Usuario / Contribuyente Autenticado -->
@@ -99,20 +99,4 @@ const { cliente = {} } = Astro.props;
   </div>
 </header>
 
-<!-- Barra de Búsqueda Desplegable en Móvil -->
-<div class="cl-mobile-search-bar" id="mobileSearchBar">
-  <div class="cl-mobile-search-bar-inner">
-    <i class="fa-solid fa-magnifying-glass cl-mobile-search-icon"></i>
-    <input 
-      type="search" 
-      id="clSearchInputMobile" 
-      placeholder="Buscar servicios o trámites..." 
-      autocomplete="off" 
-      spellcheck="false" 
-      aria-label="Buscar servicios móvil"
-    />
-  </div>
-  <button type="button" class="cl-btn-close-search" id="btnCloseMobileSearch" title="Cerrar búsqueda" aria-label="Cerrar búsqueda">
-    <i class="fa-solid fa-xmark"></i>
-  </button>
-</div>
+

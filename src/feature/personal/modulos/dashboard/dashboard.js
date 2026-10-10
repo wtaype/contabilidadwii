@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/dashboard/dashboard.js
-// Controlador Frontend Autónomo del Dashboard (Solgas Surquillo)
+// Controlador Frontend Autónomo del Dashboard (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con dataNotepad.js y @widev
 
 import { obtenerNotas, guardarNotaData, toggleListoNotaData } from '../notepad/dataNotepad.js';
@@ -31,7 +31,7 @@ export function inicializarDashboard() {
         <div class="db-note-item">
           <div class="db-note-info">
             <div class="db-note-title" style="${isListo ? 'text-decoration:line-through; opacity:0.6;' : ''}">
-              ${n.pin ? '<i class="fa-solid fa-thumbtack" style="color:var(--brand-orange); font-size:10px; margin-right:4px;"></i>' : ''}
+              ${n.pin ? '<i class="fa-solid fa-thumbtack" style="color:var(--brand-primary, #9e7b4f); font-size:10px; margin-right:4px;"></i>' : ''}
               ${n.titulo || 'Nota sin título'}
             </div>
             <div class="db-note-snippet">${n.resumen10 || (n.contenido || '').substring(0, 45)}…</div>

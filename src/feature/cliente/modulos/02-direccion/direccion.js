@@ -1,5 +1,5 @@
 // src/feature/cliente/modulos/02-direccion/direccion.js
-// Controlador Frontend del Módulo 02-Dirección · Solgas Surquillo
+// Controlador Frontend del Módulo 02-Dirección · Domicilio Fiscal · Estudio Cusihuaman
 // Split Layout con selección directa de lugar (Casa, Trabajo, Empresa, Oficina, Otros)
 // Apple cards para Principal y Tiempo Aprox reactivo · Sincronización en segundo plano
 
@@ -61,7 +61,7 @@ function resetearFormulario() {
 
   // Seleccionar 'Casa' por defecto
   document.querySelectorAll('#cdChipsRow .cd-chip-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.alias === 'Casa');
+    btn.classList.toggle('active', btn.dataset.alias === 'Fiscal' || btn.dataset.alias === 'Casa');
   });
 
   // Switch principal por defecto
@@ -69,7 +69,7 @@ function resetearFormulario() {
   if (chkPrincipal) chkPrincipal.checked = true;
 
   // Celular por defecto del perfil si existe
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__GASWII_USER__ : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   const inputCelular = document.getElementById('cdFormCelular');
   if (inputCelular && user?.celular) {
     inputCelular.value = user.celular;
@@ -157,7 +157,7 @@ export function renderizarDirecciones(filtro = '') {
         <div class="cd-empty-desc">
           ${filtroClean 
             ? 'No hay domicilios que coincidan con tu búsqueda. Intenta con otra palabra clave.' 
-            : 'Utiliza el formulario de la izquierda para registrar tu primer punto de entrega de balones de gas.'}
+            : 'Utiliza el formulario de la izquierda para registrar tu primer domicilio fiscal o establecimiento anexo ante SUNAT.'}
         </div>
       </div>
     `;
@@ -267,7 +267,7 @@ export function renderizarDirecciones(filtro = '') {
           await eliminarDireccion(id);
           Mensaje('Dirección eliminada correctamente.', 'success');
         } catch (e) {
-          console.error('[Gaswii Direcciones UI] Error al eliminar:', e);
+          console.error('[Contabilidad Direcciones UI] Error al eliminar:', e);
           Mensaje('Error al eliminar la dirección: ' + (e.message || e), 'danger');
         }
       }
@@ -282,7 +282,7 @@ export function renderizarDirecciones(filtro = '') {
         await establecerPrincipal(id);
         Mensaje('Dirección predeterminada actualizada.', 'success');
       } catch (e) {
-        console.error('[Gaswii Direcciones UI] Error al predeterminar:', e);
+        console.error('[Contabilidad Direcciones UI] Error al predeterminar:', e);
         Mensaje('Error al actualizar dirección principal: ' + (e.message || e), 'danger');
       }
     });
@@ -356,7 +356,7 @@ export function inicializarDirecciones() {
         esPrincipal
       };
 
-      console.log('[Gaswii Direcciones UI] Enviando formulario:', payload);
+      console.log('[Contabilidad Direcciones UI] Enviando formulario:', payload);
 
       wiSpin(btnGuardar, true, id ? 'Actualizando...' : 'Guardando...');
 
@@ -365,7 +365,7 @@ export function inicializarDirecciones() {
         Mensaje(id ? 'Dirección actualizada con éxito.' : 'Dirección guardada con éxito.', 'success');
         resetearFormulario();
       } catch (err) {
-        console.error('[Gaswii Direcciones UI] ❌ Error capturado en submit:', err);
+        console.error('[Contabilidad Direcciones UI] ❌ Error capturado en submit:', err);
         Mensaje('Error al guardar la dirección: ' + (err.message || err), 'danger');
       } finally {
         wiSpin(btnGuardar, false);
@@ -379,7 +379,7 @@ export function inicializarDirecciones() {
     });
 
     // Precargar celular si el perfil lo tiene
-    const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__GASWII_USER__ : null);
+    const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
     const inCel = document.getElementById('cdFormCelular');
     if (inCel && user?.celular) {
       inCel.value = user.celular;

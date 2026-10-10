@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/modulos/whatsapp/Whatsapp.astro
-// Módulo de WhatsApp: Centro de Mensajería Oficial & Sandbox Smartphone (Solgas Surquillo)
+// Módulo de WhatsApp: Centro de Mensajería & Sandbox Tributario (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev · 0 CSS Inline
 
 interface Props {
@@ -17,10 +17,10 @@ const { esActivo = false } = Astro.props;
     <div class="ps-section-title-wrap">
       <h1 class="ps-section-title">
         <i class="fa-brands fa-whatsapp sn-header-icon" style="color: #25d366;"></i>
-        WhatsApp · Centro de Mensajería & Sandbox
+        WhatsApp · Centro de Mensajería Tributaria & Sandbox
       </h1>
       <p class="ps-section-sub">
-        Formatos y plantillas oficiales de despacho, garantía y fidelización con vista previa en vivo de smartphone.
+        Plantillas profesionales de vencimientos SUNAT, liquidaciones con NPS y asesorías con simulador interactivo de smartphone en vivo.
       </p>
     </div>
   </div>
@@ -31,7 +31,7 @@ const { esActivo = false } = Astro.props;
     <!-- COLUMNA 1: CONFIGURADOR DE PLANTILLAS Y VARIABLES -->
     <div class="wa-card">
       <h2 class="wa-card-title">
-        <i class="fa-solid fa-layer-group sn-title-icon"></i> 1. Selecciona la Plantilla Oficial
+        <i class="fa-solid fa-layer-group sn-title-icon"></i> 1. Selecciona la Plantilla Contable
       </h2>
 
       <!-- Grid de 6 Plantillas Maestras -->
@@ -42,13 +42,13 @@ const { esActivo = false } = Astro.props;
       <!-- Parámetros Dinámicos -->
       <div class="wa-params-box">
         <div class="wa-params-title">
-          <i class="fa-solid fa-sliders"></i> 2. Personalizar Datos del Cliente y Despacho
+          <i class="fa-solid fa-sliders"></i> 2. Personalizar Datos del Contribuyente y Declaración
         </div>
 
         <div class="wa-form-row">
           <div class="sn-form-group">
-            <label class="sn-label" for="waInpCliente">Nombre del Cliente</label>
-            <input type="text" id="waInpCliente" class="sn-input" value="Wilder Taype" />
+            <label class="sn-label" for="waInpCliente">Cliente / Razón Social</label>
+            <input type="text" id="waInpCliente" class="sn-input" value="Inversiones Gastronómicas S.A.C." />
           </div>
           <div class="sn-form-group">
             <label class="sn-label" for="waInpCelular">Celular WhatsApp Destino</label>
@@ -58,29 +58,35 @@ const { esActivo = false } = Astro.props;
 
         <div class="wa-form-row">
           <div class="sn-form-group">
-            <label class="sn-label" for="waInpProducto">Producto / Balón</label>
-            <input type="text" id="waInpProducto" class="sn-input" value="Balón SOLGAS Premium 10 kg" />
+            <label class="sn-label" for="waInpRuc">RUC (10 / 20)</label>
+            <input type="text" id="waInpRuc" class="sn-input" value="20554897123" />
           </div>
           <div class="sn-form-group">
-            <label class="sn-label" for="waInpMonto">Total PEN (S/)</label>
-            <input type="text" id="waInpMonto" class="sn-input" value="65.00" />
+            <label class="sn-label" for="waInpDigito">Último Dígito</label>
+            <input type="text" id="waInpDigito" class="sn-input" value="3" />
           </div>
         </div>
 
         <div class="wa-form-row">
           <div class="sn-form-group">
-            <label class="sn-label" for="waInpChofer">Conductor Asignado</label>
-            <input type="text" id="waInpChofer" class="sn-input" value="Juan Quispe (Móvil 02)" />
+            <label class="sn-label" for="waInpPeriodo">Período Fiscal</label>
+            <input type="text" id="waInpPeriodo" class="sn-input" value="Agosto 2026" />
           </div>
           <div class="sn-form-group">
-            <label class="sn-label" for="waInpEta">Tiempo de Entrega (ETA)</label>
-            <input type="text" id="waInpEta" class="sn-input" value="12–15" />
+            <label class="sn-label" for="waInpMonto">Monto / Total Tributos (S/)</label>
+            <input type="text" id="waInpMonto" class="sn-input" value="185.00" />
           </div>
         </div>
 
-        <div class="sn-form-group sn-mt-10">
-          <label class="sn-label" for="waInpDireccion">Dirección de Entrega</label>
-          <input type="text" id="waInpDireccion" class="sn-input" value="Jr. Dante 260, Surquillo" />
+        <div class="wa-form-row">
+          <div class="sn-form-group">
+            <label class="sn-label" for="waInpNps">Código Pago NPS</label>
+            <input type="text" id="waInpNps" class="sn-input" value="9827364510" />
+          </div>
+          <div class="sn-form-group">
+            <label class="sn-label" for="waInpFechaVencimiento">Fecha Límite Vencimiento</label>
+            <input type="text" id="waInpFechaVencimiento" class="sn-input" value="18 de Septiembre de 2026" />
+          </div>
         </div>
       </div>
 
@@ -110,13 +116,13 @@ const { esActivo = false } = Astro.props;
         <div class="wa-chat-header">
           <div class="wa-chat-sender-info">
             <i class="fa-solid fa-arrow-left" style="color: #aebac1; font-size: 13px;"></i>
-            <img src="https://imgwii.web.app/smile.avif" alt="Solgas" class="wa-chat-avatar" />
+            <img src="/imgwii/logo.webp" alt="Estudio Cusihuaman" class="wa-chat-avatar" />
             <div class="wa-chat-sender-meta">
               <div class="wa-chat-sender-name">
-                Solgas Surquillo
+                Estudio Cusihuaman
                 <i class="fa-solid fa-circle-check wa-chat-verified-icon"></i>
               </div>
-              <div class="wa-chat-sender-sub">Cuenta de empresa oficial</div>
+              <div class="wa-chat-sender-sub">CPC Lourdes Cusihuaman · Oficial</div>
             </div>
           </div>
 
@@ -143,7 +149,7 @@ const { esActivo = false } = Astro.props;
         <!-- Chat Footer -->
         <div class="wa-chat-footer">
           <i class="fa-regular fa-face-smile" style="color: #8696a0; font-size: 18px;"></i>
-          <div class="wa-chat-input-fake">Mensaje</div>
+          <div class="wa-chat-input-fake">Mensaje tributario</div>
           <i class="fa-solid fa-paperclip" style="color: #8696a0; font-size: 16px;"></i>
           <div class="wa-chat-mic-btn">
             <i class="fa-solid fa-microphone"></i>

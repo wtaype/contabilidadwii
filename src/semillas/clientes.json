@@ -1,0 +1,53 @@
+[
+  {
+    "id": "cli-01",
+    "nombre": "Inversiones Gastronómicas El Rincón Criollo S.A.C.",
+    "contacto": "Roberto Arévalo Méndez",
+    "documentoTipo": "RUC",
+    "documento": "20554897123",
+    "celular": "961229280",
+    "email": "administracion@rinconcriollo.pe",
+    "direccion": "Av. Angamos Este 1240, Surquillo, Lima",
+    "regimenTributario": "Régimen MYPE Tributario (RMT)",
+    "servicioContratado": "Contabilidad Mensual MYPE & SIRE",
+    "honorarioPEN": 150.00,
+    "ultimoDigitoRuc": 3,
+    "estadoTributario": "al_dia",
+    "fechaInicio": "15 Feb 2024",
+    "observaciones": "Restaurante con 4 trabajadores en planilla. Declaración mensual con SIRE al día."
+  },
+  {
+    "id": "cli-02",
+    "nombre": "Valeria Mendoza Castro",
+    "contacto": "Valeria Mendoza",
+    "documentoTipo": "RUC",
+    "documento": "10478912341",
+    "celular": "987654321",
+    "email": "valeria.mendoza.arq@gmail.com",
+    "direccion": "Av. Angamos Este 1420, Dpto 402, Surquillo",
+    "regimenTributario": "4ta Categoría (Recibos por Honorarios)",
+    "servicioContratado": "Asesoría y Regularización RHE",
+    "honorarioPEN": 80.00,
+    "ultimoDigitoRuc": 1,
+    "estadoTributario": "al_dia",
+    "fechaInicio": "10 Abr 2025",
+    "observaciones": "Arquitecta independiente. Cuenta con Formulario 1609 de suspensión del 8% autorizado."
+  },
+  {
+    "id": "cli-03",
+    "nombre": "Carlos Ramos Peña (Minimarket Los Cedros)",
+    "contacto": "Carlos Ramos",
+    "documentoTipo": "RUC",
+    "documento": "10717799782",
+    "celular": "936369384",
+    "email": "carlos.ramos@gmail.com",
+    "direccion": "Jr. Dante 345, Surquillo, Lima",
+    "regimenTributario": "Régimen Especial de Renta (RER)",
+    "servicioContratado": "Declaración Mensual RER & Compras SIRE",
+    "honorarioPEN": 120.00,
+    "ultimoDigitoRuc": 2,
+    "estadoTributario": "al_dia",
+    "fechaInicio": "05 Ene 2026",
+    "observaciones": "Comercio de abarrotes. Se le emite comprobante mensual por honorarios profesionales."
+  }
+]

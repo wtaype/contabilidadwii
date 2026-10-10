@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/modulos/galeria/Galeria.astro
-// Módulo de Galería: Gestor de Medios Cloudflare R2 (Solgas Surquillo)
+// Módulo de Galería: Gestor de Medios & Fotos Oficiales (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y r2Storage.js · 0 CSS Inline
 
 interface Props {
@@ -16,11 +16,11 @@ const { esActivo = false } = Astro.props;
   <div class="ps-section-header">
     <div class="ps-section-title-wrap">
       <h1 class="ps-section-title">
-        <i class="fa-solid fa-images sn-header-icon"></i>
-        Galería · Bucket Cloudflare R2 (gaswii-media)
+        <i class="fa-solid fa-images sn-header-icon" style="color: var(--brand-primary, var(--mco, #9e7b4f));"></i>
+        Galería · Banco de Medios & Fotos Oficiales
       </h1>
       <p class="ps-section-sub">
-        Gestión de imágenes de balones, marca y fotos de la sede Dante 260 con CDN oficial y optimización WebP.
+        Gestión de imágenes de la especialista, sede Surquillo, diplomados y material institucional con CDN optimizado WebP.
       </p>
     </div>
     <div class="ps-header-actions">
@@ -34,15 +34,14 @@ const { esActivo = false } = Astro.props;
   <div class="gl-toolbar">
     <div class="gl-filters" id="glFiltersWrap">
       <button type="button" class="gl-filter-pill active" data-cat="todas">Todas</button>
-      <button type="button" class="gl-filter-pill" data-cat="balones">Balones GLP</button>
-      <button type="button" class="gl-filter-pill" data-cat="sede">Sede Dante</button>
-      <button type="button" class="gl-filter-pill" data-cat="delivery">Reparto y Flota</button>
-      <button type="button" class="gl-filter-pill" data-cat="accesorios">Accesorios</button>
-      <button type="button" class="gl-filter-pill" data-cat="banners">Banners</button>
+      <button type="button" class="gl-filter-pill" data-cat="especialista">Especialista</button>
+      <button type="button" class="gl-filter-pill" data-cat="sede">Sede Surquillo</button>
+      <button type="button" class="gl-filter-pill" data-cat="certificaciones">Certificaciones</button>
+      <button type="button" class="gl-filter-pill" data-cat="institucional">Institucional</button>
     </div>
 
     <div class="gl-toolbar-right">
-      <span class="gl-stats-badge" id="glStatsBadge">6 archivos · Cloudflare R2</span>
+      <span class="gl-stats-badge" id="glStatsBadge">6 archivos · Estudio Cusihuaman</span>
     </div>
   </div>
 
@@ -51,12 +50,12 @@ const { esActivo = false } = Astro.props;
     <!-- Render dinámico desde galeria.js -->
   </div>
 
-  <!-- MODAL DE SUBIDA DIRECTA A CLOUDFLARE R2 -->
+  <!-- MODAL DE SUBIDA DIRECTA -->
   <div class="gl-modal-overlay" id="glModalSubida">
     <div class="gl-modal">
       <div class="cl-modal-head">
         <h3 class="cl-modal-title">
-          <i class="fa-solid fa-cloud-arrow-up sn-title-icon"></i> Subir a Cloudflare R2
+          <i class="fa-solid fa-cloud-arrow-up sn-title-icon"></i> Subir Imagen a Galería
         </h3>
         <button type="button" class="cl-modal-close" id="btnGlModalClose">
           <i class="fa-solid fa-xmark"></i>
@@ -68,34 +67,33 @@ const { esActivo = false } = Astro.props;
         
         <div class="gl-dropzone" id="glDropzone">
           <i class="fa-solid fa-cloud-arrow-up gl-dropzone-icon"></i>
-          <div class="gl-dropzone-txt">Arrastra tu imagen aquí o haz clic para buscar</div>
+          <div class="gl-dropzone-txt">Arrastra tu fotografía aquí o haz clic para buscar</div>
           <div class="gl-dropzone-sub">Formatos recomendados: WebP, PNG, JPG (Máx. 5 MB)</div>
         </div>
 
         <div class="sn-form-group">
           <label class="sn-label" for="glSelectCategoria">Categoría de Archivo</label>
           <select id="glSelectCategoria" class="sn-select">
-            <option value="balones">Balones GLP</option>
-            <option value="sede">Sede Dante</option>
-            <option value="delivery">Reparto y Flota</option>
-            <option value="accesorios">Accesorios</option>
-            <option value="banners">Banners</option>
+            <option value="especialista">Especialista (Lourdes Cusihuaman)</option>
+            <option value="sede">Sede Surquillo</option>
+            <option value="certificaciones">Certificaciones y Colegiatura</option>
+            <option value="institucional">Institucional y Logos</option>
           </select>
         </div>
 
         <div class="sn-form-group">
           <label class="sn-label" for="glInpTitulo">Título o Nombre Descriptivo</label>
-          <input type="text" id="glInpTitulo" class="sn-input" placeholder="Ej. Balón 10kg Premium con precinto" />
+          <input type="text" id="glInpTitulo" class="sn-input" placeholder="Ej. CPC Lourdes Cusihuaman - Foto Oficial" />
         </div>
 
         <div class="sn-form-group">
           <label class="sn-label" for="glInpAlt">Texto Alternativo (ALT) para Google SEO</label>
-          <input type="text" id="glInpAlt" class="sn-input" placeholder="Ej. Balón de gas Solgas 10 kg en Surquillo" />
+          <input type="text" id="glInpAlt" class="sn-input" placeholder="Ej. CPC Lourdes Cusihuaman asesora contable en Surquillo" />
         </div>
 
         <div class="cl-modal-actions">
           <button type="submit" class="ps-btn ps-btn-primary" id="btnGlSubmitSubida">
-            <i class="fa-solid fa-upload"></i> Subir a R2
+            <i class="fa-solid fa-upload"></i> Subir Imagen
           </button>
         </div>
       </form>

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "pg-inicio",
+    "ruta": "/",
+    "nombre": "Inicio · Portada Principal",
+    "icono": "fa-solid fa-house",
+    "h1": "Asesoría Contable & Tributaria Confiable en Lima",
+    "subtitulo": "Atención 100% online a nivel nacional y presencial en Surquillo previa cita. Guiamos a MYPES y profesionales independientes ante SUNAT sin enredos.",
+    "metaTitle": "Lourdes Cusihuaman · Asesoría Contable y Tributaria SUNAT en Lima",
+    "metaDesc": "Especialista contable ex-funcionaria de SUNAT. Asesoría para MYPES, planillas, declaraciones mensuales y recibos por honorarios sin complicaciones.",
+    "telefono": "+51 987 594 558",
+    "horario": "Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m.",
+    "ultimaModificacion": "2026-10-10"
+  },
+  {
+    "id": "pg-servicios",
+    "ruta": "/#servicios",
+    "nombre": "Servicios Contables Mensuales",
+    "icono": "fa-solid fa-briefcase",
+    "h1": "Servicios Contables y Planillas para Pequeños Negocios (MYPE)",
+    "subtitulo": "Nos encargamos de tu liquidación mensual de IGV/Renta, SIRE y boletas de trabajadores.",
+    "metaTitle": "Servicios Contables Mensuales MYPE · Estudio Cusihuaman",
+    "metaDesc": "Declaraciones mensuales de impuestos, SIRE, planillas y asesoría integral para que te dediques al crecimiento de tu empresa con total tranquilidad.",
+    "telefono": "+51 987 594 558",
+    "horario": "Lunes a Viernes: 8:30 a.m. a 7:00 p.m.",
+    "ultimaModificacion": "2026-10-10"
+  },
+  {
+    "id": "pg-asesorias",
+    "ruta": "/#asesorias",
+    "nombre": "Asesorías Puntuales y Trámites SUNAT",
+    "icono": "fa-solid fa-scale-balanced",
+    "h1": "Diagnóstico y Orientación Tributaria Personalizada",
+    "subtitulo": "Sesiones de 1 hora por videollamada para resolver dudas de RHE, esquelas de fiscalización y regularizaciones.",
+    "metaTitle": "Asesoría Tributaria 1 a 1 y Diagnóstico Fiscal SUNAT",
+    "metaDesc": "Resuelve tus dudas fiscales directamente con la CPC Lourdes Cusihuaman. Revisión de Buzón SOL y levantamiento de contingencias.",
+    "telefono": "+51 987 594 558",
+    "horario": "Atención Online Nacional previa coordinación",
+    "ultimaModificacion": "2026-10-10"
+  },
+  {
+    "id": "pg-libro-reclamaciones",
+    "ruta": "/libro-reclamaciones",
+    "nombre": "Libro de Reclamaciones",
+    "icono": "fa-solid fa-book",
+    "h1": "Libro de Reclamaciones Virtual",
+    "subtitulo": "Conforme a lo establecido en el Código de Protección y Defensa del Consumidor (Ley N° 29571).",
+    "metaTitle": "Libro de Reclamaciones Virtual · Estudio Contable Cusihuaman",
+    "metaDesc": "Canal virtual oficial para el registro de quejas o reclamos sobre nuestros servicios de asesoría contable.",
+    "telefono": "+51 987 594 558",
+    "horario": "Disponible 24/7",
+    "ultimaModificacion": "2026-10-10"
+  }
+]

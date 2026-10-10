@@ -1,6 +1,6 @@
 ---
 // src/feature/cliente/layout/Sonrisas.astro
-// Layout Maestro de feature/cliente · Solgas Surquillo
+// Layout Maestro de feature/cliente · Estudio Cusihuaman
 // Anti-FOUC en 0ms con redirección estricta si no hay sesión wiSmile, CSS inlined y dock móvil
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const { 
-  titulo = 'Solgas Surquillo · Realizar Pedido',
+  titulo = 'CPC Lourdes Cusihuaman · Portal del Contribuyente',
   moduloActivo = 'pedidos',
   idioma = 'es',
   cliente = {}
@@ -61,14 +61,14 @@ const listaModulos = getModulosActivos();
           document.documentElement.style.display = 'none';
           window.location.replace('/');
         } else {
-          window.__GASWII_USER__ = user;
+          window.__CONTABILIDAD_USER__ = user;
         }
       }
 
       // 2. Anti-FOUC de Tema y Preferencias
-      const savedTheme = localStorage.getItem('gaswii_theme_cliente') || localStorage.getItem('wiTema') || 'futuro';
+      const savedTheme = localStorage.getItem('contabilidad_theme_cliente') || localStorage.getItem('wiTema') || 'futuro';
       document.documentElement.dataset.theme = savedTheme;
-      if (localStorage.getItem('gaswii_sidebar_cliente') === 'true') {
+      if (localStorage.getItem('contabilidad_sidebar_cliente') === 'true') {
         document.documentElement.classList.add('is-collapsed');
       }
     } catch (e) {

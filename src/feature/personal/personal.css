@@ -1,4 +1,4 @@
-/* src/feature/personal/personal.css */
+﻿/* src/feature/personal/personal.css */
 /* Estilos maestros del Layout y Navegación para Feature Personal */
 /* Consume variables de witema.css · Doble tema (futuro / luz) · Cero estilos inline */
 
@@ -119,8 +119,8 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .ps-search-box input:focus {
-  border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.15);
+  border-color: var(--brand-primary, #9e7b4f);
+  box-shadow: 0 0 0 3px rgba(158, 123, 79, 0.15);
 }
 
 .ps-search-icon {
@@ -157,8 +157,8 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .ps-btn-icon:hover {
-  border-color: var(--brand-orange);
-  color: var(--brand-orange);
+  border-color: var(--brand-primary, #9e7b4f);
+  color: var(--brand-primary, #9e7b4f);
   transform: translateY(-1px);
 }
 
@@ -178,7 +178,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .ps-user-badge:hover, .ps-user-badge.open {
-  border-color: var(--brand-orange);
+  border-color: var(--brand-primary, #9e7b4f);
   background: var(--surface);
 }
 
@@ -276,7 +276,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
 
 .ps-dropdown-item:hover {
   background: var(--raised);
-  color: var(--brand-orange);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .ps-dropdown-item i {
@@ -286,7 +286,7 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; }
   color: var(--muted);
 }
 
-.ps-dropdown-item:hover i { color: var(--brand-orange); }
+.ps-dropdown-item:hover i { color: var(--brand-primary, #9e7b4f); }
 .ps-dropdown-divider { height: 1px; background: var(--line); margin: 4px 0; }
 .ps-dropdown-item.danger { color: var(--red); }
 .ps-dropdown-item.danger i { color: var(--red); }
@@ -337,7 +337,7 @@ body.ps-locked-scroll {
 }
 
 .ps-sidebar-mobile-title i {
-  color: var(--brand-orange);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .ps-btn-mobile-close {
@@ -410,7 +410,7 @@ html.is-collapsed .ps-sidebar {
 
 .ps-nav-item.active {
   background: var(--raised);
-  color: var(--brand-orange);
+  color: var(--brand-primary, #9e7b4f);
   font-weight: 600;
 }
 
@@ -422,8 +422,8 @@ html.is-collapsed .ps-sidebar {
   bottom: 6px;
   width: 3.5px;
   border-radius: 0 3px 3px 0;
-  background: var(--brand-orange);
-  box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
+  background: var(--brand-primary, #9e7b4f);
+  box-shadow: 0 0 8px rgba(158, 123, 79, 0.4);
 }
 
 .ps-nav-item i {
@@ -436,7 +436,7 @@ html.is-collapsed .ps-sidebar {
 }
 
 .ps-nav-item:hover i, .ps-nav-item.active i {
-  color: var(--brand-orange);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .ps-nav-text {
@@ -448,7 +448,7 @@ html.is-collapsed .ps-sidebar {
 .ps-nav-badge {
   font-size: 10px;
   font-weight: 700;
-  background: var(--brand-orange);
+  background: var(--brand-primary, #9e7b4f);
   color: #fff;
   padding: 1px 6px;
   border-radius: 10px;
@@ -610,13 +610,13 @@ html.is-collapsed .ps-main-shell {
 }
 
 .ps-btn-primary {
-  background: var(--brand-orange);
+  background: var(--brand-primary, #9e7b4f);
   color: #fff;
 }
 
 .ps-btn-primary:hover {
-  background: #e65c00;
-  box-shadow: 0 4px 14px rgba(255, 102, 0, 0.3);
+  background: var(--mco-dark, #82633c);
+  box-shadow: 0 4px 14px rgba(158, 123, 79, 0.3);
   transform: translateY(-1px);
 }
 
@@ -627,8 +627,8 @@ html.is-collapsed .ps-main-shell {
 }
 
 .ps-btn-secondary:hover {
-  border-color: var(--brand-orange);
-  color: var(--brand-orange);
+  border-color: var(--brand-primary, #9e7b4f);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .ps-btn-danger {
@@ -673,7 +673,7 @@ html.is-collapsed .ps-main-shell {
 
 .ps-placeholder-icon {
   font-size: 36px;
-  color: var(--brand-orange);
+  color: var(--brand-primary, #9e7b4f);
   margin-bottom: 12px;
   display: inline-block;
 }
@@ -738,8 +738,8 @@ html.is-collapsed .ps-main-shell {
 .ps-input:focus,
 .ps-select:focus,
 .ps-textarea:focus {
-  border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.12);
+  border-color: var(--brand-primary, #9e7b4f);
+  box-shadow: 0 0 0 3px rgba(158, 123, 79, 0.12);
 }
 
 /* Selector de Etiquetas (Pills) */
@@ -767,9 +767,9 @@ html.is-collapsed .ps-main-shell {
 
 .ps-tag-pill:hover,
 .ps-tag-pill.active {
-  border-color: var(--brand-orange);
-  color: var(--brand-orange);
-  background: rgba(255, 102, 0, 0.08);
+  border-color: var(--brand-primary, #9e7b4f);
+  color: var(--brand-primary, #9e7b4f);
+  background: rgba(158, 123, 79, 0.08);
   font-weight: 600;
 }
 
@@ -777,8 +777,8 @@ html.is-collapsed .ps-main-shell {
 .sn-mt-10 { margin-top: 10px; }
 .sn-mt-14 { margin-top: 14px; }
 .sn-mb-14 { margin-bottom: 14px; }
-.sn-header-icon { color: var(--brand-orange); margin-right: 8px; }
-.sn-title-icon { color: var(--brand-orange); }
+.sn-header-icon { color: var(--brand-primary, #9e7b4f); margin-right: 8px; }
+.sn-title-icon { color: var(--brand-primary, #9e7b4f); }
 
 /* ============================================================
    RESPONSIVE DESIGN (TABLET & MOBILE)

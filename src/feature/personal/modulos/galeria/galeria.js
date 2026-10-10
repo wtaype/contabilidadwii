@@ -1,8 +1,8 @@
 // src/feature/personal/modulos/galeria/galeria.js
-// Controlador Frontend Autónomo del Módulo Galería R2 (Solgas Surquillo)
+// Controlador Frontend Autónomo del Módulo Galería (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev
 
-import { Notificacion, wiSpin, wiConfirmar, wiSelect } from '@widev';
+import { Notificacion, wiSpin, wiConfirmar } from '@widev';
 import {
   obtenerImagenesGaleria,
   procesarSubidaImagen,
@@ -16,7 +16,6 @@ export function inicializarModuloGaleria() {
   panel.dataset.galeriaInit = 'true';
 
   let categoriaActual = 'todas';
-  let imagenSeleccionada = null;
 
   // ── Elementos del DOM ──
   const gridContainer = document.getElementById('glGridContainer');
@@ -41,12 +40,6 @@ export function inicializarModuloGaleria() {
   const lightboxMeta = document.getElementById('glLightboxMeta');
   const btnLightboxClose = document.getElementById('btnGlLightboxClose');
 
-  if (selectCategoria && !selectCategoria.dataset.wiselect) {
-    wiSelect(selectCategoria, {
-      placeholder: 'Selecciona categoría...'
-    });
-  }
-
   // ════════════════════════════════════════════════════════════
   // 1. RENDERIZADO DEL GRID DE IMÁGENES
   // ════════════════════════════════════════════════════════════
@@ -58,14 +51,14 @@ export function inicializarModuloGaleria() {
       : todas.filter(img => img.categoria === categoriaActual);
 
     if (statsBadge) {
-      statsBadge.textContent = `${filtradas.length} archivos · Cloudflare R2`;
+      statsBadge.textContent = `${filtradas.length} archivos · Estudio Cusihuaman`;
     }
 
     if (filtradas.length === 0) {
       gridContainer.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--tx2);">
           <i class="fa-regular fa-image" style="font-size: 32px; opacity: 0.4; margin-bottom: 8px; display: block;"></i>
-          No hay imágenes en esta categoría.
+          No hay fotografías en esta categoría.
         </div>
       `;
       return;
@@ -90,9 +83,9 @@ export function inicializarModuloGaleria() {
           />
           <div class="gl-footer">
             <button type="button" class="gl-btn-copy-url" data-url="${img.url}">
-              <i class="fa-solid fa-copy"></i> Copiar CDN URL
+              <i class="fa-solid fa-copy"></i> Copiar URL
             </button>
-            <button type="button" class="gl-btn-delete" data-id="${img.id}" title="Eliminar de Cloudflare R2">
+            <button type="button" class="gl-btn-delete" data-id="${img.id}" title="Eliminar imagen">
               <i class="fa-solid fa-trash-can"></i>
             </button>
           </div>
@@ -115,9 +108,9 @@ export function inicializarModuloGaleria() {
         const url = btn.getAttribute('data-url');
         try {
           await navigator.clipboard.writeText(url);
-          Notificacion('¡URL copiada al portapapeles!', 'success', 2000);
+          Notificacion('¡URL de imagen copiada al portapapeles!', 'success', 2000);
         } catch (e) {
-          Notificacion('No se pudo copiar automáticamente.', 'info');
+          Notificacion('No se pudo copiar automáticamente.', 'info', 2000);
         }
       });
     });
@@ -127,7 +120,7 @@ export function inicializarModuloGaleria() {
       inp.addEventListener('change', () => {
         const id = inp.getAttribute('data-id');
         actualizarAltImagen(id, inp.value.trim());
-        Notificacion('Atributo ALT actualizado para SEO.', 'info', 1500);
+        Notificacion('Atributo ALT actualizado para Google SEO.', 'info', 1500);
       });
     });
 
@@ -147,7 +140,7 @@ export function inicializarModuloGaleria() {
         if (conf) {
           eliminarImagenGaleria(id);
           renderizarGrid();
-          Notificacion('Imagen eliminada de la galería.', 'info');
+          Notificacion('Imagen retirada de la galería.', 'info', 2000);
         }
       });
     });
@@ -214,7 +207,7 @@ export function inicializarModuloGaleria() {
       if (fileInput) fileInput.files = e.dataTransfer.files;
       const file = e.dataTransfer.files[0];
       if (inTitulo && !inTitulo.value) inTitulo.value = file.name.replace(/\.[^/.]+$/, '');
-      Notificacion(`Archivo ${file.name} seleccionado.`, 'info');
+      Notificacion(`Archivo ${file.name} seleccionado.`, 'info', 2000);
     }
   });
 
@@ -228,28 +221,30 @@ export function inicializarModuloGaleria() {
   formSubida?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!fileInput?.files || fileInput.files.length === 0) {
-      Notificacion('Selecciona al menos una imagen para subir.', 'warning');
+      Notificacion('Selecciona al menos una imagen para subir.', 'warning', 2500);
       return;
     }
 
     const file = fileInput.files[0];
-    const cat = selectCategoria?.value || 'balones';
+    const cat = selectCategoria?.value || 'especialista';
     const titulo = inTitulo?.value?.trim() || file.name;
     const alt = inAlt?.value?.trim() || titulo;
 
-    wiSpin(btnSubmitSubida, true, 'Subiendo a R2...');
+    const spin = wiSpin ? wiSpin(btnSubmitSubida) : null;
+    if (btnSubmitSubida) btnSubmitSubida.disabled = true;
 
     try {
       await procesarSubidaImagen(file, cat, titulo, alt);
-      Notificacion('¡Imagen subida exitosamente a Cloudflare R2!', 'success');
+      Notificacion('¡Fotografía añadida a la galería con éxito!', 'success', 3000);
       formSubida.reset();
       modalSubida?.classList.remove('open');
       renderizarGrid();
     } catch (err) {
       console.error(err);
-      Notificacion('Error al procesar la subida de imagen.', 'error');
+      Notificacion('Error al procesar la subida de imagen.', 'danger', 3000);
     } finally {
-      wiSpin(btnSubmitSubida, false);
+      if (spin) spin.stop();
+      if (btnSubmitSubida) btnSubmitSubida.disabled = false;
     }
   });
 

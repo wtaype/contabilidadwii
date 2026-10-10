@@ -103,7 +103,7 @@ const { esActivo = true } = Astro.props;
                 <tr>
                   <td><strong>{nom}</strong></td>
                   <td><span class="ps-badge ps-badge-blue">{p.enfoque || p.tipo || 'Tributario'}</span></td>
-                  <td><strong style="color:var(--brand-orange); font-size:var(--fz_m);">S/ {Number(p.precioPEN || 0).toFixed(2)}</strong></td>
+                  <td><strong style="color:var(--brand-primary, #9e7b4f); font-size:var(--fz_m);">S/ {Number(p.precioPEN || 0).toFixed(2)}</strong></td>
                   <td><small>{mod}</small></td>
                   <td><span class="ps-badge ps-badge-success">{p.activo !== false ? 'Activo' : 'Pausado'}</span></td>
                 </tr>
@@ -141,7 +141,7 @@ const { esActivo = true } = Astro.props;
                 <td><strong>{c.nombre}</strong></td>
                 <td>
                   <a href={`tel:${c.telefono.replace(/\s+/g, '')}`} style="color:inherit; text-decoration:none; display:inline-flex; align-items:center; gap:5px;">
-                    <i class="fa-solid fa-phone" style="font-size:11px; color:var(--brand-orange);"></i> {c.telefono}
+                    <i class="fa-solid fa-phone" style="font-size:11px; color:var(--brand-primary, #9e7b4f);"></i> {c.telefono}
                   </a>
                 </td>
                 <td style="max-width:200px; font-size:var(--fz_s3); color:var(--muted);">{c.direccion}</td>

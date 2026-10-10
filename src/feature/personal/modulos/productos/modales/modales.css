@@ -1,5 +1,5 @@
 /* src/feature/personal/modulos/productos/modales/modales.css */
-/* Estilos Dedicados para Modales de Productos (Solgas Surquillo) */
+/* Estilos Dedicados para Modales de Productos y Servicios (Estudio Cusihuaman) */
 /* Cero CSS Inline · 87vw de ancho · min-height 70vh · Layout 2 Columnas · WiTema */
 
 /* ── 1. BACKDROP / OVERLAY UNIVERSAL ── */
@@ -70,7 +70,7 @@
 }
 
 .pr-modal-title i {
-  color: var(--brand-orange, #ff6600);
+  color: var(--mco);
 }
 
 .pr-modal-close {
@@ -191,7 +191,7 @@
 }
 
 .pr-modal-tab-btn.active {
-  color: var(--brand-orange, #ff6600);
+  color: var(--mco);
 }
 
 .pr-modal-tab-btn.active::after {
@@ -201,7 +201,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--brand-orange, #ff6600);
+  background: var(--mco);
   border-radius: 3px 3px 0 0;
 }
 
@@ -244,7 +244,7 @@
 .pr-f-label {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--ink, #0f172a);
+  color: var(--tx);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -255,9 +255,9 @@
 .pr-f-textarea {
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid var(--line, #cbd5e1);
-  background: var(--surface, #ffffff);
-  color: var(--ink, #0f172a);
+  border: 1px solid var(--brd);
+  background: var(--surface);
+  color: var(--tx);
   font-family: inherit;
   font-size: 0.86rem;
   transition: all 0.2s ease;
@@ -269,8 +269,8 @@
 .pr-f-select:focus,
 .pr-f-textarea:focus {
   outline: none;
-  border-color: var(--brand-orange, #ff6600);
-  box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.12);
+  border-color: var(--mco);
+  box-shadow: 0 0 0 3px rgba(158, 123, 79, 0.16);
 }
 
 .pr-f-textarea {

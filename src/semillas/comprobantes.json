@@ -1,0 +1,101 @@
+[
+  {
+    "id": "comp-1791001",
+    "tipo": "factura",
+    "serie": "F001",
+    "numero": "000101",
+    "serieNumero": "F001-000101",
+    "fechaEmision": "05 Oct 2026, 10:30 am",
+    "fechaISO": "2026-10-05T10:30:00",
+    "cliente": {
+      "nombre": "Inversiones Gastronómicas El Rincón Criollo S.A.C.",
+      "documentoTipo": "RUC",
+      "documento": "20554897123",
+      "celular": "961229280",
+      "direccion": "Av. Angamos Este 1240, Surquillo, Lima",
+      "email": "administracion@rinconcriollo.pe"
+    },
+    "items": [
+      {
+        "id": "contabilidad-mensual-mype",
+        "descripcion": "Servicio de Asesoría y Declaración Mensual MYPE (Periodo Sep 2026)",
+        "cantidad": 1,
+        "precioUnitario": 150.00,
+        "subtotal": 150.00
+      }
+    ],
+    "moneda": "PEN",
+    "opGravada": 127.12,
+    "igv": 22.88,
+    "total": 150.00,
+    "metodoPago": "Transferencia BCP",
+    "estado": "pagado",
+    "observacion": "Servicio contable mensual incluye liquidación de IGV/Renta y registro SIRE."
+  },
+  {
+    "id": "comp-1791002",
+    "tipo": "boleta",
+    "serie": "B001",
+    "numero": "000240",
+    "serieNumero": "B001-000240",
+    "fechaEmision": "06 Oct 2026, 04:15 pm",
+    "fechaISO": "2026-10-06T16:15:00",
+    "cliente": {
+      "nombre": "Valeria Mendoza Castro",
+      "documentoTipo": "DNI",
+      "documento": "47891234",
+      "celular": "987654321",
+      "direccion": "Av. Angamos Este 1420, Dpto 402, Surquillo",
+      "email": "valeria.mendoza.arq@gmail.com"
+    },
+    "items": [
+      {
+        "id": "asesoria-orientacion-tributaria",
+        "descripcion": "Sesión de Asesoría y Orientación Tributaria Personalizada (1 Hora)",
+        "cantidad": 1,
+        "precioUnitario": 80.00,
+        "subtotal": 80.00
+      }
+    ],
+    "moneda": "PEN",
+    "opGravada": 67.80,
+    "igv": 12.20,
+    "total": 80.00,
+    "metodoPago": "Yape / Plin",
+    "estado": "pagado",
+    "observacion": "Orientación sobre suspensión de retenciones 4ta categoría y RHE ante SUNAT."
+  },
+  {
+    "id": "comp-1791003",
+    "tipo": "factura",
+    "serie": "F001",
+    "numero": "000102",
+    "serieNumero": "F001-000102",
+    "fechaEmision": "07 Oct 2026, 11:00 am",
+    "fechaISO": "2026-10-07T11:00:00",
+    "cliente": {
+      "nombre": "Carlos Ramos Peña",
+      "documentoTipo": "RUC",
+      "documento": "10717799782",
+      "celular": "936369384",
+      "direccion": "Jr. Dante 345, Surquillo, Lima",
+      "email": "carlos.ramos@gmail.com"
+    },
+    "items": [
+      {
+        "id": "regularizacion-multas-sunat",
+        "descripcion": "Gestión de Regularización de Infracción y Subsanación Voluntaria SUNAT",
+        "cantidad": 1,
+        "precioUnitario": 120.00,
+        "subtotal": 120.00
+      }
+    ],
+    "moneda": "PEN",
+    "opGravada": 101.69,
+    "igv": 18.31,
+    "total": 120.00,
+    "metodoPago": "Transferencia BBVA",
+    "estado": "pagado",
+    "observacion": "Aplicación de régimen de gradualidad para reducción del 95% de sanción."
+  }
+]

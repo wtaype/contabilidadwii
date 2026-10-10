@@ -1,5 +1,5 @@
-/* src/feature/personal/modulos/personal/personalMod.css */
-/* Estilos del Módulo Personal & Choferes de Reparto (Solgas Surquillo) */
+﻿/* src/feature/personal/modulos/personal/personalMod.css */
+/* Estilos del Módulo Personal & Choferes de Reparto (Estudio Cusihuaman) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
 /* ── GRID DE KPIS SUPERIORES ── */
@@ -11,8 +11,8 @@
 }
 
 .pe-kpi-card {
-  background: var(--surface, #0e192c);
-  border: 1px solid var(--brd, #21314b);
+  background: var(--surface, var(--surface, #ffffff));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   border-radius: var(--br_m, 12px);
   padding: 16px 18px;
   display: flex;
@@ -24,15 +24,15 @@
 
 .pe-kpi-card:hover {
   transform: translateY(-2px);
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
 }
 
 .pe-kpi-icon-wrap {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.12));
-  color: var(--brand-orange, #ff6600);
+  background: var(--mbg, rgba(158, 123, 79, 0.12));
+  color: var(--brand-primary, var(--mco, #9e7b4f));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,7 +63,7 @@
   font-family: var(--ff_O, 'Outfit', sans-serif);
   font-size: 1.35rem;
   font-weight: 800;
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
   line-height: 1.2;
 }
 
@@ -71,7 +71,7 @@
   font-family: var(--ff_P, 'Poppins', sans-serif);
   font-size: 11.5px;
   font-weight: 500;
-  color: var(--tx2, #90a4c3);
+  color: var(--tx2, var(--muted, #475569));
 }
 
 /* ── GRID DE TARJETAS DE CHOFERES ── */
@@ -83,8 +83,8 @@
 }
 
 .pe-driver-card {
-  background: var(--surface, #0e192c);
-  border: 1px solid var(--brd, #21314b);
+  background: var(--surface, var(--surface, #ffffff));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   border-radius: var(--br_m, 12px);
   padding: 20px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
@@ -96,7 +96,7 @@
 
 .pe-driver-card:hover {
   transform: translateY(-2px);
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
 }
 
 .pe-driver-head {
@@ -110,7 +110,7 @@
   height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--brd, #21314b);
+  border: 2px solid var(--brd, var(--line, #e2e8f0));
 }
 
 .pe-driver-meta {
@@ -124,13 +124,13 @@
   font-family: var(--ff_O, 'Outfit', sans-serif);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
   line-height: 1.2;
 }
 
 .pe-driver-cargo {
   font-size: 11.5px;
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, var(--mco, #9e7b4f));
   font-weight: 600;
 }
 
@@ -162,7 +162,7 @@
 
 .pe-driver-details {
   background: var(--inp, #14223a);
-  border: 1px solid var(--brd, #21314b);
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   border-radius: 8px;
   padding: 12px;
   display: flex;
@@ -174,11 +174,11 @@
 .pe-detail-row {
   display: flex;
   justify-content: space-between;
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
 }
 
 .pe-detail-lbl {
-  color: var(--tx2, #90a4c3);
+  color: var(--tx2, var(--muted, #475569));
 }
 
 .pe-driver-actions {
@@ -198,7 +198,7 @@
   justify-content: center;
   gap: 6px;
   cursor: pointer;
-  border: 1px solid var(--brd, #21314b);
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   transition: all 0.15s ease;
   text-decoration: none;
 }
@@ -216,10 +216,10 @@
 
 .pe-btn-driver.toggle {
   background: var(--inp, #14223a);
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
 }
 
 .pe-btn-driver.toggle:hover {
-  border-color: var(--brand-orange, #ff6600);
-  color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  color: var(--brand-primary, var(--mco, #9e7b4f));
 }

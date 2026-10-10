@@ -1,5 +1,5 @@
-/* src/feature/personal/modulos/entradas/entradas.css */
-/* Estilos del Módulo Entradas: Blog SEO Estilo Workwii (Solgas Surquillo) */
+﻿/* src/feature/personal/modulos/entradas/entradas.css */
+/* Estilos del Módulo Entradas: Blog SEO Tributario (Estudio Cusihuaman) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
 /* ── GRID DE KPIS SUPERIORES ── */
@@ -24,15 +24,15 @@
 
 .en-kpi-card:hover {
   transform: translateY(-2px);
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, #9e7b4f);
 }
 
 .en-kpi-icon-wrap {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.12));
-  color: var(--brand-orange, #ff6600);
+  background: var(--brand-primary-subtle, rgba(158, 123, 79, 0.12));
+  color: var(--brand-primary, #9e7b4f);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,9 +120,9 @@
 
 .en-filter-pill.active,
 .en-filter-pill:hover {
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.12));
-  border-color: var(--brand-orange, #ff6600);
-  color: var(--brand-orange, #ff6600);
+  background: var(--brand-primary-subtle, rgba(158, 123, 79, 0.12));
+  border-color: var(--brand-primary, #9e7b4f);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .en-table-responsive {
@@ -154,7 +154,7 @@
 }
 
 .en-table tr.selected td {
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.08));
+  background: rgba(158, 123, 79, 0.08);
 }
 
 .en-table tr:hover td {
@@ -258,7 +258,7 @@
 }
 
 .en-tab-btn.active {
-  background: var(--brand-orange, #ff6600);
+  background: var(--brand-primary, #9e7b4f);
   color: #ffffff;
 }
 
@@ -286,7 +286,7 @@
 }
 
 .en-content-textarea:focus {
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, #9e7b4f);
 }
 
 .en-live-preview-box {
@@ -304,7 +304,7 @@
 
 .en-live-preview-box h2 {
   font-size: 1.25rem;
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, #9e7b4f);
   margin-top: 0;
   margin-bottom: 10px;
 }
@@ -317,7 +317,7 @@
 }
 
 .en-live-preview-box blockquote {
-  border-left: 3px solid var(--brand-orange, #ff6600);
+  border-left: 3px solid var(--brand-primary, #9e7b4f);
   padding-left: 12px;
   margin: 12px 0;
   color: var(--tx2, #90a4c3);

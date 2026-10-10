@@ -1,5 +1,5 @@
 // src/feature/personal/personal.js
-// Controlador de cliente unificado para Feature Personal (Gaswii Solgas Surquillo)
+// Controlador de cliente unificado para Feature Personal (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y @/feature/auth/sesion.js
 
 import { Notificacion, wiConfirmar, wiTema, getls, savels } from '@widev';
@@ -112,7 +112,6 @@ export function inicializarPersonal() {
   btnCollapse?.addEventListener('click', () => {
     const isCollapsed = document.documentElement.classList.toggle('is-collapsed');
     savels('contabilidad_sidebar_collapsed', isCollapsed);
-    savels('gaswii_sidebar_collapsed', isCollapsed);
     if (iconCollapse && labelCollapse) {
       iconCollapse.className = isCollapsed ? 'fa-solid fa-arrow-right-long' : 'fa-solid fa-arrow-left-long';
       labelCollapse.textContent = isCollapsed ? 'Expandir' : 'Colapsar';

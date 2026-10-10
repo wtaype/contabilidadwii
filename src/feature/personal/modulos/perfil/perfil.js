@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/perfil/perfil.js
-// Controlador Frontend Autónomo del Módulo Mi Perfil (Solgas Surquillo)
+// Controlador Frontend Autónomo del Módulo Mi Perfil (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev
 
 import { Notificacion, wiSpin } from '@widev';

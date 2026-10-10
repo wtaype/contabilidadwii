@@ -1,129 +1,134 @@
 // src/feature/personal/modulos/whatsapp/dataWhatsapp.js
-// Centro de Plantillas y Generador de Mensajes Oficiales de WhatsApp (Solgas Surquillo)
+// Centro de Plantillas y Generador de Mensajes Oficiales de WhatsApp (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y Local-First
 
 export const PLANTILLAS_WHATSAPP = [
   {
-    id: 'tpl_pedido_confirmado',
-    nombre: 'Confirmación de Pedido Express',
-    icono: 'fa-solid fa-circle-check',
-    categoria: 'ventas',
-    descripcion: 'Mensaje inmediato tras recibir un pedido web o telefónico.',
-    mensaje: `¡Hola *{cliente}*! 👋 
+    id: 'tpl_vencimiento_sunat',
+    nombre: 'Recordatorio Vencimiento SUNAT',
+    icono: 'fa-solid fa-calendar-check',
+    categoria: 'tributario',
+    descripcion: 'Alerta oportuna de la fecha límite según el último dígito del RUC.',
+    mensaje: `¡Hola *{cliente}*! 👋 Le saluda el *Estudio Contable CPC Lourdes Cusihuaman Gálvez*.
 
-Tu pedido en *SOLGAS SURQUILLO* ha sido confirmado con éxito. 🚀
+⏰ *Recordatorio de Vencimiento SUNAT*
+• RUC: *{ruc}* (Último dígito: *{digito}*)
+• Período Fiscal: *{periodo}*
+• Fecha Límite Oficial: *{fechaVencimiento}*
 
-📋 *Detalle del Pedido:*
-• Producto: *{producto}*
-• Total a pagar: *S/ {monto}*
-• Método de pago: *{metodoPago}*
-• Dirección: *{direccion}*
+Le recordamos hacernos llegar sus comprobantes de compras y ventas a la brevedad para realizar el cierre contable y evitar multas o recargos por presentación extemporánea.
 
-⏱️ *Tiempo estimado de entrega:* {eta} minutos.
-Nuestro repartidor motorizado ya está preparando tu balón con *precinto de seguridad intacto de planta*.
-
-¡Gracias por confiar en el distribuidor oficial de Surquillo!`
+¿Tiene sus comprobantes listos para enviárnoslos hoy?`
   },
   {
-    id: 'tpl_chofer_camino',
-    nombre: 'Chofer en Camino con Balanza Digital',
-    icono: 'fa-solid fa-motorcycle',
-    categoria: 'delivery',
-    descripcion: 'Notificación cuando el repartidor sale de la sede Dante 260 hacia el domicilio.',
-    mensaje: `Estimado/a *{cliente}*, tu balón de gas va en camino. 🛵💨
+    id: 'tpl_liquidacion_impuestos',
+    nombre: 'Liquidación Mensual de Impuestos',
+    icono: 'fa-solid fa-calculator',
+    categoria: 'declaracion',
+    descripcion: 'Resumen del impuesto calculado (IGV/Renta) con el código de pago NPS.',
+    mensaje: `Estimado/a *{cliente}*, le compartimos el resumen de su declaración mensual:
 
-👤 *Conductor asignado:* {chofer}
-🛵 *Vehículo:* Moto de reparto Solgas
-📍 *Destino:* {direccion}
-⏱️ *Llegada estimada:* En {eta} minutos aprox.
+📊 *Liquidación de Impuestos - Período {periodo}*
+• Régimen Fiscal: *{regimen}*
+• Total Tributos por Pagar: *S/ {monto}*
+• Código de Pago SUNAT (NPS): *{nps}*
+• Fecha Límite de Pago: *{fechaVencimiento}*
 
-⚖️ *Garantía de Peso Exacto:*
-Nuestro conductor lleva consigo la *Balanza Digital calibrada por Inacal*. Puedes solicitar el pesado en tu puerta antes de instalarlo sin costo adicional.
+💳 *¿Cómo pagar con NPS?*
+Puede pagarlo desde la app o web de su banco (BCP, BBVA, Interbank) en:
+*Pago de Servicios > SUNAT > Pago con NPS* ingresando el código *{nps}*.
 
-¡Estamos muy cerca!`
+Cualquier duda quedamos atentos para orientarle.`
   },
   {
-    id: 'tpl_llegada_puerta',
-    nombre: 'Repartidor en Puerta / Timbre',
-    icono: 'fa-solid fa-bell',
-    categoria: 'delivery',
-    descripcion: 'Aviso directo cuando el repartidor está en la puerta del cliente.',
-    mensaje: `¡Hola *{cliente}*! 🔔
+    id: 'tpl_asesoria_agendada',
+    nombre: 'Confirmación de Asesoría Tributaria',
+    icono: 'fa-solid fa-user-check',
+    categoria: 'asesoria',
+    descripcion: 'Confirmación formal de cita tributaria presencial u online.',
+    mensaje: `¡Hola *{cliente}*! Su cita tributaria ha sido confirmada con éxito. 🤝
 
-El repartidor de *Solgas Surquillo* ya se encuentra en tu puerta ({direccion}).
+💼 *Detalle de la Asesoría:*
+• Especialista: *CPC Lourdes Cusihuaman Gálvez* (Ex-orientadora SUNAT)
+• Modalidad: *{modalidad}*
+• Fecha y Hora: *{fechaHora}*
+• Honorario: *S/ {honorario}*
 
-Favor de confirmar para la entrega e instalación gratuita con prueba de jabonadura de seguridad.
+📌 *Dirección / Enlace:*
+{lugarEnlace}
 
-¡Muchas gracias!`
+Agradecemos tener a la mano su Clave SOL y los documentos que desea revisar. ¡Le esperamos!`
   },
   {
-    id: 'tpl_comprobante_sunat',
-    nombre: 'Envío de Comprobante SUNAT (B001 / F001)',
+    id: 'tpl_suspension_rhe',
+    nombre: 'Suspensión Retenciones 4ta Cat (RHE)',
+    icono: 'fa-solid fa-file-shield',
+    categoria: 'rentas',
+    descripcion: 'Orientación para emitir recibos por honorarios sin el 8% de descuento.',
+    mensaje: `Estimado/a *{cliente}*, sobre su consulta de *Suspensión del 8% de Retenciones*:
+
+📄 *Formulario Virtual 1609 SUNAT*
+Si proyecta que sus ingresos por 4ta Categoría no superarán el tope anual establecido por SUNAT para este ejercicio, tiene derecho a suspender las retenciones del 8% en cada recibo que supere los S/ 1,500.
+
+Podemos tramitar su constancia autorizada de forma inmediata y entregarle el documento en PDF para su empleador o clientes.
+
+¿Desea que procedamos con la emisión hoy?`
+  },
+  {
+    id: 'tpl_comprobante_honorarios',
+    nombre: 'Envío de Factura / Boleta de Honorarios',
     icono: 'fa-solid fa-file-invoice-dollar',
     categoria: 'facturacion',
-    descripcion: 'Resumen formal con serie, número y desglose fiscal del comprobante emitido.',
-    mensaje: `Estimado/a *{cliente}*, te adjuntamos el comprobante electrónico de tu compra en *SOLGAS SURQUILLO*:
+    descripcion: 'Envío formal del comprobante electrónico emitido por servicios contables.',
+    mensaje: `Estimado/a *{cliente}*, le adjuntamos el comprobante electrónico oficial de nuestro estudio:
 
 🧾 *Comprobante:* {comprobanteTipo} *{comprobanteNumero}*
 📅 *Fecha:* {fecha}
-👤 *Cliente:* {cliente} ({documentoTipo}: {documento})
-💵 *Importe Total:* *S/ {monto}* (Inc. 18% IGV)
-💳 *Medio de Pago:* {metodoPago}
+👤 *Cliente:* {cliente} (RUC/DNI: {ruc})
+💵 *Total Honorario:* *S/ {monto}* (Inc. 18% IGV)
+📌 *Concepto:* {servicio}
 
-Puede verificar la validez de este comprobante en el portal de la SUNAT con el RUC 20601234567.
+Puede verificar la autenticidad en el portal de SUNAT. Agradecemos su puntual preferencia.
 
-¡Garantía y seguridad comprobada de planta Solgas!`
+*Estudio Contable CPC Lourdes Cusihuaman Gálvez*`
   },
   {
-    id: 'tpl_recordatorio_recarga',
-    nombre: 'Recordatorio Preventivo de Recarga (30 días)',
-    icono: 'fa-solid fa-clock-rotate-left',
-    categoria: 'fidelizacion',
-    descripcion: 'Fidelización proactiva para clientes frecuentes cuyo balón está por agotarse.',
-    mensaje: `¡Hola *{cliente}*! Esperamos que tengas un excelente día. ✨
+    id: 'tpl_cierre_contable',
+    nombre: 'Solicitud de Documentos para Cierre',
+    icono: 'fa-solid fa-folder-open',
+    categoria: 'operaciones',
+    descripcion: 'Solicitud proactiva de compras, ventas y estados de cuenta bancarios.',
+    mensaje: `Estimados señores de *{cliente}*, un cordial saludo desde el *Estudio Cusihuaman*. 📂
 
-Te escribimos de *Solgas Surquillo*. Vemos en nuestro sistema que han pasado aprox. 30 días desde tu última recarga de *{producto}*.
+Estamos iniciando el procesamiento de la información contable para el período *{periodo}*. Por favor remitirnos:
 
-¿Se está acabando tu balón? Solicítalo ahora y te lo enviamos en *15 minutos* con instalación y prueba de fugas gratis:
-👉 Responde a este chat con tu dirección o confírmanos: *"Sí, envíame uno"*.
+1. Archivos XML y PDF de facturas de compras del mes.
+2. Estado de cuenta bancario para conciliación mensual.
+3. Altas, bajas o novedades de personal en planilla (si aplica).
 
-¡Que tengas un gran día!`
-  },
-  {
-    id: 'tpl_cotizacion_comercial',
-    nombre: 'Cotización Comercial (Restaurantes y Negocios)',
-    icono: 'fa-solid fa-building',
-    categoria: 'empresas',
-    descripcion: 'Propuesta de precios por volumen para balones industriales de 45 kg o pedidos mayoristas.',
-    mensaje: `Estimados amigos de *{cliente}*, un cordial saludo desde *SOLGAS SURQUILLO*. 🤝
-
-Atendiendo a su consulta comercial para abastecimiento de GLP:
-
-🔥 *Propuesta Comercial para su Negocio:*
-• Balón Industrial 45 kg: *S/ 220.00* (Factura F001 con crédito fiscal IGV)
-• Balón Premium 10 kg: *S/ 65.00*
-• Entrega programada prioritaria < 20 min en Surquillo, Miraflores y San Borja.
-• Mantenimiento e inspección de reguladores y tuberías sin costo.
-
-¿Desean que coordinemos una primera entrega de prueba para hoy?`
+Quedamos atentos a la recepción de sus archivos para trabajar su liquidación con debida anticipación. ¡Muchas gracias!`
   }
 ];
 
 export function formatearPlantilla(textoBase, valores = {}) {
   let resultado = textoBase;
   const defaults = {
-    cliente: 'Wilder Taype',
-    producto: 'Balón SOLGAS Premium 10 kg',
-    monto: '65.00',
-    metodoPago: 'Yape / Plin',
-    direccion: 'Jr. Dante 260, Surquillo',
-    chofer: 'Juan Quispe (Móvil 02)',
-    eta: '12–15',
-    comprobanteTipo: 'Boleta de Venta',
-    comprobanteNumero: 'B001-000483',
+    cliente: 'Inversiones Gastronómicas S.A.C.',
+    ruc: '20554897123',
+    digito: '3',
+    periodo: 'Agosto 2026',
+    fechaVencimiento: '18 de Septiembre de 2026',
+    regimen: 'Régimen MYPE Tributario',
+    monto: '185.00',
+    nps: '9827364510',
+    modalidad: 'Presencial (Sede Surquillo) / Virtual Meet',
+    fechaHora: 'Viernes 25 Sep · 4:00 p.m.',
+    honorario: '80.00',
+    lugarEnlace: 'Jr. Dante 260, Surquillo (previa cita) / Link: meet.google.com/abc-defg-hij',
+    comprobanteTipo: 'Factura Electrónica',
+    comprobanteNumero: 'F001-000104',
     fecha: '25 Sep 2026',
-    documentoTipo: 'DNI',
-    documento: '71779978'
+    servicio: 'Servicio Contable Mensual MYPE'
   };
 
   const merge = { ...defaults, ...valores };

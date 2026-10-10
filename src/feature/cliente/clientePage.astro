@@ -1,6 +1,6 @@
 ---
 // src/feature/cliente/clientePage.astro
-// Orquestador de la Vista Cliente · Solgas Surquillo
+// Orquestador de la Vista Cliente · Estudio Cusihuaman
 // Inyección modular de CSS inlined y ensamblaje de paneles de módulos
 import Sonrisas from './layout/Sonrisas.astro';
 import Pedidos from './modulos/01-pedidos/Pedidos.astro';
@@ -20,7 +20,7 @@ interface Props {
 }
 
 const {
-  titulo = 'Solgas Surquillo · Pedidos Express y Despacho',
+  titulo = 'CPC Lourdes Cusihuaman · Servicios y Consultas Tributarias',
   moduloActivo = 'pedidos',
   cliente
 } = Astro.props;
@@ -30,23 +30,23 @@ const {
   <!-- Inyección inlined de CSS específico de módulos -->
   <style is:global slot="modulo-css" set:html={`${pedidosCss}\n${direccionCss}\n${cuentaCss}\n${soporteCss}`}></style>
 
-  <!-- MÓDULO 01: REALIZAR PEDIDOS -->
-  <section class={`cl-panel ${moduloActivo === 'pedidos' ? 'active' : ''}`} id="panel-pedidos" aria-label="Módulo Pedidos">
+  <!-- MÓDULO 01: SERVICIOS Y ASESORÍAS -->
+  <section class={`cl-panel ${moduloActivo === 'pedidos' ? 'active' : ''}`} id="panel-pedidos" aria-label="Módulo Servicios">
     <Pedidos cliente={cliente} />
   </section>
 
-  <!-- MÓDULO 02: MIS DIRECCIONES (FASE 2) -->
-  <section class={`cl-panel ${moduloActivo === 'direccion' ? 'active' : ''}`} id="panel-direccion" aria-label="Módulo Direcciones">
+  <!-- MÓDULO 02: DOMICILIO FISCAL -->
+  <section class={`cl-panel ${moduloActivo === 'direccion' ? 'active' : ''}`} id="panel-direccion" aria-label="Módulo Domicilio Fiscal">
     <Direccion cliente={cliente} />
   </section>
 
-  <!-- MÓDULO 03: MI CUENTA / FICHA (FASE 3) -->
-  <section class={`cl-panel ${moduloActivo === 'cuenta' ? 'active' : ''}`} id="panel-cuenta" aria-label="Módulo Cuenta">
+  <!-- MÓDULO 03: MI CUENTA / FICHA TRIBUTARIA -->
+  <section class={`cl-panel ${moduloActivo === 'cuenta' ? 'active' : ''}`} id="panel-cuenta" aria-label="Módulo Ficha Tributaria">
     <Cuenta cliente={cliente} />
   </section>
 
-  <!-- MÓDULO 04: SOPORTE Y BOLETAS (FASE 4) -->
-  <section class={`cl-panel ${moduloActivo === 'soporte' ? 'active' : ''}`} id="panel-soporte" aria-label="Módulo Soporte">
+  <!-- MÓDULO 04: CONSULTAS SUNAT & SOPORTE -->
+  <section class={`cl-panel ${moduloActivo === 'soporte' ? 'active' : ''}`} id="panel-soporte" aria-label="Módulo Consultas SUNAT">
     <Soporte cliente={cliente} />
   </section>
 </Sonrisas>

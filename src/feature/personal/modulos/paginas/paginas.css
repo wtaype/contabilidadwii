@@ -1,5 +1,5 @@
-/* src/feature/personal/modulos/paginas/paginas.css */
-/* Estilos del Módulo Páginas: Editor Institucional & Google SERP (Solgas Surquillo) */
+﻿/* src/feature/personal/modulos/paginas/paginas.css */
+/* Estilos del Módulo Páginas: Editor Institucional & Google SERP (Estudio Cusihuaman) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
 /* ── LAYOUT DIVIDIDO (SELECTOR & EDITOR 55% / SIMULADOR SERP 45%) ── */
@@ -37,15 +37,15 @@
 }
 
 .pg-nav-btn:hover {
-  border-color: var(--brand-orange, #ff6600);
-  color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, #9e7b4f);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .pg-nav-btn.active {
-  background: var(--brand-orange, #ff6600);
-  border-color: var(--brand-orange, #ff6600);
+  background: var(--brand-primary, #9e7b4f);
+  border-color: var(--brand-primary, #9e7b4f);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(158, 123, 79, 0.25);
 }
 
 /* ── FORMULARIO DE EDICIÓN DE PÁGINA ── */
@@ -73,7 +73,7 @@
   font-family: 'Courier New', Courier, monospace;
   background: var(--inp, #14223a);
   border: 1px solid var(--brd, #21314b);
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, #9e7b4f);
   padding: 3px 8px;
   border-radius: 4px;
 }
@@ -171,7 +171,7 @@
 
 .pg-chars-pill {
   font-weight: 700;
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .pg-meta-desc-textarea {

@@ -1,79 +1,79 @@
 // src/feature/personal/modulos/galeria/dataGaleria.js
-// Gestor de Medios y Fotos para el Módulo Galería (Solgas Surquillo)
-// Conectado al Bucket Cloudflare R2 ('gaswii-media') + Local-First Fallback
+// Gestor de Medios y Fotos para el Módulo Galería (Estudio Cusihuaman)
+// Conectado al Bucket Cloudflare R2 ('contabilidad-media') + Local-First Fallback
 // 100% JS Nativo · Integrado con @widev
 
 import { getls, savels } from '@widev';
 import { subirImagenR2 } from '@/core/servicios/r2Storage.js';
 
-const STORAGE_KEY = 'gaswii_galeria_media';
+const STORAGE_KEY = 'minegocio_galeria_media';
 
 const IMAGENES_SEMILLA = [
   {
-    id: 'img_balon_10kg',
-    nombre: 'balon-solgas-10kg-premium.webp',
-    titulo: 'Balón SOLGAS Premium 10 kg',
-    alt: 'Balón de gas SOLGAS Premium 10 kg con precinto de seguridad para delivery en Surquillo',
-    url: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=600&auto=format&fit=crop&q=80',
-    categoria: 'balones',
+    id: 'img_hero_lourdes',
+    nombre: 'hero.webp',
+    titulo: 'CPC Lourdes Cusihuaman Gálvez',
+    alt: 'Fotografía oficial de la CPC Lourdes Cusihuaman Gálvez, especialista contable y ex-orientadora SUNAT',
+    url: '/imgwii/hero.webp',
+    categoria: 'especialista',
     pesoKb: 142,
-    dimensiones: '800x800',
-    fechaSubida: '24 Sep 2026'
-  },
-  {
-    id: 'img_balon_45kg',
-    nombre: 'balon-solgas-45kg-industrial.webp',
-    titulo: 'Balón SOLGAS Industrial 45 kg',
-    alt: 'Balón SOLGAS Industrial de 45 kg para restaurantes y comercios en Surquillo y Miraflores',
-    url: 'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=600&auto=format&fit=crop&q=80',
-    categoria: 'balones',
-    pesoKb: 215,
-    dimensiones: '800x800',
-    fechaSubida: '22 Sep 2026'
-  },
-  {
-    id: 'img_sede_dante',
-    nombre: 'sede-solgas-dante-surquillo.webp',
-    titulo: 'Sede Principal Jr. Dante 260',
-    alt: 'Fachada del local oficial Solgas Surquillo en Jr. Dante 260, almacén de balones y atención rápida',
-    url: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=600&auto=format&fit=crop&q=80',
-    categoria: 'sede',
-    pesoKb: 185,
     dimensiones: '1200x800',
-    fechaSubida: '20 Sep 2026'
+    fechaSubida: 'Ene 2026'
   },
   {
-    id: 'img_moto_delivery',
-    nombre: 'flota-moto-reparto-surquillo.webp',
-    titulo: 'Unidad de Reparto Motorizado',
-    alt: 'Repartidor de Solgas Surquillo con balanza digital calibrada Inacal para entrega en 15 minutos',
-    url: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=600&auto=format&fit=crop&q=80',
-    categoria: 'delivery',
+    id: 'img_lourdes_asesoria',
+    nombre: 'lourdes01.webp',
+    titulo: 'Asesoría Tributaria Personalizada',
+    alt: 'Sesión de asesoría contable y planificación fiscal para profesionales y microempresas',
+    url: '/imgwii/lourdes/lourdes01.webp',
+    categoria: 'especialista',
+    pesoKb: 185,
+    dimensiones: '1000x750',
+    fechaSubida: 'Feb 2026'
+  },
+  {
+    id: 'img_lourdes_capacitacion',
+    nombre: 'lourdes02.webp',
+    titulo: 'Orientación en Rentas de 4ta y 5ta',
+    alt: 'Capacitación en deducción de gastos y emisión de recibos por honorarios electrónicos',
+    url: '/imgwii/lourdes/lourdes02.webp',
+    categoria: 'especialista',
     pesoKb: 198,
     dimensiones: '1000x750',
-    fechaSubida: '19 Sep 2026'
+    fechaSubida: 'Feb 2026'
   },
   {
-    id: 'img_regulador_premium',
-    nombre: 'regulador-click-on-gaswii.webp',
-    titulo: 'Regulador Premium Click-On',
-    alt: 'Regulador de gas GLP tipo Click-On con válvula de seguridad y corte automático de flujo',
-    url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80',
-    categoria: 'accesorios',
+    id: 'img_logo_oficial',
+    nombre: 'logo.webp',
+    titulo: 'Logotipo Oficial Estudio Cusihuaman',
+    alt: 'Isotipo y logotipo oficial del Estudio Contable CPC Lourdes Cusihuaman Gálvez',
+    url: '/imgwii/logo.webp',
+    categoria: 'institucional',
+    pesoKb: 84,
+    dimensiones: '512x512',
+    fechaSubida: 'Ene 2026'
+  },
+  {
+    id: 'img_sede_surquillo',
+    nombre: 'sede-surquillo-dante.webp',
+    titulo: 'Sede Jr. Dante 260, Surquillo',
+    alt: 'Oficina de atención presencial en Jr. Dante 260, Surquillo, Lima',
+    url: '/imgwii/hero.webp',
+    categoria: 'sede',
+    pesoKb: 165,
+    dimensiones: '1200x800',
+    fechaSubida: 'Ene 2026'
+  },
+  {
+    id: 'img_constancia_sunat',
+    nombre: 'constancia-habilitacion-cpc.webp',
+    titulo: 'Colegiatura y Habilitación Profesional',
+    alt: 'Colegiatura y acreditación oficial de Contadora Pública Colegiada',
+    url: '/imgwii/lourdes/lourdes01.webp',
+    categoria: 'certificaciones',
     pesoKb: 120,
-    dimensiones: '600x600',
-    fechaSubida: '18 Sep 2026'
-  },
-  {
-    id: 'img_banner_promo',
-    nombre: 'banner-promocion-surquillo.webp',
-    titulo: 'Banner Promo Gaswii Surquillo',
-    alt: 'Banner publicitario oficial de Solgas Surquillo con precio del balón de gas y delivery express',
-    url: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&auto=format&fit=crop&q=80',
-    categoria: 'banners',
-    pesoKb: 245,
-    dimensiones: '1200x630',
-    fechaSubida: '15 Sep 2026'
+    dimensiones: '800x1100',
+    fechaSubida: 'Ene 2026'
   }
 ];
 
@@ -86,18 +86,17 @@ export function obtenerImagenesGaleria() {
   return IMAGENES_SEMILLA;
 }
 
-export async function procesarSubidaImagen(file, categoria = 'balones', titulo = '', alt = '') {
+export async function procesarSubidaImagen(file, categoria = 'especialista', titulo = '', alt = '') {
   let urlPublica = '';
   let nombreArchivo = file.name || `media_${Date.now()}.webp`;
 
   try {
-    // Intentar subida nativa a Cloudflare R2
-    const res = await subirImagenR2(file, titulo || 'gaswii');
+    const res = await subirImagenR2(file, titulo || 'estudio-cusihuaman');
     if (res && res.url) {
       urlPublica = res.url;
     }
   } catch (err) {
-    console.warn('Fallback a URL local-first (R2 offline o sin credenciales locales):', err.message);
+    console.warn('[dataGaleria] Fallback local-first:', err?.message || err);
     urlPublica = URL.createObjectURL(file);
   }
 
@@ -105,9 +104,9 @@ export async function procesarSubidaImagen(file, categoria = 'balones', titulo =
     id: `img_${Date.now()}`,
     nombre: nombreArchivo,
     titulo: titulo || file.name.replace(/\.[^/.]+$/, ''),
-    alt: alt || `Imagen de ${titulo || 'Solgas Surquillo'}`,
+    alt: alt || `Fotografía de ${titulo || 'Estudio Cusihuaman'}`,
     url: urlPublica,
-    categoria: categoria || 'balones',
+    categoria: categoria || 'especialista',
     pesoKb: Math.round(file.size / 1024) || 120,
     dimensiones: 'Optimizado WebP',
     fechaSubida: 'Hoy'

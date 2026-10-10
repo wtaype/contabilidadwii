@@ -1,5 +1,5 @@
-// src/feature/cliente/modulos/03-cuenta/cuenta.js
-// Controlador de Mi Cuenta · Solgas Surquillo
+﻿// src/feature/cliente/modulos/03-cuenta/cuenta.js
+// Controlador de Mi Cuenta Fiscal · Estudio Cusihuaman
 // Formato Split 2 Columnas idéntico a 02-direccion
 // Integración de wiSelect de @widev, Local-First con wiSmile y feedback con wiSpin/Notificacion
 
@@ -76,7 +76,7 @@ export function poblarDatosUI(datos) {
   const elHeroUsuario = document.getElementById('ctHeroUsuario');
   const elPuntos = document.getElementById('ctPuntosNum');
 
-  const nombreCompleto = [datos.nombre, datos.apellidos].filter(Boolean).join(' ') || datos.usuario || 'Vecino Gaswii';
+  const nombreCompleto = [datos.nombre, datos.apellidos].filter(Boolean).join(' ') || datos.usuario || 'Contribuyente';
   if (elAvatar) {
     if (datos.avatar && datos.avatar.startsWith('http')) {
       elAvatar.innerHTML = `<img src="${datos.avatar}" alt="${nombreCompleto}" onerror="this.remove();" />`;
@@ -126,7 +126,7 @@ export function poblarDatosUI(datos) {
     rucBox.style.display = tipoDocVal === 'RUC' ? 'grid' : 'none';
   }
 
-  // 3. Columna Derecha: Preferencias de Entrega
+  // 3. Columna Derecha: Preferencias Tributarias
   const prefs = datos.preferencias || {};
 
   const valValvula = prefs.tipoValvula || 'premium';
@@ -187,7 +187,7 @@ function configurarFormularios() {
     const nom = document.getElementById('ctInputNombre')?.value || '';
     const ape = document.getElementById('ctInputApellidos')?.value || '';
     const user = document.getElementById('ctInputUsuario')?.value?.replace('@', '') || '';
-    const fullName = [nom, ape].filter(Boolean).join(' ') || user || 'Gaswii';
+    const fullName = [nom, ape].filter(Boolean).join(' ') || user || 'Contribuyente';
     const inicialesCalc = avatar(fullName);
     const inpIni = document.getElementById('ctInputIniciales');
     if (inpIni) inpIni.value = inicialesCalc;
@@ -233,7 +233,7 @@ function configurarFormularios() {
     }
   });
 
-  // 2. Guardar Preferencias de Entrega
+  // 2. Guardar Preferencias Tributarias
   const formPrefs = document.getElementById('formCuentaPreferencias');
   formPrefs?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -345,11 +345,11 @@ async function sincronizarCuentaDesdeFirestore() {
 
       const { savels } = await import('@widev');
       savels('wiSmile', fusionado, 144);
-      if (typeof window !== 'undefined') window.__GASWII_USER__ = fusionado;
+      if (typeof window !== 'undefined') window.__CONTABILIDAD_USER__ = fusionado;
       poblarDatosUI(fusionado);
     }
   } catch (err) {
-    console.debug('[Gaswii Cuenta] Sincronización en segundo plano omitida:', err.message);
+    console.debug('[Contabilidad Cuenta] Sincronización en segundo plano omitida:', err.message);
   }
 }
 

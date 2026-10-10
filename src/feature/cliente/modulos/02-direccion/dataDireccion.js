@@ -1,5 +1,5 @@
-// src/feature/cliente/modulos/02-direccion/dataDireccion.js
-// Capa Canónica Local-First de Direcciones · Solgas Surquillo
+﻿// src/feature/cliente/modulos/02-direccion/dataDireccion.js
+// Capa Canónica Local-First de Direcciones / Domicilio Fiscal · Estudio Cusihuaman
 // Esquema Firestore: smiles/{uid}.direcciones como ARRAY con Timestamps nativos
 // Sincronización en segundo plano (0ms UX) y logging exhaustivo
 
@@ -102,7 +102,7 @@ export const normalizarDireccionesMap = normalizarDireccionesArray;
  * Obtiene la lista actual de direcciones desde el almacenamiento local wiSmile (0ms)
  */
 export function obtenerDireccionesLocal() {
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__GASWII_USER__ : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   return user ? normalizarDireccionesArray(user.direcciones) : [];
 }
 
@@ -113,7 +113,7 @@ export function obtenerDireccionesLocal() {
 let _sincronizando = false;
 export async function sincronizarDireccionesDesdeFirestore() {
   if (_sincronizando) return;
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__GASWII_USER__ : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   const userId = user?.userId || user?.uid;
   if (!userId) return;
 
@@ -135,13 +135,13 @@ export async function sincronizarDireccionesDesdeFirestore() {
         if (data.celular && !user.celular) user.celular = data.celular;
         savels('wiSmile', user, 144);
         if (typeof window !== 'undefined') {
-          window.__GASWII_USER__ = user;
+          window.__CONTABILIDAD_USER__ = user;
           document.dispatchEvent(new CustomEvent('direccionesActualizadas', { detail: { direcciones: normalizadas } }));
         }
       }
     }
   } catch (err) {
-    console.warn('[Gaswii Direcciones] Aviso en sincronización en background:', err);
+    console.warn('[Contabilidad Direcciones] Aviso en sincronización en background:', err);
   } finally {
     _sincronizando = false;
   }
@@ -185,13 +185,13 @@ function prepararItemParaFirestore(item, Timestamp) {
  */
 function sincronizarSmilesFirestore(uid, listaDirecciones) {
   if (!uid) {
-    console.warn('[Gaswii Firestore] ⚠️ No hay UID de usuario para sincronizar.');
+    console.warn('[Contabilidad Firestore] ⚠️ No hay UID de usuario para sincronizar.');
     return;
   }
 
   (async () => {
     try {
-      console.log(`[Gaswii Firestore] ⏳ Sincronizando en segundo plano para smiles/${uid}...`);
+      console.log(`[Contabilidad Firestore] ⏳ Sincronizando en segundo plano para smiles/${uid}...`);
       const { db, auth } = await import('@core/servicios/firebase.js');
       const { doc, setDoc, serverTimestamp, Timestamp } = await import('firebase/firestore');
 
@@ -210,9 +210,9 @@ function sincronizarSmilesFirestore(uid, listaDirecciones) {
         actualizado: serverTimestamp()
       }, { merge: true });
 
-      console.log(`[Gaswii Firestore] ✅ ¡Éxito! Direcciones guardadas con Timestamps en smiles/${uid}:`, direccionesFirestore);
+      console.log(`[Contabilidad Firestore] ✅ ¡Éxito! Direcciones guardadas con Timestamps en smiles/${uid}:`, direccionesFirestore);
     } catch (e) {
-      console.error(`[Gaswii Firestore] ❌ Error al guardar en colección smiles/${uid}:`, e);
+      console.error(`[Contabilidad Firestore] ❌ Error al guardar en colección smiles/${uid}:`, e);
     }
   })();
 }
@@ -221,14 +221,14 @@ function sincronizarSmilesFirestore(uid, listaDirecciones) {
  * Persistencia unificada: Guarda en local wiSmile (0ms) y despacha en segundo plano a Firestore
  */
 function persistirLocalYFondo(nuevaLista) {
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__GASWII_USER__ : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   if (!user) throw new Error('No hay sesión de usuario activa.');
 
   const userId = user.userId || user.uid;
   user.direcciones = nuevaLista;
   savels('wiSmile', user, 144);
   if (typeof window !== 'undefined') {
-    window.__GASWII_USER__ = user;
+    window.__CONTABILIDAD_USER__ = user;
     document.dispatchEvent(new CustomEvent('direccionesActualizadas', { detail: { direcciones: nuevaLista } }));
   }
 

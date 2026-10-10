@@ -4,7 +4,10 @@
 // Respaldo Seguro Offline / Semilla: src/semillas/servicios.json y src/semillas/negocio.json
 
 import serviciosSemilla from './semillas/servicios.json';
+import configSemilla from './semillas/config.json';
 import { obtenerDatosNegocio, parseFirestoreDoc } from './feature/personal/modulos/negocio/dataNegocio.js';
+
+export { configSemilla };
 
 /**
  * Normaliza cualquier documento de Firestore para servicios/talleres
@@ -16,7 +19,7 @@ export function normalizarProductoFirestore(docRaw = {}) {
   
   return {
     id,
-    tipo: item.tipo || 'tributario',
+    tipo: item.tipo || 'servicio',
     nombre: typeof item.nombre === 'object' && item.nombre !== null ? (item.nombre.es || '') : (item.nombre || ''),
     nombreEn: typeof item.nombre === 'object' && item.nombre !== null ? (item.nombre.en || '') : (item.nombreEn || ''),
     descripcion: typeof item.descripcion === 'object' && item.descripcion !== null ? (item.descripcion.es || '') : (item.descripcion || ''),
@@ -40,6 +43,7 @@ export function normalizarProductoFirestore(docRaw = {}) {
   };
 }
 
+// Inicialización: fallback temporal a semillas hasta que Firestore responda
 let _serviciosBuildFirestore = Array.isArray(serviciosSemilla) ? serviciosSemilla : [];
 
 export async function consultarProductosFirestoreFresco() {
@@ -173,15 +177,19 @@ export const datosNegocio = {
       tagEn: s.modalidad === 'Virtual' ? 'Online' : 'In-Person'
     }));
   },
+  get config() { return configSemilla; },
   get metricas() { return this.raw.metricas || {}; },
   get productos() {
     return _serviciosBuildFirestore && _serviciosBuildFirestore.length > 0 ? _serviciosBuildFirestore : serviciosSemilla;
   },
   get servicios() {
-    return this.productos.filter(p => !p.tipo || p.tipo === 'servicio' || p.tipo === 'asesoria' || p.tipo === 'tributario' || p.tipo === 'contabilidad');
+    return this.productos.filter(p => p.tipo === 'servicio' && p.activo !== false);
+  },
+  get asesorias() {
+    return this.productos.filter(p => (p.tipo === 'asesoria' || p.tipo === 'taller') && p.activo !== false);
   },
   get talleres() {
-    return this.productos.filter(p => p.tipo === 'taller');
+    return this.asesorias;
   },
   get todosServicios() {
     return this.productos;

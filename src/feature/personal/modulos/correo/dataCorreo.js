@@ -7,10 +7,10 @@ import { db } from '@core/servicios/firebase.js';
 import { collection, doc, setDoc, getDocs, query, orderBy, limit, serverTimestamp } from 'firebase/firestore';
 import { getUsuarioActivo } from '../negocio/dataNegocio.js';
 
-export const STORAGE_KEY = 'gaswii_correos_historial';
-export const STORAGE_KEY_AJUSTES = 'gaswii_correo_ajustes';
-export const STORAGE_KEY_RECIBIDOS = 'gaswii_correos_recibidos';
-export const STORAGE_KEY_BORRADORES = 'gaswii_correos_borradores';
+export const STORAGE_KEY = 'minegocio_correos_historial';
+export const STORAGE_KEY_AJUSTES = 'minegocio_correo_ajustes';
+export const STORAGE_KEY_RECIBIDOS = 'minegocio_correos_recibidos';
+export const STORAGE_KEY_BORRADORES = 'minegocio_correos_borradores';
 export const COLECCION_CORREOS = 'correos';
 
 // Memoria volátil en sesión
@@ -81,16 +81,10 @@ export function limpiarEmail(str = '') {
  * "Nombre Remitente <email@dominio.com>"
  */
 export function formatearRemitente(nombre = '', email = '') {
-  const emailPuro = limpiarEmail(email) || 'pedidos@solgassurquillo.com';
-  const nombrePuro = (nombre || 'Solgas Surquillo').replace(/[<>]/g, '').trim();
+  const emailPuro = limpiarEmail(email) || 'contacto@contabilidadwii.com';
+  const nombrePuro = (nombre || 'Estudio Cusihuaman').replace(/[<>]/g, '').trim();
 
-  // Asegurar que el dominio de salida coincida con el dominio autenticado
-  const dominioValido = 'solgassurquillo.com';
-  const emailFinal = emailPuro.toLowerCase().endsWith(`@${dominioValido}`)
-    ? emailPuro
-    : 'pedidos@solgassurquillo.com';
-
-  return `${nombrePuro} <${emailFinal}>`;
+  return `${nombrePuro} <${emailPuro}>`;
 }
 
 /**
@@ -123,7 +117,7 @@ export function guardarCorreoLocal(correo) {
   savels(STORAGE_KEY, nuevoHistorial);
 
   if (typeof window !== 'undefined') {
-    window.dispatchEvent(new CustomEvent('gaswii:correo-enviado', { detail: correo }));
+    window.dispatchEvent(new CustomEvent('contabilidad:correo-enviado', { detail: correo }));
   }
 }
 
@@ -163,7 +157,7 @@ export async function enviarCorreo({
 
   const responderAFinal = responderA 
     ? limpiarEmail(responderA) 
-    : (limpiarEmail(ajustes.responderA) || 'pedidos@solgassurquillo.com');
+    : (limpiarEmail(ajustes.responderA) || 'contacto@contabilidadwii.com');
 
   // Limpiar y asegurar formato de los destinatarios
   const rawDestinatarios = Array.isArray(para)
@@ -207,8 +201,6 @@ export async function enviarCorreo({
 
   let respuestaResend = null;
   try {
-    // Conexión directa al Microservicio Autónomo de Cloudflare Worker
-    // Maneja CORS, llamadas seguras a Resend y es reutilizable para cualquier negocio
     const endpoint = 'https://gaswii-correo.lourdesinformatica10.workers.dev/enviar';
 
     const res = await fetch(endpoint, {
@@ -226,8 +218,6 @@ export async function enviarCorreo({
       let errorMsg = respuestaResend?.message || `Error en Resend HTTP ${res.status}`;
       if (errorMsg.includes('Invalid `from` field') || errorMsg.includes('Invalid `to` field')) {
         errorMsg = 'Formato de remitente o destinatario no válido. Se espera un correo limpio.';
-      } else if (errorMsg.includes('not verified')) {
-        errorMsg = 'El dominio de envío debe ser solgassurquillo.com (verificado en Resend).';
       }
       throw new Error(errorMsg);
     }
@@ -265,14 +255,14 @@ export async function enviarCorreo({
       pedidoId: pedidoId || '',
       clienteId: clienteId || ''
     },
-    autor: usuario.autor || 'Personal Solgas',
+    autor: usuario.autor || 'CPC Lourdes Cusihuaman',
     userId: usuario.userId || '',
     email: usuario.email || '',
     fecha: formatearFechaLegible(ahora),
     creado: serverTimestamp()
   };
 
-  // 3. Guardar en caché local inmediatamente (0ms UI feedback)
+  // 3. Guardar en caché local inmediatamente
   guardarCorreoLocal({
     ...registroCorreo,
     creado: timestamp
@@ -333,13 +323,13 @@ const RECIBIDOS_DEMO = [
     carpeta: 'recibidos',
     estado: 'recibido',
     leido: false,
-    destinatario: { para: 'pedidos@solgassurquillo.com', nombre: 'Solgas Surquillo' },
+    destinatario: { para: 'contacto@contabilidadwii.com', nombre: 'Estudio Cusihuaman' },
     remitente: { desde: 'Valeria Mendoza <valeria.mendoza@gmail.com>', responderA: 'valeria.mendoza@gmail.com' },
     mensaje: {
-      asunto: '🔥 Consulta: Balón de 10kg con válvula click-on para Surquillo',
-      tipo: 'pedido',
-      resumen: 'Buenas tardes, quisiera saber si tienen disponible el balón de 10kg con válvula click-on para entrega en Jr. Dante hoy...',
-      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #ff6a00; margin-top: 0;">Consulta de Balón 10kg - Surquillo</h2><p>Buenas tardes Solgas Surquillo,</p><p>He visto en su página web que ofrecen entrega en 15-20 minutos con verificación de balanza digital.</p><p>Quisiera confirmar si tienen stock del <strong>Balón SOLGAS Premium 10 kg con válvula Click-On (S/ 65.00)</strong> para despachar hoy a las 5:00 p.m. a <strong>Jr. Dante 260, Dpto 301, Surquillo</strong>.</p><p>Pagaría con Yape contra entrega. Quedo atenta a su confirmación.</p><p>Saludos cordiales,<br/><strong>Valeria Mendoza</strong><br/>📱 987 654 321</p></div>'
+      asunto: '📋 Consulta: Suspensión de Retenciones 4ta Categoría (RHE 2026)',
+      tipo: 'consulta',
+      resumen: 'Estimada CPC Lourdes, buenas tardes. Este año mis ingresos como diseñadora independiente superarán los S/ 45,000...',
+      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #9e7b4f; margin-top: 0;">Consulta Tributaria de 4ta Categoría</h2><p>Buenas tardes CPC Lourdes,</p><p>He revisado sus publicaciones sobre el Formulario Virtual 1609 para suspensión del 8% de retención de recibos por honorarios.</p><p>Quisiera agendar una asesoría de 1 hora para proyectar mis ingresos del ejercicio fiscal 2026 y saber en qué mes debo tramitar la constancia ante SUNAT sin caer en contingencias.</p><p>Quedo a la espera de su confirmación y de los números de cuenta para el abono del honorario.</p><p>Saludos cordiales,<br/><strong>Valeria Mendoza</strong><br/>📱 987 654 321</p></div>'
     },
     fecha: 'Hoy, 02:45 p. m.'
   },
@@ -348,13 +338,13 @@ const RECIBIDOS_DEMO = [
     carpeta: 'recibidos',
     estado: 'recibido',
     leido: false,
-    destinatario: { para: 'pedidos@solgassurquillo.com', nombre: 'Solgas Surquillo' },
+    destinatario: { para: 'contacto@contabilidadwii.com', nombre: 'Estudio Cusihuaman' },
     remitente: { desde: 'Restaurante El Rincón Criollo <administracion@rinconcriollo.pe>', responderA: 'administracion@rinconcriollo.pe' },
     mensaje: {
-      asunto: '📄 Solicitud de Factura Electrónica por 2x Balones 45kg',
-      tipo: 'comprobante',
-      resumen: 'Estimados, adjuntamos datos de nuestra empresa para la emisión de la factura de los 2 balones industriales de 45kg...',
-      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #ff6a00; margin-top: 0;">Solicitud de Factura Comercial</h2><p>Estimados amigos de Solgas Surquillo,</p><p>Por favor emitir la factura correspondiente al suministro de gas de esta semana:</p><ul><li><strong>Razón Social:</strong> Inversiones Gastronómicas El Rincón Criollo S.A.C.</li><li><strong>RUC:</strong> 20554897123</li><li><strong>Dirección:</strong> Av. Angamos Este 1240, Surquillo</li><li><strong>Pedido:</strong> 2x Balones Solgas 45 kg (Total S/ 460.00)</li></ul><p>Enviar el PDF y XML a este correo para el área contable. Muchas gracias.</p><p>Atentamente,<br/><strong>Gerencia de Operaciones</strong></p></div>'
+      asunto: '📁 Envío de Comprobantes de Ventas y Compras - Mes Agosto 2026',
+      tipo: 'declaracion',
+      resumen: 'Estimado Estudio, adjuntamos la carpeta con los XML y PDF de ventas y compras del restaurante para la liquidación mensual...',
+      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #9e7b4f; margin-top: 0;">Envío de Información para PDT 621 y SIRE</h2><p>Estimada CPC Lourdes Cusihuaman,</p><p>Adjuntamos los comprobantes correspondientes al mes de Agosto 2026 de nuestra empresa:</p><ul><li><strong>Razón Social:</strong> Inversiones Gastronómicas El Rincón Criollo S.A.C.</li><li><strong>RUC:</strong> 20554897123 (Régimen MYPE Tributario)</li><li><strong>Ventas del mes:</strong> 42 Facturas electrónicas</li><li><strong>Compras del mes:</strong> 28 Facturas de proveedores</li><li><strong>Planilla:</strong> 4 trabajadores (sin variaciones este mes)</li></ul><p>Por favor emitir la liquidación de IGV-Renta y el código NPS para realizar el pago a tiempo. Muchas gracias.</p><p>Atentamente,<br/><strong>Gerencia de Administración</strong></p></div>'
     },
     fecha: 'Ayer, 06:10 p. m.'
   },
@@ -363,13 +353,13 @@ const RECIBIDOS_DEMO = [
     carpeta: 'recibidos',
     estado: 'recibido',
     leido: true,
-    destinatario: { para: 'pedidos@solgassurquillo.com', nombre: 'Solgas Surquillo' },
-    remitente: { desde: 'OSINERGMIN Notificaciones <notificaciones@osinergmin.gob.pe>', responderA: 'notificaciones@osinergmin.gob.pe' },
+    destinatario: { para: 'contacto@contabilidadwii.com', nombre: 'Estudio Cusihuaman' },
+    remitente: { desde: 'SUNAT Virtual Notificaciones <notificaciones@sunat.gob.pe>', responderA: 'notificaciones@sunat.gob.pe' },
     mensaje: {
-      asunto: '🛡️ Certificación de Distribuidor Autorizado Reg. 208492 Conforme',
-      tipo: 'general',
-      resumen: 'Notificación oficial de cumplimiento de estándares de seguridad y balanza calibrada para el local de Jr. Dante 260...',
-      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #0284c7; margin-top: 0;">Notificación Oficial OSINERGMIN</h2><p>Estimado Distribuidor Autorizado Solgas (Reg. 208492),</p><p>Se deja constancia del registro conforme de la inspección técnica realizada en el local de <strong>Jr. Dante 260, Surquillo</strong>.</p><p>Se verificó el cumplimiento de las condiciones de seguridad en cilindros de GLP, precintos termocontraíbles inviolables y control de pesaje digital.</p><p>Atentamente,<br/><strong>Organismo Supervisor de la Inversión en Energía y Minería (OSINERGMIN)</strong></p></div>'
+      asunto: '🔔 Aviso de Cumplimiento: Declaración Jurada Mensual PDT 621',
+      tipo: 'sunat',
+      resumen: 'Recordatorio oficial de vencimientos para contribuyentes del Régimen MYPE y Régimen Especial del período tributario vigente...',
+      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #0284c7; margin-top: 0;">Notificación Electrónica SUNAT</h2><p>Estimado contribuyente,</p><p>Se le recuerda que el cronograma de vencimiento para la presentación de la Declaración Jurada Mensual y Registro de Compras y Ventas Electrónicas (SIRE) iniciará el próximo 14 del presente mes según el último dígito del RUC.</p><p>Le recomendamos verificar las declaraciones a través de la plataforma SUNAT Operaciones en Línea (SOL).</p><p>Atentamente,<br/><strong>Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)</strong></p></div>'
     },
     fecha: '23 Sep, 11:20 a. m.'
   }
@@ -459,4 +449,3 @@ export function eliminarCorreoPorCarpeta(id, carpeta = 'enviados') {
   savels(STORAGE_KEY, filtrados);
   return filtrados;
 }
-

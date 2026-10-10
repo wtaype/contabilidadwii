@@ -1,14 +1,14 @@
 // src/feature/cliente/modulos.js
-// Registro y configuración central de módulos para el Feature Cliente (Solgas Surquillo)
+// Registro y configuración central de módulos para el Feature Cliente (Estudio Cusihuaman)
 // Permite activar/desactivar módulos y definir el módulo por defecto desde un único lugar
 
 export const moduloDefecto = 'pedidos';
 
 export const modulos = [
-  { id: 'pedidos',   nombre: 'Pedir gas',    icono: 'fa-solid fa-bolt',             activo: true },
-  { id: 'direccion', nombre: 'Direcciones',  icono: 'fa-solid fa-map-location-dot', activo: true, badge: '2' },
-  { id: 'cuenta',    nombre: 'Mi cuenta',    icono: 'fa-solid fa-user-gear',        activo: true },
-  { id: 'soporte',   nombre: 'Soporte',      icono: 'fa-solid fa-headset',          activo: true }
+  { id: 'pedidos',   nombre: 'Servicios',        icono: 'fa-solid fa-briefcase',        activo: true },
+  { id: 'direccion', nombre: 'Domicilio Fiscal', icono: 'fa-solid fa-building',         activo: true },
+  { id: 'cuenta',    nombre: 'Mi Cuenta Fiscal', icono: 'fa-solid fa-id-card',          activo: true },
+  { id: 'soporte',   nombre: 'Consultas SUNAT',  icono: 'fa-solid fa-headset',          activo: true }
 ];
 
 // Obtener solo los módulos habilitados para el sidebar y navegación

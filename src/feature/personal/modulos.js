@@ -1,5 +1,5 @@
 // src/feature/personal/modulos.js
-// Registro y configuración central de módulos para el Feature Personal (Solgas Surquillo)
+// Registro y configuración central de módulos para el Feature Personal (Estudio Cusihuaman)
 // Permite activar/desactivar módulos y definir el módulo por defecto desde un único lugar
 
 export const moduloDefecto = 'dashboard';

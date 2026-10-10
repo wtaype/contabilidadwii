@@ -1,12 +1,13 @@
 // src/feature/personal/modulos/entradas/entradas.js
-// Controlador Frontend Autónomo del Módulo Entradas (Blog SEO Solgas Surquillo)
-// 100% JS Nativo · Integrado con @widev
+// Controlador Frontend Autónomo del Módulo Entradas (Blog Tributario Estudio Cusihuaman)
+// 100% JS Nativo · Integrado con @widev y Local-First
 
-import { Notificacion, wiSpin, wiConfirmar, wiSelect } from '@widev';
+import { Notificacion, wiSpin, wiConfirmar } from '@widev';
 import {
   obtenerEntradas,
   guardarEntrada,
-  eliminarEntrada
+  eliminarEntrada,
+  sincronizarEntradasDesdeFirestore
 } from './dataEntradas.js';
 
 export function inicializarModuloEntradas() {
@@ -42,14 +43,6 @@ export function inicializarModuloEntradas() {
   const panePreview = document.getElementById('enPanePreview');
   const btnGuardar = document.getElementById('btnGuardarEntrada');
 
-  if (selectEstado && !selectEstado.dataset.wiselect) {
-    wiSelect(selectEstado, { placeholder: 'Estado...' });
-  }
-
-  if (selectCategoria && !selectCategoria.dataset.wiselect) {
-    wiSelect(selectCategoria, { placeholder: 'Categoría...' });
-  }
-
   // ════════════════════════════════════════════════════════════
   // 1. KPIS Y FILTRADO
   // ════════════════════════════════════════════════════════════
@@ -63,7 +56,6 @@ export function inicializarModuloEntradas() {
     if (kpiBorradores) kpiBorradores.textContent = String(bor);
   }
 
-  // Parseador Markdown rápido nativo
   function renderMarkdown(md = '') {
     return md
       .replace(/^### (.*$)/gim, '<h3>$1</h3>')
@@ -83,7 +75,7 @@ export function inicializarModuloEntradas() {
     const contenido = inContenido?.value || 'Escribe contenido en Markdown...';
     livePreview.innerHTML = `
       <h1>${titulo}</h1>
-      <hr style="border:0; border-top: 1px dashed var(--brd); margin: 12px 0 16px;">
+      <hr style="border:0; border-top: 1px dashed var(--line); margin: 12px 0 16px;">
       <div>${renderMarkdown(contenido)}</div>
     `;
   }
@@ -133,9 +125,9 @@ export function inicializarModuloEntradas() {
     if (filtradas.length === 0) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="4" class="sn-empty-history-cell">
-            <i class="fa-solid fa-newspaper sn-empty-history-icon"></i>
-            No se encontraron entradas en esta categoría.
+          <td colspan="4" class="sn-empty-history-cell" style="text-align:center; padding:32px 16px; color:var(--muted);">
+            <i class="fa-solid fa-newspaper" style="font-size:24px; margin-bottom:8px; display:block;"></i>
+            No se encontraron entradas tributarias en esta categoría.
           </td>
         </tr>
       `;
@@ -154,7 +146,7 @@ export function inicializarModuloEntradas() {
         <tr class="en-row ${isSelected ? 'selected' : ''}" data-id="${e.id}">
           <td>
             <div class="en-post-cell">
-              <img src="${e.portada || 'https://imgwii.web.app/smile.avif'}" alt="${e.titulo}" class="en-post-thumb" />
+              <img src="${e.portada || '/imgwii/hero.webp'}" alt="${e.titulo}" class="en-post-thumb" />
               <div class="en-post-info">
                 <span class="en-post-title">${e.titulo}</span>
                 <span class="en-post-slug">/${e.slug}</span>
@@ -174,7 +166,6 @@ export function inicializarModuloEntradas() {
       `;
     }).join('');
 
-    // Cargar en el editor la entrada seleccionada
     const seleccionada = filtradas.find(e => e.id === entradaSeleccionadaId);
     if (seleccionada) cargarEnEditor(seleccionada);
 
@@ -205,10 +196,10 @@ export function inicializarModuloEntradas() {
         });
 
         if (conf) {
-          eliminarEntrada(id);
+          await eliminarEntrada(id);
           actualizarKpis();
           renderizarTabla();
-          Notificacion(`Artículo eliminado.`, 'info');
+          Notificacion('Artículo eliminado.', 'info', 2000);
         }
       });
     });
@@ -220,8 +211,8 @@ export function inicializarModuloEntradas() {
     if (inTitulo) inTitulo.value = e.titulo;
     if (inSlug) inSlug.value = e.slug;
     if (selectEstado) selectEstado.value = e.estado || 'publicado';
-    if (selectCategoria) selectCategoria.value = e.categoria || 'Consejos de Seguridad';
-    if (inPortada) inPortada.value = e.portada || '';
+    if (selectCategoria) selectCategoria.value = e.categoria || 'Rentas Personales (4ta y 5ta)';
+    if (inPortada) inPortada.value = e.portada || '/imgwii/hero.webp';
     if (inContenido) inContenido.value = e.contenido || '';
     actualizarLivePreview();
   }
@@ -237,43 +228,50 @@ export function inicializarModuloEntradas() {
       titulo: '',
       slug: '',
       estado: 'borrador',
-      categoria: 'Consejos de Seguridad',
-      portada: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=600&auto=format&fit=crop&q=80',
-      contenido: '## Escribe aquí el nuevo artículo...'
+      categoria: 'Rentas Personales (4ta y 5ta)',
+      portada: '/imgwii/hero.webp',
+      contenido: '## Escribe aquí el contenido de la guía tributaria...'
     });
     btnTabEditor?.click();
     inTitulo?.focus();
-    Notificacion('Formulario listo para nuevo artículo.', 'info');
+    Notificacion('Formulario listo para nuevo artículo.', 'info', 2000);
   });
 
-  btnGuardar?.addEventListener('click', () => {
+  btnGuardar?.addEventListener('click', async () => {
     const titulo = inTitulo?.value?.trim();
     if (!titulo) {
-      Notificacion('Debes indicar un título para el artículo.', 'warning');
+      Notificacion('Debes indicar un título para el artículo.', 'warning', 2500);
       inTitulo?.focus();
       return;
     }
 
-    wiSpin(btnGuardar, true, 'Guardando...');
+    const spin = wiSpin ? wiSpin(btnGuardar) : null;
+    if (btnGuardar) btnGuardar.disabled = true;
 
-    setTimeout(() => {
+    try {
       const idActual = inId?.value?.startsWith('art_temp') ? undefined : inId?.value;
-      const guardado = guardarEntrada({
+      const guardado = await guardarEntrada({
         id: idActual,
         titulo,
         slug: inSlug?.value?.trim(),
         estado: selectEstado?.value || 'publicado',
-        categoria: selectCategoria?.value || 'Consejos de Seguridad',
-        portada: inPortada?.value?.trim(),
-        contenido: inContenido?.value || ''
+        categoria: selectCategoria?.value || 'Rentas Personales (4ta y 5ta)',
+        portada: inPortada?.value?.trim() || '/imgwii/hero.webp',
+        contenido: inContenido?.value || '',
+        autor: 'CPC Lourdes Cusihuaman Gálvez'
       });
 
-      wiSpin(btnGuardar, false);
       entradaSeleccionadaId = guardado.id;
       actualizarKpis();
       renderizarTabla();
-      Notificacion(`¡Artículo "${titulo}" guardado con éxito!`, 'success');
-    }, 400);
+      Notificacion(`¡Artículo "${titulo}" guardado con éxito!`, 'success', 3000);
+    } catch (err) {
+      console.error(err);
+      Notificacion('Error al guardar el artículo.', 'danger', 3000);
+    } finally {
+      if (spin) spin.stop();
+      if (btnGuardar) btnGuardar.disabled = false;
+    }
   });
 
   // Filtros
@@ -291,4 +289,9 @@ export function inicializarModuloEntradas() {
   // ════════════════════════════════════════════════════════════
   actualizarKpis();
   renderizarTabla();
+
+  sincronizarEntradasDesdeFirestore().then(() => {
+    actualizarKpis();
+    renderizarTabla();
+  });
 }

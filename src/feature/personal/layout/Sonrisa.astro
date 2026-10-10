@@ -57,7 +57,7 @@ const {
 
       // 2. Anti-FOUC de Tema y Sidebar Colapsado
       document.documentElement.dataset.theme = localStorage.getItem('wiTema') || (matchMedia('(prefers-color-scheme: light)').matches ? 'luz' : 'futuro');
-      if (localStorage.getItem('contabilidad_sidebar_collapsed') === 'true' || localStorage.getItem('gaswii_sidebar_collapsed') === 'true') {
+      if (localStorage.getItem('contabilidad_sidebar_collapsed') === 'true') {
         document.documentElement.classList.add('is-collapsed');
       }
     } catch (e) {

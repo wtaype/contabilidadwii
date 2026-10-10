@@ -1,7 +1,7 @@
-@import './modales/modales.css';
+﻿@import './modales/modales.css';
 
 /* src/feature/personal/modulos/productos/productos.css */
-/* Estilos Oficiales del Módulo Productos (Solgas Surquillo) */
+/* Estilos Oficiales del Módulo Productos (Estudio Cusihuaman) */
 /* Cero CSS Inline · 100% Variables de WiTema, Poppins y Outfit */
 
 .pr-container {
@@ -32,7 +32,7 @@
 }
 
 .pr-metric-card:hover {
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--mco);
   transform: translateY(-1px);
 }
 
@@ -119,15 +119,15 @@
 }
 
 .pr-filter-pill:hover {
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--ink, #0f172a);
+  background: var(--bg-subtle, rgba(158, 123, 79, 0.05));
+  color: var(--tx);
 }
 
 .pr-filter-pill.active {
-  background: var(--brand-orange, #ff6600);
-  border-color: var(--brand-orange, #ff6600);
-  color: #ffffff;
-  box-shadow: 0 2px 6px rgba(255, 102, 0, 0.25);
+  background: var(--mco);
+  border-color: var(--mco);
+  color: var(--txa, #ffffff);
+  box-shadow: 0 2px 6px rgba(158, 123, 79, 0.25);
 }
 
 .pr-actions-group {
@@ -147,27 +147,27 @@
   position: absolute;
   left: 12px;
   font-size: 13px;
-  color: var(--muted, #94a3b8);
+  color: var(--tx2, #94a3b8);
   pointer-events: none;
 }
 
 .pr-search-input {
   padding: 7px 12px 7px 34px;
   border-radius: 8px;
-  border: 1px solid var(--line, #e2e8f0);
-  background: var(--bg, #f8fafc);
-  color: var(--ink, #0f172a);
+  border: 1px solid var(--brd);
+  background: var(--surface);
+  color: var(--tx);
   font-family: inherit;
   font-size: 0.85rem;
-  width: 180px;
+  width: 220px;
   transition: all 0.2s ease;
 }
 
 .pr-search-input:focus {
   outline: none;
-  border-color: var(--brand-orange, #ff6600);
-  background: #ffffff;
-  width: 220px;
+  border-color: var(--mco);
+  box-shadow: 0 0 0 3px rgba(158, 123, 79, 0.14);
+  width: 250px;
 }
 
 /* ── 3. GRID DE PRODUCTOS ── */
@@ -412,7 +412,7 @@
 .pr-quick-input:focus {
   outline: none;
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--mco, #ff6600);
+  border-color: var(--mco, #9e7b4f);
   color: #ffffff;
   box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.25);
 }
@@ -444,23 +444,23 @@
   flex: 1;
   padding: 9px 14px;
   border-radius: 8px;
-  border: 1px solid var(--mco, #ff6600);
-  background: var(--mco, #ff6600);
-  color: #ffffff;
+  border: 1px solid var(--mco);
+  background: var(--mco);
+  color: var(--txa, #ffffff);
   font-family: inherit;
   font-size: 0.84rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(255, 102, 0, 0.25);
+  box-shadow: 0 2px 8px rgba(158, 123, 79, 0.25);
   transition: all 0.2s ease;
 }
 
 .pr-btn-edit:hover {
-  background: #e65c00;
-  border-color: #e65c00;
-  color: #ffffff;
+  background: var(--brand-primary-hover, #7a5c35);
+  border-color: var(--brand-primary-hover, #7a5c35);
+  color: var(--txa, #ffffff);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.35);
+  box-shadow: 0 4px 12px rgba(158, 123, 79, 0.35);
 }
 
 .pr-btn-del {
@@ -486,8 +486,8 @@
 
 /* ── 5. ESTADO VACÍO (EMPTY STATE) ── */
 .pr-empty-box {
-  background: var(--surface, #ffffff);
-  border: 2px dashed var(--line, #cbd5e1);
+  background: var(--surface);
+  border: 2px dashed var(--brd);
   border-radius: var(--br_m, 14px);
   padding: 48px 24px;
   text-align: center;
@@ -501,8 +501,8 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(255, 102, 0, 0.1);
-  color: var(--brand-orange, #ff6600);
+  background: rgba(158, 123, 79, 0.12);
+  color: var(--mco);
   display: flex;
   align-items: center;
   justify-content: center;

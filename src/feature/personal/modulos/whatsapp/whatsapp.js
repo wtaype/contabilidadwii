@@ -2,7 +2,7 @@
 // Controlador Frontend Autónomo del Módulo WhatsApp: Centro de Mensajería & Sandbox
 // 100% JS Nativo · Integrado con @widev
 
-import { Notificacion, wiSelect } from '@widev';
+import { Notificacion } from '@widev';
 import { PLANTILLAS_WHATSAPP, formatearPlantilla } from './dataWhatsapp.js';
 
 export function inicializarModuloWhatsapp() {
@@ -10,17 +10,18 @@ export function inicializarModuloWhatsapp() {
   if (!panel || panel.dataset.whatsappInit === 'true') return;
   panel.dataset.whatsappInit = 'true';
 
-  let plantillaActualId = 'tpl_pedido_confirmado';
+  let plantillaActualId = 'tpl_vencimiento_sunat';
 
   // ── Elementos del DOM ──
   const templatesGrid = document.getElementById('waTemplatesGrid');
   const inpCliente = document.getElementById('waInpCliente');
   const inpCelular = document.getElementById('waInpCelular');
-  const inpProducto = document.getElementById('waInpProducto');
+  const inpRuc = document.getElementById('waInpRuc');
+  const inpDigito = document.getElementById('waInpDigito');
+  const inpPeriodo = document.getElementById('waInpPeriodo');
   const inpMonto = document.getElementById('waInpMonto');
-  const inpDireccion = document.getElementById('waInpDireccion');
-  const inpChofer = document.getElementById('waInpChofer');
-  const inpEta = document.getElementById('waInpEta');
+  const inpNps = document.getElementById('waInpNps');
+  const inpFechaVencimiento = document.getElementById('waInpFechaVencimiento');
   const textareaMensaje = document.getElementById('waTextareaMensaje');
 
   // ── Simulador Smartphone ──
@@ -34,18 +35,22 @@ export function inicializarModuloWhatsapp() {
   // ════════════════════════════════════════════════════════════
   function obtenerValoresParametros() {
     return {
-      cliente: inpCliente?.value?.trim() || 'Wilder Taype',
-      producto: inpProducto?.value?.trim() || 'Balón SOLGAS Premium 10 kg',
-      monto: inpMonto?.value?.trim() || '65.00',
-      metodoPago: 'Yape / Plin',
-      direccion: inpDireccion?.value?.trim() || 'Jr. Dante 260, Surquillo',
-      chofer: inpChofer?.value?.trim() || 'Juan Quispe (Móvil 02)',
-      eta: inpEta?.value?.trim() || '12–15',
-      comprobanteTipo: 'Boleta de Venta',
-      comprobanteNumero: 'B001-000483',
+      cliente: inpCliente?.value?.trim() || 'Inversiones Gastronómicas S.A.C.',
+      ruc: inpRuc?.value?.trim() || '20554897123',
+      digito: inpDigito?.value?.trim() || '3',
+      periodo: inpPeriodo?.value?.trim() || 'Agosto 2026',
+      fechaVencimiento: inpFechaVencimiento?.value?.trim() || '18 de Septiembre de 2026',
+      regimen: 'Régimen MYPE Tributario',
+      monto: inpMonto?.value?.trim() || '185.00',
+      nps: inpNps?.value?.trim() || '9827364510',
+      modalidad: 'Presencial (Sede Surquillo) / Virtual Meet',
+      fechaHora: 'Viernes 25 Sep · 4:00 p.m.',
+      honorario: '80.00',
+      lugarEnlace: 'Jr. Dante 260, Surquillo (previa cita) / Link: meet.google.com/abc-defg-hij',
+      comprobanteTipo: 'Factura Electrónica',
+      comprobanteNumero: 'F001-000104',
       fecha: '25 Sep 2026',
-      documentoTipo: 'DNI',
-      documento: '71779978'
+      servicio: 'Servicio Contable Mensual MYPE'
     };
   }
 
@@ -98,58 +103,69 @@ export function inicializarModuloWhatsapp() {
     templatesGrid.querySelectorAll('.wa-tpl-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-id');
-        plantillaActualId = id;
-        templatesGrid.querySelectorAll('.wa-tpl-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        if (textareaMensaje) delete textareaMensaje.dataset.manualEdit;
-        actualizarPreviewMensaje(true);
+        if (id) {
+          plantillaActualId = id;
+          templatesGrid.querySelectorAll('.wa-tpl-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          actualizarPreviewMensaje(true);
+        }
       });
     });
   }
 
-  // Listeners de actualización en vivo para cada input
-  [inpCliente, inpProducto, inpMonto, inpDireccion, inpChofer, inpEta].forEach(el => {
-    el?.addEventListener('input', () => {
-      if (textareaMensaje) delete textareaMensaje.dataset.manualEdit;
-      actualizarPreviewMensaje();
-    });
+  // Listeners para actualización reactiva en vivo
+  [inpCliente, inpCelular, inpRuc, inpDigito, inpPeriodo, inpMonto, inpNps, inpFechaVencimiento].forEach(inp => {
+    inp?.addEventListener('input', () => actualizarPreviewMensaje(false));
   });
 
   textareaMensaje?.addEventListener('input', () => {
     textareaMensaje.dataset.manualEdit = 'true';
-    if (chatBubbleText) chatBubbleText.textContent = textareaMensaje.value;
+    if (chatBubbleText) {
+      chatBubbleText.textContent = textareaMensaje.value;
+    }
   });
 
   // ════════════════════════════════════════════════════════════
-  // 3. ACCIONES DE DISPARO (WA.ME Y COPIAR)
+  // 3. ACCIONES DE DISPARO DIRECTO
   // ════════════════════════════════════════════════════════════
   btnOpenWs?.addEventListener('click', () => {
-    const cel = inpCelular?.value?.replace(/\D/g, '') || '';
+    const rawCel = inpCelular?.value?.trim().replace(/\D/g, '') || '';
     const texto = textareaMensaje?.value || '';
 
-    if (!texto.trim()) {
-      Notificacion('El mensaje a enviar no puede estar vacío.', 'warning');
-      return;
+    let url = '';
+    if (rawCel.length >= 9) {
+      const celPeru = rawCel.startsWith('51') ? rawCel : `51${rawCel}`;
+      url = `https://wa.me/${celPeru}?text=${encodeURIComponent(texto)}`;
+    } else {
+      url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
     }
-
-    const url = cel 
-      ? `https://wa.me/51${cel}?text=${encodeURIComponent(texto)}`
-      : `https://wa.me/?text=${encodeURIComponent(texto)}`;
 
     window.open(url, '_blank');
   });
 
   btnCopy?.addEventListener('click', async () => {
     const texto = textareaMensaje?.value || '';
-    if (!texto.trim()) return;
+    if (!texto) return;
 
     try {
       await navigator.clipboard.writeText(texto);
-      Notificacion('¡Mensaje copiado al portapapeles!', 'success');
+      Notificacion('Mensaje copiado al portapapeles.', 'success', 2000);
     } catch (e) {
-      Notificacion('No se pudo copiar automáticamente al portapapeles.', 'info');
+      Notificacion('No se pudo copiar automáticamente.', 'warning', 2000);
     }
   });
+
+  // Reloj de smartphone en vivo
+  function updateClock() {
+    const clock = document.getElementById('waPhoneClock');
+    if (clock) {
+      const d = new Date();
+      clock.textContent = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
+    }
+  }
+
+  setInterval(updateClock, 30000);
+  updateClock();
 
   // ════════════════════════════════════════════════════════════
   // 4. INICIALIZACIÓN

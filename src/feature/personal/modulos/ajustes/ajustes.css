@@ -1,5 +1,5 @@
-/* src/feature/personal/modulos/ajustes/ajustes.css */
-/* Estilos del Módulo Ajustes: Configuración Global & Backup JSON (Solgas Surquillo) */
+﻿/* src/feature/personal/modulos/ajustes/ajustes.css */
+/* Estilos del Módulo Ajustes: Configuración Global & Backup JSON (Estudio Cusihuaman) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
 /* ── GRID DE CONFIGURACIÓN ── */
@@ -134,7 +134,7 @@
 
 .aj-backup-icon {
   font-size: 32px;
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .aj-backup-title {
@@ -152,7 +152,7 @@
 }
 
 .aj-btn-download-json {
-  background: var(--brand-orange, #ff6600);
+  background: var(--brand-primary, #9e7b4f);
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -168,6 +168,6 @@
 }
 
 .aj-btn-download-json:hover {
-  background: #e65c00;
-  box-shadow: 0 4px 14px rgba(255, 102, 0, 0.3);
+  background: var(--mco-dark, #82633c);
+  box-shadow: 0 4px 14px rgba(158, 123, 79, 0.3);
 }

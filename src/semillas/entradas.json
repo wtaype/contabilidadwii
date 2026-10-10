@@ -1,0 +1,32 @@
+[
+  {
+    "id": "art-01-recibos-honorarios-sin-retencion",
+    "titulo": "¿Cómo emitir Recibos por Honorarios sin retención del 8% ante SUNAT? (Guía 2026)",
+    "slug": "como-emitir-recibos-por-honorarios-sin-retencion-sunat-2026",
+    "categoria": "4ta Categoría",
+    "estado": "publicado",
+    "fecha": "08 Oct 2026",
+    "autor": "CPC Lourdes Cusihuaman",
+    "portada": "/imgwii/servicios/servicio03.webp",
+    "metaTitle": "Guía 2026: Cómo suspender la retención del 8% en Recibos por Honorarios · SUNAT",
+    "metaDesc": "Aprende los requisitos y pasos para tramitar tu Formulario 1609 de suspensión de retenciones de cuarta categoría y evitar descuentos indebidos.",
+    "tags": ["recibos por honorarios", "formulario 1609", "sunat", "4ta categoria", "retencion 8%"],
+    "resumen": "Si proyectas que tus ingresos anuales por honorarios independientes no superarán el tope fijado por SUNAT, puedes solicitar la suspensión de retenciones con el Formulario Virtual 1609.",
+    "contenido": "## ¿Qué es la suspensión de retenciones de 4ta categoría?\n\nCuando emites un **Recibo por Honorarios Electrónico (RHE)** a una empresa por un monto superior a **S/ 1,500**, la empresa está obligada por ley a retenerte el **8%** en calidad de pago a cuenta del Impuesto a la Renta.\n\nSin embargo, si estimas que el total de tus ingresos en todo el ejercicio fiscal no superará el límite anual establecido por SUNAT, tienes el derecho de tramitar la **Suspensión de Retenciones** a través del **Formulario Virtual 1609**.\n\n### Pasos para tramitar la suspensión con Clave SOL:\n1. Ingresa a la plataforma de **SUNAT Operaciones en Línea** con tu RUC, usuario y Clave SOL.\n2. Dirígete a la sección **Otras Declaraciones y Solicitudes** > **Solicito Suspensión de Retenciones 4ta Categoría (Formulario 1609)**.\n3. Ingresa la fecha en la que comenzaste a percibir ingresos de 4ta categoría en el año.\n4. Declara tus ingresos proyectados.\n5. El sistema evaluará automáticamente y generará la **Constancia de Autorización**.\n\n### Recomendación Profesional:\nDescarga y guarda el comprobante en formato PDF. Cada vez que emitas un recibo a una empresa por más de S/ 1,500, adjunta tu constancia para que no te apliquen el descuento del 8% de manera indebida."
+  },
+  {
+    "id": "art-02-regimen-mype-vs-especial-rer",
+    "titulo": "Régimen MYPE Tributario vs. Régimen Especial (RER): ¿Cuál le conviene a tu negocio?",
+    "slug": "regimen-mype-tributario-vs-regimen-especial-rer",
+    "categoria": "Gestión MYPE",
+    "estado": "publicado",
+    "fecha": "02 Oct 2026",
+    "autor": "CPC Lourdes Cusihuaman",
+    "portada": "/imgwii/servicios/servicio01.webp",
+    "metaTitle": "Régimen MYPE Tributario o Régimen Especial (RER): Comparativa y Claves 2026",
+    "metaDesc": "Conoce las diferencias tributarias, obligaciones de libros contables e impuestos a pagar para elegir el mejor régimen para tu emprendimiento.",
+    "tags": ["regimen mype", "regimen especial", "rer", "impuestos peru", "sunat mype"],
+    "resumen": "Elegir el régimen tributario correcto al formalizar tu negocio es clave para pagar solo los impuestos justos y evitar contingencias o multas con SUNAT.",
+    "contenido": "## Eligiendo el Régimen Tributario Ideal para Tu Negocio\n\nUno de los errores más comunes al iniciar un emprendimiento en el Perú es inscribirse en un régimen tributario sin evaluar el tipo de actividad comercial ni el margen real de ganancias.\n\n### 1. Régimen Especial de Renta (RER)\n- **Para quién es:** Pequeñas empresas de comercio y servicios con ventas anuales de hasta S/ 525,000.\n- **Impuesto a la Renta:** Tasa fija de **1.5% mensual** sobre tus ingresos netos (pago definitivo, no se presenta Declaración Anual de Renta).\n- **Libros Contables:** Registro de Compras y Registro de Ventas electrónicos (ahora vía SIRE).\n- **Limitación:** Ciertas actividades profesionales y consultorías no están permitidas en este régimen.\n\n### 2. Régimen MYPE Tributario (RMT)\n- **Para quién es:** Micro y pequeñas empresas con ingresos netos anuales que no superen las 1,700 UIT.\n- **Pagos a cuenta mensuales:** Tasa del **1.0%** sobre ingresos (para empresas con ingresos menores a 300 UIT).\n- **Impuesto Anual:** Tasa progresiva y muy favorable del **10%** sobre la utilidad hasta 15 UIT.\n- **Gran Ventaja:** Te permite deducir todos los gastos reales de tu negocio (alquiler, sueldos, servicios, compras) para pagar menos impuesto a fin de año.\n\n### ¿Cuál elegir?\nSi tu negocio tiene margen de ganancia reducido o altos gastos operativos demostrables con factura, el **Régimen MYPE** es tu mejor opción. Si tus actividades son comerciales directas con poco gasto fijo, el **RER** simplifica tus declaraciones al no exigir balance anual."
+  }
+]

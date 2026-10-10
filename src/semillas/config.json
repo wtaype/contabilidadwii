@@ -1,0 +1,42 @@
+{
+  "id": "config_sistema",
+  "modeloNegocio": "servicios_y_asesorias",
+  "version": "2.0.0",
+  "actualizado": "2026-10-10",
+  "capacidades": {
+    "servicios": true,
+    "asesorias": true,
+    "productosFisicos": false,
+    "controlStock": false,
+    "repartoMotorizado": false,
+    "sunat": true,
+    "cotizador": true,
+    "crmClientes": true,
+    "correo": true,
+    "blog": true,
+    "galeria": true,
+    "personal": true,
+    "ajustes": true
+  },
+  "terminologia": {
+    "catalogoTitulo": "Servicios & Asesorías",
+    "itemSingular": "Servicio / Asesoría",
+    "grupo1Titulo": "Servicios Mensuales",
+    "grupo2Titulo": "Asesorías Puntuales",
+    "campoEspecialCliente": "Régimen Tributario",
+    "comprobanteConceptoDefault": "Servicios Contables y Asesoría Tributaria"
+  },
+  "parametros": {
+    "moneda": "PEN",
+    "simboloMoneda": "S/",
+    "igvTasa": 0.18,
+    "modalidades": ["Online (Videollamada)", "Presencial en Surquillo (Previa Cita)"],
+    "regimenesTributarios": [
+      "Régimen MYPE Tributario (RMT)",
+      "Régimen Especial de Renta (RER)",
+      "4ta Categoría (Recibos por Honorarios)",
+      "Nuevo RUS (NRUS)",
+      "Régimen General (RG)"
+    ]
+  }
+}

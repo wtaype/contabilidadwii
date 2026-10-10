@@ -1,6 +1,6 @@
 ---
 // src/feature/cliente/components/Header.astro
-// Barra superior oficial de Solgas Surquillo con branding, buscador web/móvil, toggle de tema y dropdown de perfil
+// Barra superior oficial del Estudio Contable Cusihuaman con branding, buscador, toggle de tema y dropdown de perfil
 import { datosNegocio } from '@/negocio.js';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
     nombre?: string;
     nombreCompleto?: string;
     email?: string;
+    avatar?: string;
   };
 }
 
@@ -15,13 +16,13 @@ const { cliente = {} } = Astro.props;
 ---
 
 <header class="cl-topbar">
-  <!-- Identidad de Sede Solgas Surquillo -->
+  <!-- Identidad del Estudio Contable -->
   <a href="/cliente" class="cl-brand">
-    <img src="/imgwii/logo.webp" alt={datosNegocio.nombre || 'Solgas'} class="cl-logo" />
+    <img src="/imgwii/logo.webp" alt={datosNegocio.nombre || 'Estudio Cusihuaman'} class="cl-logo" />
     <div class="cl-brand-info">
-      <span class="cl-brand-title">SOLGAS <span>SURQUILLO</span></span>
+      <span class="cl-brand-title">ESTUDIO <span>CUSIHUAMAN</span></span>
       <span class="cl-brand-sub">
-        <span class="cl-live-dot"></span> Sede {datosNegocio.direccionSede || 'Jr. Dante 260'} · Despacho Activo
+        <span class="cl-live-dot"></span> Sede {datosNegocio.direccionSede || 'Jr. Dante 260'} · Asesoría Activa
       </span>
     </div>
   </a>
@@ -33,17 +34,17 @@ const { cliente = {} } = Astro.props;
       type="search" 
       id="clSearchInput" 
       class="cl-search-input" 
-      placeholder="Buscar balones, peso, accesorios..." 
+      placeholder="Buscar servicios contables, asesorías, trámites SUNAT..." 
       autocomplete="off" 
-      spellcheck="false"
-      aria-label="Buscar productos"
+      spellcheck="false" 
+      aria-label="Buscar servicios contables"
     />
   </div>
 
   <!-- Acciones Superiores -->
   <div class="cl-topbar-right">
-    <!-- Icono Buscador en Móvil (Super Pro) -->
-    <button type="button" class="cl-btn-icon cl-btn-search-mobile" id="btnSearchMobile" title="Buscar productos" aria-label="Abrir buscador">
+    <!-- Icono Buscador en Móvil -->
+    <button type="button" class="cl-btn-icon cl-btn-search-mobile" id="btnSearchMobile" title="Buscar servicios" aria-label="Abrir buscador">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
 
@@ -52,18 +53,18 @@ const { cliente = {} } = Astro.props;
       <i class="fa-solid fa-moon"></i>
     </button>
 
-    <!-- Ver Tienda Pública -->
-    <a href="/" target="_blank" class="cl-btn-icon" title="Ver Tienda Pública" aria-label="Ver Tienda">
-      <i class="fa-solid fa-store"></i>
+    <!-- Ver Web Principal -->
+    <a href="/" target="_blank" class="cl-btn-icon" title="Ver Web Principal" aria-label="Ver Web Principal">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
     </a>
 
-    <!-- Dropdown de Usuario / Cliente Autenticado -->
+    <!-- Dropdown de Usuario / Contribuyente Autenticado -->
     <div class="cl-user-dropdown-container">
       <button type="button" class="cl-user-chip-btn" id="btnUserChip" aria-expanded="false" aria-haspopup="true">
-        <div class="cl-avatar-sm" id="topbarAvatarLetter">{cliente.avatar ? cliente.nombre.charAt(0).toUpperCase() : 'G'}</div>
+        <div class="cl-avatar-sm" id="topbarAvatarLetter">{cliente.avatar ? cliente.nombre?.charAt(0).toUpperCase() : 'C'}</div>
         <div class="cl-user-meta">
-          <span class="cl-user-name" id="topbarUserName">{cliente.nombre || 'Cargando...'}</span>
-          <span class="cl-user-badge" id="topbarUserPlan">Cliente VIP</span>
+          <span class="cl-user-name" id="topbarUserName">{cliente.nombre || 'Contribuyente'}</span>
+          <span class="cl-user-badge" id="topbarUserPlan">Contribuyente</span>
         </div>
         <i class="fa-solid fa-chevron-down cl-chevron"></i>
       </button>
@@ -75,16 +76,19 @@ const { cliente = {} } = Astro.props;
           <div class="cl-dd-mail" id="dropdownUserEmail">{cliente.email || ''}</div>
         </div>
         <a href="/" target="_blank" class="cl-dd-item destacado">
-          <i class="fa-solid fa-store"></i> <span>Ver Tienda Pública</span>
+          <i class="fa-solid fa-house"></i> <span>Ver Web Principal</span>
         </a>
-        <button type="button" class="cl-dd-item" data-jump-to="cuenta">
-          <i class="fa-solid fa-user-gear"></i> <span>Mi Cuenta</span>
+        <button type="button" class="cl-dd-item" data-jump-to="pedidos">
+          <i class="fa-solid fa-briefcase"></i> <span>Servicios y Asesorías</span>
         </button>
         <button type="button" class="cl-dd-item" data-jump-to="direccion">
-          <i class="fa-solid fa-map-location-dot"></i> <span>Mis Direcciones</span>
+          <i class="fa-solid fa-building"></i> <span>Domicilio Fiscal</span>
+        </button>
+        <button type="button" class="cl-dd-item" data-jump-to="cuenta">
+          <i class="fa-solid fa-id-card"></i> <span>Mi Perfil Tributario</span>
         </button>
         <button type="button" class="cl-dd-item" data-jump-to="soporte">
-          <i class="fa-solid fa-headset"></i> <span>Soporte & Pedidos</span>
+          <i class="fa-solid fa-headset"></i> <span>Consultas SUNAT</span>
         </button>
         <div class="cl-dd-divider"></div>
         <button type="button" class="cl-dd-item danger" id="btnLogoutSession">
@@ -95,17 +99,17 @@ const { cliente = {} } = Astro.props;
   </div>
 </header>
 
-<!-- Barra de Búsqueda Desplegable en Móvil (Super Pro) -->
+<!-- Barra de Búsqueda Desplegable en Móvil -->
 <div class="cl-mobile-search-bar" id="mobileSearchBar">
   <div class="cl-mobile-search-bar-inner">
     <i class="fa-solid fa-magnifying-glass cl-mobile-search-icon"></i>
     <input 
       type="search" 
       id="clSearchInputMobile" 
-      placeholder="Buscar balones de gas o accesorios..." 
+      placeholder="Buscar servicios o trámites..." 
       autocomplete="off" 
       spellcheck="false" 
-      aria-label="Buscar productos móvil"
+      aria-label="Buscar servicios móvil"
     />
   </div>
   <button type="button" class="cl-btn-close-search" id="btnCloseMobileSearch" title="Cerrar búsqueda" aria-label="Cerrar búsqueda">

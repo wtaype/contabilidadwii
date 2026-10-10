@@ -308,91 +308,91 @@ export function inicializarNegocio() {
       idiomasSoportados: ['es', 'en'],
 
       identidad: {
-        nombre: inputNombre?.value?.trim() || "Consultorio Psicológico América",
-        nombreCorto: inputNombreCorto?.value?.trim() || "Psicología América",
-        especialista: inputEspecialista?.value?.trim() || "Lic. Sofia Reynaga Pachas",
-        colegiatura: inputColegiatura?.value?.trim() || "C.Ps.P. N° 49425",
-        titulo: inputTitulo?.value?.trim() || "Licenciada en Psicología",
-        grado: inputGrado?.value?.trim() || "Maestrista en Psicología Clínica",
-        enfoques: inputEnfoques?.value?.trim() || "Terapia Cognitivo-Conductual (TCC) • Terapia de Aceptación y Compromiso (ACT)",
-        nombreEn: inputNombreEn?.value?.trim() || "America Psychological Clinic",
-        nombreCortoEn: inputNombreCortoEn?.value?.trim() || "America Psychology",
-        enfoquesEn: inputEnfoquesEn?.value?.trim() || "Cognitive Behavioral Therapy (CBT) • Acceptance and Commitment Therapy (ACT) • Psychopedagogy",
+        nombre: inputNombre?.value?.trim() || "Lourdes Cusihuaman Gálvez",
+        nombreCorto: inputNombreCorto?.value?.trim() || "Estudio Cusihuaman",
+        especialista: inputEspecialista?.value?.trim() || "Lourdes Cusihuaman Gálvez",
+        colegiatura: inputColegiatura?.value?.trim() || "",
+        titulo: inputTitulo?.value?.trim() || "Asesora Contable y Tributaria",
+        grado: inputGrado?.value?.trim() || "Ex-funcionaria de SUNAT · Universidad de Lima",
+        enfoques: inputEnfoques?.value?.trim() || "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT",
+        nombreEn: inputNombreEn?.value?.trim() || "Cusihuaman Accounting & Tax Firm",
+        nombreCortoEn: inputNombreCortoEn?.value?.trim() || "Estudio Cusihuaman",
+        enfoquesEn: inputEnfoquesEn?.value?.trim() || "4th Category Income (RHE) • 5th Category Payroll • SUNAT Tax Compliance",
         bio: {
-          es: inputBioEs?.value?.trim() || "",
-          en: inputBioEn?.value?.trim() || ""
+          es: inputBioEs?.value?.trim() || "Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria.",
+          en: inputBioEn?.value?.trim() || "Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience."
         },
         lanzamientoFecha: inputLanzamiento?.value || "2020-03-15",
         logo: inputLogo?.value?.trim() || "/imgwii/logo.webp",
         logoFull: inputLogoFull?.value?.trim() || "/imgwii/logo_full.webp",
-        imagenSede: inputImagenSede?.value?.trim() || "/imgwii/hero/psicologa-sofia-reynaga.webp"
+        imagenSede: inputImagenSede?.value?.trim() || "/imgwii/hero.webp"
       },
 
       contacto: {
-        telefono: rawTel,
-        whatsapp: (inputWhatsapp?.value || '').trim().replace(/\D/g, '') || telLimpio,
-        email: (inputEmail?.value || '').trim(),
+        telefono: rawTel || "+51 987 594 558",
+        whatsapp: (inputWhatsapp?.value || '').trim().replace(/\D/g, '') || "51987594558",
+        email: (inputEmail?.value || '').trim() || "contacto@contabilidadwii.com",
         whatsappMensaje: {
-          es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lic. Sofia Reynaga! Deseo agendar una consulta psicológica.",
-          en: inputWhatsappMensajeEn?.value?.trim() || "Hello Lic. Sofia Reynaga! I would like to book a psychological consultation."
+          es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación.",
+          en: inputWhatsappMensajeEn?.value?.trim() || "Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."
         },
         horario: {
-          es: (inputHorario?.value || '').trim() || "Lunes a Sábado: 8:00 a.m. a 8:00 p.m.",
-          en: (inputHorarioEn?.value || '').trim() || "Monday to Saturday: 8:00 a.m. to 8:00 p.m."
+          es: (inputHorario?.value || '').trim() || "Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m.",
+          en: (inputHorarioEn?.value || '').trim() || "Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m."
         }
       },
 
       horarios: {
         semana: {
-          abre: ngHorarioSemanaAbre?.value || "08:00",
-          cierra: ngHorarioSemanaCierra?.value || "20:00"
+          abre: ngHorarioSemanaAbre?.value || "08:30",
+          cierra: ngHorarioSemanaCierra?.value || "19:00"
         },
         sabado: {
-          abre: ngHorarioSabadoAbre?.value || "08:00",
-          cierra: ngHorarioSabadoCierra?.value || "20:00"
+          abre: ngHorarioSabadoAbre?.value || "09:00",
+          cierra: ngHorarioSabadoCierra?.value || "13:00"
         }
       },
 
       ubicacion: {
-        direccion: inputDireccion?.value?.trim() || "Av. 3 de Octubre con Micaela Bastidas - RUTA B / Sector 3, Grupo 26, Lote comercial 7",
-        referencia: inputReferencia?.value?.trim() || "Frente a Paradero 3 de Octubre",
-        distrito: inputDistrito?.value?.trim() || "Villa El Salvador",
+        direccion: inputDireccion?.value?.trim() || "Jr. Dante 260, Surquillo, Lima 15047",
+        referencia: inputReferencia?.value?.trim() || "Atención presencial previa cita y 100% online nacional",
+        distrito: inputDistrito?.value?.trim() || "Surquillo",
         ciudad: inputCiudad?.value?.trim() || "Lima",
         pais: "PE",
-        codigoPostal: "15834",
-        mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/g7MFEUi8B6xpSjpn8",
+        codigoPostal: "15047",
+        mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/surquillo",
         coordenadas: {
-          lat: parseFloat(inputLat?.value) || -12.2084,
-          lng: parseFloat(inputLng?.value) || -76.9387
+          lat: parseFloat(inputLat?.value) || -12.1125,
+          lng: parseFloat(inputLng?.value) || -77.0258
         }
       },
 
       sedes: [
         {
-          id: "ves",
-          nombre: "Sede Villa El Salvador",
-          distrito: "Villa El Salvador",
+          id: "surquillo",
+          nombre: "Sede Surquillo",
+          distrito: "Surquillo",
           modalidad: "Presencial",
-          direccion: inputDireccion?.value?.trim() || "Av. 3 de Octubre con Micaela Bastidas - RUTA B / Sector 3, Grupo 26, Lote comercial 7",
-          referencia: inputReferencia?.value?.trim() || "Frente a Paradero 3 de Octubre",
+          direccion: inputDireccion?.value?.trim() || "Jr. Dante 260, Surquillo, Lima 15047",
+          referencia: inputReferencia?.value?.trim() || "Cerca a Av. Angamos y Av. Paseo de la República",
           atencion: {
-            es: ngSedeVesAtencionEs?.value?.trim() || "Lunes a Sábado (Previa Cita)",
-            en: ngSedeVesAtencionEn?.value?.trim() || "Monday to Saturday (By Appointment)"
+            es: ngSedeVesAtencionEs?.value?.trim() || "Lunes a Viernes (Previa Cita)",
+            en: ngSedeVesAtencionEn?.value?.trim() || "Monday to Friday (By Appointment)"
           },
           tag: {
-            es: ngSedeVesTagEs?.value?.trim() || "Sede Villa El Salvador",
-            en: ngSedeVesTagEn?.value?.trim() || "Villa El Salvador Clinic"
+            es: ngSedeVesTagEs?.value?.trim() || "Sede Surquillo",
+            en: ngSedeVesTagEn?.value?.trim() || "Surquillo Office"
           },
-          mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/g7MFEUi8B6xpSjpn8",
+          mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/surquillo",
           coordenadas: {
-            lat: parseFloat(inputLat?.value) || -12.2084,
-            lng: parseFloat(inputLng?.value) || -76.9387
+            lat: parseFloat(inputLat?.value) || -12.1125,
+            lng: parseFloat(inputLng?.value) || -77.0258
           },
           activo: true
         },
         {
           id: "virtual",
-          nombre: "Modalidad Online / Virtual",
+          nombre: "Modalidad Online / Asesoría Virtual",
           distrito: "Online",
           modalidad: "Virtual",
           direccion: "Google Meet / Zoom (Nacional e Internacional)",
@@ -412,7 +412,7 @@ export function inicializarNegocio() {
       ],
 
       metricas: {
-        pacientes: inputMetricaPacientes?.value?.trim() || "450+",
+        pacientes: inputMetricaPacientes?.value?.trim() || "240+",
         satisfaccion: inputMetricaSatisfaccion?.value?.trim() || "98%",
         confidencialidad: inputMetricaConfidencialidad?.value?.trim() || "100%",
         years: calcularAnosTrayectoria(inputLanzamiento?.value)
@@ -427,40 +427,40 @@ export function inicializarNegocio() {
 
       seo: {
         titulo: {
-          es: inputSeoTituloEs?.value?.trim() || "",
-          en: inputSeoTituloEn?.value?.trim() || ""
+          es: inputSeoTituloEs?.value?.trim() || "Estudio Cusihuaman | Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT",
+          en: inputSeoTituloEn?.value?.trim() || "Estudio Cusihuaman | Tax & Accounting Services in Peru (4th & 5th Category)"
         },
         descripcion: {
-          es: inputSeoDescEs?.value?.trim() || "",
-          en: inputSeoDescEn?.value?.trim() || ""
+          es: inputSeoDescEs?.value?.trim() || "Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME y regularización.",
+          en: inputSeoDescEn?.value?.trim() || "Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer. 4th & 5th category tax filings and compliance."
         },
         keywords: {
           es: kwEs,
           en: kwEn
         },
         imagen: {
-          url: "/imgwii/Sofia.jpg",
+          url: "/imgwii/hero.webp",
           width: 1200,
           height: 630,
-          type: "image/jpeg",
-          alt: "Consultorio Psicológico América - Lic. Sofía Reynaga en Villa El Salvador y Modalidad Online",
-          caption: "Atención psicológica profesional, evaluación diagnóstica TDAH/TEA y psicoterapia"
+          type: "image/webp",
+          alt: "Estudio Cusihuaman - CPC Lourdes Cusihuaman Gálvez en Surquillo y Asesoría Online",
+          caption: "Asesoría contable, rentas de 4ta y 5ta categoría y regularización de inconsistencias SUNAT"
         },
         schema: {
-          tipo: ["MedicalBusiness", "MedicalClinic"],
-          especialidades: ["Psychology", "Psychotherapy", "PediatricPsychology"],
+          tipo: ["AccountingService", "ProfessionalService"],
+          especialidades: ["TaxAccounting", "PayrollAccounting", "SUNATCompliance"],
           descripcionCorta: {
-            es: "Consultorio de atención psicológica y psicoterapia en Villa El Salvador y Modalidad Online. Especializado en terapia individual, pareja, familia y descarte TDAH/TEA.",
-            en: "Certified psychology and psychotherapy clinic in Villa El Salvador and Online. Specialized in individual therapy, couples, and ADHD/ASD diagnosis."
+            es: "Estudio contable y asesoría tributaria en Surquillo y modalidad online a nivel nacional. Especializado en rentas de 4ta y 5ta categoría, planillas y regularización de deudas.",
+            en: "Certified accounting and tax advisory firm in Surquillo and online nationwide. Specialized in personal taxes, payroll, and SUNAT compliance."
           }
         },
         audiencia: {
-          es: ["familias", "parejas", "padres de familia", "adolescentes", "adultos"],
-          en: ["expats", "families", "couples", "individuals"]
+          es: ["profesionales independientes", "trabajadores en planilla", "mypes", "emprendedores"],
+          en: ["freelancers", "remote workers", "expats", "business owners"]
         },
         intencion: {
-          es: "agendar consulta psicologica, evaluacion diagnostica tdah tea y psicoterapia en villa el salvador y online",
-          en: "book psychological consultation and psychotherapy in lima and online"
+          es: "agendar asesoria contable, declaracion anual 4ta categoria y regularizacion sunat",
+          en: "book tax consultation and peru sunat tax filing"
         }
       }
     };
@@ -478,7 +478,7 @@ export function inicializarNegocio() {
       const payload = recolectarDatos();
       guardarDatosNegocio(payload);
 
-      Notificacion('Ficha de consultorio guardada con éxito en Firestore', 'success', 3000);
+      Notificacion('Ficha de estudio contable guardada con éxito en Firestore', 'success', 3000);
 
       // Ofrecer compilación/despliegue en la nube
       if (typeof solicitarActualizacionWeb === 'function') {

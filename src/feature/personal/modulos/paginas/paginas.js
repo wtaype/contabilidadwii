@@ -10,7 +10,7 @@ export function inicializarModuloPaginas() {
   if (!panel || panel.dataset.paginasInit === 'true') return;
   panel.dataset.paginasInit = 'true';
 
-  let paginaSeleccionadaId = 'pg_home';
+  let paginaSeleccionadaId = 'pg-inicio';
 
   // ── Elementos del DOM ──
   const navList = document.getElementById('pgNavList');
@@ -78,8 +78,8 @@ export function inicializarModuloPaginas() {
   function actualizarSerpPreview(rutaOverride) {
     const p = obtenerPaginas().find(x => x.id === paginaSeleccionadaId);
     const ruta = rutaOverride || p?.ruta || '/';
-    const title = inMetaTitle?.value || 'Solgas Surquillo';
-    const desc = inMetaDesc?.value || 'Distribuidor oficial de balones de gas GLP en Surquillo.';
+    const title = inMetaTitle?.value || 'CPC Lourdes Cusihuaman · Asesoría Contable & Tributaria';
+    const desc = inMetaDesc?.value || 'Asesoría contable para MYPES y profesionales en Lima y todo el Perú.';
 
     if (serpUrlPath) {
       serpUrlPath.textContent = ruta === '/' ? '' : `› ${ruta.replace('/', '')}`;

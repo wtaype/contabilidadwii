@@ -1,4 +1,4 @@
-/* src/feature/personal/modulos/dashboard/dashboard.css */
+﻿/* src/feature/personal/modulos/dashboard/dashboard.css */
 /* Estilos autónomos del módulo Dashboard */
 
 /* Grid de Métricas Principales */
@@ -22,7 +22,7 @@
 
 .db-stat-card:hover {
   transform: translateY(-2px);
-  border-color: var(--brand-orange);
+  border-color: var(--brand-primary, #9e7b4f);
 }
 
 .db-stat-icon {
@@ -36,7 +36,7 @@
   flex-shrink: 0;
 }
 
-.db-stat-icon.orange { background: rgba(255, 102, 0, 0.15); color: var(--brand-orange); }
+.db-stat-icon.orange { background: rgba(158, 123, 79, 0.15); color: var(--brand-primary, #9e7b4f); }
 .db-stat-icon.green  { background: rgba(52, 211, 153, 0.15); color: var(--green); }
 .db-stat-icon.blue   { background: rgba(96, 165, 250, 0.15); color: #60a5fa; }
 .db-stat-icon.purple { background: rgba(167, 139, 250, 0.15); color: #a78bfa; }
@@ -118,7 +118,7 @@
 }
 
 .db-table tr:last-child td { border-bottom: none; }
-.db-table tr:hover td { background: rgba(255, 102, 0, 0.03); }
+.db-table tr:hover td { background: rgba(158, 123, 79, 0.05); }
 
 /* Widget Notepad en Dashboard */
 .db-quicknote-card {
@@ -202,7 +202,7 @@
 }
 
 .db-quicknote-input:focus {
-  border-color: var(--brand-orange);
+  border-color: var(--brand-primary, #9e7b4f);
 }
 
 .db-quicknote-textarea {
@@ -218,5 +218,5 @@
 }
 
 .db-quicknote-textarea:focus {
-  border-color: var(--brand-orange);
+  border-color: var(--brand-primary, #9e7b4f);
 }

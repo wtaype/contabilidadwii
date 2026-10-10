@@ -1,9 +1,9 @@
 // src/feature/personal/modulos/correo/correo.js
-// 🎯 Controlador Frontend Autónomo del Módulo Correo (Solgas Surquillo)
+// 🎯 Controlador Frontend Autónomo del Módulo Correo (Estudio Cusihuaman)
 // Experiencia Hotmail / Outlook: 3 Paneles (Carpetas, Lista de Mensajes, Visor/Redactor)
 // Markdown Live Editor + Previsualización en Tiempo Real + Sincronización Firestore y Resend
 
-import { Notificacion, wiSpin, adrm } from '@widev';
+import { Notificacion, wiSpin } from '@widev';
 import {
   enviarCorreo,
   obtenerCorreos,
@@ -19,7 +19,8 @@ import {
   limpiarEmail
 } from './dataCorreo.js';
 import {
-  generarPlantillaPedido,
+  generarPlantillaLiquidacion,
+  generarPlantillaCronograma,
   generarPlantillaComprobante,
   generarPlantillaCotizacion,
   generarPlantillaLibre
@@ -33,7 +34,7 @@ export function inicializarModuloCorreo() {
 
   let carpetaActiva = 'recibidos';
   let mensajeActivo = null;
-  let plantillaSeleccionada = 'pedido';
+  let plantillaSeleccionada = 'liquidacion';
   let isSending = false;
   let liveDebounceTimer = null;
 
@@ -89,22 +90,34 @@ export function inicializarModuloCorreo() {
   const pillsWrap = document.getElementById('crPillsCategorias');
   const wordsCounter = document.getElementById('crLiveWordsCount');
 
-  // Cajas dinámicas por categoría
-  const boxPedido = document.getElementById('crFieldsPedido');
+  // Cajas dinámicas por categoría contable
+  const boxLiquidacion = document.getElementById('crFieldsLiquidacion');
+  const boxCronograma = document.getElementById('crFieldsCronograma');
   const boxComprobante = document.getElementById('crFieldsComprobante');
   const boxCotizacion = document.getElementById('crFieldsCotizacion');
 
-  const inPedNumero = document.getElementById('crPedNumero');
-  const inPedPrecio = document.getElementById('crPedPrecio');
-  const inPedProducto = document.getElementById('crPedProducto');
-  const inPedPago = document.getElementById('crPedPago');
-  const inPedDireccion = document.getElementById('crPedDireccion');
+  // Inputs dinámicos: Liquidación
+  const inLiqPeriodo = document.getElementById('crLiqPeriodo');
+  const inLiqRegimen = document.getElementById('crLiqRegimen');
+  const inLiqRuc = document.getElementById('crLiqRuc');
+  const inLiqTotal = document.getElementById('crLiqTotal');
+  const inLiqNps = document.getElementById('crLiqNps');
+  const inLiqFecha = document.getElementById('crLiqFecha');
 
+  // Inputs dinámicos: Cronograma
+  const inCroRuc = document.getElementById('crCroRuc');
+  const inCroDigito = document.getElementById('crCroDigito');
+  const inCroPeriodo = document.getElementById('crCroPeriodo');
+  const inCroFecha = document.getElementById('crCroFecha');
+
+  // Inputs dinámicos: Comprobante
   const inCompTipo = document.getElementById('crCompTipo');
   const inCompSerie = document.getElementById('crCompSerie');
   const inCompMonto = document.getElementById('crCompMonto');
   const inCompDoc = document.getElementById('crCompDoc');
+  const inCompServicio = document.getElementById('crCompServicio');
 
+  // Inputs dinámicos: Propuesta / Cotización
   const inCotNumero = document.getElementById('crCotNumero');
   const inCotEmpresa = document.getElementById('crCotEmpresa');
   const inCotValidez = document.getElementById('crCotValidez');
@@ -125,10 +138,10 @@ export function inicializarModuloCorreo() {
   // ════════════════════════════════════════════════════════════
   function cargarAjustes() {
     const aj = obtenerAjustesCorreo();
-    if (inputAjusteNombre) inputAjusteNombre.value = aj.remitenteNombre || 'Solgas Surquillo';
-    if (inputAjusteEmail) inputAjusteEmail.value = aj.remitenteEmail || 'pedidos@solgassurquillo.com';
-    if (inputAjusteReplyTo) inputAjusteReplyTo.value = aj.responderA || aj.remitenteEmail || 'pedidos@solgassurquillo.com';
-    if (badgeRemitente) badgeRemitente.textContent = aj.remitenteEmail || 'pedidos@solgassurquillo.com';
+    if (inputAjusteNombre) inputAjusteNombre.value = aj.remitenteNombre || 'Estudio Cusihuaman';
+    if (inputAjusteEmail) inputAjusteEmail.value = aj.remitenteEmail || 'contacto@contabilidadwii.com';
+    if (inputAjusteReplyTo) inputAjusteReplyTo.value = aj.responderA || aj.remitenteEmail || 'contacto@contabilidadwii.com';
+    if (badgeRemitente) badgeRemitente.textContent = aj.remitenteEmail || 'contacto@contabilidadwii.com';
   }
 
   function actualizarBadges() {
@@ -235,8 +248,8 @@ export function inicializarModuloCorreo() {
         ? (m.remitente?.desde || 'Remitente').split('<')[0].trim()
         : (m.destinatario?.nombre || m.destinatario?.para || 'Cliente');
 
-      const inicial = emisor.charAt(0).toUpperCase() || 'S';
-      const tipo = m.mensaje?.tipo || 'pedido';
+      const inicial = emisor.charAt(0).toUpperCase() || 'E';
+      const tipo = m.mensaje?.tipo || 'liquidacion';
       const tagClase = `tag-${tipo}`;
       const asunto = m.mensaje?.asunto || 'Sin asunto';
       const resumen = m.mensaje?.resumen || '';
@@ -244,8 +257,8 @@ export function inicializarModuloCorreo() {
 
       let avatarClase = 'cr-msg-avatar';
       if (tipo === 'comprobante') avatarClase += ' green';
-      else if (tipo === 'cotizacion') avatarClase += ' blue';
-      else if (tipo === 'general') avatarClase += ' purple';
+      else if (tipo === 'cronograma' || tipo === 'cotizacion') avatarClase += ' blue';
+      else if (tipo === 'consulta' || tipo === 'general') avatarClase += ' purple';
 
       return `
         <div class="cr-msg-item ${isUnread ? 'unread' : ''} ${isActive ? 'active' : ''}" data-msg-id="${m.id}">
@@ -292,7 +305,7 @@ export function inicializarModuloCorreo() {
           mostrarVista('composer');
           mensajeActivo = null;
         }
-        Notificacion({ msg: 'Correo eliminado de la carpeta.', tipo: 'info' });
+        Notificacion('Correo eliminado de la carpeta.', 'info', 2000);
       });
     });
   }
@@ -308,21 +321,19 @@ export function inicializarModuloCorreo() {
       actualizarBadges();
     }
 
-    // Actualizar clase activa en la lista
     messageList?.querySelectorAll('.cr-msg-item').forEach(el => {
       el.classList.toggle('active', el.getAttribute('data-msg-id') === msg.id);
       if (el.getAttribute('data-msg-id') === msg.id) el.classList.remove('unread');
     });
 
     if (readSubject) readSubject.textContent = msg.mensaje?.asunto || 'Sin Asunto';
-    if (readFrom) readFrom.textContent = msg.remitente?.desde || 'Solgas Surquillo <pedidos@solgassurquillo.com>';
+    if (readFrom) readFrom.textContent = msg.remitente?.desde || 'Estudio Cusihuaman <contacto@contabilidadwii.com>';
     if (readTo) readTo.textContent = `Para: ${msg.destinatario?.para || 'Cliente'}`;
     if (readDate) readDate.textContent = msg.fecha || 'Reciente';
 
-    const emisorNombre = (msg.remitente?.desde || 'S').charAt(0).toUpperCase();
+    const emisorNombre = (msg.remitente?.desde || 'E').charAt(0).toUpperCase();
     if (readAvatar) readAvatar.textContent = emisorNombre;
 
-    // Inyectar HTML en iframe de lectura
     if (readFrame && readFrame.contentWindow) {
       const doc = readFrame.contentWindow.document;
       doc.open();
@@ -365,7 +376,7 @@ export function inicializarModuloCorreo() {
     renderizarListaMensajes(searchInput?.value || '');
     mostrarVista('composer');
     mensajeActivo = null;
-    Notificacion({ msg: 'Correo eliminado.', tipo: 'info' });
+    Notificacion('Correo eliminado.', 'info', 2000);
   });
 
   // Botón Abrir en ventana nueva
@@ -397,7 +408,7 @@ export function inicializarModuloCorreo() {
           <div class="cr-empty-box">
             <i class="fa-solid fa-gear cr-empty-icon"></i>
             <p style="margin:0; font-size:13px; font-weight:600;">Configuración de Correo</p>
-            <span style="font-size:11.5px;">Parámetros de salida de pedidos@solgassurquillo.com</span>
+            <span style="font-size:11.5px;">Parámetros de salida de contacto@contabilidadwii.com</span>
           </div>
         `;
       }
@@ -443,7 +454,7 @@ export function inicializarModuloCorreo() {
   });
 
   // ════════════════════════════════════════════════════════════
-  // 6. REDACTOR Y PLANTILLAS
+  // 6. REDACTOR Y PLANTILLAS CONTABLES
   // ════════════════════════════════════════════════════════════
   btnToggleCc?.addEventListener('click', () => {
     if (!wrapCc) return;
@@ -464,23 +475,27 @@ export function inicializarModuloCorreo() {
       btn.classList.toggle('active', btn.getAttribute('data-template') === tipo);
     });
 
-    if (boxPedido) boxPedido.style.display = tipo === 'pedido' ? 'block' : 'none';
+    if (boxLiquidacion) boxLiquidacion.style.display = tipo === 'liquidacion' ? 'block' : 'none';
+    if (boxCronograma) boxCronograma.style.display = tipo === 'cronograma' ? 'block' : 'none';
     if (boxComprobante) boxComprobante.style.display = tipo === 'comprobante' ? 'block' : 'none';
     if (boxCotizacion) boxCotizacion.style.display = tipo === 'cotizacion' ? 'block' : 'none';
 
     if (sobrescribirTextos) {
-      if (tipo === 'pedido') {
-        if (inputSubject) inputSubject.value = '🔥 ¡Tu pedido de gas está confirmado! · Solgas Surquillo';
-        if (textMarkdown) textMarkdown.value = 'Gracias por confiar en **Solgas Surquillo**.\nTu balón cuenta con precinto de seguridad intacto y garantía oficial de peso exacto en balanza digital.';
+      if (tipo === 'liquidacion') {
+        if (inputSubject) inputSubject.value = '📊 Liquidación de Impuestos Agosto 2026 · Estudio Cusihuaman';
+        if (textMarkdown) textMarkdown.value = 'Adjuntamos el detalle del cálculo tributario para su revisión y conformidad.\nRecuerde realizar el abono antes de la fecha límite para evitar recargos o intereses.';
+      } else if (tipo === 'cronograma') {
+        if (inputSubject) inputSubject.value = '⏰ Recordatorio de Vencimiento Declaración SUNAT · Estudio Cusihuaman';
+        if (textMarkdown) textMarkdown.value = 'Agradecemos hacernos llegar sus comprobantes de compras y ventas a la brevedad para culminar el cierre contable sin contratiempos.';
       } else if (tipo === 'comprobante') {
-        if (inputSubject) inputSubject.value = '📄 Comprobante de Pago Electrónico · Solgas Surquillo';
-        if (textMarkdown) textMarkdown.value = 'Adjuntamos la representación impresa de tu comprobante electrónico emitido con validez tributaria ante SUNAT.\nGracias por tu preferencia.';
+        if (inputSubject) inputSubject.value = '📄 Comprobante de Honorarios Profesionales · Estudio Cusihuaman';
+        if (textMarkdown) textMarkdown.value = 'Adjuntamos la representación impresa de su comprobante electrónico por servicios contables prestados con validez ante SUNAT.';
       } else if (tipo === 'cotizacion') {
-        if (inputSubject) inputSubject.value = '📋 Cotización de Balones de Gas GLP · Solgas Surquillo';
-        if (textMarkdown) textMarkdown.value = 'Estimados clientes,\nPresentamos nuestra propuesta comercial para el abastecimiento continuo de GLP con precios preferenciales para su negocio.';
+        if (inputSubject) inputSubject.value = '📋 Propuesta de Servicios Contables y Asesoría Tributaria · Estudio Cusihuaman';
+        if (textMarkdown) textMarkdown.value = 'Presentamos nuestra propuesta formal de asesoría tributaria y planillas con honorarios competitivos y respaldo profesional permanente.';
       } else {
-        if (inputSubject) inputSubject.value = 'Notificación Oficial · Solgas Surquillo';
-        if (textMarkdown) textMarkdown.value = 'Estimado cliente,\nNos comunicamos desde la sede central de **Solgas Surquillo** en Jr. Dante 260.';
+        if (inputSubject) inputSubject.value = 'Comunicado Tributario Oficial · Estudio Cusihuaman';
+        if (textMarkdown) textMarkdown.value = 'Estimado cliente,\nNos comunicamos desde el **Estudio Contable CPC Lourdes Cusihuaman Gálvez** (Surquillo, Lima).';
       }
     }
 
@@ -506,7 +521,7 @@ export function inicializarModuloCorreo() {
 
       let replacement = '';
       if (tag === 'table') {
-        replacement = '\n| Producto | Cantidad | Precio |\n|---|:---:|---:|\n| Balón 10kg | 1 | S/ 65.00 |\n';
+        replacement = '\n| Servicio | Modalidad | Honorario |\n|---|:---:|---:|\n| Asesoría Tributaria 1h | Virtual | S/ 80.00 |\n';
       } else if (tag.includes('texto')) {
         replacement = tag.replace('texto', selected || 'texto');
       } else {
@@ -539,32 +554,44 @@ export function inicializarModuloCorreo() {
 
     let res = null;
 
-    if (plantillaSeleccionada === 'pedido') {
-      res = generarPlantillaPedido({
+    if (plantillaSeleccionada === 'liquidacion') {
+      res = generarPlantillaLiquidacion({
         cliente: clienteNombre || 'Estimado/a cliente',
-        pedidoId: inPedNumero?.value || 'GW-1029',
-        precio: inPedPrecio?.value || '65.00',
-        producto: inPedProducto?.value || 'Balón SOLGAS Premium 10 kg',
-        metodoPago: inPedPago?.value || 'Yape / Plin / Efectivo',
-        direccion: inPedDireccion?.value || 'Surquillo, Lima',
+        periodo: inLiqPeriodo?.value || 'Agosto 2026',
+        regimen: inLiqRegimen?.value || 'Régimen MYPE Tributario',
+        ruc: inLiqRuc?.value || '20554897123',
+        totalPagar: inLiqTotal?.value || '185.00',
+        npsCodigo: inLiqNps?.value || '9827364510',
+        fechaLimite: inLiqFecha?.value || '18 de Septiembre de 2026',
+        mensajeMarkdown: mdExtra,
+        negocio
+      });
+    } else if (plantillaSeleccionada === 'cronograma') {
+      res = generarPlantillaCronograma({
+        cliente: clienteNombre || 'Estimado/a cliente',
+        ruc: inCroRuc?.value || '20554897123',
+        ultimoDigito: inCroDigito?.value || '3',
+        periodo: inCroPeriodo?.value || 'Agosto 2026',
+        fechaVencimiento: inCroFecha?.value || '18 de Septiembre de 2026',
         mensajeMarkdown: mdExtra,
         negocio
       });
     } else if (plantillaSeleccionada === 'comprobante') {
       res = generarPlantillaComprobante({
         cliente: clienteNombre || 'Estimado cliente',
-        tipoComprobante: inCompTipo?.value || 'Boleta de Venta Electrónica',
-        serieNumero: inCompSerie?.value || 'B001-000482',
-        monto: inCompMonto?.value || '65.00',
-        docIdentidad: inCompDoc?.value || '',
+        tipoComprobante: inCompTipo?.value || 'Factura Electrónica',
+        serieNumero: inCompSerie?.value || 'F001-000104',
+        monto: inCompMonto?.value || '150.00',
+        docIdentidad: inCompDoc?.value || '20554897123',
+        servicio: inCompServicio?.value || 'Servicio Contable Mensual - Régimen MYPE Tributario',
         mensajeMarkdown: mdExtra,
         negocio
       });
     } else if (plantillaSeleccionada === 'cotizacion') {
       res = generarPlantillaCotizacion({
         cliente: clienteNombre || 'Contacto Comercial',
-        empresa: inCotEmpresa?.value || 'Restaurante / Negocio',
-        cotizacionId: inCotNumero?.value || 'COT-2026-08',
+        empresa: inCotEmpresa?.value || 'Inversiones Gastronómicas S.A.C.',
+        cotizacionId: inCotNumero?.value || 'PROP-2026-14',
         validez: inCotValidez?.value || '15 días calendario',
         mensajeMarkdown: mdExtra,
         negocio
@@ -572,7 +599,7 @@ export function inicializarModuloCorreo() {
     } else {
       res = generarPlantillaLibre({
         cliente: clienteNombre || 'Estimado/a cliente',
-        asunto: inputSubject?.value || 'Comunicado Oficial',
+        asunto: inputSubject?.value || 'Comunicado Tributario Oficial',
         mensajeMarkdown: mdExtra,
         negocio
       });
@@ -609,14 +636,14 @@ export function inicializarModuloCorreo() {
 
   btnResetPlantilla?.addEventListener('click', () => {
     seleccionarPlantilla(plantillaSeleccionada, true);
-    Notificacion({ msg: 'Plantilla restablecida a valores por defecto.', tipo: 'info' });
+    Notificacion('Plantilla restablecida a valores por defecto.', 'info', 2000);
   });
 
   // Guardar en Borradores
   btnSaveDraft?.addEventListener('click', () => {
     const draft = {
       destinatario: { para: inputTo?.value || '', nombre: inputNombre?.value || '' },
-      remitente: { desde: inputAjusteEmail?.value || 'pedidos@solgassurquillo.com' },
+      remitente: { desde: inputAjusteEmail?.value || 'contacto@contabilidadwii.com' },
       mensaje: {
         asunto: inputSubject?.value || 'Borrador sin asunto',
         tipo: plantillaSeleccionada,
@@ -626,7 +653,7 @@ export function inicializarModuloCorreo() {
     };
     guardarBorrador(draft);
     actualizarBadges();
-    Notificacion({ msg: 'Borrador guardado exitosamente.', tipo: 'exito' });
+    Notificacion('Borrador guardado exitosamente.', 'success', 2000);
   });
 
   // Disparador del botón superior "Enviar Correo Ahora"
@@ -654,12 +681,13 @@ export function inicializarModuloCorreo() {
     const to = inputTo?.value?.trim();
     const subject = inputSubject?.value?.trim();
     if (!to || !subject) {
-      Notificacion({ msg: 'Debes completar destinatario y asunto.', tipo: 'alerta' });
+      Notificacion('Debes completar destinatario y asunto.', 'warning', 2500);
       return;
     }
 
     isSending = true;
-    if (btnEnviar) wiSpin(btnEnviar, true, 'Enviando correo...');
+    const spin = wiSpin ? wiSpin(btnEnviar) : null;
+    if (btnEnviar) btnEnviar.disabled = true;
 
     try {
       const htmlFinal = generarHtmlActual();
@@ -673,24 +701,25 @@ export function inicializarModuloCorreo() {
         html: htmlFinal
       });
 
-      Notificacion({ msg: '¡Correo oficial enviado con éxito!', tipo: 'exito' });
+      Notificacion('¡Correo institucional enviado con éxito!', 'success', 3000);
       actualizarBadges();
       cambiarCarpeta('enviados');
       if (resultado) abrirLecturaCorreo(resultado);
     } catch (err) {
       console.error(err);
-      Notificacion({ msg: err?.message || 'Error al despachar correo con Resend', tipo: 'error' });
+      Notificacion(err?.message || 'Error al despachar correo con Resend', 'danger', 4000);
     } finally {
       isSending = false;
-      if (btnEnviar) wiSpin(btnEnviar, false);
+      if (spin) spin.stop();
+      if (btnEnviar) btnEnviar.disabled = false;
     }
   });
 
   // Guardar Ajustes de Emisor
   formAjustes?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const nom = inputAjusteNombre?.value?.trim() || 'Solgas Surquillo';
-    const email = inputAjusteEmail?.value?.trim() || 'pedidos@solgassurquillo.com';
+    const nom = inputAjusteNombre?.value?.trim() || 'Estudio Cusihuaman';
+    const email = inputAjusteEmail?.value?.trim() || 'contacto@contabilidadwii.com';
     const rep = inputAjusteReplyTo?.value?.trim() || email;
 
     guardarAjustesCorreo({
@@ -700,7 +729,7 @@ export function inicializarModuloCorreo() {
     });
 
     if (badgeRemitente) badgeRemitente.textContent = email;
-    Notificacion({ msg: 'Ajustes de emisor guardados correctamente.', tipo: 'exito' });
+    Notificacion('Ajustes de emisor guardados correctamente.', 'success', 2500);
   });
 
   // ════════════════════════════════════════════════════════════

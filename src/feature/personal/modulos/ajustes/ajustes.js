@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/ajustes/ajustes.js
-// Controlador Frontend Autónomo del Módulo Ajustes (Solgas Surquillo)
+// Controlador Frontend Autónomo del Módulo Ajustes (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev
 
 import { Notificacion, wiSpin } from '@widev';
@@ -33,10 +33,10 @@ export function inicializarModuloAjustes() {
       actualizarLabelTienda(data.tiendaAbierta);
     }
 
-    if (inEta) inEta.value = data.etaMinutos || '12–15';
-    if (inCostoDelivery) inCostoDelivery.value = (parseFloat(data.costoDelivery) || 0).toFixed(2);
-    if (inTelefono) inTelefono.value = data.telefonoContacto || '936 369 384';
-    if (inDireccion) inDireccion.value = data.direccionSede || 'Jr. Dante 260, Surquillo';
+    if (inEta) inEta.value = data.etaMinutos || '15–30 min';
+    if (inCostoDelivery) inCostoDelivery.value = (parseFloat(data.costoDelivery) || 80.00).toFixed(2);
+    if (inTelefono) inTelefono.value = data.telefonoContacto || '987 594 558';
+    if (inDireccion) inDireccion.value = data.direccionSede || 'Jr. Dante 260, Surquillo, Lima 15047';
     if (switchSonido) switchSonido.checked = data.sonidoPedidos;
     if (switchPush) switchPush.checked = data.notificacionesWebPush;
   }
@@ -44,7 +44,7 @@ export function inicializarModuloAjustes() {
   function actualizarLabelTienda(abierta) {
     if (!labelTienda) return;
     labelTienda.textContent = abierta 
-      ? '🟢 Sede Abierta (Recibiendo pedidos web y delivery)' 
+      ? '🟢 Sede Abierta (Recibiendo consultas tributarias y citas)' 
       : '🔴 Sede Cerrada (Aviso de fuera de horario visible)';
   }
 
@@ -66,10 +66,10 @@ export function inicializarModuloAjustes() {
 
     setTimeout(() => {
       guardarAjustes({
-        etaMinutos: inEta?.value?.trim() || '12–15',
-        costoDelivery: parseFloat(inCostoDelivery?.value) || 0.00,
-        telefonoContacto: inTelefono?.value?.trim() || '936 369 384',
-        direccionSede: inDireccion?.value?.trim() || 'Jr. Dante 260, Surquillo',
+        etaMinutos: inEta?.value?.trim() || '15–30 min',
+        costoDelivery: parseFloat(inCostoDelivery?.value) || 80.00,
+        telefonoContacto: inTelefono?.value?.trim() || '987 594 558',
+        direccionSede: inDireccion?.value?.trim() || 'Jr. Dante 260, Surquillo, Lima 15047',
         sonidoPedidos: switchSonido?.checked ?? true,
         notificacionesWebPush: switchPush?.checked ?? true
       });
@@ -88,7 +88,7 @@ export function inicializarModuloAjustes() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `backup_gaswii_solgas_surquillo_${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `backup_estudio_cusihuaman_${new Date().toISOString().slice(0, 10)}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

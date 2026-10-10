@@ -1,0 +1,35 @@
+[
+  {
+    "id": "per-01-lourdes-cusihuaman",
+    "nombre": "Lourdes",
+    "apellidos": "Cusihuaman Gálvez",
+    "nombreCompleto": "CPC Lourdes Cusihuaman Gálvez",
+    "usuario": "lourdes",
+    "celular": "+51 987 594 558",
+    "email": "contacto@contabilidadwii.com",
+    "cargo": "Contadora Pública Colegiada & Fundadora",
+    "especialidad": "Ex-funcionaria SUNAT · Universidad de Lima",
+    "colegiatura": "Colegiada y Habilitada",
+    "experiencia": "12+ años de trayectoria",
+    "modalidad": "Online & Presencial Surquillo",
+    "avatar": "/imgwii/hero.webp",
+    "rol": "administrador",
+    "activo": true
+  },
+  {
+    "id": "per-02-wilder-asistente",
+    "nombre": "Wilder",
+    "apellidos": "Taype",
+    "nombreCompleto": "Wilder Taype",
+    "usuario": "wilder",
+    "celular": "+51 936 369 384",
+    "email": "asistencia@contabilidadwii.com",
+    "cargo": "Asistente Contable & TI",
+    "especialidad": "Plataforma SIRE, PDT Plame y Soporte Digital",
+    "experiencia": "5 años de trayectoria",
+    "modalidad": "Atención Digital y Enlace Técnico",
+    "avatar": "/imgwii/lourdes/lourdes01.webp",
+    "rol": "personal",
+    "activo": true
+  }
+]

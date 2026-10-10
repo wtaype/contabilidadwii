@@ -1,4 +1,4 @@
-/* src/feature/personal/modulos/galeria/galeria.css */
+﻿/* src/feature/personal/modulos/galeria/galeria.css */
 /* Estilos del Módulo Galería (Bucket Cloudflare R2 gaswii-media) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
@@ -19,9 +19,9 @@
 }
 
 .gl-filter-pill {
-  background: var(--surface, #0e192c);
-  border: 1px solid var(--brd, #21314b);
-  color: var(--tx2, #90a4c3);
+  background: var(--surface, var(--surface, #ffffff));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
+  color: var(--tx2, var(--muted, #475569));
   font-family: var(--ff_P, 'Poppins', sans-serif);
   font-size: 12px;
   font-weight: 600;
@@ -33,9 +33,9 @@
 
 .gl-filter-pill.active,
 .gl-filter-pill:hover {
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.12));
-  border-color: var(--brand-orange, #ff6600);
-  color: var(--brand-orange, #ff6600);
+  background: rgba(158, 123, 79, 0.12);
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  color: var(--brand-primary, var(--mco, #9e7b4f));
 }
 
 .gl-toolbar-right {
@@ -46,9 +46,9 @@
 
 .gl-stats-badge {
   font-size: 12px;
-  color: var(--tx2, #90a4c3);
-  background: var(--inp, #14223a);
-  border: 1px solid var(--brd, #21314b);
+  color: var(--tx2, var(--muted, #475569));
+  background: var(--inp, var(--raised, #f2ede2));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   padding: 5px 10px;
   border-radius: 6px;
 }
@@ -62,8 +62,8 @@
 }
 
 .gl-card {
-  background: var(--surface, #0e192c);
-  border: 1px solid var(--brd, #21314b);
+  background: var(--surface, var(--surface, #ffffff));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   border-radius: var(--br_m, 12px);
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
@@ -74,7 +74,7 @@
 
 .gl-card:hover {
   transform: translateY(-3px);
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
@@ -104,7 +104,7 @@
   left: 10px;
   background: rgba(14, 25, 44, 0.85);
   backdrop-filter: blur(6px);
-  border: 1px solid var(--brd, #21314b);
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   color: #ffffff;
   font-size: 10px;
   font-weight: 700;
@@ -137,7 +137,7 @@
 .gl-title {
   font-size: 13.5px;
   font-weight: 700;
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -146,10 +146,10 @@
 
 .gl-alt-input {
   width: 100%;
-  background: var(--inp, #14223a);
-  border: 1px solid var(--brd, #21314b);
+  background: var(--inp, var(--raised, #f2ede2));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   border-radius: 6px;
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
   font-size: 11.5px;
   padding: 6px 8px;
   outline: none;
@@ -157,7 +157,7 @@
 }
 
 .gl-alt-input:focus {
-  border-color: var(--brand-orange, #ff6600);
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
 }
 
 .gl-footer {
@@ -166,13 +166,13 @@
   justify-content: space-between;
   margin-top: auto;
   padding-top: 8px;
-  border-top: 1px solid var(--brd, #21314b);
+  border-top: 1px solid var(--brd, var(--line, #e2e8f0));
 }
 
 .gl-btn-copy-url {
   background: transparent;
   border: none;
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, var(--mco, #9e7b4f));
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -185,7 +185,7 @@
 }
 
 .gl-btn-copy-url:hover {
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.1));
+  background: rgba(158, 123, 79, 0.1);
 }
 
 .gl-btn-delete {
@@ -220,8 +220,8 @@
 }
 
 .gl-modal {
-  background: var(--surface, #0e192c);
-  border: 1px solid var(--brd, #21314b);
+  background: var(--surface, var(--surface, #ffffff));
+  border: 1px solid var(--brd, var(--line, #e2e8f0));
   border-radius: 12px;
   width: 100%;
   max-width: 500px;
@@ -230,11 +230,11 @@
 }
 
 .gl-dropzone {
-  border: 2px dashed var(--brd, #21314b);
+  border: 2px dashed var(--brd, var(--line, #e2e8f0));
   border-radius: 10px;
   padding: 28px;
   text-align: center;
-  background: var(--inp, #14223a);
+  background: var(--inp, var(--raised, #f2ede2));
   cursor: pointer;
   margin-bottom: 16px;
   transition: border-color 0.2s, background 0.2s;
@@ -242,25 +242,25 @@
 
 .gl-dropzone:hover,
 .gl-dropzone.dragover {
-  border-color: var(--brand-orange, #ff6600);
-  background: var(--brand-orange-subtle, rgba(255, 102, 0, 0.05));
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  background: rgba(158, 123, 79, 0.05);
 }
 
 .gl-dropzone-icon {
   font-size: 36px;
-  color: var(--brand-orange, #ff6600);
+  color: var(--brand-primary, var(--mco, #9e7b4f));
   margin-bottom: 10px;
 }
 
 .gl-dropzone-txt {
   font-size: 13px;
   font-weight: 600;
-  color: var(--tx, #f3f6fc);
+  color: var(--tx, var(--ink, #071626));
 }
 
 .gl-dropzone-sub {
   font-size: 11.5px;
-  color: var(--tx2, #90a4c3);
+  color: var(--tx2, var(--muted, #475569));
   margin-top: 4px;
 }
 

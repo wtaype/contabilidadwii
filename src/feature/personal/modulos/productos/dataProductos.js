@@ -1,7 +1,7 @@
 // src/feature/personal/modulos/productos/dataProductos.js
-// 🎯 Capa Canónica Local-First de Productos: 100% Directo de Firebase Firestore + Caché
-// Colección: 'productos' · Cero Semillas / Cero Datos Falsos Quemados
-// Integrado con @widev y Firebase SDK
+// 🎯 Capa Canónica Local-First de Servicios & Asesorías: Firestore + Caché Local + Semilla
+// Colección: 'servicios' · Semilla: src/semillas/servicios.json
+// Integrado con @widev, Firebase SDK y solicitarActualizacionWeb
 
 import { savels, getls } from '@widev';
 import { db } from '@core/servicios/firebase.js';
@@ -10,13 +10,15 @@ import {
   doc,
   getDocs,
   setDoc,
-  updateDoc,
   deleteDoc,
   serverTimestamp
 } from 'firebase/firestore';
+import serviciosSemilla from '../../../../semillas/servicios.json';
+import { solicitarActualizacionWeb } from '../../../../actualizar.js';
 
-export const STORAGE_KEY = 'gaswii_productos';
-export const COLECCION_PRODUCTOS = 'productos';
+export const STORAGE_KEY = 'contabilidad_servicios';
+export const OLD_STORAGE_KEY = 'gaswii_productos';
+export const COLECCION_SERVICIOS = 'servicios';
 
 // Parser ultraligero de campos de la REST API de Firestore (para build-time SSG)
 export function parseFirestoreDoc(fields = {}) {
@@ -49,75 +51,99 @@ export function generarSlug(texto = '') {
     .replace(/(^-|-$)+/g, '');
 }
 
-// Normalizador neutro de estructura de Producto (asegura llaves mínimas SIN inyectar datos falsos)
+// Normalizador neutro de estructura de Servicio / Asesoría
 export function normalizarProducto(p = {}) {
   const prod = p && typeof p === 'object' ? p : {};
-  const es = prod.nombre?.es || (typeof prod.nombre === 'string' ? prod.nombre : '');
-  const idDefault = prod.id || (es ? generarSlug(es) : '');
+  const nombreEs = prod.nombre?.es || (typeof prod.nombre === 'string' ? prod.nombre : '');
+  const idDefault = prod.id || (nombreEs ? generarSlug(nombreEs) : `srv-${Date.now()}`);
 
-  // Formato para arrays de garantías
+  const tipo = (prod.tipo === 'asesoria' || prod.tipo === 'taller') ? 'asesoria' : 'servicio';
+
+  // Garantías bilingües
   const garantiasEs = Array.isArray(prod.garantias?.es)
     ? prod.garantias.es
     : (Array.isArray(prod.garantias) ? prod.garantias : []);
   const garantiasEn = Array.isArray(prod.garantias?.en)
     ? prod.garantias.en
-    : [];
+    : (Array.isArray(prod.garantiasEn) ? prod.garantiasEn : []);
+
+  // Duración bilingüe
+  const duracionEs = typeof prod.duracion === 'object' && prod.duracion !== null
+    ? (prod.duracion.es || '')
+    : (prod.duracion || (tipo === 'servicio' ? 'Mensual' : '1 Hora'));
+  const duracionEn = typeof prod.duracion === 'object' && prod.duracion !== null
+    ? (prod.duracion.en || '')
+    : (prod.duracionEn || (tipo === 'servicio' ? 'Monthly' : '1 Hour'));
+
+  // Modalidad bilingüe
+  const modalidadEs = typeof prod.modalidad === 'object' && prod.modalidad !== null
+    ? (prod.modalidad.es || '')
+    : (prod.modalidad || '100% Online y Presencial en Surquillo');
+  const modalidadEn = typeof prod.modalidad === 'object' && prod.modalidad !== null
+    ? (prod.modalidad.en || '')
+    : (prod.modalidadEn || '100% Online & In-Person in Surquillo');
+
+  // Público bilingüe
+  const publicoEs = typeof prod.publico === 'object' && prod.publico !== null
+    ? (prod.publico.es || '')
+    : (prod.publico || 'MYPES, Emprendedores y Profesionales');
+  const publicoEn = typeof prod.publico === 'object' && prod.publico !== null
+    ? (prod.publico.en || '')
+    : (prod.publicoEn || 'Small Businesses & Professionals');
+
+  // Badge bilingüe
+  const badgeEs = typeof prod.badge === 'object' && prod.badge !== null
+    ? (prod.badge.es || '')
+    : (prod.badge || (prod.pin ? 'Recomendado' : ''));
+  const badgeEn = typeof prod.badge === 'object' && prod.badge !== null
+    ? (prod.badge.en || '')
+    : (prod.badgeEn || (prod.pin ? 'Recommended' : ''));
+
+  const precio = Number(prod.precioPEN ?? prod.precio ?? prod.price ?? (tipo === 'servicio' ? 150 : 80));
 
   return {
     id: String(idDefault),
     slug: String(prod.slug || idDefault),
-    estado: prod.estado === 'pausado' ? 'pausado' : 'activo',
+    tipo,
+    estado: (prod.estado === 'pausado' || prod.activo === false) ? 'pausado' : 'activo',
+    activo: prod.estado === 'pausado' || prod.activo === false ? false : true,
     pin: Boolean(prod.pin),
     orden: Number(prod.orden ?? 1),
-    precio: Number(prod.precio ?? (prod.price ?? 0)),
-    precioEnvase: Number(prod.precioEnvase ?? 0),
-    stock: Number(prod.stock ?? 0),
-    stockMin: Number(prod.stockMin ?? 5),
-    imagen: String(prod.imagen || '/imgwii/productos/BALON-10KG.webp'),
+    precioPEN: precio,
+    precio: precio,
+    enfoque: String(prod.enfoque || (tipo === 'servicio' ? 'Contabilidad MYPE y Declaración SIRE' : 'Asesoría y Diagnóstico Tributario')),
+    imagen: String(prod.imagen || (tipo === 'servicio' ? '/imgwii/servicios/servicio01.webp' : '/imgwii/servicios/servicio04.webp')),
     badgeIcon: String(prod.badgeIcon || 'fa-solid fa-star'),
-    tagClase: String(prod.tagClase || 'badge-fire'),
-    tipoCategoria: String(prod.tipoCategoria || 'gas'),
-    userId: String(prod.userId || ''),
-    email: String(prod.email || ''),
+    tagClase: String(prod.tagClase || 'badge-serenidad'),
+    userId: String(prod.userId || 'sistema'),
+    email: String(prod.email || 'contacto@contabilidadwii.com'),
     creado: prod.creado || null,
     actualizado: prod.actualizado || null,
 
     // Mapas Bilingües Oficiales
     nombre: {
-      es: String(prod.nombre?.es || (typeof prod.nombre === 'string' ? prod.nombre : '')),
-      en: String(prod.nombre?.en || '')
+      es: String(nombreEs),
+      en: String(prod.nombre?.en || prod.nombreEn || '')
     },
     descripcion: {
       es: String(prod.descripcion?.es || (typeof prod.descripcion === 'string' ? prod.descripcion : '')),
-      en: String(prod.descripcion?.en || '')
+      en: String(prod.descripcion?.en || prod.descripcionEn || '')
     },
-    delivery: {
-      es: String(prod.delivery?.es || 'Todo Incluido, despacho en puerta'),
-      en: String(prod.delivery?.en || 'All-Inclusive, doorstep delivery')
+    duracion: {
+      es: duracionEs,
+      en: duracionEn
     },
-    peso: {
-      es: String(prod.peso?.es || ''),
-      en: String(prod.peso?.en || '')
+    modalidad: {
+      es: modalidadEs,
+      en: modalidadEn
     },
-    pesoFull: {
-      es: String(prod.pesoFull?.es || ''),
-      en: String(prod.pesoFull?.en || '')
+    publico: {
+      es: publicoEs,
+      en: publicoEn
     },
-    seguridad: {
-      es: String(prod.seguridad?.es || 'Garantía desde planta de Solgas'),
-      en: String(prod.seguridad?.en || 'Guaranteed from Solgas plant')
-    },
-    tipo: {
-      es: String(prod.tipo?.es || 'Balón'),
-      en: String(prod.tipo?.en || 'Cylinder')
-    },
-    tipoUso: {
-      es: String(prod.tipoUso?.es || 'Hogar'),
-      en: String(prod.tipoUso?.en || 'Household Use')
-    },
-    valvula: {
-      es: String(prod.valvula?.es || 'Click-On (Acople Rápido)'),
-      en: String(prod.valvula?.en || 'Click-On (Quick Connect) Valve')
+    badge: {
+      es: badgeEs,
+      en: badgeEn
     },
     garantias: {
       es: garantiasEs,
@@ -127,7 +153,7 @@ export function normalizarProducto(p = {}) {
 }
 
 /**
- * Aplana un producto bilingüe a un solo idioma para consumo directo en plantillas o vistas
+ * Aplana un servicio bilingüe a un solo idioma para consumo directo en vistas
  */
 export function aplanarProducto(prod, idioma = 'es') {
   if (!prod) return null;
@@ -138,40 +164,12 @@ export function aplanarProducto(prod, idioma = 'es') {
     ...p,
     nombre: p.nombre[lang] || p.nombre.es || '',
     descripcion: p.descripcion[lang] || p.descripcion.es || '',
-    delivery: p.delivery[lang] || p.delivery.es || '',
-    peso: p.peso[lang] || p.peso.es || '',
-    pesoFull: p.pesoFull[lang] || p.pesoFull.es || '',
-    seguridad: p.seguridad[lang] || p.seguridad.es || '',
-    tipo: p.tipo[lang] || p.tipo.es || '',
-    tipoUso: p.tipoUso[lang] || p.tipoUso.es || '',
-    valvula: p.valvula[lang] || p.valvula.es || '',
+    duracion: p.duracion[lang] || p.duracion.es || '',
+    modalidad: p.modalidad[lang] || p.modalidad.es || '',
+    publico: p.publico[lang] || p.publico.es || '',
+    badge: p.badge[lang] || p.badge.es || '',
     garantias: (p.garantias[lang] && p.garantias[lang].length > 0) ? p.garantias[lang] : p.garantias.es
   };
-}
-
-// Lectura en tiempo de compilación (Astro SSG / Cloudflare Build) directamente desde la REST API
-let _productosBuildFirestore = null;
-if (typeof window === 'undefined') {
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4000);
-    const res = await fetch('https://firestore.googleapis.com/v1/projects/gaswii/databases/(default)/documents/productos', {
-      signal: controller.signal
-    });
-    clearTimeout(timer);
-    if (res.ok) {
-      const json = await res.json();
-      if (Array.isArray(json.documents)) {
-        _productosBuildFirestore = json.documents.map(d => {
-          const id = d.name.split('/').pop();
-          const parsed = parseFirestoreDoc(d.fields || {});
-          return normalizarProducto({ id, ...parsed });
-        });
-      }
-    }
-  } catch (err) {
-    console.warn('[dataProductos] Build-time Firestore fetch:', err?.message || err);
-  }
 }
 
 let _memoriaProductos = null;
@@ -179,204 +177,171 @@ let _memoriaProductos = null;
 export function getUsuarioActivo() {
   const u = getls('wiSmile') || {};
   return {
-    userId: u.uid || u.id || '',
-    email: u.email || '',
-    autor: u.nombre || u.usuario || ''
+    userId: u.uid || u.id || 'admin',
+    email: u.email || 'contacto@contabilidadwii.com',
+    autor: u.nombre || u.usuario || 'Lourdes Cusihuaman'
   };
 }
 
 /**
- * Obtiene los productos almacenados en memoria o en la caché local (Local-First).
- * CERO semillas: Si no hay productos, retorna [].
+ * Obtiene los servicios almacenados en memoria, localStorage o semilla (Prioridad 1° Local / Firestore, 2° Semilla)
  */
 export function obtenerProductosLocal() {
-  if (_memoriaProductos && Array.isArray(_memoriaProductos)) {
+  if (_memoriaProductos && Array.isArray(_memoriaProductos) && _memoriaProductos.length > 0) {
     return _memoriaProductos;
   }
 
-  // 1. En el cliente: Revisar localStorage
+  // 1. Revisar localStorage
   try {
     const local = getls(STORAGE_KEY);
-    if (Array.isArray(local)) {
-      _memoriaProductos = local.map(normalizarProducto);
+    if (Array.isArray(local) && local.length > 0) {
+      _memoriaProductos = local.map(normalizarProducto).sort((a, b) => (a.orden || 999) - (b.orden || 999));
       return _memoriaProductos;
     }
   } catch (e) {}
 
-  // 2. En Node (build time de Cloudflare/Astro): usar datos de Firestore REST
-  if (_productosBuildFirestore && Array.isArray(_productosBuildFirestore)) {
-    _memoriaProductos = _productosBuildFirestore;
-    return _memoriaProductos;
-  }
+  // 2. Fallback a Semilla oficial
+  const semillas = (Array.isArray(serviciosSemilla) ? serviciosSemilla : []).map(normalizarProducto);
+  _memoriaProductos = semillas;
+  try {
+    savels(STORAGE_KEY, semillas);
+  } catch (e) {}
 
-  // 3. Vacío si no se ha cargado aún
-  _memoriaProductos = [];
   return _memoriaProductos;
 }
 
 /**
- * Guarda la lista de productos en caché local y emite evento global
+ * Guarda el array de productos en caché local
  */
 export function guardarProductosLocal(lista = []) {
-  try {
-    const normalizados = (Array.isArray(lista) ? lista : []).map(normalizarProducto);
-    _memoriaProductos = normalizados;
-    savels(STORAGE_KEY, normalizados);
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('gaswii:productos-actualizados', { detail: normalizados }));
-    }
-  } catch (e) {}
+  const normalizados = lista.map(normalizarProducto).sort((a, b) => (a.orden || 999) - (b.orden || 999));
+  _memoriaProductos = normalizados;
+  savels(STORAGE_KEY, normalizados);
+  return normalizados;
 }
 
 /**
- * Consulta Firestore en tiempo real (Cliente) para obtener todos los productos.
- * Actualiza la caché local automáticamente.
+ * Sincroniza desde Firestore hacia Local-First
  */
 export async function sincronizarProductosFirestore() {
-  if (!db) return obtenerProductosLocal();
   try {
-    const colRef = collection(db, COLECCION_PRODUCTOS);
-    const snap = await getDocs(colRef);
-    const prods = [];
-    snap.forEach(docSnap => {
-      prods.push(normalizarProducto({ id: docSnap.id, ...docSnap.data() }));
-    });
-
-    // Ordenar por campo 'orden' ascendente o por 'id'
-    prods.sort((a, b) => (a.orden || 999) - (b.orden || 999));
-
-    guardarProductosLocal(prods);
-    return prods;
-  } catch (err) {
-    console.warn('[dataProductos] Error al consultar Firestore:', err?.message || err);
-    return obtenerProductosLocal();
-  }
-}
-
-/**
- * Guarda o crea un producto en Firestore y en caché local
- */
-export async function guardarProductoFirestore(productoData) {
-  const usuario = getUsuarioActivo();
-  const rawId = productoData.id || generarSlug(productoData.nombre?.es || 'producto');
-  const idFinal = rawId.trim();
-
-  const productoLimpio = normalizarProducto({
-    ...productoData,
-    id: idFinal,
-    slug: productoData.slug || idFinal,
-    userId: usuario.userId || productoData.userId || '',
-    email: usuario.email || productoData.email || ''
-  });
-
-  // Guardar inmediatamente en caché local
-  const listaActual = obtenerProductosLocal();
-  const idx = listaActual.findIndex(p => p.id === idFinal);
-  let listaNueva = [];
-  if (idx >= 0) {
-    listaNueva = [...listaActual];
-    listaNueva[idx] = productoLimpio;
-  } else {
-    listaNueva = [...listaActual, productoLimpio];
-  }
-  guardarProductosLocal(listaNueva);
-
-  // Sincronizar con Firestore
-  if (db) {
-    try {
-      const docRef = doc(db, COLECCION_PRODUCTOS, idFinal);
-      const payload = {
-        ...productoLimpio,
-        actualizado: serverTimestamp()
-      };
-      if (idx < 0) {
-        payload.creado = serverTimestamp();
-      }
-      await setDoc(docRef, payload, { merge: true });
-    } catch (err) {
-      console.error('[dataProductos] Error al guardar en Firestore:', err);
-      throw err;
+    if (!db) {
+      return { ok: true, origen: 'local', datos: obtenerProductosLocal() };
     }
-  }
 
-  return productoLimpio;
+    const colRef = collection(db, COLECCION_SERVICIOS);
+    const snap = await getDocs(colRef);
+
+    if (snap.empty) {
+      // Si la colección está vacía en Firestore, usamos la semilla local y la sembramos en Firestore
+      const locales = obtenerProductosLocal();
+      if (locales.length > 0) {
+        for (const item of locales) {
+          try {
+            await setDoc(doc(db, COLECCION_SERVICIOS, item.id), {
+              ...item,
+              actualizado: serverTimestamp()
+            }, { merge: true });
+          } catch (err) {}
+        }
+      }
+      return { ok: true, origen: 'semilla_sembrada', datos: locales };
+    }
+
+    const remotos = snap.docs.map(d => normalizarProducto({ id: d.id, ...d.data() }));
+    guardarProductosLocal(remotos);
+    return { ok: true, origen: 'firestore', datos: remotos };
+  } catch (err) {
+    console.warn('[dataProductos] Sincronización Firestore:', err?.message || err);
+    return { ok: false, error: err?.message, datos: obtenerProductosLocal() };
+  }
 }
 
 /**
- * Cambia el estado (activo / pausado) de un producto con sincronización inmediata
+ * Guarda o actualiza un servicio en Firestore y en local
+ */
+export async function guardarProductoFirestore(productoRaw = {}) {
+  const normalizado = normalizarProducto(productoRaw);
+  const usuario = getUsuarioActivo();
+
+  const prodFinal = {
+    ...normalizado,
+    userId: normalizado.userId || usuario.userId,
+    email: normalizado.email || usuario.email,
+    actualizado: new Date().toISOString()
+  };
+
+  // 1. Guardar de inmediato en Local (Local-First instantáneo)
+  const actuales = obtenerProductosLocal();
+  const idx = actuales.findIndex(p => p.id === prodFinal.id);
+  if (idx >= 0) {
+    actuales[idx] = prodFinal;
+  } else {
+    actuales.push(prodFinal);
+  }
+  guardarProductosLocal(actuales);
+
+  // 2. Disparar re-deploy con debounce
+  solicitarActualizacionWeb({ motivo: `servicio-${prodFinal.id}` });
+
+  // 3. Persistir en Firestore en segundo plano
+  try {
+    if (db) {
+      const docRef = doc(db, COLECCION_SERVICIOS, prodFinal.id);
+      await setDoc(docRef, {
+        ...prodFinal,
+        actualizado: serverTimestamp()
+      }, { merge: true });
+    }
+  } catch (err) {
+    console.warn('[dataProductos] Error al guardar en Firestore:', err?.message || err);
+  }
+
+  return prodFinal;
+}
+
+/**
+ * Cambia el estado de un producto (activo / pausado)
  */
 export async function cambiarEstadoProducto(id, nuevoEstado) {
-  const estadoValido = nuevoEstado === 'pausado' ? 'pausado' : 'activo';
   const lista = obtenerProductosLocal();
-  const prod = lista.find(p => p.id === id);
-  if (!prod) return false;
+  const item = lista.find(p => p.id === id);
+  if (!item) return null;
 
-  prod.estado = estadoValido;
-  guardarProductosLocal(lista);
-
-  if (db) {
-    try {
-      const docRef = doc(db, COLECCION_PRODUCTOS, id);
-      await updateDoc(docRef, {
-        estado: estadoValido,
-        actualizado: serverTimestamp()
-      });
-      return true;
-    } catch (err) {
-      console.warn('[dataProductos] Error cambiando estado:', err);
-    }
-  }
-  return true;
+  item.estado = nuevoEstado;
+  item.activo = nuevoEstado === 'activo';
+  return guardarProductoFirestore(item);
 }
 
 /**
- * Actualiza rápidamente precio y stock desde las tarjetas del panel
- */
-export async function actualizarPrecioYStock(id, { precio, stock, precioEnvase, stockMin }) {
-  const lista = obtenerProductosLocal();
-  const prod = lista.find(p => p.id === id);
-  if (!prod) return false;
-
-  if (precio !== undefined) prod.precio = Number(precio);
-  if (stock !== undefined) prod.stock = Number(stock);
-  if (precioEnvase !== undefined) prod.precioEnvase = Number(precioEnvase);
-  if (stockMin !== undefined) prod.stockMin = Number(stockMin);
-
-  guardarProductosLocal(lista);
-
-  if (db) {
-    try {
-      const docRef = doc(db, COLECCION_PRODUCTOS, id);
-      const updates = { actualizado: serverTimestamp() };
-      if (precio !== undefined) updates.precio = Number(precio);
-      if (stock !== undefined) updates.stock = Number(stock);
-      if (precioEnvase !== undefined) updates.precioEnvase = Number(precioEnvase);
-      if (stockMin !== undefined) updates.stockMin = Number(stockMin);
-
-      await updateDoc(docRef, updates);
-      return true;
-    } catch (err) {
-      console.warn('[dataProductos] Error actualizando precio/stock:', err);
-    }
-  }
-  return true;
-}
-
-/**
- * Elimina un producto de Firestore y de la memoria local
+ * Elimina un producto de local y Firestore
  */
 export async function eliminarProductoFirestore(id) {
   const lista = obtenerProductosLocal().filter(p => p.id !== id);
   guardarProductosLocal(lista);
 
-  if (db) {
-    try {
-      await deleteDoc(doc(db, COLECCION_PRODUCTOS, id));
-      return true;
-    } catch (err) {
-      console.error('[dataProductos] Error eliminando de Firestore:', err);
-      throw err;
+  solicitarActualizacionWeb({ motivo: `servicio-eliminado-${id}` });
+
+  try {
+    if (db) {
+      await deleteDoc(doc(db, COLECCION_SERVICIOS, id));
     }
+  } catch (err) {
+    console.warn('[dataProductos] Error al eliminar de Firestore:', err?.message || err);
   }
+
   return true;
 }
+
+export default {
+  STORAGE_KEY,
+  COLECCION_SERVICIOS,
+  obtenerProductosLocal,
+  guardarProductosLocal,
+  sincronizarProductosFirestore,
+  guardarProductoFirestore,
+  cambiarEstadoProducto,
+  eliminarProductoFirestore,
+  normalizarProducto,
+  aplanarProducto
+};

@@ -61,7 +61,7 @@ export function cambiarModulo(nuevoModulo, updateUrl = true) {
 }
 
 function inicializarSesionUI() {
-  const user = getls('wiSmile') || window.__GASWII_USER__;
+  const user = getls('wiSmile') || window.__CONTABILIDAD_USER__;
   if (!user || (!user.uid && !user.usuario && !user.nombre)) {
     salir();
     return;
@@ -73,10 +73,10 @@ function inicializarSesionUI() {
   const ddName = document.getElementById('dropdownUserFullName');
   const ddMail = document.getElementById('dropdownUserEmail');
 
-  const nombreMostrar = user.nombre || user.usuario || 'Cliente';
+  const nombreMostrar = user.nombre || user.usuario || 'Contribuyente';
   if (nameElem) nameElem.textContent = nombreMostrar;
   if (avatarElem) avatarElem.textContent = avatar(nombreMostrar);
-  if (planElem) planElem.textContent = user.plan === 'vip' ? 'Cliente VIP' : (user.plan ? `Plan ${user.plan}` : 'Cliente Solgas');
+  if (planElem) planElem.textContent = user.plan === 'vip' ? 'Cliente MYPE' : (user.plan ? `Plan ${user.plan}` : 'Contribuyente');
   if (ddName) ddName.textContent = user.nombreCompleto || user.nombre || user.usuario || 'Mi Perfil';
   if (ddMail) ddMail.textContent = user.email || user.celular || '';
 
@@ -127,14 +127,14 @@ function inicializarTemaYSidebar() {
     const cur = document.documentElement.dataset.theme;
     const next = cur === 'luz' ? 'futuro' : 'luz';
     document.documentElement.dataset.theme = next;
-    localStorage.setItem('gaswii_theme_cliente', next);
+    localStorage.setItem('contabilidad_theme_cliente', next);
   });
 
   // Botón colapsar sidebar
   const btnCollapse = document.getElementById('btnCollapseSidebar');
   btnCollapse?.addEventListener('click', () => {
     const isCollapsed = document.documentElement.classList.toggle('is-collapsed');
-    localStorage.setItem('gaswii_sidebar_cliente', isCollapsed ? 'true' : 'false');
+    localStorage.setItem('contabilidad_sidebar_cliente', isCollapsed ? 'true' : 'false');
   });
 }
 

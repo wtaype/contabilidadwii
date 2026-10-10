@@ -14,8 +14,8 @@ const IMAGENES_SEMILLA = Array.isArray(semillasGaleria) ? semillasGaleria : [];
 export function obtenerImagenesGaleria() {
   const guardadas = getls(STORAGE_KEY);
   if (guardadas && Array.isArray(guardadas) && guardadas.length > 0) {
-    // Si contiene URLs antiguas rotas (/imgwii/lourdes/) o tiene menos fotos que la nueva semilla, refrescar y autorreparar
-    const tieneRotas = guardadas.some(img => img.url && img.url.includes('/imgwii/lourdes/'));
+    // Si contiene URLs antiguas rotas (/imgwii/lourdes/) o blobs de sesión anterior, autorreparar
+    const tieneRotas = guardadas.some(img => img.url && (img.url.includes('/imgwii/lourdes/') || img.url.startsWith('blob:')));
     if (!tieneRotas && guardadas.length >= IMAGENES_SEMILLA.length) {
       return guardadas;
     }

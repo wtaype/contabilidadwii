@@ -7,7 +7,7 @@
  */
 export function envoltorioBase({ contenidoHtml, asunto, vistaPreviaTexto = '', negocio = {} }) {
   const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
-  const logoUrl = negocio?.logoUrl || 'https://contabilidadwii.com/imgwii/logo.webp';
+  const logoUrl = negocio?.logoUrl || '/imgwii/logo.webp';
   const direccion = negocio?.direccion || 'Jr. Dante 260, Surquillo, Lima 15047';
   const telefono = negocio?.telefono || '+51 987 594 558';
   const especialista = negocio?.especialista || 'CPC Lourdes Cusihuaman Gálvez';

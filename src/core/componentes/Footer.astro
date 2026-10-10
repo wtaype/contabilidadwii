@@ -1,8 +1,9 @@
 ---
 // src/core/componentes/Footer.astro
-// 10. FOOTER INSTITUCIONAL UX/UI - Consultorio Psicológico América
+// 10. FOOTER INSTITUCIONAL UX/UI - Estudio Contable Cusihuaman
 import { datosNegocio } from '../../negocio.js';
 import { getI18n, buildRuta, type Idioma } from '../idioma/idioma';
+import CookiesBanner from '../../feature/acercas/secciones/04-cookies/componentes/CookiesBanner.astro';
 
 interface Props {
   idioma?: Idioma;
@@ -146,3 +147,6 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
 
   </div>
 </footer>
+
+<!-- Consentimiento de Cookies Local-First (Diferido 800ms · 0ms bloqueo de velocidad) -->
+<CookiesBanner idioma={idioma} />

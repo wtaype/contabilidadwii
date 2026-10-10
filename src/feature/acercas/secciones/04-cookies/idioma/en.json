@@ -24,5 +24,9 @@
   "duracion_permanente": "Persistent (Until the user signs out or clears browser data)",
   "duracion_sesion": "Local persistent",
   "como_controlar_titulo": "How can you manage or delete this data?",
-  "como_controlar_desc": "You can clear storage for this site at any time through your browser's privacy settings (Chrome, Edge, Safari, Firefox), or by simply logging out from the panel."
+  "como_controlar_desc": "You can clear storage for this site at any time through your browser's privacy settings (Chrome, Edge, Safari, Firefox), or by simply logging out from the panel.",
+  "banner_mensaje": "We use cookies to improve your experience and offer a transparent accounting service",
+  "banner_mas_info": "more info.",
+  "banner_aceptar": "Accept",
+  "banner_rechazar": "Decline"
 }

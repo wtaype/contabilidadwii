@@ -24,5 +24,9 @@
   "duracion_permanente": "Permanente (Hasta que el usuario cierre sesión o limpie datos del navegador)",
   "duracion_sesion": "Persistente local",
   "como_controlar_titulo": "¿Cómo puedes controlar o borrar estos datos?",
-  "como_controlar_desc": "Puedes limpiar en cualquier momento el almacenamiento de este sitio desde las opciones de privacidad de tu navegador (Chrome, Edge, Safari, Firefox), o cerrando tu sesión activa en el panel."
+  "como_controlar_desc": "Puedes limpiar en cualquier momento el almacenamiento de este sitio desde las opciones de privacidad de tu navegador (Chrome, Edge, Safari, Firefox), o cerrando tu sesión activa en el panel.",
+  "banner_mensaje": "Usamos cookies para mejorar tu experiencia y ofrecerte un servicio contable transparente",
+  "banner_mas_info": "más info.",
+  "banner_aceptar": "Aceptar",
+  "banner_rechazar": "Rechazar"
 }

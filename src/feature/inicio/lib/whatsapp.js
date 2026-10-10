@@ -29,7 +29,7 @@ export function obtenerNumeroWhatsApp() {
       }
     } catch (e) {}
   }
-  return datosNegocio.whatsapp || '51936369384';
+  return datosNegocio.whatsappLimpio || datosNegocio.whatsapp || '';
 }
 
 /**
@@ -46,7 +46,7 @@ export function obtenerNombreNegocio() {
       }
     } catch (e) {}
   }
-  return datosNegocio.nombre || 'Solgas Surquillo';
+  return datosNegocio.nombre || 'Estudio Cusihuaman';
 }
 
 /**
@@ -118,9 +118,8 @@ export function generarMensajeWhatsApp({
     return lineas.join('\n');
   }
 
-  // CASO D: Saludo de consulta general
   const nombreNegocio = obtenerNombreNegocio();
-  lineas.push(`${saludo}, ${nombreNegocio}. He visto su página web y deseo consultar sobre el pedido de gas a domicilio. ¿Podrían atenderme, por favor? ¡Muchas gracias!`);
+  lineas.push(`${saludo}, ${nombreNegocio}. He visto su página web y deseo consultar sobre sus servicios contables y asesoría SUNAT. ¿Podrían orientarme, por favor? ¡Muchas gracias!`);
   return lineas.join('\n');
 }
 

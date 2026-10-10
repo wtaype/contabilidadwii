@@ -119,7 +119,7 @@ const wsUrl = `https://wa.me/${datosNegocio.whatsapp}?text=${encodeURIComponent(
             <p class="redes-card-desc">{t.ws_com_desc}</p>
           </div>
           <div>
-            <a href={wsUrl} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" style="background: #25d366;">
+            <a href={wsUrl} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" style="background: #25d366;" data-negocio-ws-link>
               <i class="fa-brands fa-whatsapp"></i> {t.btn_ws_com}
             </a>
           </div>
@@ -134,8 +134,8 @@ const wsUrl = `https://wa.me/${datosNegocio.whatsapp}?text=${encodeURIComponent(
           <p>{t.comun.ayuda_desc}</p>
         </div>
         <div class="acercas-help-actions">
-          <a href={`tel:${datosNegocio.telefonoLimpio}`} class="btn-acercas-action secondary">
-            <i class="fa-solid fa-phone"></i> {datosNegocio.telefonoMostrado}
+          <a href={`tel:${datosNegocio.telefonoLimpio}`} class="btn-acercas-action secondary" data-negocio-tel-link>
+            <i class="fa-solid fa-phone"></i> <span data-negocio-tel-text>{datosNegocio.telefonoMostrado}</span>
           </a>
         </div>
       </div>

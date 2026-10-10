@@ -110,9 +110,14 @@ const jsonLd = getJsonLd(ruta, idioma);
   <!-- Despachador Global On-Demand Unificado con wiSmart() -->
   <script>
     import { wiTema, wiSmart } from '@widev';
+    import { iniciarSincronizacionNegocio } from '../servicios/hidratarNegocio.js';
 
     // Reactividad Smart para modo claro/oscuro del sistema
     wiTema.listen();
+
+    // Sincronización e Hidratación Reactiva Inmediata de Ficha de Negocio (WhatsApp, Teléfono, etc.)
+    iniciarSincronizacionNegocio();
+    document.addEventListener('astro:page-load', iniciarSincronizacionNegocio);
 
     // Puente de compatibilidad global ultra-ligero para interacción
     (window as any).toggleTema = () => wiTema.toggle();

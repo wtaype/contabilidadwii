@@ -148,8 +148,8 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
 ];
 
 const mediosPagoLista = datosNegocio.mediosPago || MEDIOS_PAGO_BASE;
-const telefonoSede = datosNegocio.telefonoLimpio || '987594558';
-const whatsappSede = datosNegocio.whatsapp || '51987594558';
+const telefonoSede = datosNegocio.telefonoLimpio;
+const whatsappSede = datosNegocio.whatsappLimpio || datosNegocio.whatsapp;
 ---
 
 <div class="cl-pedidos-module" id="moduloPedidos">

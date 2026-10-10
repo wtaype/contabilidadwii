@@ -229,7 +229,9 @@ function asegurarModalEnDOM() {
 
     mensaje += `Quedo atento a su respuesta, ¡muchas gracias!`;
 
-    const numWhatsapp = datosNegocio.whatsappLimpio || '51987594558';
+    const negActual = (typeof window !== 'undefined' && window.__negocioActual) ? window.__negocioActual : datosNegocio;
+    const rawNum = negActual.contacto?.whatsapp || negActual.contacto?.whatsappLimpio || datosNegocio.whatsappLimpio;
+    const numWhatsapp = String(rawNum || '').replace(/\D/g, '');
     const url = `https://wa.me/${numWhatsapp}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
     cerrarModalAgendar();

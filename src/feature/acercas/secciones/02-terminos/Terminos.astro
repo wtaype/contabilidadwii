@@ -20,9 +20,9 @@ interface Props {
 const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
 const t = resolverIdiomaSeccion({ es, en }, idioma);
 
-const telLimpio = datosNegocio.telefonoLimpio || '987594558';
-const telMostrado = datosNegocio.telefonoMostrado || '987 594 558';
-const wsNumero = datosNegocio.whatsappLimpio || '51936369384';
+const telLimpio = datosNegocio.telefonoLimpio;
+const telMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
+const wsNumero = datosNegocio.whatsappLimpio;
 const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(
   idioma === 'en'
     ? `Hello CPC Lourdes, I have a question regarding accounting terms of service.`

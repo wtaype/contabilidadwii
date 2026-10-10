@@ -49,7 +49,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Da
           </div>
           <div>
             <div class="mapa-info-label">{t.dir_label}</div>
-            <div class="mapa-info-val">{direccionSede}</div>
+            <div class="mapa-info-val" data-negocio-direccion>{direccionSede}</div>
           </div>
         </div>
 
@@ -60,7 +60,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Da
           </div>
           <div>
             <div class="mapa-info-label">{t.horario_label}</div>
-            <div class="mapa-info-val">{horarioDespacho}</div>
+            <div class="mapa-info-val" data-negocio-horario>{horarioDespacho}</div>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Da
           </div>
           <div>
             <div class="mapa-info-label">{t.tel_label}</div>
-            <div class="mapa-info-val">{telefonoMostrado}</div>
+            <div class="mapa-info-val" data-negocio-tel-text>{telefonoMostrado}</div>
           </div>
         </div>
 
@@ -83,6 +83,7 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Da
             rel="noopener noreferrer" 
             class="mapa-btn-action"
             title={t.btn_maps}
+            data-negocio-maps
           >
             <i class="fa-solid fa-arrow-up-right-from-square"></i> 
             <span>{t.btn_maps}</span>

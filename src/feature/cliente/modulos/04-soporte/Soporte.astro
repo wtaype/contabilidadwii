@@ -7,9 +7,8 @@ import { datosNegocio } from '@/negocio.js';
 interface Props {
   cliente?: any;
 }
-const { cliente = {} } = Astro.props;
-const whatsappSede = datosNegocio.whatsapp || '51987594558';
-const telefonoSede = datosNegocio.telefonoLimpio || '987594558';
+const whatsappSede = datosNegocio.whatsappLimpio || datosNegocio.whatsapp;
+const telefonoSede = datosNegocio.telefonoLimpio;
 ---
 
 <div class="cl-soporte-module" id="moduloSoporte">

@@ -21,7 +21,7 @@ const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.pro
 const t = resolverIdiomaSeccion({ es, en }, idioma);
 
 const anos = String(datosNegocio.experienciaAnos || '10+');
-const wsNumero = datosNegocio.whatsappLimpio || '51936369384';
+const wsNumero = datosNegocio.whatsappLimpio;
 const wsMsg = encodeURIComponent(
   idioma === 'en'
     ? `Hello CPC Lourdes, I would like to learn more about your accounting and tax advisory services.`

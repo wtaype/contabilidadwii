@@ -49,7 +49,7 @@ export function generarPlantillaCronograma({
     ${contenidoExtraHtml}
 
     <div style="text-align: center; margin-top: 22px;">
-      <a href="https://wa.me/${negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '51987594558'}?text=${encodeURIComponent('Hola CPC Lourdes, envío mis comprobantes para la declaración del período ' + periodo)}" class="btn-ws">
+      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola CPC Lourdes, envío mis comprobantes para la declaración del período ' + periodo)}" class="btn-ws">
         📲 Enviar Documentos por WhatsApp
       </a>
     </div>

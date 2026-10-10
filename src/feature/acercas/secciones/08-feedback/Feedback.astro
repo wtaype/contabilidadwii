@@ -96,24 +96,49 @@ const motivos = [
 
           <!-- 3. Comentarios y Datos -->
           <div class="feedback-fields-grid">
-            <div class="reclamos-field-box feedback-field-full">
-              <label for="feedbackComentario">{t.lbl_comentario}</label>
-              <textarea id="feedbackComentario" name="comentario" required placeholder="Escribe aquí tu experiencia..." class="reclamos-textarea" style="min-height: 100px;"></textarea>
+            <div class="feedback-field-box feedback-field-full">
+              <label for="feedbackComentario" class="feedback-label">
+                <i class="fa-solid fa-comment-dots"></i> {t.lbl_comentario}
+              </label>
+              <textarea 
+                id="feedbackComentario" 
+                name="comentario" 
+                required 
+                placeholder="Escribe aquí tu experiencia, sugerencia o comentario de mejora..." 
+                class="feedback-textarea" 
+                rows="4"
+              ></textarea>
             </div>
 
-            <div class="reclamos-field-box">
-              <label for="feedbackNombre">{t.lbl_nombre}</label>
-              <input type="text" id="feedbackNombre" name="nombre" placeholder="Ej. Ana María" class="reclamos-input" />
+            <div class="feedback-field-box">
+              <label for="feedbackNombre" class="feedback-label">
+                <i class="fa-solid fa-user"></i> {t.lbl_nombre}
+              </label>
+              <input 
+                type="text" 
+                id="feedbackNombre" 
+                name="nombre" 
+                placeholder="Ej. Ana María" 
+                class="feedback-input" 
+              />
             </div>
 
-            <div class="reclamos-field-box">
-              <label for="feedbackContacto">{t.lbl_contacto}</label>
-              <input type="text" id="feedbackContacto" name="contacto" placeholder="Teléfono o correo" class="reclamos-input" />
+            <div class="feedback-field-box">
+              <label for="feedbackContacto" class="feedback-label">
+                <i class="fa-solid fa-envelope"></i> {t.lbl_contacto}
+              </label>
+              <input 
+                type="text" 
+                id="feedbackContacto" 
+                name="contacto" 
+                placeholder="Teléfono o correo (opcional)" 
+                class="feedback-input" 
+              />
             </div>
           </div>
 
-          <div style="margin-top: 2rem;">
-            <button type="submit" id="btnSubmitFeedback" class="btn-reclamos-submit">
+          <div class="feedback-submit-row">
+            <button type="submit" id="btnSubmitFeedback" class="feedback-btn-submit">
               <i class="fa-solid fa-paper-plane"></i>
               <span>{t.btn_enviar}</span>
             </button>
@@ -129,8 +154,8 @@ const motivos = [
           <p>{t.comun.ayuda_desc}</p>
         </div>
         <div class="acercas-help-actions">
-          <a href={`tel:${datosNegocio.telefonoLimpio}`} class="btn-acercas-action secondary">
-            <i class="fa-solid fa-phone"></i> {datosNegocio.telefonoMostrado}
+          <a href={`tel:${datosNegocio.telefonoLimpio}`} class="btn-acercas-action secondary" data-negocio-tel-link>
+            <i class="fa-solid fa-phone"></i> <span data-negocio-tel-text>{datosNegocio.telefonoMostrado}</span>
           </a>
         </div>
       </div>

@@ -61,12 +61,12 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
             </div>
             <div>
               <h2 class="contacto-channel-title">{t.card_sede_tit}</h2>
-              <span class="contacto-channel-main-val">{datosNegocio.direccionSede}</span>
+              <span class="contacto-channel-main-val" data-negocio-direccion>{datosNegocio.direccionSede}</span>
               <p class="contacto-channel-desc">{t.card_sede_desc}</p>
             </div>
           </div>
           <div class="contacto-actions-row">
-            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary">
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" data-negocio-maps>
               <i class="fa-solid fa-map-location-dot"></i> {t.btn_ver_mapa}
             </a>
             <a href={wazeUrl} target="_blank" rel="noopener noreferrer" class="btn-acercas-action secondary">
@@ -83,12 +83,12 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
             </div>
             <div>
               <h2 class="contacto-channel-title">{t.card_tel_tit}</h2>
-              <span class="contacto-channel-main-val">{telMostrado}</span>
+              <span class="contacto-channel-main-val" data-negocio-tel-text>{telMostrado}</span>
               <p class="contacto-channel-desc">{t.card_tel_desc}</p>
             </div>
           </div>
           <div class="contacto-actions-row">
-            <a href={`tel:${telLimpio}`} class="btn-acercas-action primary">
+            <a href={`tel:${telLimpio}`} class="btn-acercas-action primary" data-negocio-tel-link>
               <i class="fa-solid fa-phone"></i> {t.btn_llamar_ahora}
             </a>
           </div>
@@ -102,12 +102,12 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
             </div>
             <div>
               <h2 class="contacto-channel-title">{t.card_ws_tit}</h2>
-              <span class="contacto-channel-main-val">+{wsNumero}</span>
+              <span class="contacto-channel-main-val" data-negocio-ws-text>+{wsNumero}</span>
               <p class="contacto-channel-desc">{t.card_ws_desc}</p>
             </div>
           </div>
           <div class="contacto-actions-row">
-            <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary">
+            <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" data-negocio-ws-link>
               <i class="fa-brands fa-whatsapp"></i> {t.btn_ws_ahora}
             </a>
           </div>
@@ -121,7 +121,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
             </div>
             <div>
               <h2 class="contacto-channel-title">{t.card_horario_tit}</h2>
-              <span class="contacto-channel-main-val">{horarioTexto}</span>
+              <span class="contacto-channel-main-val" data-negocio-horario>{horarioTexto}</span>
               <p class="contacto-channel-desc">{t.card_horario_desc}</p>
             </div>
           </div>
@@ -158,11 +158,11 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
           <p>{t.mensaje_rapido_desc}</p>
         </div>
         <div class="acercas-help-actions">
-          <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary">
+          <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" data-negocio-ws-link>
             <i class="fa-brands fa-whatsapp"></i> {t.comun.btn_whatsapp}
           </a>
-          <a href={`tel:${telLimpio}`} class="btn-acercas-action secondary">
-            <i class="fa-solid fa-phone"></i> {telMostrado}
+          <a href={`tel:${telLimpio}`} class="btn-acercas-action secondary" data-negocio-tel-link>
+            <i class="fa-solid fa-phone"></i> <span data-negocio-tel-text>{telMostrado}</span>
           </a>
         </div>
       </div>

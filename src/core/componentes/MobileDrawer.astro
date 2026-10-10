@@ -26,7 +26,8 @@ for (const code of Object.keys(IDIOMAS)) {
   }
 }
 
-const baseHash = idioma === 'es' ? (ruta !== '/' ? '/' : '') : `/${idioma}`;
+const esInicio = rutaBase === '/';
+const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
 const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.horario;
 ---
 
@@ -63,6 +64,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
   <!-- Navegación Drawer -->
   <nav class="drawer-nav-list">
     <a href={`${baseHash}#servicios`} onclick="window.cerrarDrawer && window.cerrarDrawer()" class="drawer-nav-link"><i class="fa-solid fa-file-invoice-dollar drawer-nav-icon color-primary"></i> <span>{t.servicios}</span></a>
+    <a href={`${baseHash}#asesorias`} onclick="window.cerrarDrawer && window.cerrarDrawer()" class="drawer-nav-link"><i class="fa-solid fa-user-tie drawer-nav-icon color-gold"></i> <span>{t.talleres || 'Asesorías'}</span></a>
     <a href={`${baseHash}#paquetes`} onclick="window.cerrarDrawer && window.cerrarDrawer()" class="drawer-nav-link"><i class="fa-solid fa-calculator drawer-nav-icon color-emerald"></i> <span>{t.calculadora}</span></a>
     <a href={`${baseHash}#metodologia`} onclick="window.cerrarDrawer && window.cerrarDrawer()" class="drawer-nav-link"><i class="fa-solid fa-scale-balanced drawer-nav-icon color-gold"></i> <span>{t.seguridad}</span></a>
     <a href={`${baseHash}#sedes`} onclick="window.cerrarDrawer && window.cerrarDrawer()" class="drawer-nav-link"><i class="fa-solid fa-location-dot drawer-nav-icon color-brand-blue"></i> <span>{t.ubicacion}</span></a>
@@ -92,7 +94,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
     </div>
 
     <!-- Botón Agendar Cita Móvil -->
-    <a href={`https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(datosNegocio.whatsappMensaje)}`} target="_blank" rel="noopener noreferrer" onclick="window.cerrarDrawer && window.cerrarDrawer()" class="btn-whatsapp w-full justify-center">
+    <a href={`https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(datosNegocio.whatsappMensaje)}`} target="_blank" rel="noopener noreferrer" onclick="window.cerrarDrawer && window.cerrarDrawer()" class="btn-whatsapp w-full justify-center" data-negocio-ws-link>
       <i class="fa-brands fa-whatsapp"></i> <span>{t.pedir}</span>
     </a>
 

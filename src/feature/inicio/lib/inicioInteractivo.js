@@ -1,9 +1,7 @@
-// src/feature/inicio/lib/inicioInteractivo.js
-// 🌟 Módulo de Interactividad Smart Unificado de Gaswii (Diferido vía wiSmart)
-// Cero Bloqueo de Primer Render (TBT = 0ms) · Se activa al interactuar (touch, scroll, click, mousemove)
 import { imgwii } from '@widev';
 import { ROL_PATH } from '@core/rutas.js';
 import { obtenerSaludoHora } from './whatsapp.js';
+import { iniciarSincronizacionNegocio, hidratarNegocioEnDOM } from '@core/servicios/hidratarNegocio.js';
 
 
 
@@ -101,55 +99,11 @@ function initSelectorTemas() {
 }
 
 /**
- * Calculadora de duración y rendimiento de balones de gas
+ * Reconciliación Local-First de servicios con localStorage
  */
-function initCalculadora() {
-  const sPersonas = document.getElementById('calcPersonas');
-  const sHoras = document.getElementById('calcHoras');
-  const sTamano = document.getElementById('calcTamano');
-  const dPersonas = document.getElementById('personasDisplay');
-  const dHoras = document.getElementById('horasDisplay');
-  const dDias = document.getElementById('calcDiasResult');
-
-  if (!sPersonas || !sHoras || !sTamano || !dPersonas || !dHoras || !dDias) return;
-
-  const unidadPersonas = sPersonas.getAttribute('data-unidad') || 'personas';
-  const unidadHoras = sHoras.getAttribute('data-unidad') || 'horas / día';
-  const unidadDias = dDias.getAttribute('data-unidad') || 'días';
-
-  function recalcular() {
-    const p = parseFloat(sPersonas.value || '3');
-    const h = parseFloat(sHoras.value || '2.5');
-    const kg = parseFloat(sTamano.value || '10');
-
-    dPersonas.textContent = `${p} ${unidadPersonas}`;
-    dHoras.textContent = `${h} ${unidadHoras}`;
-
-    const consumoDiario = Math.max(0.1, (p * 0.04) + (h * 0.1));
-    const diasEstimados = Math.max(1, Math.round(kg / consumoDiario));
-
-    dDias.textContent = `${diasEstimados} ${unidadDias}`;
-
-    const btnWa = document.querySelector('.btn-calc-pedir');
-    if (btnWa) {
-      const numWa = btnWa.getAttribute('data-ws-num') || '51936369384';
-      const saludo = obtenerSaludoHora();
-      const msg = `${saludo}. He visto en su página web y calculé mi consumo: balón de ${kg} kg para ${p} personas (~${diasEstimados} días de rendimiento). Quisiera pedir a domicilio, ¿podrían confirmarme por favor? ¡Muchas gracias!`;
-      btnWa.href = `https://wa.me/${numWa}?text=${encodeURIComponent(msg)}`;
-    }
-  }
-
-  sPersonas.addEventListener('input', recalcular);
-  sHoras.addEventListener('input', recalcular);
-  sTamano.addEventListener('change', recalcular);
-}
-
-/**
- * Reconciliación Local-First de productos con localStorage
- */
-function initReconciliacionProductos() {
+function initReconciliacionServicios() {
   try {
-    const local = localStorage.getItem('gaswii_productos');
+    const local = localStorage.getItem('contabilidad_servicios');
     if (!local) return;
     const prods = JSON.parse(local);
     if (!Array.isArray(prods) || prods.length === 0) return;
@@ -157,11 +111,11 @@ function initReconciliacionProductos() {
     prods.forEach((p) => {
       const id = p.id || p.slug;
       if (!id) return;
-      const card = document.querySelector(`[data-prod-id="${id}"]`);
+      const card = document.querySelector(`[data-prod-id="${id}"], [data-taller-id="${id}"]`);
       if (!card) return;
-      const precioEl = card.querySelector('.producto-card-precio');
+      const precioEl = card.querySelector('[data-price-id]');
       if (precioEl && p.precioPEN !== undefined) {
-        precioEl.textContent = `S/ ${Number(p.precioPEN).toFixed(2)}`;
+        precioEl.textContent = Number(p.precioPEN).toFixed(2);
       }
     });
   } catch (e) {}
@@ -174,20 +128,19 @@ export function initInicioInteractivo() {
   // 1. Activar lazy loading inteligente de imágenes
   imgwii.ver();
 
+  // 2. Sincronización e Hidratación Dinámica de Negocio y WhatsApp
+  iniciarSincronizacionNegocio();
 
   // 3. Switcher de idiomas
   initLanguageSwitcher();
 
-  // 4. Selector interactivo de temas clínicos en Hero
+  // 4. Selector interactivo de temas tributarios en Hero
   initSelectorTemas();
 
-  // 5. Calculadora de duración de gas
-  initCalculadora();
+  // 5. Sincronización Local-First de tarifas de servicios
+  initReconciliacionServicios();
 
-  // 6. Sincronización Local-First de productos
-  initReconciliacionProductos();
-
-  // 7. Accesibilidad: Cerrar Drawer con tecla Escape
+  // 6. Accesibilidad: Cerrar Drawer con tecla Escape
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       window.cerrarDrawer?.();

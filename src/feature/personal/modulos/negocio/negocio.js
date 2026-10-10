@@ -297,8 +297,10 @@ export function inicializarNegocio() {
   function recolectarDatos() {
     const kwEs = (inputSeoKeywordsEs?.value || '').split(',').map(s => s.trim()).filter(Boolean);
     const kwEn = (inputSeoKeywordsEn?.value || '').split(',').map(s => s.trim()).filter(Boolean);
+    const actual = obtenerDatosNegocio();
     const rawTel = (inputTelefono?.value || '').trim();
     const telLimpio = rawTel.replace(/\D/g, '');
+    const rawWs = (inputWhatsapp?.value || '').trim().replace(/\D/g, '');
 
     return {
       id: 'principal',
@@ -308,30 +310,30 @@ export function inicializarNegocio() {
       idiomasSoportados: ['es', 'en'],
 
       identidad: {
-        nombre: inputNombre?.value?.trim() || "Lourdes Cusihuaman Gálvez",
-        nombreCorto: inputNombreCorto?.value?.trim() || "Estudio Cusihuaman",
-        especialista: inputEspecialista?.value?.trim() || "Lourdes Cusihuaman Gálvez",
+        nombre: inputNombre?.value?.trim() || actual.identidad?.nombre || "Lourdes Cusihuaman Gálvez",
+        nombreCorto: inputNombreCorto?.value?.trim() || actual.identidad?.nombreCorto || "Estudio Cusihuaman",
+        especialista: inputEspecialista?.value?.trim() || actual.identidad?.especialista || "Lourdes Cusihuaman Gálvez",
         colegiatura: inputColegiatura?.value?.trim() || "",
-        titulo: inputTitulo?.value?.trim() || "Asesora Contable y Tributaria",
-        grado: inputGrado?.value?.trim() || "Ex-funcionaria de SUNAT · Universidad de Lima",
-        enfoques: inputEnfoques?.value?.trim() || "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT",
-        nombreEn: inputNombreEn?.value?.trim() || "Cusihuaman Accounting & Tax Firm",
-        nombreCortoEn: inputNombreCortoEn?.value?.trim() || "Estudio Cusihuaman",
-        enfoquesEn: inputEnfoquesEn?.value?.trim() || "4th Category Income (RHE) • 5th Category Payroll • SUNAT Tax Compliance",
+        titulo: inputTitulo?.value?.trim() || actual.identidad?.titulo || "Asesora Contable y Tributaria",
+        grado: inputGrado?.value?.trim() || actual.identidad?.grado || "Ex-funcionaria de SUNAT · Universidad de Lima",
+        enfoques: inputEnfoques?.value?.trim() || actual.identidad?.enfoques || "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT",
+        nombreEn: inputNombreEn?.value?.trim() || actual.identidad?.nombreEn || "Cusihuaman Accounting & Tax Firm",
+        nombreCortoEn: inputNombreCortoEn?.value?.trim() || actual.identidad?.nombreCortoEn || "Estudio Cusihuaman",
+        enfoquesEn: inputEnfoquesEn?.value?.trim() || actual.identidad?.enfoquesEn || "4th Category Income (RHE) • 5th Category Payroll • SUNAT Tax Compliance",
         bio: {
-          es: inputBioEs?.value?.trim() || "Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria.",
-          en: inputBioEn?.value?.trim() || "Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience."
+          es: inputBioEs?.value?.trim() || actual.identidad?.bio?.es || "Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria.",
+          en: inputBioEn?.value?.trim() || actual.identidad?.bio?.en || "Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience."
         },
-        lanzamientoFecha: inputLanzamiento?.value || "2020-03-15",
-        logo: inputLogo?.value?.trim() || "/imgwii/logo.webp",
-        logoFull: inputLogoFull?.value?.trim() || "/imgwii/logo_full.webp",
-        imagenSede: inputImagenSede?.value?.trim() || "/imgwii/hero.webp"
+        lanzamientoFecha: inputLanzamiento?.value || actual.identidad?.lanzamientoFecha || "2020-03-15",
+        logo: inputLogo?.value?.trim() || actual.identidad?.logo || "/imgwii/logo.webp",
+        logoFull: inputLogoFull?.value?.trim() || actual.identidad?.logoFull || "/imgwii/logo_full.webp",
+        imagenSede: inputImagenSede?.value?.trim() || actual.identidad?.imagenSede || "/imgwii/hero.webp"
       },
 
       contacto: {
-        telefono: rawTel || "+51 987 594 558",
-        whatsapp: (inputWhatsapp?.value || '').trim().replace(/\D/g, '') || "51987594558",
-        email: (inputEmail?.value || '').trim() || "contacto@contabilidadwii.com",
+        telefono: rawTel || actual.contacto?.telefono || "",
+        whatsapp: rawWs || (rawTel ? `51${telLimpio}` : (actual.contacto?.whatsapp || "")),
+        email: (inputEmail?.value || '').trim() || actual.contacto?.email || "contacto@contabilidadwii.com",
         whatsappMensaje: {
           es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación.",
           en: inputWhatsappMensajeEn?.value?.trim() || "Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."

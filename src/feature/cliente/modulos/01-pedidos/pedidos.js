@@ -4,6 +4,7 @@
 // Validación estricta y formato profesional tributario
 
 import { Saludar, Notificacion, getls, savels } from '@widev';
+import { datosNegocio } from '../../../../negocio.js';
 import { normalizarDireccionesMap, sincronizarDireccionesDesdeFirestore } from '../02-direccion/dataDireccion.js';
 
 const PRODUCTOS_CACHE_KEY = 'contabilidad_productos';
@@ -119,7 +120,7 @@ ${itemsList.join('\n')}
     const finalMessage = buildMessage();
     const encoded = encodeURIComponent(finalMessage);
     const neg = getls('minegocio') || {};
-    const numWa = neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || '51987594558';
+    const numWa = String(neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || datosNegocio.whatsappLimpio || '').replace(/\D/g, '');
     const waBase = `https://wa.me/${numWa}`;
 
     // 1. Burbuja de WhatsApp en vivo

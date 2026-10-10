@@ -3,6 +3,7 @@
 // wiSelect, autocompletado en 0ms desde wiSmile, WhatsApp tributario, wiSpin y Notificacion
 
 import { wiSelect, wiSpin, Notificacion, getls } from '@widev';
+import { datosNegocio } from '../../../../negocio.js';
 import {
   obtenerTicketsLocal,
   crearTicket,
@@ -23,7 +24,7 @@ function actualizarEnlaceWhatsApp(tipo) {
   if (!btnWa) return;
 
   const neg = getls('minegocio') || {};
-  const numWa = neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || '51987594558';
+  const numWa = String(neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || datosNegocio.whatsappLimpio || '').replace(/\D/g, '');
   const nombreNegocio = neg.identidad?.nombre || 'Estudio Contable CPC Lourdes Cusihuaman';
 
   const user = getls('wiSmile') || (typeof window !== 'undefined' ? (window.__CONTABILIDAD_USER__ || window.__GASWII_USER__) : null);

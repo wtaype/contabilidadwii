@@ -87,11 +87,11 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <div class="faq-meta-list">
           <div class="faq-meta-item">
             <i class="fa-solid fa-clock"></i> 
-            <span>{horarioDespacho}</span>
+            <span data-negocio-horario>{horarioDespacho}</span>
           </div>
           <div class="faq-meta-item">
             <i class="fa-solid fa-location-dot"></i> 
-            <span>{direccionSede}</span>
+            <span data-negocio-direccion>{direccionSede}</span>
           </div>
         </div>
 
@@ -101,6 +101,7 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           rel="noopener noreferrer" 
           class="btn-whatsapp btn-faq-side"
           title={t.btn_ws}
+          data-negocio-ws-link
         >
           <i class="fa-brands fa-whatsapp"></i> 
           <span>{t.btn_ws}</span>

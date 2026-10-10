@@ -44,7 +44,7 @@ export function generarPlantillaCotizacion({
     ${tablaHtml}
 
     <div style="text-align: center; margin-top: 25px;">
-      <a href="https://wa.me/${negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '51987594558'}?text=${encodeURIComponent('Hola CPC Lourdes, deseo aprobar la propuesta contable #' + cotizacionId + ' para ' + empresa)}" class="btn-ws">
+      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola CPC Lourdes, deseo aprobar la propuesta contable #' + cotizacionId + ' para ' + empresa)}" class="btn-ws">
         🤝 Coordinar Inicio de Servicios por WhatsApp
       </a>
     </div>

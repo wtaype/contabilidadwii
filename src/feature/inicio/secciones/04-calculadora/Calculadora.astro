@@ -228,7 +228,8 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
 
       dTotal.textContent = `S/ ${total.toFixed(2)}`;
 
-      const wsNum = btnWs.getAttribute('data-ws-num') || '51987594558';
+      const negActual = (typeof window !== 'undefined' && window.__negocioActual) ? window.__negocioActual : null;
+      const wsNum = (btnWs.getAttribute('data-ws-num') || negActual?.contacto?.whatsapp || '').replace(/\D/g, '');
       const detalleSesiones = esFijo ? 'servicio integral' : `${numSesiones} mes(es) / trámite(s)`;
       const msg = `Hola Lourdes, coticé en su web: ${nombreServicio} (${modalidad}) por ${detalleSesiones}. Total estimado: S/ ${total.toFixed(2)}. Deseo agendar mi consulta.`;
       btnWs.href = `https://wa.me/${wsNum}?text=${encodeURIComponent(msg)}`;

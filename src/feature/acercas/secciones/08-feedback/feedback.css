@@ -1,146 +1,268 @@
 /* ==========================================================================
    SECCIÓN 08-FEEDBACK (CSS HIJO) - ESTUDIO CONTABLE CUSIHUAMAN
-   Selector táctil de estrellas y chips interactivos de calidad
+   Diseño Premium 100% Integrado con witema.css · Poppins & Outfit
    ========================================================================== */
 
 .feedback-container {
-  max-width: 860px;
+  max-width: 820px;
   margin: 0 auto;
 }
 
+/* Caja Principal del Formulario */
 .feedback-box {
-  background: var(--bg-surface, #ffffff);
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
-  border-radius: 1.5rem;
-  padding: 2.5rem;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+  background: var(--wb, var(--surface, #0f172a));
+  border: 1px solid var(--border-card, var(--line, rgba(255, 255, 255, 0.1)));
+  border-radius: var(--r_l, 1.5vh);
+  padding: clamp(1.6rem, 3.5vw, 2.8rem);
+  box-shadow: var(--shadow-card, 0 8px 30px rgba(0, 0, 0, 0.12));
   margin-bottom: 4vh;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Selector de Estrellas */
+/* 1. Selector de Estrellas */
 .feedback-stars-wrapper {
   text-align: center;
-  padding: 1.5rem 0 2rem;
-  border-bottom: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
+  padding: 0.5rem 0 2rem;
+  border-bottom: 1px solid var(--line, var(--border-subtle, rgba(255, 255, 255, 0.08)));
   margin-bottom: 2rem;
 }
 
 .feedback-stars-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--ff_O, 'Outfit', sans-serif);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--text-bright, #0f172a);
+  color: var(--tx, var(--ink, #ffffff));
   margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
 }
 
 .feedback-stars-row {
   display: inline-flex;
-  gap: 0.8rem;
+  gap: 0.6rem;
   font-size: 2.4rem;
   cursor: pointer;
+  align-items: center;
 }
 
 .feedback-star-btn {
-  background: none;
+  background: transparent;
   border: none;
-  font-size: 2.5rem;
-  color: #cbd5e1;
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  color: var(--muted, #64748b);
   cursor: pointer;
-  padding: 0 0.2rem;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  padding: 0 0.15rem;
+  line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease, text-shadow 0.2s ease;
 }
 
-.feedback-star-btn:hover,
+.feedback-star-btn:hover {
+  transform: scale(1.22);
+  color: #f59e0b;
+}
+
 .feedback-star-btn.active {
   color: #f59e0b;
-  transform: scale(1.18);
+  text-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
 }
 
 .feedback-star-label {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--ff_O, 'Outfit', sans-serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #d97706;
-  margin-top: 0.8rem;
+  color: #f59e0b;
+  margin-top: 0.9rem;
   min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Motivos / Chips de Calidad */
+/* 2. Motivos / Chips de Calidad */
 .feedback-motivos-section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
 }
 
 .feedback-motivos-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.1rem;
+  font-family: var(--ff_O, 'Outfit', sans-serif);
+  font-size: 1.08rem;
   font-weight: 700;
-  color: var(--text-bright, #0f172a);
+  color: var(--tx, var(--ink, #ffffff));
   margin-bottom: 1rem;
+  letter-spacing: -0.01em;
 }
 
 .feedback-motivos-grid {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
 .feedback-motivo-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 1.2rem;
-  border-radius: 999px;
-  background: var(--bg-surface, #ffffff);
-  border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.15));
-  font-family: 'Poppins', sans-serif;
+  gap: 0.55rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--r_full, 9999px);
+  background: var(--raised, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--line, var(--border-card, rgba(255, 255, 255, 0.12)));
+  font-family: var(--ff_P, 'Poppins', sans-serif);
   font-size: 0.88rem;
   font-weight: 500;
-  color: var(--text-bright, #0f172a);
+  color: var(--tx, var(--ink, #ffffff));
   cursor: pointer;
   user-select: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feedback-motivo-chip i {
+  color: var(--mco, #c5a059);
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
 }
 
 .feedback-motivo-chip:hover {
-  border-color: var(--cl-orange, #ea580c);
-  background: rgba(234, 88, 12, 0.05);
+  border-color: var(--mco, #c5a059);
+  background: var(--mbg, rgba(197, 160, 89, 0.1));
+  color: var(--mco, #c5a059);
+  transform: translateY(-1px);
+}
+
+.feedback-motivo-chip:hover i {
+  transform: scale(1.15);
 }
 
 .feedback-motivo-chip.selected {
-  background: rgba(234, 88, 12, 0.12);
-  border-color: var(--cl-orange, #ea580c);
-  color: var(--cl-orange, #ea580c);
-  font-weight: 600;
+  background: var(--mbg, rgba(197, 160, 89, 0.18));
+  border-color: var(--mco, #c5a059);
+  color: var(--mco, #c5a059);
+  font-weight: 700;
+  box-shadow: 0 0 14px var(--mbg, rgba(197, 160, 89, 0.25));
 }
 
-/* Formulario Campos */
+/* 3. Formulario y Campos Ergonómicos */
 .feedback-fields-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
+  gap: 1.35rem;
   margin-top: 1.5rem;
-}
-
-@media (max-width: 640px) {
-  .feedback-fields-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .feedback-field-full {
   grid-column: 1 / -1;
 }
 
-/* Caja de Éxito */
+.feedback-field-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.feedback-label {
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--tx, var(--ink, #ffffff));
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.feedback-label i {
+  color: var(--mco, #c5a059);
+  font-size: 0.85rem;
+}
+
+.feedback-textarea,
+.feedback-input {
+  width: 100%;
+  box-sizing: border-box !important;
+  padding: 0.85rem 1.15rem;
+  border-radius: 1.2vh;
+  background: var(--inp, var(--raised, rgba(255, 255, 255, 0.04)));
+  border: 1px solid var(--brd, var(--line, rgba(255, 255, 255, 0.14)));
+  color: var(--tx, var(--ink, #ffffff));
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.feedback-textarea:focus,
+.feedback-input:focus {
+  outline: none;
+  border-color: var(--mco, #c5a059);
+  background: var(--wb, var(--surface, #0f172a));
+  box-shadow: 0 0 0 3px var(--mbg, rgba(197, 160, 89, 0.2));
+}
+
+.feedback-textarea::placeholder,
+.feedback-input::placeholder {
+  color: var(--muted, #64748b);
+  font-size: 0.88rem;
+}
+
+.feedback-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Fila de Envío y Botón Submit */
+.feedback-submit-row {
+  margin-top: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.feedback-btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.88rem 2.2rem;
+  border-radius: var(--r_full, 9999px);
+  background: var(--mco, #c5a059);
+  color: #ffffff;
+  font-family: var(--ff_P, 'Poppins', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px var(--mbg, rgba(197, 160, 89, 0.3));
+}
+
+.feedback-btn-submit:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 24px var(--mbg, rgba(197, 160, 89, 0.45));
+}
+
+.feedback-btn-submit:active {
+  transform: translateY(0);
+}
+
+.feedback-btn-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.feedback-btn-submit i {
+  font-size: 0.95rem;
+}
+
+/* 4. Caja de Éxito */
 .feedback-success-card {
   display: none;
   text-align: center;
-  padding: 3rem 2rem;
-  background: var(--bg-surface, #ffffff);
-  border: 2px solid var(--cl-emerald, #059669);
-  border-radius: 1.5rem;
-  box-shadow: 0 10px 30px -5px rgba(5, 150, 105, 0.15);
+  padding: 3.5rem 2.5rem;
+  background: var(--wb, var(--surface, #0f172a));
+  border: 2px solid var(--success, #10b981);
+  border-radius: var(--r_l, 1.5vh);
+  box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.2);
   margin-bottom: 4vh;
+  animation: feedbackSlideUp 0.3s ease-out;
 }
 
 .feedback-success-card.visible {
@@ -148,14 +270,45 @@
 }
 
 .feedback-success-icon {
-  width: 70px;
-  height: 70px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
-  background: rgba(5, 150, 105, 0.1);
-  color: var(--cl-emerald, #059669);
-  font-size: 2.2rem;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--success, #10b981);
+  font-size: 2.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+@keyframes feedbackSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 5. Responsive en Tablet y Móvil */
+@media (max-width: 640px) {
+  .feedback-box {
+    padding: 1.4rem;
+  }
+
+  .feedback-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .feedback-btn-submit {
+    width: 100%;
+  }
+
+  .feedback-motivos-grid {
+    gap: 0.55rem;
+  }
+
+  .feedback-motivo-chip {
+    padding: 0.55rem 1rem;
+    font-size: 0.82rem;
+  }
 }

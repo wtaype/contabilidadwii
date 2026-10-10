@@ -65,7 +65,7 @@ export function generarPlantillaPedido({
     </div>
 
     <div style="text-align: center; margin-top: 22px;">
-      <a href="https://wa.me/${negocio.contacto?.whatsappLimpio || '51987594558'}?text=${encodeURIComponent('Hola ' + nombreEmpresa + ', deseo coordinar el horario de mi asesoría #' + pedidoId)}" class="btn-ws">
+      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola ' + nombreEmpresa + ', deseo coordinar el horario de mi asesoría #' + pedidoId)}" class="btn-ws">
         📲 Coordinar Horario por WhatsApp
       </a>
     </div>

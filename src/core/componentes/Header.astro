@@ -29,6 +29,8 @@ for (const code of Object.keys(IDIOMAS)) {
 }
 
 const urlInicio = buildRuta('/', idioma);
+const esInicio = rutaBase === '/';
+const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
 ---
 
 <header class="header-main">
@@ -83,13 +85,13 @@ const urlInicio = buildRuta('/', idioma);
         </div>
       ) : (
         <nav class="desktop-only header-nav-desktop">
-          <a href="#servicios" class="header-nav-item">{t.servicios}</a>
-          <a href="#asesorias" class="header-nav-item">{t.talleres || 'Asesorías'}</a>
-          <a href="#paquetes" class="header-nav-item">{t.calculadora}</a>
-          <a href="#metodologia" class="header-nav-item">{t.seguridad}</a>
-          <a href="#sedes" class="header-nav-item">{t.ubicacion}</a>
-          <a href="#nosotros" class="header-nav-item">{t.nosotros}</a>
-          <a href="#faq" class="header-nav-item">{t.faq}</a>
+          <a href={`${baseHash}#servicios`} class="header-nav-item">{t.servicios}</a>
+          <a href={`${baseHash}#asesorias`} class="header-nav-item">{t.talleres || 'Asesorías'}</a>
+          <a href={`${baseHash}#paquetes`} class="header-nav-item">{t.calculadora}</a>
+          <a href={`${baseHash}#metodologia`} class="header-nav-item">{t.seguridad}</a>
+          <a href={`${baseHash}#sedes`} class="header-nav-item">{t.ubicacion}</a>
+          <a href={`${baseHash}#nosotros`} class="header-nav-item">{t.nosotros}</a>
+          <a href={`${baseHash}#faq`} class="header-nav-item">{t.faq}</a>
         </nav>
       )}
 

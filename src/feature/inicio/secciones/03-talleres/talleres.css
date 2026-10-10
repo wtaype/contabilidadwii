@@ -153,11 +153,8 @@
 
 .taller-tipo-badge {
   font-size: 0.72rem;
-  color: var(--brand-sky, #0284c7);
-  font-weight: 700;
-  background: rgba(2, 132, 199, 0.08);
-  padding: 0.2rem 0.55rem;
-  border-radius: 6px;
+  color: var(--text-muted, #486576);
+  font-weight: 600;
 }
 
 /* Marco de Imagen */

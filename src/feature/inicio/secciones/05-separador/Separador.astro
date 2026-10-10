@@ -1,6 +1,6 @@
 ---
 // src/feature/inicio/secciones/05-separador/Separador.astro
-// 5. BANNER SEPARADOR DE ORIENTACIÓN DIRECTA Y ATENCIÓN EMPÁTICA
+// 5. BANNER SEPARADOR DE CONSULTA RÁPIDA (CERO CSS INLINE)
 import { datosNegocio } from '../../../../negocio.js';
 import { resolverIdioma } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
@@ -14,37 +14,35 @@ interface Props {
 const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.props;
 const t = resolverIdioma({ es, en }, idioma);
 
-const telefonoLimpio = datosNegocio.telefonoLimpio;
 const telefonoMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
 const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(t.ws_msg)}`;
 ---
 
 <style is:global set:html={separadorCss}></style>
 
-<section class="sos-banner-wrapper" style="background: linear-gradient(135deg, #071626 0%, #0B2239 60%, #11283e 100%); border-top: 1px solid rgba(197, 168, 128, 0.2); border-bottom: 1px solid rgba(197, 168, 128, 0.2);">
+<section class="sos-banner-wrapper">
   <div class="pagewii sos-banner-content">
     
     <!-- Bloque Informativo Izquierdo -->
     <div class="sos-info-block">
-      <div class="sos-icon-box" style="background: rgba(197, 168, 128, 0.2); color: #C5A880;">
+      <div class="sos-icon-box">
         <i class="fa-solid fa-shield-halved"></i>
       </div>
       <div class="sos-text-box">
-        <h2 class="sos-title" style="color: #fff;">{t.titulo}</h2>
-        <p class="sos-sub" style="color: rgba(243, 229, 200, 0.9);">
-          {t.sub_1} <strong style="color: #C5A880;">{t.sub_destacado}</strong> {t.sub_2} <span style="color: #fff; font-weight: 700;">{telefonoMostrado}</span> {t.sub_3}
+        <h2 class="sos-title">{t.titulo}</h2>
+        <p class="sos-sub">
+          {t.sub_1} <strong>{t.sub_destacado}</strong> {t.sub_2} <span class="sos-sub-phone">{telefonoMostrado}</span> {t.sub_3}
         </p>
       </div>
     </div>
 
-    <!-- Bloque de Botones Dual: Diagnóstico y WhatsApp -->
+    <!-- Bloque de Botones Dual: Consulta y WhatsApp -->
     <div class="sos-actions-block">
       <button 
         type="button" 
         onclick="window.abrirModalTest && window.abrirModalTest()" 
         class="btn-sos-call"
-        title="Realizar Diagnóstico Tributario"
-        style="background: #C5A880; color: #071626; font-weight: 700; border-radius: 1vh; cursor: pointer; border: none;"
+        title={t.btn_llamada}
       >
         <i class="fa-solid fa-clipboard-question"></i>
         <span>{t.btn_llamada}</span>
@@ -56,9 +54,8 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         rel="noopener noreferrer" 
         class="btn-sos-wa"
         title={t.btn_ws}
-        style="background: #25d366; color: #fff; font-weight: 700; border-radius: 1vh;"
       >
-        <i class="fa-brands fa-whatsapp"></i> 
+        <i class="fa-brands fa-whatsapp"></i>
         <span>{t.btn_ws}</span>
       </a>
     </div>

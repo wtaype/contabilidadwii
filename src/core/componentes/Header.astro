@@ -28,15 +28,14 @@ for (const code of Object.keys(IDIOMAS)) {
   }
 }
 
-const baseHash = idioma === 'es' ? '' : `/${idioma}`;
-const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
+const urlInicio = buildRuta('/', idioma);
 ---
 
 <header class="header-main">
   <div class="page-container header-container">
     
     <!-- Logo y Título -->
-    <a href={urlInicio} title={esPersonal || esCliente ? (t.ir_tienda_publica || 'Ir al Sitio Web') : (t.inicio_titulo || 'Estudio Cusihuaman')} class="header-brand-link">
+    <a href={urlInicio} title={t.ir_tienda_publica || 'Ir al Inicio'} class="header-brand-link">
       <picture class="header-brand-picture">
         <source media="(max-width: 900px)" srcset={datosNegocio.logoFull} />
         <img 
@@ -61,109 +60,112 @@ const urlInicio = esPersonal || esCliente ? '/' : `${baseHash}#hero`;
       </div>
     </a>
 
-    <!-- Navegación Desktop: Adaptativa según el Rol y la Ruta -->
-    {esPersonal ? (
-      <div class="desktop-only header-group-desktop">
-        <span class="header-badge-status personal">
-          <i class="fa-solid fa-briefcase"></i> Sede <span data-negocio-direccion>{datosNegocio.direccionSede}</span>
-        </span>
-        <a href="/" class="btn-outline btn-compact" title="Ver Web Pública">
-          <i class="fa-solid fa-globe icon-brand-orange"></i> <span>Ver Web</span>
-        </a>
-      </div>
-    ) : esCliente ? (
-      <div class="desktop-only header-group-desktop">
-        <span class="header-badge-status cliente">
-          <i class="fa-solid fa-scale-balanced"></i> Área de Clientes
-        </span>
-        <a href="/" class="btn-outline btn-compact" title="Ver Servicios Tributarios">
-          <i class="fa-solid fa-file-invoice-dollar icon-brand-orange"></i> <span>Servicios Tributarios</span>
-        </a>
-      </div>
-    ) : (
-      <nav class="desktop-only header-nav-desktop">
-        <a href="#servicios" class="header-nav-item">{t.servicios}</a>
-        <a href="#paquetes" class="header-nav-item">{t.calculadora}</a>
-        <a href="#metodologia" class="header-nav-item">{t.seguridad}</a>
-        <a href="#sedes" class="header-nav-item">{t.ubicacion}</a>
-        <a href="#nosotros" class="header-nav-item">{t.nosotros}</a>
-        <a href="#faq" class="header-nav-item">{t.faq}</a>
-      </nav>
-    )}
-
-    <!-- Controles: Idioma, Tema, Botón Login y Botón Pedir -->
-    <div class="header-actions-row">
-      
-      <!-- Switcher Dinámico de Idiomas (Escalable para N idiomas) -->
-      <div class="header-pill-group" title="Idioma / Language">
-        {Object.entries(IDIOMAS).map(([code, info]) => (
-          <a 
-            href={buildRuta(rutaBase, code)} 
-            data-lang={code}
-            class={`header-pill-btn ${idioma === code ? 'active' : ''}`}
-          >
-            {code.toUpperCase()}
+    <!-- Bloque Derecho: Navegación y Acciones -->
+    <div class="header-right-group">
+      <!-- Navegación Desktop: Adaptativa según el Rol y la Ruta -->
+      {esPersonal ? (
+        <div class="desktop-only header-group-desktop">
+          <span class="header-badge-status personal">
+            <i class="fa-solid fa-briefcase"></i> Sede <span data-negocio-direccion>{datosNegocio.direccionSede}</span>
+          </span>
+          <a href="/" class="btn-outline btn-compact" title="Ver Web Pública">
+            <i class="fa-solid fa-globe icon-brand-orange"></i> <span>Ver Web</span>
           </a>
-        ))}
-      </div>
-
-      <!-- Switcher Tema (Luz / Futuro) -->
-      <button 
-        id="themeToggleBtn" 
-        onclick="window.toggleTema && window.toggleTema()"
-        aria-label="Cambiar tema" 
-        class="header-theme-toggle"
-        title="Cambiar Tema"
-      >
-        <i class="fa-solid fa-moon" id="themeIcon"></i>
-      </button>
-      <script is:inline>try{const t=document.documentElement.dataset.theme,i=document.getElementById('themeIcon');if(i&&t)i.className=t==='futuro'?'fa-solid fa-moon':'fa-solid fa-sun';}catch(e){}</script>
-
-      <!-- Contenedor Auth Desktop -->
-      <div id="headerAuthContainer" class="desktop-only header-auth-box">
-        <!-- Botón LOGIN -->
-        <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="header-btn-login" title="Iniciar Sesión o Registrarse">
-          <i class="fa-solid fa-circle-user"></i> <span>{t.login}</span>
-        </button>
-
-        <!-- Card Perfil Usuario -->
-        <div id="headerUserPerfil" class="header-user-card" data-idioma={idioma}>
-          <a href="/cliente" id="headerPerfilLink" class="header-user-link">
-            <img id="headerUserAvatar" src="" alt="Foto de perfil" class="header-user-avatar" />
-            <div class="header-user-info">
-              <span id="headerUserNombre" class="header-user-name">Cliente</span>
-              <div class="header-user-meta">
-                <span id="headerUserBadge" class="header-user-badge">@usuario</span>
-              </div>
-            </div>
-          </a>
-          <button type="button" onclick="window.cerrarSesionHeader && window.cerrarSesionHeader()" title="Cerrar Sesión" class="header-btn-logout">
-            <i class="fa-solid fa-right-from-bracket"></i>
-          </button>
         </div>
-      </div>
-
-      <!-- Anti-Flash Inmediato (0ms) para Perfil de Usuario -->
-      <script is:inline>try{const u=JSON.parse(localStorage.getItem('wiSmile')||'{}');if(u.uid||u.nombre){const d=(u.rol==='personal'||u.rol==='gestor'||u.rol==='admin')?'/personal':'/cliente';const p=location.pathname.startsWith('/en')?`/en${d}`:d;const a=document.getElementById('headerPerfilLink'),b=document.getElementById('drawerPerfilLink');if(a)a.href=p;if(b)b.href=p;}}catch(e){}</script>
-
-      <!-- Botón AGENDAR CITA (Abre Modal Agendar) -->
-      {!esPersonal && (
-        <button 
-          type="button" 
-          onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
-          class="header-btn-order desktop-only" 
-          title="Agendar Consulta por WhatsApp"
-          style="display: inline-flex; cursor: pointer; border: none;"
-        >
-          <i class="fa-brands fa-whatsapp"></i> <span>{t.pedir}</span>
-        </button>
+      ) : esCliente ? (
+        <div class="desktop-only header-group-desktop">
+          <span class="header-badge-status cliente">
+            <i class="fa-solid fa-scale-balanced"></i> Área de Clientes
+          </span>
+          <a href="/" class="btn-outline btn-compact" title="Ver Servicios Tributarios">
+            <i class="fa-solid fa-file-invoice-dollar icon-brand-orange"></i> <span>Servicios Tributarios</span>
+          </a>
+        </div>
+      ) : (
+        <nav class="desktop-only header-nav-desktop">
+          <a href="#servicios" class="header-nav-item">{t.servicios}</a>
+          <a href="#asesorias" class="header-nav-item">{t.talleres || 'Asesorías'}</a>
+          <a href="#paquetes" class="header-nav-item">{t.calculadora}</a>
+          <a href="#metodologia" class="header-nav-item">{t.seguridad}</a>
+          <a href="#sedes" class="header-nav-item">{t.ubicacion}</a>
+          <a href="#nosotros" class="header-nav-item">{t.nosotros}</a>
+          <a href="#faq" class="header-nav-item">{t.faq}</a>
+        </nav>
       )}
 
-      <!-- Botón Hamburguesa Móvil -->
-      <button class="mobile-only header-btn-mobile-toggle" onclick="window.abrirDrawer && window.abrirDrawer()" aria-label="Abrir Menú">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <!-- Controles: Idioma, Tema, Botón Login y Botón Agendar -->
+      <div class="header-actions-row">
+        
+        <!-- Switcher Dinámico de Idiomas (Escalable para N idiomas) -->
+        <div class="header-pill-group" title="Idioma / Language">
+          {Object.entries(IDIOMAS).map(([code, info]) => (
+            <a 
+              href={buildRuta(rutaBase, code)} 
+              data-lang={code}
+              class={`header-pill-btn ${idioma === code ? 'active' : ''}`}
+            >
+              {code.toUpperCase()}
+            </a>
+          ))}
+        </div>
 
+        <!-- Switcher Tema (Luz / Futuro) -->
+        <button 
+          id="themeToggleBtn" 
+          onclick="window.toggleTema && window.toggleTema()"
+          aria-label="Cambiar tema" 
+          class="header-theme-toggle"
+          title="Cambiar Tema"
+        >
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+        <script is:inline>try{const t=document.documentElement.dataset.theme,i=document.getElementById('themeIcon');if(i&&t)i.className=t==='futuro'?'fa-solid fa-moon':'fa-solid fa-sun';}catch(e){}</script>
+
+        <!-- Contenedor Auth Desktop -->
+        <div id="headerAuthContainer" class="desktop-only header-auth-box">
+          <!-- Botón LOGIN -->
+          <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="header-btn-login" title="Iniciar Sesión o Registrarse">
+            <i class="fa-solid fa-circle-user"></i> <span>{t.login}</span>
+          </button>
+
+          <!-- Card Perfil Usuario -->
+          <div id="headerUserPerfil" class="header-user-card" data-idioma={idioma}>
+            <a href="/cliente" id="headerPerfilLink" class="header-user-link">
+              <img id="headerUserAvatar" src="" alt="Foto de perfil" class="header-user-avatar" />
+              <div class="header-user-info">
+                <span id="headerUserNombre" class="header-user-name">Cliente</span>
+                <div class="header-user-meta">
+                  <span id="headerUserBadge" class="header-user-badge">@usuario</span>
+                </div>
+              </div>
+            </a>
+            <button type="button" onclick="window.cerrarSesionHeader && window.cerrarSesionHeader()" title="Cerrar Sesión" class="header-btn-logout">
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Anti-Flash Inmediato (0ms) para Perfil de Usuario -->
+        <script is:inline>try{const u=JSON.parse(localStorage.getItem('wiSmile')||'{}');if(u.uid||u.nombre){const d=(u.rol==='personal'||u.rol==='gestor'||u.rol==='admin')?'/personal':'/cliente';const p=location.pathname.startsWith('/en')?`/en${d}`:d;const a=document.getElementById('headerPerfilLink'),b=document.getElementById('drawerPerfilLink');if(a)a.href=p;if(b)b.href=p;}}catch(e){}</script>
+
+        <!-- Botón AGENDAR CITA (Abre Modal Agendar) -->
+        {!esPersonal && (
+          <button 
+            type="button" 
+            onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
+            class="header-btn-order desktop-only" 
+            title="Agendar Consulta por WhatsApp"
+          >
+            <i class="fa-brands fa-whatsapp"></i> <span>{t.pedir}</span>
+          </button>
+        )}
+
+        <!-- Botón Hamburguesa Móvil -->
+        <button class="mobile-only header-btn-mobile-toggle" onclick="window.abrirDrawer && window.abrirDrawer()" aria-label="Abrir Menú">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+      </div>
     </div>
 
 

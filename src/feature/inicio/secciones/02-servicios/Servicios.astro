@@ -3,7 +3,7 @@
 // 2. SECCIÓN ESPECIALIDADES CLÍNICAS (6 SERVICIOS EN GRILLA 3x2)
 // Consultorio Psicológico América - Lic. Sofía Reynaga
 import { datosNegocio, consultarProductosFirestoreFresco } from '../../../../negocio.js';
-import { resolverIdioma } from '../../idioma/idioma.js';
+import { resolverIdioma, resolverIdiomas } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
 import serviciosCss from './servicios.css?inline';
@@ -17,7 +17,7 @@ const t = resolverIdioma({ es, en }, idioma);
 
 // Consulta fresca directa de servicios (Firestore o Fallback Canónico infoServicios.json)
 const todos = await consultarProductosFirestoreFresco();
-const serviciosActivos = todos.filter((p: any) => (!p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad') && p.activo !== false);
+const serviciosActivos = todos.filter((p: any) => (p.tipo === 'servicio' || (!p.tipo && !p.id.includes('asesoria') && !p.id.includes('diagnostico') && !p.id.includes('tramite') && !p.id.includes('revision'))) && p.activo !== false);
 const whatsappNumero = datosNegocio.whatsappLimpio;
 ---
 
@@ -43,28 +43,25 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
         data-idioma={idioma}
       >
         {serviciosActivos.map((p: any) => {
-          const langSuffix = idioma.charAt(0).toUpperCase() + idioma.slice(1);
-          const nombre = (idioma !== 'es' && p[`nombre${langSuffix}`]) || (typeof p.nombre === 'object' ? (p.nombre[idioma] || p.nombre.es) : p.nombre) || '';
-          const duracion = (idioma !== 'es' && p[`duracion${langSuffix}`]) || (typeof p.duracion === 'object' ? (p.duracion[idioma] || p.duracion.es) : p.duracion) || '45 - 60 min';
-          const enfoque = p.enfoque || 'Cognitivo Conductual';
-          const modalidad = (idioma !== 'es' && p[`modalidad${langSuffix}`]) || (typeof p.modalidad === 'object' ? (p.modalidad[idioma] || p.modalidad.es) : p.modalidad) || 'Presencial y Online';
-          const descripcion = (idioma !== 'es' && p[`descripcion${langSuffix}`]) || (typeof p.descripcion === 'object' ? (p.descripcion[idioma] || p.descripcion.es) : p.descripcion) || '';
-          const publico = (idioma !== 'es' && p[`publico${langSuffix}`]) || (typeof p.publico === 'object' ? (p.publico[idioma] || p.publico.es) : p.publico) || 'Público General';
+          const nombre = resolverIdiomas(p.nombre, idioma);
+          const duracion = resolverIdiomas(p.duracion, idioma, 'Mensual');
+          const enfoque = p.enfoque || 'Contabilidad & Impuestos';
+          const modalidad = resolverIdiomas(p.modalidad, idioma, 'Presencial y Online');
+          const descripcion = resolverIdiomas(p.descripcion, idioma);
+          const publico = resolverIdiomas(p.publico, idioma, 'Emprendedores');
           
           let garantias: string[] = [];
           if (p.garantias) {
             if (typeof p.garantias === 'object' && !Array.isArray(p.garantias)) {
-              garantias = p.garantias[idioma] || p.garantias['es'] || [];
+              garantias = p.garantias[idioma] || p.garantias['es'] || Object.values(p.garantias)[0] || [];
             } else if (Array.isArray(p.garantias)) {
               garantias = p.garantias;
             }
           }
 
-          const esDiagnostico = p.id.includes('diagnostico') || p.id.includes('tdah') || p.id.includes('evaluacion');
-
-          const badgeTexto = (idioma !== 'es' && p[`badge${langSuffix}`]) || (typeof p.badge === 'object' ? (p.badge[idioma] || p.badge.es) : p.badge) || (esDiagnostico ? 'Informe Oficial' : t.pill_popular);
-          const pillHighlightClase = p.tagClase || (esDiagnostico ? 'badge-oro' : 'badge-serenidad');
-          const pillHighlightIcon = esDiagnostico ? 'fa-solid fa-clipboard-check' : 'fa-solid fa-star';
+          const badgeTexto = resolverIdiomas(p.badge, idioma, t.pill_popular);
+          const pillHighlightClase = p.tagClase || 'badge-serenidad';
+          const pillHighlightIcon = 'fa-solid fa-star';
 
           const guaranteeHeader = t.garantia_titulo.toUpperCase();
           const precioActual = p.precioPEN || p.precio || 85;
@@ -74,9 +71,7 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
           const wsText = templateMsg.replace('{producto}', nombre);
           const wsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent(wsText)}`;
 
-          const captionPrecio = esDiagnostico 
-            ? (idioma === 'en' ? 'Full Evaluation' : 'Batería Completa')
-            : (idioma === 'en' ? 'Per Session' : 'Por Sesión');
+          const captionPrecio = t.caption_precio || 'Mensual';
 
           return (
             <article 
@@ -97,7 +92,7 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
                 <!-- Imagen Fotográfica con Pastilla de Duración -->
                 <div class="producto-media-frame card-img-box">
                   <img 
-                    src={p.imagen || '/imgwii/Attorney_reviewing_documents.jpeg'} 
+                    src={p.imagen || '/imgwii/servicios/servicio01.webp'} 
                     alt={nombre} 
                     class="producto-img-tag card-img" 
                     loading="lazy" 

@@ -1,15 +1,15 @@
 {
-  "badge": "Workshops & Experiential Growth",
-  "titulo": "Group Spaces to Grow, Connect, and Learn",
-  "subtitulo": "Experiential programs designed for children, pre-teens, and youth focused on building emotional intelligence, self-confidence, and life skills.",
-  "duracion_label": "Duration:",
-  "enfoque_label": "Methodology:",
-  "modalidad_label": "Format:",
-  "garantia_titulo": "Key Takeaways",
-  "delivery_label": "Setting",
-  "btn_ws_taller": "Register via WhatsApp",
-  "sin_talleres": "No workshops scheduled at this time.",
-  "ws_msg_taller": "Hello Lic. Sofia, I would like to register for the workshop: {taller}",
-  "inversion_caption": "Fee per Session",
-  "inversion_completa": "Intensive Module"
+  "badge": "Consultations & Procedures",
+  "titulo": "Consultations & Procedures",
+  "subtitulo": "Quick consultations to resolve questions and prevent SUNAT penalties.",
+  "duracion_label": "Format:",
+  "enfoque_label": "Specialty:",
+  "modalidad_label": "Attention:",
+  "garantia_titulo": "What's Included",
+  "delivery_label": "Format",
+  "btn_ws_asesoria": "Request Consultation via WhatsApp",
+  "sin_asesorias": "No consultations scheduled at the moment.",
+  "ws_msg_asesoria": "Hello Lourdes, I would like to request the consultation: {asesoria}",
+  "inversion_caption": "Per Consultation / Procedure",
+  "inversion_completa": "Immediate Attention"
 }

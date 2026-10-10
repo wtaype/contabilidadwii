@@ -1,7 +1,9 @@
 ---
 // src/feature/personal/modulos/perfil/Perfil.astro
-// Módulo de Mi Perfil: Ficha de Usuario y Seguridad (Solgas Surquillo)
+// Módulo de Mi Perfil: Ficha de Usuario y Seguridad (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y wiSmile · 0 CSS Inline
+
+import { datosNegocio } from '@/negocio.js';
 
 interface Props {
   esActivo?: boolean;
@@ -114,7 +116,7 @@ const { esActivo = false } = Astro.props;
       <div class="pf-id-card">
         <div class="pf-id-header">
           <div class="pf-id-brand">
-            <i class="fa-solid fa-fire"></i> SOLGAS SURQUILLO
+            <i class="fa-solid fa-scale-balanced"></i> {(datosNegocio.nombreCorto || 'ESTUDIO CUSIHUAMAN').toUpperCase()}
           </div>
           <span class="pf-id-role-badge">ADMINISTRADOR</span>
         </div>

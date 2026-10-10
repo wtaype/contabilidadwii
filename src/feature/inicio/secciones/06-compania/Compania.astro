@@ -36,7 +36,7 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <!-- 3 Pasos con Iconos Contables -->
         <ul class="seguridad-steps-list">
           <li class="seguridad-step-item">
-            <div class="seguridad-icon-box orange" style="background: rgba(197, 168, 128, 0.15); color: #c5a880; border: 1px solid rgba(197, 168, 128, 0.3);">
+            <div class="seguridad-icon-box orange">
               <i class="fa-solid fa-magnifying-glass-chart"></i>
             </div>
             <div class="seguridad-step-content">
@@ -46,7 +46,7 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           </li>
 
           <li class="seguridad-step-item">
-            <div class="seguridad-icon-box blue" style="background: rgba(11, 34, 57, 0.5); color: #f3e5c8; border: 1px solid rgba(197, 168, 128, 0.25);">
+            <div class="seguridad-icon-box blue">
               <i class="fa-solid fa-shield-halved"></i>
             </div>
             <div class="seguridad-step-content">
@@ -56,7 +56,7 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           </li>
 
           <li class="seguridad-step-item">
-            <div class="seguridad-icon-box emerald" style="background: rgba(37, 211, 102, 0.12); color: #25d366; border: 1px solid rgba(37, 211, 102, 0.25);">
+            <div class="seguridad-icon-box emerald">
               <i class="fa-solid fa-file-circle-check"></i>
             </div>
             <div class="seguridad-step-content">
@@ -73,7 +73,6 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           rel="noopener noreferrer" 
           class="btn-whatsapp btn-seguridad-cta"
           title={t.btn_pedir}
-          style="background: #25d366; color:#fff; font-weight: 700; border-radius: 1vh; box-shadow: 0 0.8vh 2.2vh rgba(37, 211, 102, 0.35);"
         >
           <i class="fa-brands fa-whatsapp"></i> 
           <span>{t.btn_pedir}</span>
@@ -85,20 +84,20 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <div class="seguridad-image-card">
           <div class="seguridad-media-box">
             <img 
-              src="/imgwii/Attorney_reviewing_documents.jpeg" 
-              alt="Asesoría tributaria profesional - Estudio Cusihuaman" 
+              src="/imgwii/claves.webp" 
+              alt="Atención paso a paso y sin complicaciones - Estudio Cusihuaman" 
               width="500" 
               height="400" 
-              loading="lazy"
+              loading="lazy" 
               decoding="async" 
               class="seguridad-media-img"
             />
-            <div class="seguridad-caption-card">
-              <span class="seguridad-caption-pill">
+            <div class="seguridad-caption-overlay">
+              <span class="seguridad-caption-badge">
                 <i class="fa-solid fa-circle-check"></i> 
                 <span>{t.foto_badge}</span>
               </span>
-              <span class="seguridad-caption-header">{t.foto_titulo}</span>
+              <span class="seguridad-caption-title">{t.foto_titulo}</span>
             </div>
           </div>
         </div>

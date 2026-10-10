@@ -308,24 +308,40 @@
   display: block;
 }
 
-.calc-tips-badge-overlay {
+.calc-caption-overlay {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.8vh 1.4vw;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(5, 8, 17, 0.7) 50%, rgba(5, 8, 17, 0.95) 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4vh;
 }
 
-.calc-media-badge {
-  background: rgba(7, 25, 35, 0.85);
-  backdrop-filter: blur(6px);
-  color: #ffffff;
-  padding: 0.3rem 0.75rem;
+.calc-caption-badge {
+  color: var(--accent-gold, #c5a880);
+  background: rgba(197, 168, 128, 0.18);
+  border: 1px solid rgba(197, 168, 128, 0.35);
   border-radius: 999px;
-  font-size: 0.75rem;
+  padding: 0.25vh 0.75vw;
+  font-size: 0.72rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  gap: 0.35rem;
+  width: fit-content;
+}
+
+.calc-caption-title {
+  color: #ffffff;
+  font-family: var(--ff_O, 'Outfit', sans-serif);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .calc-tips-title {

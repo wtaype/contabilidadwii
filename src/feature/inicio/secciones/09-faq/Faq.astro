@@ -46,7 +46,7 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
           <details class="clean-card faq-details-card" open={idx === 0}>
             <summary class="faq-summary">
               <span>
-                <i class="fa-solid fa-circle-check" style="color: var(--brand-primary);"></i>
+                <i class="fa-solid fa-circle-check"></i>
                 <span>{f.pregunta}</span>
               </span>
               <i class="fa-solid fa-chevron-down faq-icon-arrow"></i>
@@ -63,18 +63,18 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         
         <div class="faq-media-box">
           <img 
-            src="/imgwii/Woman_smiling_in_law_office.jpeg" 
+            src="/imgwii/lourdes.webp" 
             alt="Estudio Cusihuaman - Lourdes Cusihuaman Gálvez" 
             loading="lazy"
             decoding="async" 
             class="faq-media-img"
           />
           <div class="faq-media-overlay">
-            <span class="badge-serenidad">
-              <i class="fa-solid fa-shield-halved"></i> 
+            <span class="faq-badge-fire">
+              <i class="fa-solid fa-circle-check"></i> 
               <span>{t.side_foto_badge_1}</span>
             </span>
-            <span class="badge-oro">
+            <span class="faq-badge-blue">
               <i class="fa-solid fa-award"></i> 
               <span>{registroColegio}</span>
             </span>
@@ -86,11 +86,11 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
 
         <div class="faq-meta-list">
           <div class="faq-meta-item">
-            <i class="fa-solid fa-clock" style="color: var(--brand-primary);"></i> 
+            <i class="fa-solid fa-clock"></i> 
             <span>{horarioDespacho}</span>
           </div>
           <div class="faq-meta-item">
-            <i class="fa-solid fa-location-dot" style="color: var(--brand-blue);"></i> 
+            <i class="fa-solid fa-location-dot"></i> 
             <span>{direccionSede}</span>
           </div>
         </div>

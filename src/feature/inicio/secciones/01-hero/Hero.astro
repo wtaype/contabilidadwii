@@ -118,26 +118,25 @@ const precioHero = heroData.precioHero || `S/ ${precioBase}`;
 
         <!-- Botones Principales CTAs: Agendar y Diagnóstico Fiscal -->
         <div class="hero-ctas-group">
-          <!-- CTA 1: Agendar por WhatsApp -->
-          <a 
-            href={whatsappLink} 
-            target="_blank"
-            rel="noopener noreferrer"
+          <!-- CTA 1: Consultar por WhatsApp (Modal Rápido y Ligero) -->
+          <button 
+            type="button"
+            onclick="window.abrirModalAgendar && window.abrirModalAgendar()"
             class="btn-whatsapp hero-btn-cta"
             id="btnHeroWsp"
-            title="Agendar Asesoría por WhatsApp"
+            title="Consultar por WhatsApp"
           >
             <i class="fa-brands fa-whatsapp hero-btn-icon"></i>
             <span>{t.btn_wsp_main}</span>
-          </a>
+          </button>
 
-          <!-- CTA 2: Diagnóstico Fiscal Express -->
+          <!-- CTA 2: Consultar Servicio (Diagnóstico Integral y Cita) -->
           <button 
             type="button" 
-            onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
+            onclick="window.abrirModalTest && window.abrirModalTest()" 
             class="btn-test hero-btn-cta"
             id="btnHeroTest"
-            title="Diagnóstico Tributario Express"
+            title="Consultar Servicio con Diagnóstico Completo"
           >
             <i class="fa-solid fa-magnifying-glass-chart hero-btn-icon"></i>
             <span>{t.btn_test_main}</span>

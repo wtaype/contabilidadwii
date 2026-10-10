@@ -18,9 +18,9 @@ const n = datosNegocio;
   <!-- Encabezado de Sección -->
   <div class="ps-section-header">
     <div class="ps-section-title-wrap">
-      <h1 class="ps-section-title">Ficha de Consultorio & Especialista</h1>
+      <h1 class="ps-section-title">Ficha de Estudio & Especialista</h1>
       <p class="ps-section-sub">
-        Gestión central de credenciales oficiales (C.Ps.P. 49425), canales de citas WhatsApp, sedes clínicas y posicionamiento web bilingüe.
+        Gestión central de credenciales contables y tributarias, canales de atención WhatsApp, sede y posicionamiento web bilingüe.
       </p>
     </div>
     <div class="ps-header-actions">
@@ -44,11 +44,11 @@ const n = datosNegocio;
         <div class="ng-card">
           <div class="ng-card-header">
             <div>
-              <h2 class="ng-card-title"><i class="fa-solid fa-user-doctor"></i> Especialista & Multimedia</h2>
+              <h2 class="ng-card-title"><i class="fa-solid fa-user-tie"></i> Especialista & Multimedia</h2>
               <p class="ng-card-desc">Credenciales oficiales y fotografías representativas.</p>
             </div>
             <span class="ng-badge-trayectoria" id="ngBadgeTrayectoria">
-              <i class="fa-solid fa-award"></i> <span id="ngYearsText">6+ años</span>
+              <i class="fa-solid fa-award"></i> <span id="ngYearsText">12+ años</span>
             </span>
           </div>
 
@@ -56,10 +56,10 @@ const n = datosNegocio;
           <div class="ng-media-dual-grid">
             <!-- Foto de la Especialista -->
             <div class="ng-media-preview-box is-hero">
-              <img id="ngImgHeroPreview" src="/imgwii/hero/psicologa-sofia-reynaga.webp" alt="Foto Especialista" class="ng-media-thumb" />
+              <img id="ngImgHeroPreview" src="/imgwii/hero.webp" alt="Foto Especialista" class="ng-media-thumb" />
               <div class="ng-media-meta">
                 <span class="ng-media-label"><i class="fa-solid fa-camera"></i> Foto Especialista</span>
-                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-sm" placeholder="/imgwii/hero/psicologa-sofia-reynaga.webp" />
+                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-sm" placeholder="/imgwii/hero.webp" />
               </div>
             </div>
 
@@ -67,7 +67,7 @@ const n = datosNegocio;
             <div class="ng-media-logos-col">
               <!-- Logo Oficial (Isotipo Circular) -->
               <div class="ng-media-preview-box">
-                <img id="ngImgLogoPreview" src="/imgwii/logo.webp" alt="Logo Consultorio" class="ng-media-thumb" />
+                <img id="ngImgLogoPreview" src="/imgwii/logo.webp" alt="Logo Estudio" class="ng-media-thumb" />
                 <div class="ng-media-meta">
                   <span class="ng-media-label"><i class="fa-solid fa-shield-heart"></i> Logo Oficial</span>
                   <input type="text" id="ngInputLogo" class="ng-input ng-input-sm" placeholder="/imgwii/logo.webp" />
@@ -76,7 +76,7 @@ const n = datosNegocio;
 
               <!-- Logo Full (Horizontal Completo) -->
               <div class="ng-media-preview-box">
-                <img id="ngImgLogoFullPreview" src="/imgwii/logo_full.webp" alt="Logo Full Consultorio" class="ng-media-thumb-full" />
+                <img id="ngImgLogoFullPreview" src="/imgwii/logo_full.webp" alt="Logo Full Estudio" class="ng-media-thumb-full" />
                 <div class="ng-media-meta">
                   <span class="ng-media-label"><i class="fa-solid fa-gem"></i> Logo Full</span>
                   <input type="text" id="ngInputLogoFull" class="ng-input ng-input-sm" placeholder="/imgwii/logo_full.webp" />
@@ -88,27 +88,27 @@ const n = datosNegocio;
           <div class="ng-grid-2 sn-mt-10">
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputEspecialista">Nombre de la Especialista *</label>
-              <input type="text" id="ngInputEspecialista" class="ng-input" placeholder="Lic. Sofia Reynaga Pachas" required />
+              <input type="text" id="ngInputEspecialista" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
             </div>
 
             <div class="ng-field">
-              <label class="ng-label" for="ngInputColegiatura">Colegiatura Oficial *</label>
-              <input type="text" id="ngInputColegiatura" class="ng-input" placeholder="C.Ps.P. N° 49425" required />
+              <label class="ng-label" for="ngInputColegiatura">Colegiatura / Registro SUNAT</label>
+              <input type="text" id="ngInputColegiatura" class="ng-input" placeholder="Ex-orientadora SUNAT" />
             </div>
 
             <div class="ng-field">
-              <label class="ng-label" for="ngInputLanzamiento">Fecha de Fundación / Despegue</label>
-              <input type="date" id="ngInputLanzamiento" class="ng-input" value="2020-03-15" />
+              <label class="ng-label" for="ngInputLanzamiento">Fecha de Fundación / Trayectoria</label>
+              <input type="date" id="ngInputLanzamiento" class="ng-input" value="2014-03-15" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputTitulo">Título Universitario</label>
-              <input type="text" id="ngInputTitulo" class="ng-input" placeholder="Licenciada en Psicología" />
+              <input type="text" id="ngInputTitulo" class="ng-input" placeholder="Asesora Contable y Tributaria" />
             </div>
 
             <div class="ng-field">
-              <label class="ng-label" for="ngInputGrado">Grado / Posgrado</label>
-              <input type="text" id="ngInputGrado" class="ng-input" placeholder="Maestrista en Psicología Clínica" />
+              <label class="ng-label" for="ngInputGrado">Grado / Trayectoria</label>
+              <input type="text" id="ngInputGrado" class="ng-input" placeholder="Ex-funcionaria de SUNAT · Universidad de Lima" />
             </div>
           </div>
         </div>
@@ -126,40 +126,40 @@ const n = datosNegocio;
             <div class="ng-field">
               <label class="ng-label" for="ngInputTelefono">
                 <span>Teléfono Visible</span>
-                <span class="ng-label-hint" id="hintTelefonoFormato">+51 960 332 958</span>
+                <span class="ng-label-hint" id="hintTelefonoFormato">+51 987 594 558</span>
               </label>
-              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder="+51 960 332 958" />
+              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder="+51 987 594 558" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputWhatsapp">
                 <span>WhatsApp API (Sin +)</span>
-                <span class="ng-label-hint" id="hintWhatsappFormato">51960332958</span>
+                <span class="ng-label-hint" id="hintWhatsappFormato">51987594558</span>
               </label>
-              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51960332958" />
+              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51987594558" />
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputEmail">Correo Electrónico Oficial</label>
-              <input type="email" id="ngInputEmail" class="ng-input" placeholder="reynaga.psychologist@gmail.com" />
+              <input type="email" id="ngInputEmail" class="ng-input" placeholder="contacto@contabilidadwii.com" />
             </div>
 
             <!-- Horarios Numéricos -->
             <div class="ng-field">
               <label class="ng-label">Lunes a Viernes</label>
               <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSemanaAbre" class="ng-input" value="08:00" />
+                <input type="time" id="ngHorarioSemanaAbre" class="ng-input" value="08:30" />
                 <span>a</span>
-                <input type="time" id="ngHorarioSemanaCierra" class="ng-input" value="20:00" />
+                <input type="time" id="ngHorarioSemanaCierra" class="ng-input" value="19:00" />
               </div>
             </div>
 
             <div class="ng-field">
               <label class="ng-label">Sábados</label>
               <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSabadoAbre" class="ng-input" value="08:00" />
+                <input type="time" id="ngHorarioSabadoAbre" class="ng-input" value="09:00" />
                 <span>a</span>
-                <input type="time" id="ngHorarioSabadoCierra" class="ng-input" value="20:00" />
+                <input type="time" id="ngHorarioSabadoCierra" class="ng-input" value="13:00" />
               </div>
             </div>
           </div>
@@ -169,25 +169,25 @@ const n = datosNegocio;
         <div class="ng-card">
           <div class="ng-card-header">
             <div>
-              <h2 class="ng-card-title"><i class="fa-solid fa-map-location-dot"></i> Ubicación Principal (Villa El Salvador)</h2>
-              <p class="ng-card-desc">Sede clínica física principal y coordenadas oficiales.</p>
+              <h2 class="ng-card-title"><i class="fa-solid fa-map-location-dot"></i> Ubicación Principal (Surquillo)</h2>
+              <p class="ng-card-desc">Sede principal de atención y coordenadas oficiales.</p>
             </div>
           </div>
 
           <div class="ng-grid-2">
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputDireccion">Dirección Física Completa</label>
-              <input type="text" id="ngInputDireccion" class="ng-input" placeholder="Av. 3 de Octubre con Micaela Bastidas - RUTA B / Sector 3, Grupo 26, Lote comercial 7" />
+              <input type="text" id="ngInputDireccion" class="ng-input" placeholder="Jr. Dante 260" />
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputReferencia">Referencia / Punto de Encuentro</label>
-              <input type="text" id="ngInputReferencia" class="ng-input" placeholder="Frente a Paradero 3 de Octubre" />
+              <input type="text" id="ngInputReferencia" class="ng-input" placeholder="Cerca a Av. Angamos y Av. Paseo de la República" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputDistrito">Distrito</label>
-              <input type="text" id="ngInputDistrito" class="ng-input" placeholder="Villa El Salvador" />
+              <input type="text" id="ngInputDistrito" class="ng-input" placeholder="Surquillo" />
             </div>
 
             <div class="ng-field">
@@ -200,7 +200,7 @@ const n = datosNegocio;
                 <span>Enlace Compartido Google Maps</span>
               </label>
               <div class="ng-input-group-maps">
-                <input type="url" id="ngInputMapsUrl" class="ng-input" placeholder="https://maps.app.goo.gl/g7MFEUi8B6xpSjpn8" />
+                <input type="url" id="ngInputMapsUrl" class="ng-input" placeholder="https://maps.google.com" />
                 <button type="button" class="ng-btn-maps-action ng-btn-maps-test" id="btnProbarMapsUrl" title="Probar enlace actual">
                   <i class="fa-solid fa-circle-play"></i> Probar
                 </button>
@@ -212,12 +212,12 @@ const n = datosNegocio;
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputLat">Latitud</label>
-              <input type="number" step="any" id="ngInputLat" class="ng-input" placeholder="-12.2084" />
+              <input type="number" step="any" id="ngInputLat" class="ng-input" placeholder="-12.1125" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputLng">Longitud</label>
-              <input type="number" step="any" id="ngInputLng" class="ng-input" placeholder="-76.9387" />
+              <input type="number" step="any" id="ngInputLng" class="ng-input" placeholder="-77.0258" />
             </div>
           </div>
         </div>
@@ -233,8 +233,8 @@ const n = datosNegocio;
 
           <div class="ng-grid-3">
             <div class="ng-field">
-              <label class="ng-label" for="ngInputMetricaPacientes">Pacientes</label>
-              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder="450+" />
+              <label class="ng-label" for="ngInputMetricaPacientes">Clientes Asesorados</label>
+              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder="240+" />
             </div>
 
             <div class="ng-field">
@@ -251,22 +251,22 @@ const n = datosNegocio;
           <div class="ng-grid-2 sn-mt-10">
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedInstagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
-              <input type="url" id="ngInputRedInstagram" class="ng-input" placeholder="https://instagram.com/psicologiaamerica" />
+              <input type="url" id="ngInputRedInstagram" class="ng-input" placeholder="https://instagram.com/estudiocusihuaman" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedFacebook"><i class="fa-brands fa-facebook"></i> Facebook</label>
-              <input type="url" id="ngInputRedFacebook" class="ng-input" placeholder="https://facebook.com/psicologiaamerica" />
+              <input type="url" id="ngInputRedFacebook" class="ng-input" placeholder="https://facebook.com/estudiocusihuaman" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedTiktok"><i class="fa-brands fa-tiktok"></i> TikTok</label>
-              <input type="url" id="ngInputRedTiktok" class="ng-input" placeholder="https://tiktok.com/@psicologiaamerica" />
+              <input type="url" id="ngInputRedTiktok" class="ng-input" placeholder="https://tiktok.com/@estudiocusihuaman" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedLinkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</label>
-              <input type="url" id="ngInputRedLinkedin" class="ng-input" placeholder="https://linkedin.com/in/sofia-reynaga" />
+              <input type="url" id="ngInputRedLinkedin" class="ng-input" placeholder="https://linkedin.com/in/lourdes-cusihuaman" />
             </div>
           </div>
         </div>
@@ -298,27 +298,27 @@ const n = datosNegocio;
             <div class="ng-grid-2">
               <div class="ng-field">
                 <label class="ng-label" for="ngInputNombre">Nombre Oficial (ES) *</label>
-                <input type="text" id="ngInputNombre" class="ng-input" placeholder="Consultorio Psicológico América" required />
+                <input type="text" id="ngInputNombre" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
               </div>
 
               <div class="ng-field">
                 <label class="ng-label" for="ngInputNombreCorto">Nombre Corto / Marca (ES)</label>
-                <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder="Psicología América" />
+                <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder="Estudio Cusihuaman" />
               </div>
 
               <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputEnfoques">Enfoques Psicoterapéuticos (ES)</label>
-                <input type="text" id="ngInputEnfoques" class="ng-input" placeholder="Terapia Cognitivo-Conductual (TCC) • Terapia de Aceptación y Compromiso (ACT) • Psicopedagogía • Sistémica" />
+                <label class="ng-label" for="ngInputEnfoques">Especialidades Tributarias (ES)</label>
+                <input type="text" id="ngInputEnfoques" class="ng-input" placeholder="Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Buzón SOL" />
               </div>
 
               <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputBioEs">Biografía Profesional / Resumen Clínico (ES)</label>
-                <textarea id="ngInputBioEs" class="ng-textarea" rows="3" placeholder="Psicóloga clínica y colegiada por el Colegio de Psicólogos del Perú (C.Ps.P. 49425)..."></textarea>
+                <label class="ng-label" for="ngInputBioEs">Biografía Profesional / Resumen (ES)</label>
+                <textarea id="ngInputBioEs" class="ng-textarea" rows="3" placeholder="Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria..."></textarea>
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputHorario">Horario de Atención Descriptivo (ES)</label>
-                <input type="text" id="ngInputHorario" class="ng-input" placeholder="Lunes a Sábado: 8:00 a.m. a 8:00 p.m." />
+                <input type="text" id="ngInputHorario" class="ng-input" placeholder="Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m." />
               </div>
 
               <div class="ng-field span-2">
@@ -328,7 +328,7 @@ const n = datosNegocio;
                     <i class="fa-solid fa-rotate-left"></i> Restaurar
                   </button>
                 </label>
-                <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder="¡Hola Lic. Sofia Reynaga! Deseo agendar una consulta psicológica." />
+                <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder="¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación." />
               </div>
             </div>
           </div>
@@ -339,17 +339,17 @@ const n = datosNegocio;
               <h2 class="ng-card-title"><i class="fa-solid fa-building"></i> Sedes y Modalidades Oficiales (ES)</h2>
             </div>
 
-            <!-- Sede 1: Villa El Salvador -->
+            <!-- Sede 1: Surquillo -->
             <div class="ng-sede-box">
-              <div class="ng-sede-box-badge"><i class="fa-solid fa-hospital"></i> Sede Presencial</div>
+              <div class="ng-sede-box-badge"><i class="fa-solid fa-location-dot"></i> Sede Presencial</div>
               <div class="ng-grid-2">
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesTagEs">Etiqueta / Badge (ES)</label>
-                  <input type="text" id="ngSedeVesTagEs" class="ng-input" placeholder="Sede Villa El Salvador" />
+                  <input type="text" id="ngSedeVesTagEs" class="ng-input" placeholder="Sede Surquillo" />
                 </div>
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesAtencionEs">Horario de Atención (ES)</label>
-                  <input type="text" id="ngSedeVesAtencionEs" class="ng-input" placeholder="Lunes a Sábado (Previa Cita)" />
+                  <input type="text" id="ngSedeVesAtencionEs" class="ng-input" placeholder="Lunes a Viernes (Previa Cita)" />
                 </div>
               </div>
             </div>
@@ -379,19 +379,19 @@ const n = datosNegocio;
             <div class="ng-grid-2">
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputSeoTituloEs">Meta Título (ES)</label>
-                <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder="Consultorio Psicológico América | Terapia, Descarte TDAH/TEA & Talleres en Lima Sur y Online" />
+                <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder="Estudio Cusihuaman | Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT" />
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputSeoDescEs">Meta Descripción (ES)</label>
-                <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="2" placeholder="Atención psicológica profesional y basada en evidencia con la Lic. Sofia Reynaga (C.Ps.P. 49425)..."></textarea>
+                <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="2" placeholder="Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME y regularización..."></textarea>
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputSeoKeywordsEs">
                   <span>Palabras Clave (Separadas por comas)</span>
                 </label>
-                <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder="psicologo villa el salvador, psicologo lima sur, terapia psicologica lima..."></textarea>
+                <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder="contabilidad 4ta categoria, declaracion 5ta categoria, recibos por honorarios sunat, suspension retenciones, estudio contable surquillo..."></textarea>
               </div>
             </div>
           </div>
@@ -410,32 +410,32 @@ const n = datosNegocio;
             <div class="ng-grid-2">
               <div class="ng-field">
                 <label class="ng-label" for="ngInputNombreEn">Official Name (EN)</label>
-                <input type="text" id="ngInputNombreEn" class="ng-input" placeholder="America Psychological Clinic" />
+                <input type="text" id="ngInputNombreEn" class="ng-input" placeholder="Cusihuaman Accounting & Tax Firm" />
               </div>
 
               <div class="ng-field">
                 <label class="ng-label" for="ngInputNombreCortoEn">Short Name / Brand (EN)</label>
-                <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder="America Psychology" />
+                <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder="Estudio Cusihuaman" />
               </div>
 
               <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputEnfoquesEn">Therapeutic Approaches (EN)</label>
-                <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder="Cognitive Behavioral Therapy (CBT) • Acceptance & Commitment Therapy (ACT) • Psychopedagogy" />
+                <label class="ng-label" for="ngInputEnfoquesEn">Tax Specializations (EN)</label>
+                <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder="4th Category Income • 5th Category Payroll • SUNAT Tax Compliance • SOL Mailbox Advisory" />
               </div>
 
               <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputBioEn">Clinical Summary / Biography (EN)</label>
-                <textarea id="ngInputBioEn" class="ng-textarea" rows="3" placeholder="Clinical psychologist licensed by the College of Psychologists of Peru (C.Ps.P. 49425)..."></textarea>
+                <label class="ng-label" for="ngInputBioEn">Professional Summary (EN)</label>
+                <textarea id="ngInputBioEn" class="ng-textarea" rows="3" placeholder="Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience..."></textarea>
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputHorarioEn">Operating Hours Description (EN)</label>
-                <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder="Monday to Saturday: 8:00 a.m. to 8:00 p.m." />
+                <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder="Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m." />
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputWhatsappMensajeEn">Default WhatsApp Message (EN)</label>
-                <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder="Hello Lic. Sofia Reynaga! I'd like to book a psychological consultation." />
+                <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder="Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT." />
               </div>
             </div>
           </div>
@@ -446,17 +446,17 @@ const n = datosNegocio;
               <h2 class="ng-card-title"><i class="fa-solid fa-building"></i> Offices & Modalities (EN)</h2>
             </div>
 
-            <!-- Sede 1: Villa El Salvador (EN) -->
+            <!-- Sede 1: Surquillo (EN) -->
             <div class="ng-sede-box">
-              <div class="ng-sede-box-badge"><i class="fa-solid fa-hospital"></i> In-Person Clinic</div>
+              <div class="ng-sede-box-badge"><i class="fa-solid fa-location-dot"></i> In-Person Office</div>
               <div class="ng-grid-2">
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesTagEn">Tag / Badge (EN)</label>
-                  <input type="text" id="ngSedeVesTagEn" class="ng-input" placeholder="Villa El Salvador Clinic" />
+                  <input type="text" id="ngSedeVesTagEn" class="ng-input" placeholder="Surquillo Office" />
                 </div>
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesAtencionEn">Opening Hours (EN)</label>
-                  <input type="text" id="ngSedeVesAtencionEn" class="ng-input" placeholder="Monday to Saturday (By Appointment)" />
+                  <input type="text" id="ngSedeVesAtencionEn" class="ng-input" placeholder="Monday to Friday (By Appointment)" />
                 </div>
               </div>
             </div>
@@ -486,17 +486,17 @@ const n = datosNegocio;
             <div class="ng-grid-2">
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputSeoTituloEn">Meta Title (EN)</label>
-                <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder="America Psychological Clinic | Psychotherapy, ADHD/ASD Screening in Lima & Online" />
+                <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder="Estudio Cusihuaman | Tax & Accounting Services in Peru (4th & 5th Category)" />
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputSeoDescEn">Meta Description (EN)</label>
-                <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="2" placeholder="Evidence-based psychological consultation with Lic. Sofia Reynaga (C.Ps.P. 49425)..."></textarea>
+                <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="2" placeholder="Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer. 4th & 5th category tax filings..."></textarea>
               </div>
 
               <div class="ng-field span-2">
                 <label class="ng-label" for="ngInputSeoKeywordsEn">Keywords (Comma separated)</label>
-                <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder="psychologist villa el salvador lima, psychotherapy lima peru, online therapy peru..."></textarea>
+                <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder="peru tax consultant, 4th category tax filing peru, accounting firm surquillo lima..."></textarea>
               </div>
             </div>
           </div>

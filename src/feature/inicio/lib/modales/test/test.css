@@ -7,11 +7,11 @@
 
 .modal-test-dialog {
   width: 95%;
-  max-width: 1020px;
+  max-width: 1120px;
   background: var(--wb, #ffffff);
   border: 1px solid var(--brd, #e2e8f0);
   border-radius: var(--r_l, 1.5vh);
-  padding: 2.2rem 2.4rem;
+  padding: 2.4rem 2.8rem;
   box-shadow: 0 25px 65px rgba(7, 25, 35, 0.5);
   box-sizing: border-box;
   animation: modalTestPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);

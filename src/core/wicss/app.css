@@ -574,12 +574,20 @@ img {
   border: 1px solid rgba(255, 102, 0, 0.3);
 }
 
+.header-right-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2vw;
+  margin-left: auto;
+}
+
 .header-nav-desktop {
   display: flex;
   align-items: center;
-  gap: 1.6vw;
+  gap: 1.1vw;
   font-weight: 600;
-  font-size: clamp(0.85rem, 0.9vw, 0.98rem);
+  font-size: clamp(0.78rem, 0.82vw, 0.86rem);
 }
 
 .header-nav-link, .header-nav-item {
@@ -587,6 +595,7 @@ img {
   transition: color 0.2s ease;
   white-space: nowrap;
   text-decoration: none;
+  font-size: clamp(0.78rem, 0.82vw, 0.86rem);
 }
 
 .header-nav-link:hover, .header-nav-item:hover {
@@ -597,7 +606,7 @@ img {
 .header-actions-row, .header-actions-desktop {
   display: flex;
   align-items: center;
-  gap: 0.8vw;
+  gap: 0.65vw;
   flex-shrink: 0;
 }
 

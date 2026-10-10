@@ -22,10 +22,10 @@ let _memoriaCorreos = null;
 export function obtenerAjustesCorreo() {
   const guardado = getls(STORAGE_KEY_AJUSTES);
   return {
-    remitenteNombre: guardado?.remitenteNombre || 'Solgas Surquillo',
-    remitenteEmail: guardado?.remitenteEmail || 'pedidos@solgassurquillo.com',
-    responderA: guardado?.responderA || 'pedidos@solgassurquillo.com',
-    dominio: 'solgassurquillo.com'
+    remitenteNombre: guardado?.remitenteNombre || 'Estudio Cusihuaman',
+    remitenteEmail: guardado?.remitenteEmail || 'contacto@contabilidadwii.com',
+    responderA: guardado?.responderA || 'contacto@contabilidadwii.com',
+    dominio: 'contabilidadwii.com'
   };
 }
 

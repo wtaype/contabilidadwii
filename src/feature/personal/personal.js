@@ -111,6 +111,7 @@ export function inicializarPersonal() {
 
   btnCollapse?.addEventListener('click', () => {
     const isCollapsed = document.documentElement.classList.toggle('is-collapsed');
+    savels('contabilidad_sidebar_collapsed', isCollapsed);
     savels('gaswii_sidebar_collapsed', isCollapsed);
     if (iconCollapse && labelCollapse) {
       iconCollapse.className = isCollapsed ? 'fa-solid fa-arrow-right-long' : 'fa-solid fa-arrow-left-long';

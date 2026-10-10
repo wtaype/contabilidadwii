@@ -26,19 +26,18 @@ export async function solicitarDevolucionChatWii(datos = {}, lang = 'es') {
       setTimeout(() => reject(new Error('Timeout ChatWii')), 2200)
     );
 
-    const promptIa = `El contribuyente está completando el diagnóstico tributario preventivo y consulta lo siguiente:
-- Régimen / Caso seleccionado: ${datos.emocionTexto || datos.emocionId}
+    const promptIa = `El contribuyente solicita orientación tributaria:
+- Tipo de consulta: ${datos.emocionTexto || datos.emocionId}
 - Detalle de su caso: "${datos.desahogo.trim()}"
-- Periodo fiscal: ${datos.tiempo || 'Reciente'}
+- Periodo fiscal: ${datos.tiempo || 'Actual'}
 Idioma requerido: ${esEn ? 'English' : 'Spanish'}.
 
-REGLAS OBLIGATORIAS DE ESTRUCTURA EN DOS PÁRRAFOS:
-1. PÁRRAFO 1 (Diagnóstico Técnico y Marco Legal SUNAT):
-   - Inicia con una evaluación técnica, profesional y tranquilizadora.
-   - Analiza el caso tributario específico (${datos.emocionTexto || datos.emocionId}) y lo que detalló en su consulta. Explica con claridad de auditor tributario qué aspectos de la normativa de SUNAT aplican (Rentas de 4ta/5ta categoría, retenciones del 8%, deducción 7+3 UIT, esquelas de SOL o cruces de ITF).
-2. PÁRRAFO 2 (Estrategia Preventiva y Acompañamiento Ex-SUNAT):
-   - Explica cómo con la asesoría de Lourdes Cusihuaman Gálvez (ex-funcionaria de SUNAT) se puede blindar la situación, subsanar contingencias o recuperar saldos a favor con total seguridad jurídica.
-Separa ambos párrafos con un salto doble de línea exacto (\\n\\n).`;
+REGLAS DE RESPUESTA:
+- Sé conciso, claro y directo (máximo 2 párrafos cortos de 2 a 3 líneas cada uno).
+- NO uses frases redundantes como "Diagnóstico Preliminar", "En este diagnóstico" o introducciones largas.
+- PÁRRAFO 1: Explica en sencillo la clave del trámite o normativa de SUNAT que aplica a su caso.
+- PÁRRAFO 2: Explica la solución práctica con la asesoría de Lourdes Cusihuaman (ex-SUNAT) para resolverlo a tiempo.
+Separa ambos párrafos con salto doble de línea (\\n\\n).`;
 
     const systemInstruction = `Eres ChatWii, el asesor tributario inteligente de Estudio Cusihuaman y de Lourdes Cusihuaman Gálvez (ex-funcionaria de SUNAT y especialista en 4ta y 5ta categoría). Tu tono es técnico, seguro, preventivo y claro.`;
 

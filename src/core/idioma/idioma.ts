@@ -37,6 +37,19 @@ export const DEFAULT_LANG = 'es';
  * buildRuta('/personal', 'en') -> '/en/personal'
  * buildRuta('/personal', 'es') -> '/personal'
  */
+/**
+ * Extrae el valor localizado de un campo de negocio, servicio o entidad para N idiomas.
+ * Si el campo es objeto { es: '...', en: '...', it: '...' }, extrae campo[idioma] con fallback al idioma por defecto.
+ * Si es string plano o primitivo, lo retorna directamente.
+ */
+export function resolverIdiomas(campo: any, idioma: string = DEFAULT_LANG, fallback: string = ''): string {
+  if (campo === null || campo === undefined) return fallback;
+  if (typeof campo === 'object' && !Array.isArray(campo)) {
+    return campo[idioma] || campo[DEFAULT_LANG] || Object.values(campo)[0] || fallback;
+  }
+  return String(campo);
+}
+
 export function buildRuta(ruta: string = '/', lang: string = DEFAULT_LANG): string {
   const cleanPath = ruta.startsWith('/') ? ruta : `/${ruta}`;
   if (!lang || lang === DEFAULT_LANG) {

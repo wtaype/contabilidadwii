@@ -115,7 +115,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
         <a 
           href={buildRuta('/libro-reclamaciones', idioma)} 
           class="footer-claims-card"
-          title={idioma === 'en' ? 'Open Virtual Complaints Book' : 'Abrir Libro de Reclamaciones Virtual'}
+          title={t.reclamos_btn}
         >
           <img 
             src="/imgwii/Libro-de-reclamaciones.webp" 
@@ -125,7 +125,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
             class="footer-claims-img"
           />
           <span class="footer-claims-tag">
-            <i class="fa-solid fa-shield-check"></i> {idioma === 'en' ? 'Virtual Book 100% Compliant' : 'Libro Virtual 100% Conforme'}
+            <i class="fa-solid fa-shield-check"></i> {t.reclamos_tag}
           </span>
         </a>
       </div>

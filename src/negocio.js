@@ -1,7 +1,7 @@
 // src/negocio.js
-// 🎯 Fachada Canónica y Reactiva de Negocio y Servicios (Consultorio Psicológico América)
+// 🎯 Fachada Canónica y Reactiva de Negocio y Servicios (Estudio Contable Cusihuaman)
 // Fuente Primaria: Base de Datos Firestore ('negocio/principal' y 'servicios')
-// Respaldo Seguro Offline / Semilla: src/semillas/servicios.json
+// Respaldo Seguro Offline / Semilla: src/semillas/servicios.json y src/semillas/negocio.json
 
 import serviciosSemilla from './semillas/servicios.json';
 import { obtenerDatosNegocio, parseFirestoreDoc } from './feature/personal/modulos/negocio/dataNegocio.js';
@@ -110,7 +110,7 @@ export const datosNegocio = {
   get telefonoLimpio() { return (this.telefono || '').replace(/\D/g, ''); },
   get whatsapp() { return this.raw.contacto?.whatsapp || (this.telefono || '').replace(/\D/g, ''); },
   get whatsappLimpio() { return (this.whatsapp || '').replace(/\D/g, ''); },
-  get colegiaturaNumero() { return (this.colegiatura || '').replace(/\D/g, '') || '49425'; },
+  get colegiaturaNumero() { return (this.colegiatura || '').replace(/\D/g, ''); },
   get whatsappMensaje() {
     const m = this.raw.contacto?.whatsappMensaje;
     return typeof m === 'object' && m !== null ? (m.es || '') : (m || '');
@@ -126,12 +126,12 @@ export const datosNegocio = {
   },
   get email() { return this.raw.contacto?.email || ''; },
   get direccionSede() { return this.raw.ubicacion?.direccion || ''; },
-  get distritoSede() { return this.raw.ubicacion?.distrito || 'Villa El Salvador'; },
+  get distritoSede() { return this.raw.ubicacion?.distrito || 'Surquillo'; },
   get ciudad() { return this.raw.ubicacion?.ciudad || 'Lima'; },
   get pais() { return this.raw.ubicacion?.pais || 'PE'; },
-  get codigoPostal() { return this.raw.ubicacion?.codigoPostal || '15834'; },
+  get codigoPostal() { return this.raw.ubicacion?.codigoPostal || '15047'; },
   get mapsUrl() { return this.raw.ubicacion?.mapsUrl || ''; },
-  get coordenadas() { return this.raw.ubicacion?.coordenadas || { lat: -12.2084, lng: -76.9387 }; },
+  get coordenadas() { return this.raw.ubicacion?.coordenadas || { lat: -12.1125, lng: -77.0258 }; },
   get horario() {
     const h = this.raw.contacto?.horario;
     return typeof h === 'object' && h !== null ? (h.es || '') : (h || '');
@@ -175,10 +175,10 @@ export const datosNegocio = {
   },
   get metricas() { return this.raw.metricas || {}; },
   get productos() {
-    return _serviciosBuildFirestore && _serviciosBuildFirestore.length > 0 ? _serviciosBuildFirestore : infoServicios;
+    return _serviciosBuildFirestore && _serviciosBuildFirestore.length > 0 ? _serviciosBuildFirestore : serviciosSemilla;
   },
   get servicios() {
-    return this.productos.filter(p => !p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad');
+    return this.productos.filter(p => !p.tipo || p.tipo === 'servicio' || p.tipo === 'asesoria' || p.tipo === 'tributario' || p.tipo === 'contabilidad');
   },
   get talleres() {
     return this.productos.filter(p => p.tipo === 'taller');

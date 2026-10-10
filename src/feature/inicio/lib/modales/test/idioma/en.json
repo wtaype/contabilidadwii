@@ -37,9 +37,9 @@
   "lblModalidad": "7. Advisory Format",
   "placeholderModalidad": "Select format...",
   "modalidades": [
-    "💻 Online (Meet / Zoom / WhatsApp)",
-    "📍 In-Person (Jr. Dante 260, Surquillo)",
-    "📞 Direct Phone Call"
+    "💻 100% Online (Meet / Zoom / WhatsApp)",
+    "📞 Direct Phone Call",
+    "📍 In-Person in Surquillo (By Appointment)"
   ],
   "lblFecha": "Preferred Date",
   "lblHora": "Preferred Time",

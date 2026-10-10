@@ -2,7 +2,7 @@
 // src/feature/inicio/secciones/04-calculadora/Calculadora.astro
 // 4. COTIZADOR TRANSPARENTE DE SESIONES Y PAQUETES DE AHORRO FAMILIAR
 import { datosNegocio, consultarProductosFirestoreFresco } from '../../../../negocio.js';
-import { resolverIdioma } from '../../idioma/idioma.js';
+import { resolverIdioma, resolverIdiomas } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
 import calcCss from './calculadora.css?inline';
@@ -15,7 +15,7 @@ const { idioma = Astro.props.idioma || Astro.currentLocale || 'es' } = Astro.pro
 const t = resolverIdioma({ es, en }, idioma);
 
 const todosServicios = await consultarProductosFirestoreFresco();
-const serviciosClinicos = todosServicios.filter((p: any) => (!p.tipo || p.tipo === 'tributario' || p.tipo === 'contabilidad') && p.activo !== false);
+const itemsCotizador = todosServicios.filter((p: any) => p.activo !== false);
 
 const telefonoLimpio = datosNegocio.telefonoLimpio;
 const whatsappNumero = datosNegocio.whatsappLimpio;
@@ -50,28 +50,21 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
               <span><i class="fa-solid fa-file-invoice-dollar"></i> {t.personas_label}</span>
             </label>
             <select id="calcServicio" class="calc-select-tamano">
-              {serviciosClinicos.map((s: any, idx: number) => {
-                const nombre = typeof s.nombre === 'object' ? (s.nombre[idioma] || s.nombre.es) : s.nombre;
-                const precio = Number(s.precioPEN || s.precio || 85);
-                const esDiagnostico = s.id.includes('diagnostico') || s.id.includes('tdah') || s.id.includes('evaluacion');
+              {itemsCotizador.map((s: any, idx: number) => {
+                const nombre = resolverIdiomas(s.nombre, idioma);
+                const precio = Number(s.precioPEN || s.precio || 80);
+                const esFijo = s.tipo === 'asesoria';
                 return (
                   <option 
                     value={precio} 
                     data-nombre={nombre} 
-                    data-fijo={esDiagnostico ? "true" : undefined}
+                    data-fijo={esFijo ? "true" : undefined}
                     selected={idx === 0}
                   >
                     {nombre} (S/ {precio.toFixed(2)})
                   </option>
                 );
               })}
-              <option 
-                value="600" 
-                data-fijo="true" 
-                data-nombre={idioma === 'en' ? 'Annual Comprehensive Tax Shielding' : 'Blindaje Anual 4ta y 5ta Categoría'}
-              >
-                {idioma === 'en' ? 'Annual Tax Shielding (S/ 600.00 - Full Coverage)' : 'Blindaje Anual 4ta y 5ta (S/ 600.00 - Cobertura Anual)'}
-              </option>
             </select>
           </div>
 
@@ -82,16 +75,14 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
             </label>
             <select id="calcModalidad" class="calc-select-tamano">
               {sedes.map((sede: any) => {
-                const atencion = idioma === 'en' ? (sede.atencionEn || sede.atencion) : sede.atencion;
+                const nombreSede = resolverIdiomas(sede.nombre, idioma);
+                const atencion = resolverIdiomas(sede.atencion, idioma);
                 return (
                   <option value={sede.id || sede.nombre}>
-                    Presencial - {sede.nombre} ({atencion})
+                    {nombreSede} ({atencion})
                   </option>
                 );
               })}
-              <option value="virtual" selected>
-                {idioma === 'en' ? 'Online Therapy (Meet / Zoom / WhatsApp)' : 'Terapia Online (Meet / Zoom / WhatsApp)'}
-              </option>
             </select>
           </div>
 
@@ -141,18 +132,19 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
         <div>
           <div class="calc-tips-media">
             <img 
-              src="/imgwii/Woman_smiling_in_law_office.jpeg" 
-              alt="Asesoría contable y tributaria profesional - Estudio Cusihuaman" 
+              src="/imgwii/experiencia.webp" 
+              alt="Tarifas claras y presupuesto a tu medida - Estudio Cusihuaman" 
               width="600" 
               height="350" 
               loading="lazy" 
               decoding="async" 
               class="calc-tips-img"
             />
-            <div class="calc-tips-badge-overlay">
-              <span class="badge-serenidad calc-media-badge">
-                <i class="fa-solid fa-shield-halved"></i> {t.foto_badge}
+            <div class="calc-caption-overlay">
+              <span class="calc-caption-badge">
+                <i class="fa-solid fa-calculator"></i> {t.foto_badge}
               </span>
+              <span class="calc-caption-title">{t.foto_titulo}</span>
             </div>
           </div>
 
@@ -236,9 +228,9 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
 
       dTotal.textContent = `S/ ${total.toFixed(2)}`;
 
-      const wsNum = btnWs.getAttribute('data-ws-num') || '51936369384';
-      const detalleSesiones = esFijo ? 'programa integral' : `${numSesiones} sesión(es)`;
-      const msg = `Hola Lic. Sofía, coticé en su web: ${nombreServicio} (${modalidad}) por ${detalleSesiones}. Total: S/ ${total.toFixed(2)}. Deseo agendar mi cita.`;
+      const wsNum = btnWs.getAttribute('data-ws-num') || '51987594558';
+      const detalleSesiones = esFijo ? 'servicio integral' : `${numSesiones} mes(es) / trámite(s)`;
+      const msg = `Hola Lourdes, coticé en su web: ${nombreServicio} (${modalidad}) por ${detalleSesiones}. Total estimado: S/ ${total.toFixed(2)}. Deseo agendar mi consulta.`;
       btnWs.href = `https://wa.me/${wsNum}?text=${encodeURIComponent(msg)}`;
     }
 

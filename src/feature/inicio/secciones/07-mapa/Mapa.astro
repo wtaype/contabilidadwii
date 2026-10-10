@@ -42,36 +42,36 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Da
       <!-- Fila de Información Central de Sedes -->
       <div class="mapa-info-grid">
         
-        <!-- Columna 1: Dirección Sede Miraflores -->
+        <!-- Columna 1: Dirección Sede Surquillo -->
         <div class="mapa-info-col">
-          <div class="mapa-icon-box icon-orange" style="background: var(--brand-soft); color: var(--brand-primary); border: 1px solid rgba(50,83,70,0.25);">
+          <div class="mapa-icon-box icon-orange">
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <div>
             <div class="mapa-info-label">{t.dir_label}</div>
-            <div class="mapa-info-val" style="font-size: 0.85rem;">{direccionSede}</div>
+            <div class="mapa-info-val">{direccionSede}</div>
           </div>
         </div>
 
         <!-- Columna 2: Horarios -->
         <div class="mapa-info-col">
-          <div class="mapa-icon-box icon-blue" style="background: rgba(35,101,125,0.12); color: var(--brand-blue); border: 1px solid rgba(35,101,125,0.25);">
+          <div class="mapa-icon-box icon-blue">
             <i class="fa-solid fa-clock"></i>
           </div>
           <div>
             <div class="mapa-info-label">{t.horario_label}</div>
-            <div class="mapa-info-val" style="font-size: 0.85rem;">{horarioDespacho}</div>
+            <div class="mapa-info-val">{horarioDespacho}</div>
           </div>
         </div>
 
         <!-- Columna 3: Teléfono Citas -->
         <div class="mapa-info-col">
-          <div class="mapa-icon-box icon-green" style="background: rgba(38,122,87,0.12); color: var(--green); border: 1px solid rgba(38,122,87,0.25);">
+          <div class="mapa-icon-box icon-green">
             <i class="fa-solid fa-phone"></i>
           </div>
           <div>
             <div class="mapa-info-label">{t.tel_label}</div>
-            <div class="mapa-info-val" style="font-size: 0.85rem;">{telefonoMostrado}</div>
+            <div class="mapa-info-val">{telefonoMostrado}</div>
           </div>
         </div>
 
@@ -83,7 +83,6 @@ const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent('Jr. Da
             rel="noopener noreferrer" 
             class="mapa-btn-action"
             title={t.btn_maps}
-            style="background: var(--mco, #c5a880); color: #071626; font-weight: 600; border-radius: 1vh;"
           >
             <i class="fa-solid fa-arrow-up-right-from-square"></i> 
             <span>{t.btn_maps}</span>

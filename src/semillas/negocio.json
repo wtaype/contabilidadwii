@@ -8,20 +8,20 @@
   "subtitulo": "Contabilidad & Tributación • Lima - Perú",
 
   "hero": {
-    "titulo": "Liliana Cusihuaman Galvez",
+    "titulo": "Lourdes Cusihuaman Gálvez",
     "subtitulo": "Contabilidad & Tributación • Lima - Perú",
     "imagen": "/imgwii/hero.webp",
-    "alt": "Liliana Cusihuaman Galvez",
+    "alt": "Lourdes Cusihuaman Gálvez",
     "precioHero": "80 soles",
-    "servicio": "Orientación Inicial",
-    "descripcion": "Evaluación clara de tu caso por videollamada o presencial en Surquillo. Te explicamos en sencillo qué hacer sin enredos."
+    "servicio": "Asesoría y Orientación Tributaria",
+    "descripcion": "Evaluación clara de tu caso 100% online por videollamada o presencial previa cita en Surquillo. Te explicamos en sencillo qué hacer ante SUNAT sin enredos."
   },
 
   "identidad": {
-    "nombre": "Liliana Cusihuaman Galvez",
+    "nombre": "Lourdes Cusihuaman Gálvez",
     "nombreCorto": "Estudio Cusihuaman",
     "subtitulo": "Contabilidad & Tributación • Lima - Perú",
-    "especialista": "Liliana Cusihuaman Gálvez",
+    "especialista": "Lourdes Cusihuaman Gálvez",
     "colegiatura": "",
     "titulo": "Asesora Contable y Tributaria",
     "grado": "Ex-funcionaria de SUNAT · Universidad de Lima",
@@ -40,11 +40,13 @@
   },
 
   "contacto": {
-    "telefono": "+51 933 878 512",
-    "whatsapp": "51933878512",
+    "telefono": "+51 987 594 558",
+    "telefonoFijo": "(01) 447-6849",
+    "telefonoSecundario": "+51 936 369 384",
+    "whatsapp": "51987594558",
     "whatsappMensaje": {
-      "es": "¡Hola Liliana! Tengo dudas con mis recibos por honorarios / trámites de SUNAT y deseo orientación.",
-      "en": "Hello Liliana! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."
+      "es": "¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación.",
+      "en": "Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT and would like guidance."
     },
     "email": "contacto@contabilidadwii.com",
     "horario": {

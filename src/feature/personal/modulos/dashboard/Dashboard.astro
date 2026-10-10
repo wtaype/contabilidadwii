@@ -7,15 +7,19 @@ import {
 } from '../../data/personalData.js';
 import { datosNegocio } from '@/negocio.js';
 
-const precioBalon10 = datosNegocio.productos[0]?.precioPEN 
+const precioServicio = datosNegocio.productos[0]?.precioPEN 
   ? `S/ ${Number(datosNegocio.productos[0].precioPEN).toFixed(2)}` 
-  : 'S/ 65.00';
+  : 'S/ 80.00';
+
+const primerServicio = typeof datosNegocio.productos[0]?.nombre === 'object'
+  ? (datosNegocio.productos[0]?.nombre.es || 'Orientación SUNAT')
+  : (datosNegocio.productos[0]?.nombre || 'Orientación SUNAT');
 
 const estadisticas = [
-  { id: 'stat1', titulo: precioBalon10, subtitulo: `${datosNegocio.productos[0]?.nombre || 'Balón 10kg'} (Precio Web)`, icono: 'fa-solid fa-fire-burner', color: 'orange' },
-  { id: 'stat2', titulo: 'S/ 2,840.00', subtitulo: 'Facturado SUNAT', icono: 'fa-solid fa-file-invoice-dollar', color: 'green' },
-  { id: 'stat3', titulo: '124 Clientes', subtitulo: 'Registrados en Gaswii', icono: 'fa-solid fa-address-book', color: 'blue' },
-  { id: 'stat4', titulo: '3 Notas', subtitulo: 'En tu Notepad', icono: 'fa-solid fa-note-sticky', color: 'purple' }
+  { id: 'stat1', titulo: precioServicio, subtitulo: `${primerServicio} (Precio Web)`, icono: 'fa-solid fa-scale-balanced', color: 'orange' },
+  { id: 'stat2', titulo: 'S/ 3,450.00', subtitulo: 'Facturado SUNAT', icono: 'fa-solid fa-file-invoice-dollar', color: 'green' },
+  { id: 'stat3', titulo: '48 Clientes', subtitulo: 'Activos en Cartera', icono: 'fa-solid fa-address-book', color: 'blue' },
+  { id: 'stat4', titulo: '3 Notas', subtitulo: 'Agenda Tributaria', icono: 'fa-solid fa-note-sticky', color: 'purple' }
 ];
 
 interface Props {
@@ -30,20 +34,20 @@ const { esActivo = true } = Astro.props;
   <div class="ps-section-header">
     <div class="ps-section-title-wrap">
       <h1 class="ps-section-title">Panel General</h1>
-      <p class="ps-section-sub">Gestión de precios vigentes en la web, atención por WhatsApp y clientes registrados.</p>
+      <p class="ps-section-sub">Gestión de tarifas tributarias vigentes en la web, asesoría por WhatsApp y cartera de clientes.</p>
     </div>
     <div class="ps-header-actions">
       <a 
-        href={`https://wa.me/${datosNegocio.telefonoLimpio || '51936369384'}`}
+        href={`https://wa.me/${datosNegocio.telefonoLimpio || '51987594558'}`}
         target="_blank" 
         rel="noopener noreferrer" 
         class="ps-btn ps-btn-secondary"
-        title="Abrir canal WhatsApp de Solgas Surquillo"
+        title={`Abrir canal WhatsApp de ${datosNegocio.nombreCorto || 'Estudio Cusihuaman'}`}
       >
-        <i class="fa-brands fa-whatsapp" style="color:var(--green);"></i> WhatsApp Pedidos
+        <i class="fa-brands fa-whatsapp" style="color:var(--green);"></i> WhatsApp Asesoría
       </a>
       <button class="ps-btn ps-btn-primary" data-jump-to="productos">
-        <i class="fa-solid fa-tags"></i> Actualizar Precios Web
+        <i class="fa-solid fa-tags"></i> Actualizar Tarifas Web
       </button>
     </div>
   </div>
@@ -69,12 +73,12 @@ const { esActivo = true } = Astro.props;
     <!-- Columna Izquierda: Precios y Clientes -->
     <div style="display:flex; flex-direction:column; gap:20px;">
       
-      <!-- Tabla: Precios Vigentes en la Web (Sede Dante 260) -->
+      <!-- Tabla: Tarifas Vigentes en la Web Principal -->
       <div class="db-table-wrap">
         <div class="db-table-head">
           <div>
-            <strong class="db-table-head-title">Precios Vigentes en la Web Principal</strong>
-            <p style="font-size:var(--fz_s3); color:var(--muted); margin:0;">Estos son los precios que los clientes ven al entrar a gaswii.com</p>
+            <strong class="db-table-head-title">Servicios Contables y Tarifas Vigentes</strong>
+            <p style="font-size:var(--fz_s3); color:var(--muted); margin:0;">Honorarios y servicios oficiales publicados en la web del Estudio Cusihuaman</p>
           </div>
           <button class="ps-btn ps-btn-secondary" style="padding:4px 10px; font-size:var(--fz_s3);" data-jump-to="productos">
             <i class="fa-solid fa-pen-to-square"></i> Modificar
@@ -84,25 +88,27 @@ const { esActivo = true } = Astro.props;
         <table class="db-table">
           <thead>
             <tr>
-              <th>Producto</th>
-              <th>Tipo</th>
-              <th>Precio Líquido</th>
-              <th>Envase</th>
-              <th>Stock</th>
+              <th>Servicio</th>
+              <th>Enfoque</th>
+              <th>Honorario</th>
+              <th>Modalidad</th>
               <th>Estado</th>
             </tr>
           </thead>
           <tbody>
-            {datosNegocio.productos.map((p) => (
-              <tr>
-                <td><strong>{p.nombre}</strong></td>
-                <td><span class="ps-badge ps-badge-blue">{p.tipo || p.tipoCategoria || 'Gas GLP'}</span></td>
-                <td><strong style="color:var(--brand-orange); font-size:var(--fz_m);">S/ {Number(p.precioPEN || 0).toFixed(2)}</strong></td>
-                <td>{p.precioEnvase && p.precioEnvase > 0 ? `S/ ${Number(p.precioEnvase).toFixed(2)}` : '—'}</td>
-                <td>{p.stock} unid.</td>
-                <td><span class="ps-badge ps-badge-success">{p.estado || 'Activo'}</span></td>
-              </tr>
-            ))}
+            {datosNegocio.productos.map((p) => {
+              const nom = typeof p.nombre === 'object' ? (p.nombre.es || '') : (p.nombre || '');
+              const mod = typeof p.modalidad === 'object' ? (p.modalidad.es || '') : (p.modalidad || 'Online y Presencial');
+              return (
+                <tr>
+                  <td><strong>{nom}</strong></td>
+                  <td><span class="ps-badge ps-badge-blue">{p.enfoque || p.tipo || 'Tributario'}</span></td>
+                  <td><strong style="color:var(--brand-orange); font-size:var(--fz_m);">S/ {Number(p.precioPEN || 0).toFixed(2)}</strong></td>
+                  <td><small>{mod}</small></td>
+                  <td><span class="ps-badge ps-badge-success">{p.activo !== false ? 'Activo' : 'Pausado'}</span></td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -111,11 +117,11 @@ const { esActivo = true } = Astro.props;
       <div class="db-table-wrap">
         <div class="db-table-head">
           <div>
-            <strong class="db-table-head-title">Directorio de Clientes Recientes</strong>
-            <p style="font-size:var(--fz_s3); color:var(--muted); margin:0;">Usuarios registrados desde la web y clientes habituales de Surquillo</p>
+            <strong class="db-table-head-title">Cartera de Clientes Recientes</strong>
+            <p style="font-size:var(--fz_s3); color:var(--muted); margin:0;">Clientes asesorados en Surquillo, Lima y a nivel nacional</p>
           </div>
           <button class="ps-btn ps-btn-secondary" style="padding:4px 10px; font-size:var(--fz_s3);" data-jump-to="clientes">
-            Ver los 124 clientes
+            Ver clientes
           </button>
         </div>
 
@@ -124,8 +130,8 @@ const { esActivo = true } = Astro.props;
             <tr>
               <th>Cliente</th>
               <th>Teléfono</th>
-              <th>Dirección de Entrega</th>
-              <th>Pedido Habitual</th>
+              <th>Ubicación</th>
+              <th>Asesoría / Régimen</th>
               <th>Comprobante</th>
             </tr>
           </thead>

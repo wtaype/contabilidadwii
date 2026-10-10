@@ -322,7 +322,7 @@ function renderizarEtapa() {
     try {
       wiSelectEmocionInst = wiSelect('#testSelectEmocion', {
         placeholder: t.placeholderEmocion,
-        searchPlaceholder: 'Buscar cómo te sientes...',
+        searchPlaceholder: 'Buscar consulta o trámite...',
         onChange: (val) => {
           estadoTest.emocionId = val;
           const found = (t.opcionesEmocion || []).find(o => o.id === val);

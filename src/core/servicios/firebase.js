@@ -1,5 +1,5 @@
 // src/core/servicios/firebase.js
-// Instancia Base Singleton de Firebase para Psicologiawii con App Check Enterprise (JavaScript Puro)
+// Instancia Base Singleton de Firebase para ContabilidadWii con App Check Enterprise (JavaScript Puro)
 
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
@@ -9,7 +9,7 @@ import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'firebase/app-ch
 export const app = getApps()[0] || initializeApp({
   apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
   authDomain: import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'psicologiawii',
+  projectId: import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'contabilidadwii',
   storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,

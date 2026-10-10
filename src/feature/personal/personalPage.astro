@@ -1,9 +1,10 @@
 ---
 // src/feature/personal/personalPage.astro
-// Entrada Principal del Feature Personal (Solgas Surquillo)
+// Entrada Principal del Feature Personal (Estudio Cusihuaman)
 // Layout: Sonrisa.astro · Los 14 Módulos Operativos · 100% Cero CSS Inline
 
 import Sonrisa from './layout/Sonrisa.astro';
+import { datosNegocio } from '@/negocio.js';
 
 // Módulos 1 a 6
 import Dashboard from './modulos/dashboard/Dashboard.astro';
@@ -65,7 +66,7 @@ const estilosModulos = [
 ].join('\n');
 ---
 
-<Sonrisa titulo="Dashboard del Dueño · Solgas Surquillo" moduloActivo={moduloActivo} idioma={idioma}>
+<Sonrisa titulo={`Panel de Gestión · ${datosNegocio.nombreCorto || 'Estudio Cusihuaman'}`} moduloActivo={moduloActivo} idioma={idioma}>
   <!-- Inyección limpia de CSS de los 14 módulos (0 CSS en runtime) -->
   <style slot="modulo-css" is:global set:html={estilosModulos}></style>
 

@@ -128,7 +128,7 @@ export function inicializarNegocio() {
   // ── ACTUALIZACIÓN DE PREVIEWS EN TIEMPO REAL ──
   inputImagenSede?.addEventListener('input', () => {
     const val = inputImagenSede.value.trim();
-    if (imgHeroPreview) imgHeroPreview.src = val || '/imgwii/hero/psicologa-sofia-reynaga.webp';
+    if (imgHeroPreview) imgHeroPreview.src = val || '/imgwii/hero.webp';
   });
 
   inputLogo?.addEventListener('input', () => {
@@ -143,21 +143,21 @@ export function inicializarNegocio() {
 
   // ── ASISTENTE DE GOOGLE MAPS ──
   btnBuscarGoogleMaps?.addEventListener('click', () => {
-    const dir = inputDireccion?.value?.trim() || 'Av. 3 de Octubre Villa El Salvador Lima';
+    const dir = inputDireccion?.value?.trim() || 'Jr. Dante 260 Surquillo Lima';
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dir)}`, '_blank');
   });
 
   btnProbarMapsUrl?.addEventListener('click', () => {
-    const url = inputMapsUrl?.value?.trim() || 'https://maps.app.goo.gl/g7MFEUi8B6xpSjpn8';
+    const url = inputMapsUrl?.value?.trim() || 'https://maps.google.com';
     window.open(url, '_blank');
   });
 
   // ── SALUDO DINÁMICO WHATSAPP ──
   btnRestaurarMensajeWs?.addEventListener('click', () => {
     const saludo = Saludar ? Saludar() : 'Hola';
-    const esp = inputEspecialista?.value?.trim() || 'Lic. Sofia Reynaga';
+    const esp = inputEspecialista?.value?.trim() || 'Lourdes';
     if (inputWhatsappMensaje) {
-      inputWhatsappMensaje.value = `¡${saludo} ${esp}! Deseo agendar una consulta psicológica.`;
+      inputWhatsappMensaje.value = `¡${saludo} ${esp}! Deseo orientación sobre mis trámites y declaraciones ante SUNAT.`;
       Notificacion('Mensaje restaurado', 'info', 1800);
     }
   });
@@ -177,7 +177,7 @@ export function inicializarNegocio() {
     const years = calcularAnosTrayectoria(fechaLanz);
     if (ngYearsText) ngYearsText.textContent = `${years} años`;
 
-    const foto = cfg.identidad?.imagenSede || '/imgwii/hero/psicologa-sofia-reynaga.webp';
+    const foto = cfg.identidad?.imagenSede || '/imgwii/hero.webp';
     const logo = cfg.identidad?.logo || '/imgwii/logo.webp';
     const logoFull = cfg.identidad?.logoFull || '/imgwii/logo_full.webp';
     if (inputImagenSede) inputImagenSede.value = foto;
@@ -212,10 +212,10 @@ export function inicializarNegocio() {
     if (inputWhatsapp) inputWhatsapp.value = cfg.contacto?.whatsapp || '';
     if (inputEmail) inputEmail.value = cfg.contacto?.email || '';
 
-    if (ngHorarioSemanaAbre) ngHorarioSemanaAbre.value = cfg.horarios?.semana?.abre || '08:00';
-    if (ngHorarioSemanaCierra) ngHorarioSemanaCierra.value = cfg.horarios?.semana?.cierra || '20:00';
-    if (ngHorarioSabadoAbre) ngHorarioSabadoAbre.value = cfg.horarios?.sabado?.abre || '08:00';
-    if (ngHorarioSabadoCierra) ngHorarioSabadoCierra.value = cfg.horarios?.sabado?.cierra || '20:00';
+    if (ngHorarioSemanaAbre) ngHorarioSemanaAbre.value = cfg.horarios?.semana?.abre || '08:30';
+    if (ngHorarioSemanaCierra) ngHorarioSemanaCierra.value = cfg.horarios?.semana?.cierra || '19:00';
+    if (ngHorarioSabadoAbre) ngHorarioSabadoAbre.value = cfg.horarios?.sabado?.abre || '09:00';
+    if (ngHorarioSabadoCierra) ngHorarioSabadoCierra.value = cfg.horarios?.sabado?.cierra || '13:00';
 
     // Horario Texto
     if (inputHorario) {
@@ -245,21 +245,21 @@ export function inicializarNegocio() {
     // Ubicación
     if (inputDireccion) inputDireccion.value = cfg.ubicacion?.direccion || '';
     if (inputReferencia) inputReferencia.value = cfg.ubicacion?.referencia || '';
-    if (inputDistrito) inputDistrito.value = cfg.ubicacion?.distrito || 'Villa El Salvador';
+    if (inputDistrito) inputDistrito.value = cfg.ubicacion?.distrito || 'Surquillo';
     if (inputCiudad) inputCiudad.value = cfg.ubicacion?.ciudad || 'Lima, PE';
     if (inputMapsUrl) inputMapsUrl.value = cfg.ubicacion?.mapsUrl || '';
-    if (inputLat) inputLat.value = cfg.ubicacion?.coordenadas?.lat ?? -12.2084;
-    if (inputLng) inputLng.value = cfg.ubicacion?.coordenadas?.lng ?? -76.9387;
+    if (inputLat) inputLat.value = cfg.ubicacion?.coordenadas?.lat ?? -12.1125;
+    if (inputLng) inputLng.value = cfg.ubicacion?.coordenadas?.lng ?? -77.0258;
 
     // Sedes
     const sedes = Array.isArray(cfg.sedes) ? cfg.sedes : [];
-    const sedeVes = sedes.find(s => s.id === 'ves') || sedes[0] || {};
+    const sedeSurquillo = sedes.find(s => s.id === 'surquillo') || sedes[0] || {};
     const sedeVirtual = sedes.find(s => s.id === 'virtual' || s.modalidad === 'Virtual') || sedes[1] || {};
 
-    if (ngSedeVesTagEs) ngSedeVesTagEs.value = typeof sedeVes.tag === 'object' ? (sedeVes.tag?.es || '') : (sedeVes.tag || 'Sede Villa El Salvador');
-    if (ngSedeVesAtencionEs) ngSedeVesAtencionEs.value = typeof sedeVes.atencion === 'object' ? (sedeVes.atencion?.es || '') : (sedeVes.atencion || 'Lunes a Sábado (Previa Cita)');
-    if (ngSedeVesTagEn) ngSedeVesTagEn.value = typeof sedeVes.tag === 'object' ? (sedeVes.tag?.en || '') : (sedeVes.tagEn || 'Villa El Salvador Clinic');
-    if (ngSedeVesAtencionEn) ngSedeVesAtencionEn.value = typeof sedeVes.atencion === 'object' ? (sedeVes.atencion?.en || '') : (sedeVes.atencionEn || 'Monday to Saturday (By Appointment)');
+    if (ngSedeVesTagEs) ngSedeVesTagEs.value = typeof sedeSurquillo.tag === 'object' ? (sedeSurquillo.tag?.es || '') : (sedeSurquillo.tag || 'Sede Surquillo');
+    if (ngSedeVesAtencionEs) ngSedeVesAtencionEs.value = typeof sedeSurquillo.atencion === 'object' ? (sedeSurquillo.atencion?.es || '') : (sedeSurquillo.atencion || 'Lunes a Viernes (Previa Cita)');
+    if (ngSedeVesTagEn) ngSedeVesTagEn.value = typeof sedeSurquillo.tag === 'object' ? (sedeSurquillo.tag?.en || '') : (sedeSurquillo.tagEn || 'Surquillo Office');
+    if (ngSedeVesAtencionEn) ngSedeVesAtencionEn.value = typeof sedeSurquillo.atencion === 'object' ? (sedeSurquillo.atencion?.en || '') : (sedeSurquillo.atencionEn || 'Monday to Friday (By Appointment)');
 
     if (ngSedeVirtualTagEs) ngSedeVirtualTagEs.value = typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.es || '') : (sedeVirtual.tag || '100% Online');
     if (ngSedeVirtualAtencionEs) ngSedeVirtualAtencionEs.value = typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.es || '') : (sedeVirtual.atencion || 'Horarios Flexibles');

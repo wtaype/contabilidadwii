@@ -37,12 +37,22 @@ export function resolverIdioma(locales = {}, lang = IDIOMA_DEFAULT) {
  * @param {string} [lang='es'] - Idioma actual
  * @returns {string} Ruta con prefijo correspondiente
  */
-export function buildRuta(ruta = '/', lang = IDIOMA_DEFAULT) {
-  const cleanPath = ruta.startsWith('/') ? ruta : `/${ruta}`;
-  if (!lang || lang === IDIOMA_DEFAULT) {
-    return cleanPath;
+/**
+ * Extrae el valor localizado de un campo de negocio, servicio o entidad para N idiomas.
+ * Si el campo es objeto { es: '...', en: '...', pt: '...' }, extrae campo[idioma] con fallback al español.
+ * Si es string plano o primitivo, lo retorna directamente.
+ * 
+ * @param {any} campo - Objeto i18n o string plano
+ * @param {string} [idioma='es'] - Código de idioma
+ * @param {string} [fallback=''] - Valor por defecto
+ * @returns {string}
+ */
+export function resolverIdiomas(campo, idioma = IDIOMA_DEFAULT, fallback = '') {
+  if (campo === null || campo === undefined) return fallback;
+  if (typeof campo === 'object' && !Array.isArray(campo)) {
+    return campo[idioma] || campo[IDIOMA_DEFAULT] || Object.values(campo)[0] || fallback;
   }
-  return cleanPath === '/' ? `/${lang}` : `/${lang}${cleanPath}`;
+  return String(campo);
 }
 
 export default resolverIdioma;

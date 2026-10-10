@@ -1,5 +1,5 @@
 // src/wii.js
-export const id = 'contabilidadwii-web';
+export const id = 'contabilidadwii';
 export const app = 'Estudio Cusihuaman';
 export const by = '@wilder.taype';
 export const linkweb = 'https://contabilidadwii.com/';

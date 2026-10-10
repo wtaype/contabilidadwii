@@ -1,6 +1,6 @@
 // src/core/widev/galeria.js
 // wiGaleria v2.2 — Visor de Imágenes estilo Picasa autocontenido y responsivo
-// Inyección dinámica de CSS adaptado de workwii-web con animaciones de rebote (pop) y soporte táctil
+// Inyección dinámica de CSS con animaciones de rebote (pop) y soporte táctil
 
 import { abrirModal } from './modales.js';
 

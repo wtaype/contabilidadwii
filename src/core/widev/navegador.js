@@ -8,7 +8,7 @@ export const wiPath = {
     const guar = typeof sessionStorage !== 'undefined' ? sessionStorage.ghPath : null;
     if (guar) {
       sessionStorage.removeItem('ghPath');
-      return guar.replace(/^\/wiiprime(\/v\d+)?/, '') || '/';
+      return (guar.startsWith('/') ? guar : '/' + guar) || '/';
     }
     let r = base !== '/' && ruta?.startsWith(base) ? ruta.slice(base.length - 1) || '/' : ruta || '/';
     if (r !== '/' && !r.startsWith('/')) r = '/' + r;

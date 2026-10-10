@@ -12,7 +12,7 @@ import { datosNegocio } from '@/negocio.js';
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <div class="ps-brand">
+    <a href="/" class="ps-brand" title="Ir al Inicio">
       <img src={datosNegocio.logo} alt={datosNegocio.nombre} class="ps-logo" />
       <div class="ps-brand-text">
         <span class="ps-brand-title">{datosNegocio.nombre.toUpperCase()}</span>
@@ -21,7 +21,7 @@ import { datosNegocio } from '@/negocio.js';
           Sede {datosNegocio.distritoSede} · Centro de Operaciones
         </span>
       </div>
-    </div>
+    </a>
   </div>
 
   <!-- Buscador Global Modular -->

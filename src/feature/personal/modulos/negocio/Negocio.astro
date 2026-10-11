@@ -258,29 +258,34 @@ const n = datosNegocio;
           <div class="ng-grid-3">
             <div class="ng-field">
               <label class="ng-label" for="ngInputMetricaPacientes">Clientes Asesorados</label>
-              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder="240+" />
+              <input type="text" id="ngInputMetricaPacientes" class="ng-input ng-input-center" placeholder="+240" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputMetricaSatisfaccion">Satisfacción</label>
-              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input" placeholder="98%" />
+              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input ng-input-center" placeholder="99.4%" />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputMetricaConfidencialidad">Confidencial</label>
-              <input type="text" id="ngInputMetricaConfidencialidad" class="ng-input" placeholder="100%" />
+              <input type="text" id="ngInputMetricaConfidencialidad" class="ng-input ng-input-center" placeholder="100%" />
             </div>
           </div>
 
-          <div class="ng-grid-2 sn-mt-10">
+          <!-- Divisor elegante de subsección interna -->
+          <div class="ng-subseccion-header">
+            <span class="ng-subseccion-title"><i class="fa-solid fa-share-nodes"></i> Enlaces y Redes Oficiales</span>
+            <span class="ng-subseccion-desc">Ingresa solo tu usuario o handle</span>
+          </div>
+
+          <div class="ng-grid-2">
             <!-- 1. YouTube -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedYoutube">
                 <span><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube</span>
-                <span class="ng-label-hint">Solo usuario</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> @</span>
+                <span class="ng-input-handle-prefix">@</span>
                 <input type="text" id="ngInputRedYoutube" class="ng-input-bare" placeholder="usuario o canal" />
               </div>
             </div>
@@ -289,10 +294,9 @@ const n = datosNegocio;
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedFacebook">
                 <span><i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> Facebook</span>
-                <span class="ng-label-hint">Solo usuario</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> /</span>
+                <span class="ng-input-handle-prefix">/</span>
                 <input type="text" id="ngInputRedFacebook" class="ng-input-bare" placeholder="usuario o pagina" />
               </div>
             </div>
@@ -301,10 +305,9 @@ const n = datosNegocio;
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedInstagram">
                 <span><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram</span>
-                <span class="ng-label-hint">Solo usuario</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> @</span>
+                <span class="ng-input-handle-prefix">@</span>
                 <input type="text" id="ngInputRedInstagram" class="ng-input-bare" placeholder="usuario" />
               </div>
             </div>
@@ -312,11 +315,10 @@ const n = datosNegocio;
             <!-- 4. TikTok -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedTiktok">
-                <span><i class="fa-brands fa-tiktok" style="color: var(--ink, #0f172a);"></i> TikTok</span>
-                <span class="ng-label-hint">Solo usuario</span>
+                <span><i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i> TikTok</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-brands fa-tiktok" style="color: var(--ink, #0f172a);"></i> @</span>
+                <span class="ng-input-handle-prefix">@</span>
                 <input type="text" id="ngInputRedTiktok" class="ng-input-bare" placeholder="usuario" />
               </div>
             </div>
@@ -325,10 +327,9 @@ const n = datosNegocio;
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedCanalWhatsapp">
                 <span><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Canal WhatsApp</span>
-                <span class="ng-label-hint">Canal o link</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> wa.me/</span>
+                <span class="ng-input-handle-prefix">wa.me/</span>
                 <input type="text" id="ngInputRedCanalWhatsapp" class="ng-input-bare" placeholder="canal o enlace (opcional)" />
               </div>
             </div>
@@ -337,10 +338,9 @@ const n = datosNegocio;
             <div class="ng-field">
               <label class="ng-label" for="ngInputRedWeb">
                 <span><i class="fa-solid fa-globe" style="color: #00a2ed;"></i> Web Oficial</span>
-                <span class="ng-label-hint">Ruta o url</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-solid fa-globe" style="color: #00a2ed;"></i> https://</span>
+                <span class="ng-input-handle-prefix">https://</span>
                 <input type="text" id="ngInputRedWeb" class="ng-input-bare" placeholder="lourdes.solgassurquillo.com" />
               </div>
             </div>
@@ -349,10 +349,9 @@ const n = datosNegocio;
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputRedLinkedin">
                 <span><i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> LinkedIn (Profesional)</span>
-                <span class="ng-label-hint">Solo usuario</span>
               </label>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix"><i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> in/</span>
+                <span class="ng-input-handle-prefix">in/</span>
                 <input type="text" id="ngInputRedLinkedin" class="ng-input-bare" placeholder="usuario linkedin" />
               </div>
             </div>

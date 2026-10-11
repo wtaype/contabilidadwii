@@ -40,6 +40,8 @@
   },
 
   "contacto": {
+    "pais": "PE",
+    "paisCode": "51",
     "telefono": "+51 987 594 558",
     "telefonoFijo": "(01) 447-6849",
     "telefonoSecundario": "",

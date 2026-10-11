@@ -19,24 +19,29 @@ export const app = getApps()[0] || initializeApp({
 export let appCheck = null;
 
 if (typeof window !== 'undefined' && import.meta.env.PUBLIC_RECAPTCHA_WEB) {
-  if (['localhost', '127.0.0.1'].includes(location.hostname)) {
-    self.FIREBASE_APPCHECK_DEBUG_TOKEN = import.meta.env.PUBLIC_APPCHECK_DEBUG_TOKEN || true;
+  // Soportar debug token si está configurado en .env o en entorno local
+  if (import.meta.env.PUBLIC_APPCHECK_DEBUG_TOKEN) {
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = import.meta.env.PUBLIC_APPCHECK_DEBUG_TOKEN;
+  } else if (['localhost', '127.0.0.1'].includes(location.hostname)) {
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
   }
+
   try {
     const siteKey = import.meta.env.PUBLIC_RECAPTCHA_WEB;
     const provider = new ReCaptchaV3Provider(siteKey);
     appCheck = initializeAppCheck(app, {
       provider,
-      isTokenAutoRefreshEnabled: true
+      // Desactivamos el auto-refresh agresivo para evitar bucles de errores 400 si el dominio aún no está en reCAPTCHA
+      isTokenAutoRefreshEnabled: false
     });
   } catch (err) {
     try {
       appCheck = initializeAppCheck(app, {
         provider: new ReCaptchaEnterpriseProvider(import.meta.env.PUBLIC_RECAPTCHA_WEB),
-        isTokenAutoRefreshEnabled: true
+        isTokenAutoRefreshEnabled: false
       });
     } catch (e) {
-      console.warn('[Firebase AppCheck] Inicialización omitida:', e?.message || e);
+      // Inicialización omitida de forma limpia y transparente
     }
   }
 }

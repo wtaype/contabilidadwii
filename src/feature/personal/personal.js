@@ -5,8 +5,11 @@
 import { Notificacion, wiConfirmar, wiTema, getls, savels } from '@widev';
 import { salir } from '@/feature/auth/sesion.js';
 import { moduloDefecto, esModuloValido } from './modulos.js';
+import { inicializarProgresoDeploy } from './lib/progreso.js';
 
 export function inicializarPersonal() {
+  // Inicializar dock de progreso de despliegue Cloudflare
+  inicializarProgresoDeploy();
   // 1. Buscador limpio sin autocompletado nativo del navegador
   const searchInput = document.getElementById('globalSearchInput');
   if (searchInput) {

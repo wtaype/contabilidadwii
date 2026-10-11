@@ -2,7 +2,7 @@
 // Controlador Frontend Autónomo del Módulo Ficha de Negocio & Especialista
 // 100% JS Nativo · Cero TypeScript · Local-First · Integración con @widev y Firestore
 
-import { Notificacion, wiSpin, wiAtajo, wiConfirmar, adrm, savels, getls, removels, Saludar } from '@widev';
+import { Notificacion, wiSpin, wiAtajo, wiConfirmar, wiSelect, adrm, savels, getls, removels, Saludar } from '@widev';
 import {
   obtenerDatosNegocio,
   guardarDatosNegocio,
@@ -64,6 +64,8 @@ export function inicializarNegocio() {
   const inputBioEn = document.getElementById('ngInputBioEn');
 
   // ── 3. INPUTS DE CONTACTO Y HORARIOS ──
+  const selectPais = document.getElementById('ngSelectPais');
+  const hintPaisCodigo = document.getElementById('hintPaisCodigo');
   const inputTelefono = document.getElementById('ngInputTelefono');
   const inputWhatsapp = document.getElementById('ngInputWhatsapp');
   const inputEmail = document.getElementById('ngInputEmail');
@@ -152,6 +154,106 @@ export function inicializarNegocio() {
     window.open(url, '_blank');
   });
 
+  // ── GESTIÓN INTELIGENTE DE PAÍS, TELÉFONO Y WHATSAPP ──
+  let instSelectPais = null;
+
+  function soloDigitos(str = '') {
+    return String(str || '').replace(/\D/g, '');
+  }
+
+  function getPaisCodeActual() {
+    const opt = selectPais?.options[selectPais.selectedIndex];
+    return opt?.dataset?.code || '51';
+  }
+
+  function formatearTelefonoVisible(numeroRaw, code = getPaisCodeActual()) {
+    const raw = String(numeroRaw || '').trim();
+    if (!raw) return '';
+    let digitos = soloDigitos(raw);
+    if (!digitos) return '';
+
+    if (code && digitos.startsWith(code) && digitos.length > code.length) {
+      digitos = digitos.slice(code.length);
+    }
+
+    if (code === '51' && digitos.length === 9) {
+      return `+51 ${digitos.slice(0, 3)} ${digitos.slice(3, 6)} ${digitos.slice(6)}`;
+    }
+
+    if (digitos.length >= 6) {
+      const partes = digitos.match(/.{1,3}/g) || [digitos];
+      return `+${code} ${partes.join(' ')}`;
+    }
+
+    return `+${code} ${digitos}`;
+  }
+
+  function generarWhatsappApi(numeroRaw, code = getPaisCodeActual()) {
+    const raw = String(numeroRaw || '').trim();
+    if (!raw) return '';
+    let digitos = soloDigitos(raw);
+    if (!digitos) return '';
+
+    if (code && !digitos.startsWith(code)) {
+      digitos = `${code}${digitos}`;
+    }
+    return digitos;
+  }
+
+  function sincronizarTelefonosDesdePais(code) {
+    if (inputTelefono?.value) {
+      inputTelefono.value = formatearTelefonoVisible(inputTelefono.value, code);
+    }
+    if (inputWhatsapp?.value) {
+      inputWhatsapp.value = generarWhatsappApi(inputWhatsapp.value, code);
+      if (hintWhatsappFormato) hintWhatsappFormato.textContent = inputWhatsapp.value;
+    }
+  }
+
+  // Inicializar wiSelect para el País
+  if (selectPais) {
+    instSelectPais = wiSelect(selectPais, {
+      placeholder: 'Selecciona país...',
+      onChange: (val) => {
+        const opt = selectPais.querySelector(`option[value="${val}"]`);
+        const code = opt?.dataset.code || '51';
+        if (hintPaisCodigo) hintPaisCodigo.textContent = `${opt?.text.slice(0, 2) || '🇵🇪'} +${code}`;
+        sincronizarTelefonosDesdePais(code);
+      }
+    });
+  }
+
+  // Listener para Teléfono Visible: actualiza WhatsApp en vivo y formatea en blur
+  inputTelefono?.addEventListener('input', () => {
+    const code = getPaisCodeActual();
+    const wsApi = generarWhatsappApi(inputTelefono.value, code);
+    if (inputWhatsapp) {
+      inputWhatsapp.value = wsApi;
+    }
+    if (hintWhatsappFormato) {
+      hintWhatsappFormato.textContent = wsApi || '51987594558';
+    }
+  });
+
+  inputTelefono?.addEventListener('blur', () => {
+    const code = getPaisCodeActual();
+    if (inputTelefono.value.trim()) {
+      inputTelefono.value = formatearTelefonoVisible(inputTelefono.value, code);
+    }
+  });
+
+  // Listener para WhatsApp API: limpia espacios de inmediato y sincroniza Teléfono
+  inputWhatsapp?.addEventListener('input', () => {
+    const limpio = soloDigitos(inputWhatsapp.value);
+    inputWhatsapp.value = limpio;
+    if (hintWhatsappFormato) {
+      hintWhatsappFormato.textContent = limpio || '51987594558';
+    }
+    if (limpio && inputTelefono && !inputTelefono.value) {
+      inputTelefono.value = formatearTelefonoVisible(limpio, getPaisCodeActual());
+    }
+  });
+
   // ── SALUDO DINÁMICO WHATSAPP ──
   btnRestaurarMensajeWs?.addEventListener('click', () => {
     const saludo = Saludar ? Saludar() : 'Hola';
@@ -208,8 +310,23 @@ export function inicializarNegocio() {
     }
 
     // Canales
+    const paisVal = cfg.contacto?.pais || cfg.ubicacion?.pais || 'PE';
+    if (selectPais) {
+      selectPais.value = paisVal;
+      if (instSelectPais && typeof instSelectPais.setValue === 'function') {
+        instSelectPais.setValue(paisVal);
+      }
+      const opt = selectPais.querySelector(`option[value="${paisVal}"]`);
+      if (hintPaisCodigo) {
+        hintPaisCodigo.textContent = `${opt?.text.slice(0, 2) || '🇵🇪'} +${opt?.dataset.code || '51'}`;
+      }
+    }
+
     if (inputTelefono) inputTelefono.value = cfg.contacto?.telefono || '';
-    if (inputWhatsapp) inputWhatsapp.value = cfg.contacto?.whatsapp || '';
+    if (inputWhatsapp) {
+      inputWhatsapp.value = soloDigitos(cfg.contacto?.whatsapp || '');
+      if (hintWhatsappFormato) hintWhatsappFormato.textContent = inputWhatsapp.value || '51987594558';
+    }
     if (inputEmail) inputEmail.value = cfg.contacto?.email || '';
 
     if (ngHorarioSemanaAbre) ngHorarioSemanaAbre.value = cfg.horarios?.semana?.abre || '08:30';
@@ -298,9 +415,11 @@ export function inicializarNegocio() {
     const kwEs = (inputSeoKeywordsEs?.value || '').split(',').map(s => s.trim()).filter(Boolean);
     const kwEn = (inputSeoKeywordsEn?.value || '').split(',').map(s => s.trim()).filter(Boolean);
     const actual = obtenerDatosNegocio();
+    const paisSel = selectPais?.value || 'PE';
+    const optPais = selectPais?.options[selectPais.selectedIndex];
+    const paisCodeSel = optPais?.dataset?.code || '51';
     const rawTel = (inputTelefono?.value || '').trim();
-    const telLimpio = rawTel.replace(/\D/g, '');
-    const rawWs = (inputWhatsapp?.value || '').trim().replace(/\D/g, '');
+    const rawWs = soloDigitos(inputWhatsapp?.value || '');
 
     return {
       id: 'principal',
@@ -342,10 +461,12 @@ export function inicializarNegocio() {
       },
 
       contacto: {
+        pais: paisSel,
+        paisCode: paisCodeSel,
         telefono: rawTel || actual.contacto?.telefono || "",
         telefonoFijo: actual.contacto?.telefonoFijo || "(01) 447-6849",
         telefonoSecundario: "",
-        whatsapp: rawWs || (rawTel ? `51${telLimpio}` : (actual.contacto?.whatsapp || "")),
+        whatsapp: rawWs || (rawTel ? `${paisCodeSel}${soloDigitos(rawTel)}` : (actual.contacto?.whatsapp || "")),
         email: (inputEmail?.value || '').trim() || actual.contacto?.email || "contacto@contabilidadwii.com",
         whatsappMensaje: {
           es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lourdes! Deseo que evalúes mi caso tributario y me orientes con mis declaraciones ante SUNAT.",
@@ -373,7 +494,7 @@ export function inicializarNegocio() {
         referencia: inputReferencia?.value?.trim() || "Atención presencial previa cita y 100% online nacional",
         distrito: inputDistrito?.value?.trim() || "Surquillo",
         ciudad: inputCiudad?.value?.trim() || "Lima",
-        pais: "PE",
+        pais: paisSel,
         codigoPostal: "15047",
         mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/surquillo",
         coordenadas: {
@@ -511,7 +632,8 @@ export function inicializarNegocio() {
       Notificacion('Error al guardar datos: ' + (err?.message || err), 'danger', 4000);
     } finally {
       btnGuardarNegocio.disabled = false;
-      if (spin) spin.stop();
+      wiSpin(btnGuardarNegocio, false);
+      if (spin && typeof spin.stop === 'function') spin.stop();
       isSaving = false;
     }
   });
@@ -519,7 +641,9 @@ export function inicializarNegocio() {
   // Atajo de teclado universal Ctrl+S / Cmd+S
   wiAtajo?.('ctrl+s, cmd+s', (e) => {
     e.preventDefault();
-    btnGuardarNegocio?.click();
+    if (btnGuardarNegocio && !btnGuardarNegocio.disabled) {
+      btnGuardarNegocio.click();
+    }
   });
 
   // ── INICIALIZACIÓN CON DATOS OFICIALES ──

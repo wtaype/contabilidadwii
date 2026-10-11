@@ -123,6 +123,31 @@ const n = datosNegocio;
           </div>
 
           <div class="ng-grid-2">
+            <!-- Fila 1: País (wiSelect) + Correo Electrónico Oficial -->
+            <div class="ng-field">
+              <label class="ng-label" for="ngSelectPais">
+                <span>País de Operación</span>
+                <span class="ng-label-hint" id="hintPaisCodigo">🇵🇪 +51</span>
+              </label>
+              <select id="ngSelectPais" class="ng-input ng-select" data-wiselect-placeholder="Selecciona país...">
+                <option value="PE" data-code="51" selected>🇵🇪 Perú (+51)</option>
+                <option value="US" data-code="1">🇺🇸 Estados Unidos (+1)</option>
+                <option value="CL" data-code="56">🇨🇱 Chile (+56)</option>
+                <option value="CO" data-code="57">🇨🇴 Colombia (+57)</option>
+                <option value="MX" data-code="52">🇲🇽 México (+52)</option>
+                <option value="ES" data-code="34">🇪🇸 España (+34)</option>
+                <option value="AR" data-code="54">🇦🇷 Argentina (+54)</option>
+                <option value="EC" data-code="593">🇪🇨 Ecuador (+593)</option>
+                <option value="BO" data-code="591">🇧🇴 Bolivia (+591)</option>
+              </select>
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputEmail">Correo Electrónico Oficial</label>
+              <input type="email" id="ngInputEmail" class="ng-input" placeholder="contacto@contabilidadwii.com" />
+            </div>
+
+            <!-- Fila 2: Teléfono Visible y WhatsApp API -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputTelefono">
                 <span>Teléfono Visible</span>
@@ -137,11 +162,6 @@ const n = datosNegocio;
                 <span class="ng-label-hint" id="hintWhatsappFormato">51987594558</span>
               </label>
               <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51987594558" />
-            </div>
-
-            <div class="ng-field span-2">
-              <label class="ng-label" for="ngInputEmail">Correo Electrónico Oficial</label>
-              <input type="email" id="ngInputEmail" class="ng-input" placeholder="contacto@contabilidadwii.com" />
             </div>
 
             <!-- Horarios Numéricos -->

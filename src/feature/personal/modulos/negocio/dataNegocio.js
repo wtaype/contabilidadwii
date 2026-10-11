@@ -90,6 +90,8 @@ export function normalizarConfig(c = {}) {
       imagenSede: cfg.identidad?.imagenSede || base.identidad?.imagenSede || ''
     },
     contacto: {
+      pais: cfg.contacto?.pais || cfg.ubicacion?.pais || base.contacto?.pais || 'PE',
+      paisCode: cfg.contacto?.paisCode || base.contacto?.paisCode || '51',
       telefono: cfg.contacto?.telefono || base.contacto?.telefono || '',
       telefonoFijo: cfg.contacto?.telefonoFijo || base.contacto?.telefonoFijo || '',
       telefonoSecundario: cfg.contacto?.telefonoSecundario ?? base.contacto?.telefonoSecundario ?? '',

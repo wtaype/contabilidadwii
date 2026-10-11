@@ -134,10 +134,11 @@ export const datosNegocio = {
     return idioma === 'en' ? (this.raw.contacto?.whatsappMensajeEn || m || '') : (m || '');
   },
   get email() { return this.raw.contacto?.email || ''; },
+  get paisCode() { return this.raw.contacto?.paisCode || '51'; },
   get direccionSede() { return this.raw.ubicacion?.direccion || ''; },
   get distritoSede() { return this.raw.ubicacion?.distrito || 'Surquillo'; },
   get ciudad() { return this.raw.ubicacion?.ciudad || 'Lima'; },
-  get pais() { return this.raw.ubicacion?.pais || 'PE'; },
+  get pais() { return this.raw.contacto?.pais || this.raw.ubicacion?.pais || 'PE'; },
   get codigoPostal() { return this.raw.ubicacion?.codigoPostal || '15047'; },
   get mapsUrl() { return this.raw.ubicacion?.mapsUrl || ''; },
   get coordenadas() { return this.raw.ubicacion?.coordenadas || { lat: -12.1125, lng: -77.0258 }; },

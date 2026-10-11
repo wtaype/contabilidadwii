@@ -2,11 +2,11 @@
 // spin v10.4: Animación de estados de carga en botones con preservación segura del marcado original (incluyendo iconos)
 
 export const wiSpin = (btn, act = true, txt = '') => {
-  if (typeof document === 'undefined') return;
+  if (typeof document === 'undefined') return { stop: () => {} };
 
   let el = typeof btn === 'string' ? document.querySelector(btn) : btn;
   if (el && (el).jquery) el = (el)[0];
-  if (!el) return;
+  if (!el) return { stop: () => {} };
 
   if (act) {
     // 1. Guardar el HTML original (con textos e iconos originales) solo si no se ha guardado ya
@@ -16,6 +16,9 @@ export const wiSpin = (btn, act = true, txt = '') => {
     el.disabled = true;
     const loadingText = txt || 'Cargando...';
     el.innerHTML = `${loadingText} <i class="fa-solid fa-spinner fa-spin spin_icon_margin"></i>`;
+    return {
+      stop: () => wiSpin(el, false)
+    };
   } else {
     el.disabled = false;
     // 2. Restaurar el HTML original resguardado
@@ -29,5 +32,6 @@ export const wiSpin = (btn, act = true, txt = '') => {
     }
     // 3. Limpiar el atributo para permitir futuros usos del spinner en el mismo botón
     el.removeAttribute('data-txt');
+    return null;
   }
 };

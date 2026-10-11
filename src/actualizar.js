@@ -2,6 +2,8 @@
 // 🚀 Gestor Centralizado de Re-Deploy en Cloudflare y Sincronización Web
 // Con Debounce Inteligente, Notificaciones Breves y Cero Bloqueo
 
+import { Notificacion } from '@widev';
+
 let _timerDebounce = null;
 let _cocinando = false;
 
@@ -32,9 +34,16 @@ export function solicitarActualizacionWeb({
     try {
       _cocinando = true;
 
-      // Notificación breve y profesional solicitada
-      if (!silencioso && typeof window !== 'undefined' && window.Notificacion) {
-        window.Notificacion('Actualizando nueva version (max 2min)', 'info', 3500);
+      // Notificación visual inmediata
+      if (!silencioso && typeof Notificacion === 'function') {
+        Notificacion('Compilación iniciada en Cloudflare Pages (aprox. 1:30 min)', 'info', 4000);
+      }
+
+      // Disparar barra de progreso reactiva en el panel
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('contabilidad:iniciar-deploy', {
+          detail: { motivo, tiempoMs: 90000 }
+        }));
       }
 
       await fetch(hookUrl, {

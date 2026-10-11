@@ -111,13 +111,10 @@ export function normalizarProducto(p = {}) {
     orden: Number(prod.orden ?? 1),
     precioPEN: precio,
     precio: precio,
-    enfoque: String(prod.enfoque || (tipo === 'servicio' ? 'Contabilidad MYPE y Declaración SIRE' : 'Asesoría y Diagnóstico Tributario')),
+    enfoque: String(prod.enfoque || (tipo === 'servicio' ? 'Contabilidad MYPE y Régimen Especial' : 'Asesoría y Diagnóstico Tributario')),
     imagen: String(prod.imagen || (tipo === 'servicio' ? '/imgwii/servicios/servicio01.webp' : '/imgwii/servicios/servicio04.webp')),
     badgeIcon: String(prod.badgeIcon || 'fa-solid fa-star'),
     tagClase: String(prod.tagClase || 'badge-serenidad'),
-    userId: String(prod.userId || 'sistema'),
-    email: String(prod.email || 'contacto@contabilidadwii.com'),
-    creado: prod.creado || null,
     actualizado: prod.actualizado || null,
 
     // Mapas Bilingües Oficiales
@@ -221,34 +218,35 @@ export function guardarProductosLocal(lista = []) {
 }
 
 /**
- * Sincroniza desde Firestore hacia Local-First
+ * Sincroniza desde Firestore hacia Local-First o siembra la semilla si está vacía
  */
-export async function sincronizarProductosFirestore() {
+export async function sincronizarProductosFirestore(opciones = {}) {
   try {
     if (!db) {
       return { ok: true, origen: 'local', datos: obtenerProductosLocal() };
+    }
+
+    if (opciones.forzarSemilla) {
+      const sembrados = await resembrarServiciosDesdeSemilla();
+      return { ok: true, origen: 'semilla_resembrada', datos: sembrados };
     }
 
     const colRef = collection(db, COLECCION_SERVICIOS);
     const snap = await getDocs(colRef);
 
     if (snap.empty) {
-      // Si la colección está vacía en Firestore, usamos la semilla local y la sembramos en Firestore
-      const locales = obtenerProductosLocal();
-      if (locales.length > 0) {
-        for (const item of locales) {
-          try {
-            await setDoc(doc(db, COLECCION_SERVICIOS, item.id), {
-              ...item,
-              actualizado: serverTimestamp()
-            }, { merge: true });
-          } catch (err) {}
-        }
-      }
+      const locales = await resembrarServiciosDesdeSemilla();
       return { ok: true, origen: 'semilla_sembrada', datos: locales };
     }
 
-    const remotos = snap.docs.map(d => normalizarProducto({ id: d.id, ...d.data() }));
+    const remotos = snap.docs.map(d => {
+      const data = d.data();
+      delete data.userId;
+      delete data.email;
+      delete data.creado;
+      return normalizarProducto({ id: d.id, ...data });
+    });
+
     guardarProductosLocal(remotos);
     return { ok: true, origen: 'firestore', datos: remotos };
   } catch (err) {
@@ -258,18 +256,45 @@ export async function sincronizarProductosFirestore() {
 }
 
 /**
- * Guarda o actualiza un servicio en Firestore y en local
+ * Resiembra y sincroniza en Firestore los 6 servicios canónicos limpios en 1ra persona
+ */
+export async function resembrarServiciosDesdeSemilla() {
+  const semillas = (Array.isArray(serviciosSemilla) ? serviciosSemilla : []).map(normalizarProducto);
+  if (db) {
+    for (const item of semillas) {
+      try {
+        const payload = { ...item };
+        delete payload.userId;
+        delete payload.email;
+        delete payload.creado;
+
+        await setDoc(doc(db, COLECCION_SERVICIOS, item.id), {
+          ...payload,
+          actualizado: serverTimestamp()
+        });
+      } catch (err) {
+        console.warn('[dataProductos] Error al sembrar servicio:', item.id, err);
+      }
+    }
+  }
+  guardarProductosLocal(semillas);
+  solicitarActualizacionWeb({ motivo: 'servicios-catalogo-canónico' });
+  return semillas;
+}
+
+/**
+ * Guarda o actualiza un servicio en Firestore y en local (100% limpio sin email ni userId)
  */
 export async function guardarProductoFirestore(productoRaw = {}) {
   const normalizado = normalizarProducto(productoRaw);
-  const usuario = getUsuarioActivo();
 
   const prodFinal = {
     ...normalizado,
-    userId: normalizado.userId || usuario.userId,
-    email: normalizado.email || usuario.email,
     actualizado: new Date().toISOString()
   };
+  delete prodFinal.userId;
+  delete prodFinal.email;
+  delete prodFinal.creado;
 
   // 1. Guardar de inmediato en Local (Local-First instantáneo)
   const actuales = obtenerProductosLocal();
@@ -339,6 +364,7 @@ export default {
   obtenerProductosLocal,
   guardarProductosLocal,
   sincronizarProductosFirestore,
+  resembrarServiciosDesdeSemilla,
   guardarProductoFirestore,
   cambiarEstadoProducto,
   eliminarProductoFirestore,

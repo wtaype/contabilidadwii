@@ -638,13 +638,7 @@ export function inicializarNegocio() {
     }
   });
 
-  // Atajo de teclado universal Ctrl+S / Cmd+S
-  wiAtajo?.('ctrl+s, cmd+s', (e) => {
-    e.preventDefault();
-    if (btnGuardarNegocio && !btnGuardarNegocio.disabled) {
-      btnGuardarNegocio.click();
-    }
-  });
+  // Atajo Ctrl+S gestionado centralizadamente por el router universal de personal.js
 
   // ── INICIALIZACIÓN CON DATOS OFICIALES ──
   const datosIniciales = obtenerDatosNegocio();

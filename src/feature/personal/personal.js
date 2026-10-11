@@ -2,7 +2,7 @@
 // Controlador de cliente unificado para Feature Personal (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y @/feature/auth/sesion.js
 
-import { Notificacion, wiConfirmar, wiTema, getls, savels } from '@widev';
+import { Notificacion, wiConfirmar, wiTema, wiAtajo, getls, savels } from '@widev';
 import { salir } from '@/feature/auth/sesion.js';
 import { moduloDefecto, esModuloValido } from './modulos.js';
 import { inicializarProgresoDeploy } from './lib/progreso.js';
@@ -161,11 +161,61 @@ export function inicializarPersonal() {
     }
   });
 
-  // 8. Sincronización de Badges Dinámicos en Sidebar (Clientes)
-  actualizarBadgesSidebar();
-  window.addEventListener('contabilidad:cliente-guardado', actualizarBadgesSidebar);
-  window.addEventListener('contabilidad:cliente-eliminado', actualizarBadgesSidebar);
-  window.addEventListener('contabilidad:clientes-actualizados', actualizarBadgesSidebar);
+  // 9. Router Universal de Guardado con Atajo Ctrl+S / Cmd+S
+  function ejecutarGuardadoUniversal() {
+    // A. Prioridad 1: ¿Hay algún modal abierto con botón de guardar?
+    const modalAbierto = document.querySelector('.modal-overlay.open, .modal-overlay.active, .modal.open, .modal.active');
+    if (modalAbierto) {
+      const btnGuardarModal = modalAbierto.querySelector('#prBtnGuardarModal, [id*="GuardarModal"], [id*="guardarModal"], [type="submit"]');
+      if (btnGuardarModal && !btnGuardarModal.disabled) {
+        btnGuardarModal.click();
+        return;
+      }
+    }
+
+    // B. Prioridad 2: Detectar el panel activo en pantalla
+    const panelActivo = document.querySelector('.ps-panel.active') || document.querySelector('.ps-panel');
+    const panelId = panelActivo?.id || '';
+
+    if (panelId === 'panel-negocio') {
+      const btn = document.getElementById('btnGuardarNegocio');
+      if (btn && !btn.disabled) {
+        btn.click();
+        return;
+      }
+    }
+
+    if (panelId === 'panel-productos') {
+      const btnSync = document.getElementById('prBtnSincronizar');
+      if (btnSync && !btnSync.disabled) {
+        btnSync.click();
+        return;
+      }
+    }
+
+    if (panelId === 'panel-notepad') {
+      const btnNote = document.getElementById('btnSaveNotepadFull') || panelActivo.querySelector('button[type="submit"]');
+      if (btnNote && !btnNote.disabled) {
+        btnNote.click();
+        return;
+      }
+    }
+
+    // C. Fallback inteligente: buscar el botón de guardar o submit del panel activo
+    const btnFallback = panelActivo?.querySelector('button[id*="Guardar"], button[id*="guardar"], button[type="submit"], .ps-btn-primary');
+    if (btnFallback && !btnFallback.disabled) {
+      btnFallback.click();
+      return;
+    }
+
+    Notificacion('No hay cambios pendientes por guardar en este módulo.', 'info', 2000);
+  }
+
+  // Registrar el atajo universal para todo el panel
+  wiAtajo('ctrl+s, cmd+s', (e) => {
+    e.preventDefault();
+    ejecutarGuardadoUniversal();
+  });
 }
 
 export function actualizarBadgesSidebar() {

@@ -182,15 +182,15 @@ export function inicializarProductos() {
     });
   }
 
-  // Sincronizar con Firestore
+  // Sincronizar con Firestore (Resembrado limpio en 1ra persona)
   if (prBtnSincronizar) {
     prBtnSincronizar.addEventListener('click', async () => {
       prBtnSincronizar.disabled = true;
       wiSpin(prBtnSincronizar, true);
       try {
-        const res = await sincronizarProductosFirestore();
+        const res = await sincronizarProductosFirestore({ forzarSemilla: true });
         renderizar(res.datos || obtenerProductosLocal());
-        Notificacion('Catálogo sincronizado con Firestore exitosamente.', 'success', 3000);
+        Notificacion('Catálogo oficial sincronizado y sembrado en Firestore.', 'success', 3500);
       } catch (err) {
         Notificacion('Error al sincronizar con Firestore.', 'error', 3500);
       } finally {

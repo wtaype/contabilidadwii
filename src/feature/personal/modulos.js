@@ -19,7 +19,8 @@ export const modulos = [
   { id: 'notepad',   nombre: 'Notepad',    icono: 'fa-solid fa-note-sticky',        activo: true },
   { id: 'perfil',    nombre: 'Mi perfil',  icono: 'fa-solid fa-user-gear',          activo: true },
   { id: 'ajustes',   nombre: 'Ajustes',    icono: 'fa-solid fa-gear',               activo: true },
-  { id: 'ayuda',     nombre: 'Ayuda',      icono: 'fa-solid fa-headset',            activo: true }
+  { id: 'ayuda',     nombre: 'Ayuda',      icono: 'fa-solid fa-headset',            activo: true },
+  { id: 'aprender',  nombre: 'Aprender',   icono: 'fa-solid fa-graduation-cap',     activo: true }
 ];
 
 // Obtener solo los módulos habilitados para el sidebar y rutas dinámicas

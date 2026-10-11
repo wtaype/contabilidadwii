@@ -39,6 +39,8 @@ import Ajustes from './modulos/ajustes/Ajustes.astro';
 import ajustesCss from './modulos/ajustes/ajustes.css?inline';
 import Ayuda from './modulos/ayuda/Ayuda.astro';
 import ayudaCss from './modulos/ayuda/ayuda.css?inline';
+import Aprender from './modulos/aprender/Aprender.astro';
+import aprenderCss from './modulos/aprender/aprender.css?inline';
 
 import { moduloDefecto } from './modulos.js';
 
@@ -65,7 +67,8 @@ const estilosModulos = [
   personalModCss,
   perfilCss,
   ajustesCss,
-  ayudaCss
+  ayudaCss,
+  aprenderCss
 ].join('\n');
 ---
 
@@ -117,4 +120,7 @@ const estilosModulos = [
 
   <!-- MÓDULO 15: AYUDA (Generador de Tickets -> wtaypeee@gmail.com) -->
   <Ayuda esActivo={moduloActivo === 'ayuda'} />
+
+  <!-- MÓDULO 16: APRENDER (Centro de Conocimiento & Documentación del Sistema) -->
+  <Aprender esActivo={moduloActivo === 'aprender'} />
 </Sonrisa>

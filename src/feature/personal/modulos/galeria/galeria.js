@@ -142,13 +142,11 @@ export function inicializarModuloGaleria() {
           <div class="gl-thumb-wrap" data-img-id="${img.id}">
             <img src="${img.url}" alt="${img.alt}" class="gl-thumb" loading="lazy" />
             <span class="gl-category-tag">${img.categoria}</span>
-            <div class="gl-thumb-badges">
-              ${img.pin ? '<span class="gl-pin-badge" title="Fijado al inicio"><i class="fa-solid fa-thumbtack"></i></span>' : ''}
-              ${esNube
-                ? '<span class="gl-badge-cloud" title="Registrado en Cloudflare R2 & Firestore"><i class="fa-solid fa-cloud"></i></span>'
-                : '<span class="gl-badge-local" title="Recurso local del proyecto"><i class="fa-solid fa-hard-drive"></i></span>'
-              }
-            </div>
+            ${img.pin ? `
+              <div class="gl-thumb-badges">
+                <span class="gl-pin-badge" title="Fijado al inicio"><i class="fa-solid fa-thumbtack"></i></span>
+              </div>
+            ` : ''}
             <span class="gl-size-tag">${img.pesoKb} KB</span>
           </div>
           <div class="gl-body">
@@ -248,13 +246,9 @@ export function inicializarModuloGaleria() {
 
     // Badges flotantes en la imagen del modal
     if (editStageBadges) {
-      editStageBadges.innerHTML = `
-        ${img.pin ? '<span class="gl-pin-badge" title="Fijado al inicio"><i class="fa-solid fa-thumbtack"></i></span>' : ''}
-        ${esNube
-          ? '<span class="gl-badge-cloud" title="Cloudflare R2 & Firestore"><i class="fa-solid fa-cloud"></i></span>'
-          : '<span class="gl-badge-local" title="Recurso local de plantilla"><i class="fa-solid fa-hard-drive"></i></span>'
-        }
-      `;
+      editStageBadges.innerHTML = img.pin
+        ? '<span class="gl-pin-badge" title="Fijado al inicio"><i class="fa-solid fa-thumbtack"></i></span>'
+        : '';
     }
 
     if (editStorageBadge) {

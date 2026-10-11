@@ -12,11 +12,11 @@ interface Props {
 }
 
 const { 
-  titulo = `Redes Oficiales · ${datosNegocio.nombre} | Bio-Link Oficial`,
-  descripcion = `Canales verificados y redes sociales de ${datosNegocio.nombre}. Asesoría contable y tributaria estratégica en Lima, Perú.`
+  titulo = `Redes Oficiales · ${datosNegocio.nombre} | Enlaces`,
+  descripcion = datosNegocio.slogan || `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}.`
 } = Astro.props;
 
-const siteUrl = 'https://lourdes.solgassurquillo.com';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || (datosNegocio.web ? (datosNegocio.web.startsWith('http') ? datosNegocio.web : `https://${datosNegocio.web}`) : '');
 const canonical = `${siteUrl}/redes`;
 const ogImage = `${siteUrl}/imgwii/hero.webp`;
 ---

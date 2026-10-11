@@ -6,7 +6,7 @@
 import { getls, savels } from '@widev';
 import smilesSemilla from '../../../../semillas/smiles.json';
 
-export const STORAGE_KEY = 'minegocio_equipo_personal';
+export const STORAGE_KEY = 'wi_equipo_personal';
 export const COLECCION_SMILES = 'smiles';
 
 let _memoriaPersonal = null;
@@ -17,17 +17,17 @@ export function normalizarMiembro(p = {}) {
   return {
     id: uid,
     uid: uid,
-    nombre: p.nombre || 'Especialista',
+    nombre: p.nombre || '',
     apellidos: p.apellidos || '',
-    nombreCompleto: nombreCompleto || 'Especialista Contable',
+    nombreCompleto: nombreCompleto || p.nombre || '',
     usuario: p.usuario || (p.nombre ? p.nombre.toLowerCase().replace(/\s+/g, '') : 'personal'),
-    celular: p.celular || '+51 987 594 558',
-    email: p.email || 'contacto@contabilidadwii.com',
-    cargo: p.cargo || 'Especialista Contable y Tributario',
-    especialidad: p.especialidad || 'Rentas de 4ta, 5ta y MYPE · Sunat Virtual',
-    colegiatura: p.colegiatura || 'Habilitado/a',
-    experiencia: p.experiencia || '5+ años de trayectoria',
-    modalidad: p.modalidad || 'Online & Presencial Surquillo',
+    celular: p.celular || '',
+    email: p.email || '',
+    cargo: p.cargo || '',
+    especialidad: p.especialidad || '',
+    colegiatura: p.colegiatura || '',
+    experiencia: p.experiencia || '',
+    modalidad: p.modalidad || '',
     avatar: p.avatar || '/imgwii/hero.webp',
     rol: p.rol || 'personal',
     activo: Boolean(p.activo ?? true)

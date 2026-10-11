@@ -1,15 +1,17 @@
 // src/feature/cliente/modulos.js
-// Registro y configuración central de módulos para el Feature Cliente (Estudio Cusihuaman)
-// Permite activar/desactivar módulos y definir el módulo por defecto desde un único lugar
+// Registro y configuración desacoplada del Portal de Clientes
+// Gobernado dinámicamente por src/semillas/config.json
+import configSemilla from '@/semillas/config.json';
 
-export const moduloDefecto = 'pedidos';
-
-export const modulos = [
-  { id: 'pedidos',   nombre: 'Servicios',        icono: 'fa-solid fa-briefcase',        activo: true },
-  { id: 'direccion', nombre: 'Domicilio Fiscal', icono: 'fa-solid fa-building',         activo: true },
-  { id: 'cuenta',    nombre: 'Mi Cuenta Fiscal', icono: 'fa-solid fa-id-card',          activo: true },
-  { id: 'soporte',   nombre: 'Consultas SUNAT',  icono: 'fa-solid fa-headset',          activo: true }
+const modulosConfig = configSemilla?.portalCliente?.modulos || [
+  { id: 'pedidos',   nombre: 'Servicios',        icono: 'fa-solid fa-briefcase', activo: true },
+  { id: 'direccion', nombre: 'Domicilio Fiscal', icono: 'fa-solid fa-building',  activo: true },
+  { id: 'cuenta',    nombre: 'Mi Cuenta Fiscal', icono: 'fa-solid fa-id-card',   activo: true },
+  { id: 'soporte',   nombre: 'Consultas SUNAT',  icono: 'fa-solid fa-headset',   activo: true }
 ];
+
+export const moduloDefecto = configSemilla?.portalCliente?.moduloDefecto || 'pedidos';
+export const modulos = modulosConfig;
 
 // Obtener solo los módulos habilitados para el sidebar y navegación
 export const getModulosActivos = () => modulos.filter(m => m.activo);

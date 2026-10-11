@@ -1,6 +1,7 @@
-// src/actualizar.js
+// src/feature/personal/lib/actualizar.js
 // 🚀 Gestor Centralizado de Re-Deploy en Cloudflare y Sincronización Web
 // Con Debounce Inteligente, Notificaciones Breves y Cero Bloqueo
+// Ubicado en feature/personal/lib/ como herramienta administrativa
 
 import { Notificacion } from '@widev';
 
@@ -39,8 +40,11 @@ export function solicitarActualizacionWeb({
         Notificacion('Compilación iniciada en Cloudflare Pages (aprox. 1:30 min)', 'info', 4000);
       }
 
-      // Disparar barra de progreso reactiva en el panel
+      // Disparar barra de progreso reactiva en el panel (evento estándar y compatibilidad)
       if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('wi:iniciar-deploy', {
+          detail: { motivo, tiempoMs: 90000 }
+        }));
         window.dispatchEvent(new CustomEvent('contabilidad:iniciar-deploy', {
           detail: { motivo, tiempoMs: 90000 }
         }));

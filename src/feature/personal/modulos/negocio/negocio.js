@@ -9,7 +9,7 @@ import {
   calcularAnosTrayectoria,
   sincronizarDesdeFirestore
 } from './dataNegocio.js';
-import { solicitarActualizacionWeb } from '../../../../actualizar.js';
+import { solicitarActualizacionWeb } from '../../lib/actualizar.js';
 
 export function inicializarNegocio() {
   const panelNegocio = document.getElementById('panel-negocio');
@@ -529,86 +529,81 @@ export function inicializarNegocio() {
     const paisCodeSel = optPais?.dataset?.code || '51';
     const rawTel = (inputTelefono?.value || '').trim();
     const rawWs = soloDigitos(inputWhatsapp?.value || '');
+    const idnt = actual.identidad || {};
+    const cont = actual.contacto || {};
+    const ubic = actual.ubicacion || {};
 
     return {
-      id: 'principal',
-      moneda: 'PEN',
-      idiomaPrincipal: 'es',
-      idiomas: ['es', 'en'],
-      titulo: actual.titulo || "Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez",
-      subtitulo: actual.subtitulo || "Contabilidad & Tributación • Lima - Perú",
-      hero: actual.hero || {
-        titulo: "Lourdes Cusihuaman Gálvez",
-        subtitulo: "Contabilidad & Tributación • Lima - Perú",
-        imagen: "/imgwii/hero.webp",
-        alt: "Lourdes Cusihuaman Gálvez",
-        precioHero: "80 soles",
-        servicio: "Asesoría y Orientación Tributaria",
-        descripcion: "Evalúo personalmente tu caso 100% online por videollamada o presencial previa cita en Surquillo. Te explico en sencillo qué hacer ante SUNAT sin enredos técnicos."
-      },
+      id: actual.id || 'principal',
+      moneda: actual.moneda || 'PEN',
+      idiomaPrincipal: actual.idiomaPrincipal || 'es',
+      idiomas: actual.idiomas || ['es', 'en'],
+      titulo: actual.titulo || idnt.nombre || '',
+      subtitulo: actual.subtitulo || idnt.cargo || '',
+      hero: actual.hero || {},
 
       identidad: {
-        nombre: inputNombre?.value?.trim() || actual.identidad?.nombre || "Lourdes Cusihuaman Gálvez",
-        nombreCorto: inputNombreCorto?.value?.trim() || actual.identidad?.nombreCorto || "Estudio Cusihuaman",
-        especialista: inputEspecialista?.value?.trim() || actual.identidad?.especialista || "Lourdes Cusihuaman Gálvez",
-        colegiatura: inputColegiatura?.value?.trim() || "",
-        cargo: inputTitulo?.value?.trim() || actual.identidad?.cargo || actual.identidad?.titulo || "Asesora Contable y Tributaria",
-        titulo: inputTitulo?.value?.trim() || actual.identidad?.titulo || "Asesora Contable y Tributaria",
-        grado: inputGrado?.value?.trim() || actual.identidad?.grado || "Ex-funcionaria de SUNAT · Universidad de Lima",
-        enfoques: inputEnfoques?.value?.trim() || actual.identidad?.enfoques || "Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT",
-        nombreEn: inputNombreEn?.value?.trim() || actual.identidad?.nombreEn || "Cusihuaman Accounting & Tax Firm",
-        nombreCortoEn: inputNombreCortoEn?.value?.trim() || actual.identidad?.nombreCortoEn || "Estudio Cusihuaman",
-        enfoquesEn: inputEnfoquesEn?.value?.trim() || actual.identidad?.enfoquesEn || "4th Category Income (RHE) • 5th Category Payroll • SUNAT Tax Compliance",
+        nombre: inputNombre?.value?.trim() || idnt.nombre || '',
+        nombreCorto: inputNombreCorto?.value?.trim() || idnt.nombreCorto || '',
+        especialista: inputEspecialista?.value?.trim() || idnt.especialista || idnt.nombre || '',
+        colegiatura: inputColegiatura?.value?.trim() || idnt.colegiatura || '',
+        cargo: inputTitulo?.value?.trim() || idnt.cargo || idnt.titulo || '',
+        titulo: inputTitulo?.value?.trim() || idnt.titulo || '',
+        grado: inputGrado?.value?.trim() || idnt.grado || '',
+        enfoques: inputEnfoques?.value?.trim() || idnt.enfoques || '',
+        nombreEn: inputNombreEn?.value?.trim() || idnt.nombreEn || idnt.nombre || '',
+        nombreCortoEn: inputNombreCortoEn?.value?.trim() || idnt.nombreCortoEn || idnt.nombreCorto || '',
+        enfoquesEn: inputEnfoquesEn?.value?.trim() || idnt.enfoquesEn || idnt.enfoques || '',
         bio: {
-          es: inputBioEs?.value?.trim() || actual.identidad?.bio?.es || "Soy especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria. Te brindo una asesoría cercana, clara y sin complicaciones.",
-          en: inputBioEn?.value?.trim() || actual.identidad?.bio?.en || "I am a tax and accounting specialist graduated from the University of Lima and former SUNAT tax officer with over 12 years of experience."
+          es: inputBioEs?.value?.trim() || (typeof idnt.bio === 'object' ? idnt.bio?.es : idnt.bio) || '',
+          en: inputBioEn?.value?.trim() || (typeof idnt.bio === 'object' ? idnt.bio?.en : idnt.bioEn) || ''
         },
-        lanzamientoFecha: inputLanzamiento?.value || actual.identidad?.lanzamientoFecha || "2020-03-15",
-        logo: inputLogo?.value?.trim() || actual.identidad?.logo || "/imgwii/logo.webp",
-        logoFull: inputLogoFull?.value?.trim() || actual.identidad?.logoFull || "/imgwii/logo_full.webp",
-        imagenSede: inputImagenSede?.value?.trim() || actual.identidad?.imagenSede || "/imgwii/hero.webp"
+        lanzamientoFecha: inputLanzamiento?.value || idnt.lanzamientoFecha || '2020-01-01',
+        logo: inputLogo?.value?.trim() || idnt.logo || '/imgwii/logo.webp',
+        logoFull: inputLogoFull?.value?.trim() || idnt.logoFull || '/imgwii/logo_full.webp',
+        imagenSede: inputImagenSede?.value?.trim() || idnt.imagenSede || '/imgwii/hero.webp'
       },
 
       contacto: {
         pais: paisSel,
         paisCode: paisCodeSel,
-        telefono: rawTel || actual.contacto?.telefono || "",
-        telefonoFijo: actual.contacto?.telefonoFijo || "(01) 447-6849",
-        telefonoSecundario: "",
-        whatsapp: rawWs || (rawTel ? `${paisCodeSel}${soloDigitos(rawTel)}` : (actual.contacto?.whatsapp || "")),
-        email: (inputEmail?.value || '').trim() || actual.contacto?.email || "contacto@contabilidadwii.com",
+        telefono: rawTel || cont.telefono || '',
+        telefonoFijo: cont.telefonoFijo || '',
+        telefonoSecundario: cont.telefonoSecundario || '',
+        whatsapp: rawWs || (rawTel ? `${paisCodeSel}${soloDigitos(rawTel)}` : (cont.whatsapp || '')),
+        email: (inputEmail?.value || '').trim() || cont.email || '',
         whatsappMensaje: {
-          es: inputWhatsappMensaje?.value?.trim() || "¡Hola Lourdes! Deseo que evalúes mi caso tributario y me orientes con mis declaraciones ante SUNAT.",
-          en: inputWhatsappMensajeEn?.value?.trim() || "Hello Lourdes! I would like you to review my tax situation and guide me through my SUNAT compliance."
+          es: inputWhatsappMensaje?.value?.trim() || (typeof cont.whatsappMensaje === 'object' ? cont.whatsappMensaje?.es : cont.whatsappMensaje) || '',
+          en: inputWhatsappMensajeEn?.value?.trim() || (typeof cont.whatsappMensaje === 'object' ? cont.whatsappMensaje?.en : cont.whatsappMensajeEn) || ''
         },
         horario: {
-          es: (inputHorario?.value || '').trim() || "Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m.",
-          en: (inputHorarioEn?.value || '').trim() || "Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m."
+          es: (inputHorario?.value || '').trim() || (typeof cont.horario === 'object' ? cont.horario?.es : cont.horario) || '',
+          en: (inputHorarioEn?.value || '').trim() || (typeof cont.horario === 'object' ? cont.horario?.en : cont.horarioEn) || ''
         }
       },
 
       horarios: {
         semana: {
-          abre: ngHorarioSemanaAbre?.value || "08:30",
-          cierra: ngHorarioSemanaCierra?.value || "19:00"
+          abre: ngHorarioSemanaAbre?.value || actual.horarios?.semana?.abre || '08:30',
+          cierra: ngHorarioSemanaCierra?.value || actual.horarios?.semana?.cierra || '19:00'
         },
         sabado: {
-          abre: ngHorarioSabadoAbre?.value || "09:00",
-          cierra: ngHorarioSabadoCierra?.value || "13:00"
+          abre: ngHorarioSabadoAbre?.value || actual.horarios?.sabado?.abre || '09:00',
+          cierra: ngHorarioSabadoCierra?.value || actual.horarios?.sabado?.cierra || '13:00'
         }
       },
 
       ubicacion: {
-        direccion: inputDireccion?.value?.trim() || "Jr. Dante 260, Surquillo, Lima 15047",
-        referencia: inputReferencia?.value?.trim() || "Atención presencial previa cita y 100% online nacional",
-        distrito: inputDistrito?.value?.trim() || "Surquillo",
-        ciudad: inputCiudad?.value?.trim() || "Lima",
+        direccion: inputDireccion?.value?.trim() || ubic.direccion || '',
+        referencia: inputReferencia?.value?.trim() || ubic.referencia || '',
+        distrito: inputDistrito?.value?.trim() || ubic.distrito || '',
+        ciudad: inputCiudad?.value?.trim() || ubic.ciudad || '',
         pais: paisSel,
-        codigoPostal: "15047",
-        mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/surquillo",
+        codigoPostal: ubic.codigoPostal || '',
+        mapsUrl: inputMapsUrl?.value?.trim() || ubic.mapsUrl || '',
         coordenadas: {
-          lat: parseFloat(inputLat?.value) || -12.1125,
-          lng: parseFloat(inputLng?.value) || -77.0258
+          lat: parseFloat(inputLat?.value) || ubic.coordenadas?.lat || 0,
+          lng: parseFloat(inputLng?.value) || ubic.coordenadas?.lng || 0
         }
       },
 

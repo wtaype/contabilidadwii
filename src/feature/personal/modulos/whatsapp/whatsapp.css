@@ -1,4 +1,4 @@
-﻿/* src/feature/personal/modulos/whatsapp/whatsapp.css */
+/* src/feature/personal/modulos/whatsapp/whatsapp.css */
 /* Estilos del Módulo WhatsApp: Centro de Mensajería y Sandbox (Estudio Cusihuaman) */
 /* 100% Adaptado a witema.css y @widev · 0 CSS inline */
 
@@ -244,7 +244,7 @@
   text-transform: uppercase;
 }
 
-/* Burbuja de mensaje saliente (Gaswii) */
+/* Burbuja de mensaje saliente (Empresa) */
 .wa-chat-bubble-out {
   align-self: flex-end;
   background: #005c4b;

@@ -4,7 +4,9 @@
 
 import { getls, savels } from '@widev';
 
-const CLOUDFLARE_CORREO_ENDPOINT = 'https://gaswii-correo.lourdesinformatica10.workers.dev/enviar';
+import { datosNegocio } from '../../../../negocio.js';
+
+const CLOUDFLARE_CORREO_ENDPOINT = import.meta.env.PUBLIC_CORREO_WORKER_ENDPOINT || 'https://correo.contabilidadwii.workers.dev/enviar';
 
 /**
  * Obtiene la lista de tickets del cliente desde la caché local wiSoporte (0ms)
@@ -23,11 +25,11 @@ export function guardarTicketsLocal(tickets) {
 }
 
 /**
- * Genera un código de ticket amigable para el cliente (ej: CUSI-TK-1082)
+ * Genera un código de ticket amigable para el cliente (ej: TK-1082)
  */
 function generarCodigoTicket() {
   const rand = Math.floor(1000 + Math.random() * 9000);
-  return `CUSI-TK-${rand}`;
+  return `TK-${rand}`;
 }
 
 /**
@@ -35,19 +37,20 @@ function generarCodigoTicket() {
  */
 async function despacharCorreoWorker(ticket) {
   try {
+    const nombreEmpresa = datosNegocio.nombreCorto || datosNegocio.nombre || 'Atención al Cliente';
     const payload = {
       tipo: 'soporte',
-      para: ticket.email || 'lourdes.cusihuaman@contabilidadwii.pe',
-      nombre: ticket.nombre || 'Contribuyente',
-      asunto: `🏛️ Consulta Tributaria Recibida #${ticket.ticketId} · Estudio Cusihuaman`,
+      para: ticket.email || datosNegocio.email || '',
+      nombre: ticket.nombre || 'Cliente',
+      asunto: `🏛️ Consulta Recibida #${ticket.ticketId} · ${nombreEmpresa}`,
       resumen: `Tu consulta sobre ${ticket.tipo.toUpperCase()} #${ticket.ticketId} ha sido registrada con éxito.`,
       html: `
         <div style="font-family:'Segoe UI',sans-serif; max-width:580px; margin:0 auto; padding:20px; border:1px solid #e2e8f0; border-radius:12px; background:#ffffff;">
           <div style="background:#9e7b4f; padding:14px 20px; border-radius:8px 8px 0 0; color:#ffffff; font-weight:800; font-size:1.1rem; letter-spacing:0.5px;">
-            ESTUDIO CONTABLE CPC LOURDES CUSIHUAMAN · MESA DE CONSULTAS
+            ${nombreEmpresa.toUpperCase()} · MESA DE CONSULTAS
           </div>
           <div style="padding:20px;">
-            <h3 style="color:#0f172a; margin-top:0;">Hemos recibido tu consulta tributaria</h3>
+            <h3 style="color:#0f172a; margin-top:0;">Hemos recibido tu consulta</h3>
             <p style="color:#475569; font-size:0.9rem;">
               Estimado(a) <strong>${ticket.nombre}</strong>, tu ticket de atención <strong>#${ticket.ticketId}</strong> ha sido ingresado en nuestro sistema.
             </p>
@@ -58,7 +61,7 @@ async function despacharCorreoWorker(ticket) {
               <p style="margin:6px 0 0; font-size:0.85rem; color:#64748b;"><strong>Detalle:</strong> ${ticket.detalle}</p>
             </div>
             <p style="font-size:0.82rem; color:#64748b;">
-              La CPC Lourdes Cusihuaman Gálvez o un especialista del equipo revisará tu caso a la brevedad. Para urgencias ante SUNAT, puedes escribir directo a WhatsApp al +51 987 594 558.
+              Un especialista del equipo revisará tu caso a la brevedad. Para urgencias, puedes escribir directo a WhatsApp al ${datosNegocio.telefono || '+51 987 594 558'}.
             </p>
           </div>
         </div>
@@ -93,7 +96,7 @@ async function despacharCorreoWorker(ticket) {
  * Crea una nueva solicitud / ticket en Local-First (0ms), Firestore soporte/{ticket_id} y Cloudflare Worker
  */
 export async function crearTicket(datos = {}) {
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? (window.__CONTABILIDAD_USER__ || window.__GASWII_USER__) : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   const uid = user?.uid || user?.userId || 'anonimo';
   const now = Date.now();
   const ticketDocId = `ticket_${now}_${uid.slice(0, 4)}`;
@@ -165,7 +168,7 @@ export async function crearTicket(datos = {}) {
  * Sincronización pasiva en segundo plano con Firestore para actualizar estados de tickets
  */
 export async function sincronizarTicketsDesdeFirestore() {
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? (window.__CONTABILIDAD_USER__ || window.__GASWII_USER__) : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   const uid = user?.uid || user?.userId;
   if (!uid) return;
 

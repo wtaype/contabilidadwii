@@ -25,9 +25,9 @@ function actualizarEnlaceWhatsApp(tipo) {
 
   const neg = getls('minegocio') || {};
   const numWa = String(neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || datosNegocio.whatsappLimpio || '').replace(/\D/g, '');
-  const nombreNegocio = neg.identidad?.nombre || 'Estudio Contable CPC Lourdes Cusihuaman';
+  const nombreNegocio = neg.identidad?.nombreCorto || neg.identidad?.nombre || datosNegocio.nombreCorto || datosNegocio.nombre || '';
 
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? (window.__CONTABILIDAD_USER__ || window.__GASWII_USER__) : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   const clienteNombre = user?.nombre ? ` de ${user.nombre}` : '';
   const rucInfo = user?.documento ? `\n📌 RUC: ${user.documento}` : '';
 
@@ -97,7 +97,7 @@ function actualizarCamposComprobante() {
   const boxRazon = document.getElementById('spGrupoRazonSocial');
   const inpDoc = document.getElementById('spInputDocComp');
   const inpRazon = document.getElementById('spInputRazonComp');
-  const user = getls('wiSmile') || (typeof window !== 'undefined' ? (window.__CONTABILIDAD_USER__ || window.__GASWII_USER__) : null);
+  const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
 
   if (tipoComp === 'factura') {
     if (boxRazon) boxRazon.style.display = 'flex';

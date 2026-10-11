@@ -6,11 +6,12 @@ import { savels, getls } from '@widev';
 import { db } from '@core/servicios/firebase.js';
 import { collection, doc, setDoc, getDocs, query, orderBy, limit, serverTimestamp } from 'firebase/firestore';
 import { getUsuarioActivo } from '../negocio/dataNegocio.js';
+import { datosNegocio } from '../../../../negocio.js';
 
-export const STORAGE_KEY = 'minegocio_correos_historial';
-export const STORAGE_KEY_AJUSTES = 'minegocio_correo_ajustes';
-export const STORAGE_KEY_RECIBIDOS = 'minegocio_correos_recibidos';
-export const STORAGE_KEY_BORRADORES = 'minegocio_correos_borradores';
+export const STORAGE_KEY = 'wi_correos_historial';
+export const STORAGE_KEY_AJUSTES = 'wi_correo_ajustes';
+export const STORAGE_KEY_RECIBIDOS = 'wi_correos_recibidos';
+export const STORAGE_KEY_BORRADORES = 'wi_correos_borradores';
 export const COLECCION_CORREOS = 'correos';
 
 // Memoria volátil en sesión
@@ -20,12 +21,15 @@ let _memoriaCorreos = null;
  * Obtiene los ajustes predeterminados de correo
  */
 export function obtenerAjustesCorreo() {
-  const guardado = getls(STORAGE_KEY_AJUSTES);
+  const guardado = getls(STORAGE_KEY_AJUSTES) || getls('minegocio_correo_ajustes');
+  const negEmail = datosNegocio.email || '';
+  const negDominio = negEmail.includes('@') ? negEmail.split('@')[1] : '';
+
   return {
-    remitenteNombre: guardado?.remitenteNombre || 'Estudio Cusihuaman',
-    remitenteEmail: guardado?.remitenteEmail || 'contacto@contabilidadwii.com',
-    responderA: guardado?.responderA || 'contacto@contabilidadwii.com',
-    dominio: 'contabilidadwii.com'
+    remitenteNombre: guardado?.remitenteNombre || datosNegocio.nombreCorto || datosNegocio.nombre || '',
+    remitenteEmail: guardado?.remitenteEmail || negEmail,
+    responderA: guardado?.responderA || negEmail,
+    dominio: guardado?.dominio || negDominio
   };
 }
 
@@ -201,7 +205,7 @@ export async function enviarCorreo({
 
   let respuestaResend = null;
   try {
-    const endpoint = 'https://gaswii-correo.lourdesinformatica10.workers.dev/enviar';
+    const endpoint = ajustes.workerUrl || import.meta.env.PUBLIC_CORREO_WORKER_ENDPOINT || 'https://correo.contabilidadwii.workers.dev/enviar';
 
     const res = await fetch(endpoint, {
       method: 'POST',

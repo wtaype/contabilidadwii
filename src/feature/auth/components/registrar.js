@@ -1,6 +1,6 @@
 // src/feature/auth/components/registrar.js
 // Plantilla de registro, sanitizacion, validaciones y creacion de cuenta bajo demanda
-// Solgas Surquillo (Gaswii)
+// Capa de Autenticación Universal
 
 import { wiSpin, Mensaje, wiTip, wiRateLimit } from '../../../core/widev/widev.js';
 import { entrar } from '../sesion.js';
@@ -38,7 +38,7 @@ export const tplRegistrar = () => {
   const inputs = camposRegistro.map(c => campo(c.ico, c.tipo, c.id, txt[c.key_ph], c.ojo, c.col)).join('');
   return `
   <div class="wilg_head">
-    <img src="/imgwii/logo_full.webp" alt="Solgas Surquillo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
+    <img src="/imgwii/logo_full.webp" alt="Logo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
     <h2>${txt.registro_titulo}</h2>
     <p>${txt.registro_sub}</p>
   </div>

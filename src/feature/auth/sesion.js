@@ -59,7 +59,7 @@ export const entrar = (wi) => {
   const modal = document.querySelector('#wi_auth_modal.active') || document.querySelector('#modalLogin');
   if (modal) cerrarTodos();
 
-  Mensaje(`<i class="fa-solid fa-hand-wave"></i> ¡Bienvenido, ${wi?.nombre || wi?.usuario || 'Gaswii'}!`, 'success');
+  Mensaje(`<i class="fa-solid fa-hand-wave"></i> ¡Bienvenido, ${wi?.nombre || wi?.usuario || 'Usuario'}!`, 'success');
 
   _actualizarTimestamp(wi?.uid);
 
@@ -97,7 +97,7 @@ export const protegerRuta = (rolesPermitidos = []) => {
 };
 
 export const generarAvatarUrl = (nombre = '', usuario = '') => {
-  const semilla = encodeURIComponent(nombre || usuario || 'Gaswii');
+  const semilla = encodeURIComponent(nombre || usuario || 'Usuario');
   return `https://api.dicebear.com/7.x/initials/svg?seed=${semilla}&backgroundColor=ff6600,0284c7,10b981`;
 };
 
@@ -121,13 +121,13 @@ export const sincronizarSmile = async (user, extraData = {}) => {
   if (docSnap?.exists()) {
     const ex = docSnap.data();
     const avatar = user.photoURL || extraData.avatar || ex.avatar || imgEmail;
-    const iniciales = extraData.iniciales || ex.iniciales || calcIniciales(ex.nombre || user.displayName || 'Vecino Solgas');
+    const iniciales = extraData.iniciales || ex.iniciales || calcIniciales(ex.nombre || user.displayName || 'Usuario');
     smileData = { ...ex, ...extraData, avatar, iniciales, actualizado: new Date().toISOString() };
     const payload = { ...extraData, avatar, iniciales, actualizado: serverTimestamp() };
     Object.keys(payload).forEach(k => payload[k] === undefined && delete payload[k]);
     updateDoc(docRef, payload).catch(() => {});
   } else {
-    const nombre = extraData.nombre || user.displayName || 'Vecino Solgas';
+    const nombre = extraData.nombre || user.displayName || 'Usuario';
     const usuario = extraData.usuario || (user.email?.split('@')[0] || 'usuario').toLowerCase().replace(/[^a-z0-9_-]/g, '');
     const avatar = user.photoURL || extraData.avatar || imgEmail;
     const iniciales = extraData.iniciales || calcIniciales(nombre);

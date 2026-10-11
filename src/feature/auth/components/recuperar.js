@@ -1,6 +1,6 @@
 // src/feature/auth/components/recuperar.js
 // Vistas y llamadas para recuperacion de contrasenas olvidadas bajo demanda
-// Solgas Surquillo (Gaswii)
+// Capa de Autenticación Universal
 
 import { wiSpin, Mensaje } from '../../../core/widev/widev.js';
 import { campo, mapearErrorAuth } from './ingresar.js';
@@ -12,7 +12,7 @@ export const tplRestablecer = () => {
   const txt = t();
   return `
   <div class="wilg_head">
-    <img src="/imgwii/logo_full.webp" alt="Solgas Surquillo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
+    <img src="/imgwii/logo_full.webp" alt="Logo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
     <h2>${txt.recuperar_titulo}</h2>
     <p>${txt.recuperar_sub}</p>
   </div>

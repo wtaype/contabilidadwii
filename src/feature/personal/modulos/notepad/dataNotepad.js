@@ -6,8 +6,8 @@ import { savels, getls, formatearFechaHora } from '@widev';
 import { db } from '@core/servicios/firebase.js';
 import { doc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 
-export const STORAGE_KEY = 'contabilidad_owner_notes';
-export const OLD_STORAGE_KEY = 'gaswii_owner_notes';
+export const STORAGE_KEY = 'wi_owner_notes';
+export const OLD_STORAGE_KEY = 'contabilidad_owner_notes';
 export const COLECCION_NOTEPAD = 'notepad';
 
 export function getUsuarioActivo() {

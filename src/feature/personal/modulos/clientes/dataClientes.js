@@ -6,7 +6,7 @@
 import { getls, savels } from '@widev';
 import smilesSemilla from '../../../../semillas/smiles.json';
 
-export const STORAGE_KEY = 'minegocio_crm_clientes';
+export const STORAGE_KEY = 'wi_crm_clientes';
 export const COLECCION_SMILES = 'smiles';
 
 // Memoria volátil
@@ -19,27 +19,27 @@ export function normalizarCliente(c = {}) {
   const ruc = String(c.documento || '').trim();
   const ultimoDigito = ruc.length >= 1 ? parseInt(ruc.slice(-1), 10) : (c.ultimoDigitoRuc ?? 0);
   const uid = c.uid || c.id || `cli_${Date.now()}`;
-  const nombreContacto = c.contacto || `${c.nombre || ''} ${c.apellidos || ''}`.trim() || c.razonSocial || 'Contribuyente';
+  const nombreContacto = c.contacto || `${c.nombre || ''} ${c.apellidos || ''}`.trim() || c.razonSocial || '';
 
   return {
     id: uid,
     uid: uid,
-    nombre: c.razonSocial || c.nombre || 'Cliente Contable',
+    nombre: c.razonSocial || c.nombre || '',
     contacto: nombreContacto,
     apellidos: c.apellidos || '',
     usuario: c.usuario || (c.email ? c.email.split('@')[0] : 'cliente'),
-    documentoTipo: c.documentoTipo || (ruc.length === 11 ? 'RUC' : 'DNI'),
+    documentoTipo: c.documentoTipo || (ruc.length === 11 ? 'RUC' : (ruc ? 'DNI' : '')),
     documento: ruc,
     celular: c.celular || '',
     email: c.email || '',
-    direccion: c.direccion || (Array.isArray(c.direcciones) && c.direcciones[0] ? `${c.direcciones[0].calle}, ${c.direcciones[0].distrito}` : 'Surquillo, Lima'),
-    regimenTributario: c.regimenTributario || 'Régimen MYPE Tributario (RMT)',
-    servicioContratado: c.servicioContratado || 'Contabilidad Mensual MYPE & SIRE',
-    honorarioPEN: parseFloat(c.honorarioPEN) || 150.00,
+    direccion: c.direccion || (Array.isArray(c.direcciones) && c.direcciones[0] ? `${c.direcciones[0].calle || ''}, ${c.direcciones[0].distrito || ''}`.trim() : ''),
+    regimenTributario: c.regimenTributario || '',
+    servicioContratado: c.servicioContratado || '',
+    honorarioPEN: parseFloat(c.honorarioPEN) || 0,
     ultimoDigitoRuc: isNaN(ultimoDigito) ? 0 : ultimoDigito,
     estadoTributario: c.estadoTributario || 'al_dia', // 'al_dia' | 'pendiente' | 'por_vencer'
-    fechaInicio: c.fechaInicio || 'Ene 2026',
-    observaciones: c.observaciones || 'Declaraciones mensuales y libros electrónicos al día.',
+    fechaInicio: c.fechaInicio || '',
+    observaciones: c.observaciones || '',
     avatar: c.avatar || 'https://imgwii.web.app/smile.avif',
     rol: 'cliente',
     activo: Boolean(c.activo ?? true)

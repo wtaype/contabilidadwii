@@ -6,8 +6,10 @@
 import { getls, savels } from '@widev';
 import paginasSemilla from '../../../../semillas/paginas.json';
 
-export const STORAGE_KEY = 'contabilidad_paginas_institucionales';
-export const OLD_STORAGE_KEY = 'gaswii_paginas_institucionales';
+import { datosNegocio } from '../../../../negocio.js';
+
+export const STORAGE_KEY = 'wi_paginas_institucionales';
+export const OLD_STORAGE_KEY = 'contabilidad_paginas_institucionales';
 export const COLECCION_PAGINAS = 'paginas';
 
 let _memoriaPaginas = null;
@@ -18,12 +20,12 @@ export function normalizarPagina(p = {}) {
     ruta: p.ruta || '/',
     nombre: p.nombre || 'Página',
     icono: p.icono || 'fa-solid fa-file-lines',
-    h1: p.h1 || 'Asesoría Contable & Tributaria en Lima',
-    subtitulo: p.subtitulo || 'Estudio Cusihuaman · Atención Online Nacional y Sede Surquillo.',
-    metaTitle: p.metaTitle || 'CPC Lourdes Cusihuaman · Asesoría Contable y SUNAT',
-    metaDesc: p.metaDesc || 'Especialista contable ex-funcionaria de SUNAT para MYPES y profesionales independientes.',
-    telefono: p.telefono || '+51 987 594 558',
-    horario: p.horario || 'Lunes a Viernes: 8:30 a.m. a 7:00 p.m.',
+    h1: p.h1 || datosNegocio.titulo || '',
+    subtitulo: p.subtitulo || datosNegocio.subtitulo || '',
+    metaTitle: p.metaTitle || datosNegocio.titulo || '',
+    metaDesc: p.metaDesc || '',
+    telefono: p.telefono || datosNegocio.telefono || '',
+    horario: p.horario || datosNegocio.horario || '',
     ultimaModificacion: p.ultimaModificacion || new Date().toISOString().slice(0, 10)
   };
 }

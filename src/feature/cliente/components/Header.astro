@@ -1,7 +1,9 @@
 ---
 // src/feature/cliente/components/Header.astro
-// Barra superior oficial del Estudio Contable Cusihuaman con branding, buscador, toggle de tema y dropdown de perfil
+// Barra superior modular del Portal de Clientes con branding dinámico, buscador, toggle de tema y dropdown de perfil
 import { datosNegocio } from '@/negocio.js';
+import configSemilla from '@/semillas/config.json';
+import { getModulosActivos } from '../modulos.js';
 
 interface Props {
   cliente?: {
@@ -13,10 +15,13 @@ interface Props {
 }
 
 const { cliente = {} } = Astro.props;
+const listaModulos = getModulosActivos();
+const rolClienteNombre = configSemilla?.terminologia?.rolClienteNombre || 'Cliente';
+const placeholderBuscador = configSemilla?.terminologia?.buscadorPlaceholder || `Buscar en ${datosNegocio.nombre}...`;
 ---
 
 <header class="cl-topbar">
-  <!-- Identidad del Estudio Contable -->
+  <!-- Identidad de la Marca -->
   <a href="/" class="cl-brand" title="Ir a la Tienda / Inicio">
     <picture class="cl-brand-picture">
       <source media="(max-width: 900px)" srcset={datosNegocio.logoFull} />
@@ -39,10 +44,10 @@ const { cliente = {} } = Astro.props;
       type="search" 
       id="clSearchInput" 
       class="cl-search-input" 
-      placeholder="Buscar servicios contables, asesorías, trámites SUNAT..." 
+      placeholder={placeholderBuscador}
       autocomplete="off" 
       spellcheck="false" 
-      aria-label="Buscar servicios contables"
+      aria-label={placeholderBuscador}
     />
   </div>
 
@@ -58,18 +63,18 @@ const { cliente = {} } = Astro.props;
       <i class="fa-solid fa-store"></i>
     </a>
 
-    <!-- Dropdown de Usuario / Contribuyente Autenticado -->
+    <!-- Dropdown de Usuario Autenticado -->
     <div class="cl-user-dropdown-container">
       <button type="button" class="cl-user-chip-btn" id="btnUserChip" aria-expanded="false" aria-haspopup="true">
         <div class="cl-avatar-sm" id="topbarAvatarLetter">{cliente.avatar ? cliente.nombre?.charAt(0).toUpperCase() : 'C'}</div>
         <div class="cl-user-meta">
-          <span class="cl-user-name" id="topbarUserName">{cliente.nombre || 'Contribuyente'}</span>
-          <span class="cl-user-badge" id="topbarUserPlan">Contribuyente</span>
+          <span class="cl-user-name" id="topbarUserName">{cliente.nombre || rolClienteNombre}</span>
+          <span class="cl-user-badge" id="topbarUserPlan">{rolClienteNombre}</span>
         </div>
         <i class="fa-solid fa-chevron-down cl-chevron"></i>
       </button>
 
-      <!-- Menú Desplegable -->
+      <!-- Menú Desplegable Dinámico -->
       <div class="cl-dropdown-menu" id="menuUserDropdown">
         <div class="cl-dd-header">
           <div class="cl-dd-user" id="dropdownUserFullName">{cliente.nombreCompleto || cliente.nombre || 'Mi Perfil'}</div>
@@ -78,18 +83,11 @@ const { cliente = {} } = Astro.props;
         <a href="/" target="_blank" class="cl-dd-item destacado">
           <i class="fa-solid fa-house"></i> <span>Ver Web Principal</span>
         </a>
-        <button type="button" class="cl-dd-item" data-jump-to="pedidos">
-          <i class="fa-solid fa-briefcase"></i> <span>Servicios y Asesorías</span>
-        </button>
-        <button type="button" class="cl-dd-item" data-jump-to="direccion">
-          <i class="fa-solid fa-building"></i> <span>Domicilio Fiscal</span>
-        </button>
-        <button type="button" class="cl-dd-item" data-jump-to="cuenta">
-          <i class="fa-solid fa-id-card"></i> <span>Mi Perfil Tributario</span>
-        </button>
-        <button type="button" class="cl-dd-item" data-jump-to="soporte">
-          <i class="fa-solid fa-headset"></i> <span>Consultas SUNAT</span>
-        </button>
+        {listaModulos.map((m) => (
+          <button type="button" class="cl-dd-item" data-jump-to={m.id}>
+            <i class={m.icono}></i> <span>{m.nombre}</span>
+          </button>
+        ))}
         <div class="cl-dd-divider"></div>
         <button type="button" class="cl-dd-item danger" id="btnLogoutSession">
           <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Cerrar Sesión</span>
@@ -98,5 +96,3 @@ const { cliente = {} } = Astro.props;
     </div>
   </div>
 </header>
-
-

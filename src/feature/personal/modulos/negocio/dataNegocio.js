@@ -6,8 +6,8 @@
 import { savels, getls, formatearFechaParaInput } from '@widev';
 import negocioSemilla from '../../../../semillas/negocio.json';
 
-export const STORAGE_KEY = 'minegocio';
-export const OLD_STORAGE_KEY = 'gaswii_negocio_config';
+export const STORAGE_KEY = 'wi_negocio';
+export const OLD_STORAGE_KEY = 'minegocio';
 export const COLECCION_NEGOCIO = 'negocio';
 export const DOC_NEGOCIO_ID = 'principal';
 
@@ -254,6 +254,8 @@ export function obtenerDatosNegocio() {
   _memoriaNegocio = normalizarConfig(negocioSemilla || {});
   return _memoriaNegocio;
 }
+
+export const obtenerNegocioLocal = obtenerDatosNegocio;
 
 /**
  * Guarda en caché local y notifica reactivamente a la UI

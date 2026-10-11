@@ -2,7 +2,7 @@
   "id": "config_sistema",
   "modeloNegocio": "servicios_y_asesorias",
   "version": "2.0.0",
-  "actualizado": "2026-10-10",
+  "actualizado": "2026-10-11",
   "capacidades": {
     "servicios": true,
     "asesorias": true,
@@ -24,7 +24,19 @@
     "grupo1Titulo": "Servicios Mensuales",
     "grupo2Titulo": "Asesorías Puntuales",
     "campoEspecialCliente": "Régimen Tributario",
-    "comprobanteConceptoDefault": "Servicios Contables y Asesoría Tributaria"
+    "comprobanteConceptoDefault": "Servicios Contables y Asesoría Tributaria",
+    "rolClienteNombre": "Cliente Contable",
+    "rolPersonalNombre": "Especialista Contable",
+    "buscadorPlaceholder": "Buscar servicios, asesorías, trámites..."
+  },
+  "portalCliente": {
+    "moduloDefecto": "pedidos",
+    "modulos": [
+      { "id": "pedidos",   "nombre": "Servicios",        "icono": "fa-solid fa-briefcase", "activo": true },
+      { "id": "direccion", "nombre": "Domicilio Fiscal", "icono": "fa-solid fa-building",  "activo": true },
+      { "id": "cuenta",    "nombre": "Mi Cuenta Fiscal", "icono": "fa-solid fa-id-card",   "activo": true },
+      { "id": "soporte",   "nombre": "Consultas SUNAT",  "icono": "fa-solid fa-headset",   "activo": true }
+    ]
   },
   "parametros": {
     "moneda": "PEN",

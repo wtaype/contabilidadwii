@@ -49,7 +49,7 @@ let _serviciosBuildFirestore = Array.isArray(serviciosSemilla) ? serviciosSemill
 export async function consultarProductosFirestoreFresco() {
   if (typeof window !== 'undefined') {
     try {
-      const local = localStorage.getItem('contabilidad_servicios');
+      const local = localStorage.getItem('wi_servicios') || localStorage.getItem('contabilidad_servicios');
       if (local) {
         const parsed = JSON.parse(local);
         const lista = Array.isArray(parsed) ? parsed : (parsed && Array.isArray(parsed.value) ? parsed.value : null);

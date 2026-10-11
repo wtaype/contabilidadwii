@@ -4,15 +4,16 @@
 
 import { Notificacion, getls, savels } from '@widev';
 import { enviarCorreo } from '../correo/dataCorreo.js';
+import { obtenerNegocioLocal } from '../negocio/dataNegocio.js';
 
-const STORAGE_KEY_TICKETS = 'contabilidadwii_tickets_soporte';
-const EMAIL_SOPORTE_DESTINO = 'wtaypeee@gmail.com';
+const STORAGE_KEY_TICKETS = 'wi_tickets_soporte';
+const OLD_STORAGE_KEY_TICKETS = 'contabilidadwii_tickets_soporte';
 
 /**
  * Obtiene el historial de tickets guardados en localStorage
  */
 export function obtenerTicketsLocales() {
-  const lista = getls(STORAGE_KEY_TICKETS);
+  const lista = getls(STORAGE_KEY_TICKETS) || getls(OLD_STORAGE_KEY_TICKETS);
   return Array.isArray(lista) ? lista : [];
 }
 
@@ -40,9 +41,10 @@ function generarCodigoTicket() {
  */
 function obtenerDiagnosticoSistema() {
   const user = getls('wiSmile') || {};
+  const negocio = obtenerNegocioLocal() || {};
   return {
     usuario: user.nombre || user.usuario || 'Usuario Personal',
-    emailUsuario: user.email || 'contacto@contabilidadwii.com',
+    emailUsuario: user.email || negocio.identidad?.email || '',
     rol: user.rol || 'Administrador',
     navegador: navigator.userAgent,
     pantalla: `${window.innerWidth}x${window.innerHeight} (Monitor: ${screen.width}x${screen.height})`,
@@ -125,7 +127,7 @@ function generarHtmlTicket({ codigo, asunto, categoria, prioridad, descripcion, 
         </table>
       </div>
       <div class="tk-footer">
-        Enviado automáticamente desde el Panel de Gestión · Estudio Cusihuaman / Contabilidadwii
+        Enviado automáticamente desde el Panel de Gestión · ${obtenerNegocioLocal()?.identidad?.nombreComercial || 'Gestión'}
       </div>
     </div>
   </body>
@@ -242,9 +244,10 @@ export function inicializarModuloAyuda() {
           diag
         });
 
-        // Despachar vía Resend a wtaypeee@gmail.com
+        // Despachar vía servicio de correo
+        const emailDestino = obtenerNegocioLocal()?.contacto?.emailSoporte || obtenerNegocioLocal()?.identidad?.email || 'soporte@widominio.com';
         await enviarCorreo({
-          para: EMAIL_SOPORTE_DESTINO,
+          para: emailDestino,
           asunto: `[Ticket ${codigo}] ${asunto} - ${diag.usuario}`,
           mensaje: descripcion,
           html,

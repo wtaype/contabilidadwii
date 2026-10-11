@@ -1,6 +1,6 @@
 // src/feature/auth/components/ingresar.js
 // Formulario de inicio de sesión, plantillas localizadas y llamadas de autenticación bajo demanda
-// Solgas Surquillo (Gaswii)
+// Capa de Autenticación Universal
 
 import { wiSpin, Mensaje } from '../../../core/widev/widev.js';
 import { entrar } from '../sesion.js';
@@ -37,7 +37,7 @@ export const tplLogin = () => {
   const txt = t();
   return `
   <div class="wilg_head">
-    <img src="/imgwii/logo_full.webp" alt="Solgas Surquillo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
+    <img src="/imgwii/logo_full.webp" alt="Logo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
     <h2>${txt.bienvenido_de_vuelta}</h2>
     <p>${txt.bienvenido_sub}</p>
   </div>
@@ -71,13 +71,13 @@ export const tplUsername = () => {
   const sugerenciaUser = (u?.email?.split('@')[0] || 'usuario').toLowerCase().replace(/[^a-z0-9_-]/g, '');
   return `
   <div class="wilg_head">
-    <img src="/imgwii/logo.webp" alt="Solgas Surquillo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
+    <img src="/imgwii/logo.webp" alt="Logo" class="wilg_brand_logo" onerror="this.src='/favicon.ico'">
     <h2>${txt.casi_listo}</h2>
     <p>${txt.casi_listo_sub}</p>
   </div>
   ${u ? `
   <div class="wilg_user_preview">
-    <strong>${u.displayName || 'Vecino Solgas'}</strong>
+    <strong>${u.displayName || 'Usuario'}</strong>
     <small>${u.email}</small>
   </div>` : ''}
   <div class="wilg_grupo">
@@ -146,7 +146,7 @@ export const iniciarSesionOrdinaria = async (btn) => {
       ? docSnap.data()
       : {
           uid: user.uid, email: user.email || email,
-          nombre: user.displayName || 'Vecino Solgas',
+          nombre: user.displayName || 'Usuario',
           usuario: email.split('@')[0],
           avatar: user.photoURL || imgEmail,
           iniciales: calcIniciales(user.displayName || email.split('@')[0]),
@@ -246,7 +246,7 @@ export const completarRegistroGoogle = async (btn) => {
     const iniciales = calcIniciales(user.displayName || usernameLimpio);
 
     const partes = (user.displayName || '').trim().split(/\s+/);
-    const nombre = partes[0] || 'Vecino Solgas';
+    const nombre = partes[0] || 'Usuario';
     const apellidos = partes.slice(1).join(' ');
 
     const profile = {

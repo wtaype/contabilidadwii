@@ -5,18 +5,22 @@
 
 import { Saludar, Notificacion, getls, savels } from '@widev';
 import { datosNegocio } from '../../../../negocio.js';
+import { firebaseConfig } from '../../../../core/servicios/firebase.js';
+import configSemilla from '@/semillas/config.json';
 import { normalizarDireccionesMap, sincronizarDireccionesDesdeFirestore } from '../02-direccion/dataDireccion.js';
 
-const PRODUCTOS_CACHE_KEY = 'contabilidad_productos';
-const PRODUCTOS_TS_KEY = 'contabilidad_productos_ts';
+const PRODUCTOS_CACHE_KEY = 'wi_servicios';
+const PRODUCTOS_TS_KEY = 'wi_servicios_ts';
 const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutos TTL para cuidar lecturas
 
 export function inicializarPedidos() {
   const modulo = document.getElementById('moduloPedidos');
   if (!modulo) return;
 
+  const rolClienteNombre = configSemilla?.terminologia?.rolClienteNombre || 'Cliente';
+
   // Estado del usuario activo desde wiSmile (Sesión real obligatoria)
-  const user = getls('wiSmile') || window.__CONTABILIDAD_USER__;
+  const user = getls('wiSmile');
   if (!user || (!user.uid && !user.usuario && !user.nombre)) {
     return;
   }
@@ -24,7 +28,7 @@ export function inicializarPedidos() {
   // Saludo dinámico según la hora del día
   const saluteElem = document.getElementById('clWelcomeSalute');
   if (saluteElem) {
-    const primerNombre = (user.nombre || user.usuario || 'Contribuyente').trim().split(/\s+/)[0];
+    const primerNombre = (user.nombre || user.usuario || rolClienteNombre).trim().split(/\s+/)[0];
     saluteElem.textContent = `¡${Saludar(primerNombre, 'es')}!`;
   }
 
@@ -57,10 +61,10 @@ export function inicializarPedidos() {
 
   // Estado reactivo de la solicitud
   let state = {
-    nombre: user.nombre || user.usuario || 'Contribuyente',
+    nombre: user.nombre || user.usuario || rolClienteNombre,
     celular: inCel?.value?.trim() || user.celular || '',
     calle: '',
-    distrito: 'Surquillo',
+    distrito: '',
     formaPago: 'Transferencia BCP / Yape',
     notas: ''
   };
@@ -81,7 +85,7 @@ export function inicializarPedidos() {
     }
 
     if (count === 0) {
-      itemsList.push('• (Selecciona al menos 1 servicio o asesoría)');
+      itemsList.push('• (Selecciona al menos 1 ítem del catálogo)');
     }
 
     return { total, count, itemsList };
@@ -89,28 +93,28 @@ export function inicializarPedidos() {
 
   function buildMessage() {
     const { total, itemsList } = calculateTotals();
-    const neg = getls('minegocio') || {};
-    const nombreNegocio = neg.identidad?.nombre || 'CPC Lourdes Cusihuaman';
+    const neg = getls('wi_negocio') || getls('minegocio') || {};
+    const nombreNegocio = neg.identidad?.nombreComercial || neg.identidad?.nombre || datosNegocio.nombre || 'Empresa';
     const direccionTexto = state.calle 
-      ? `${state.calle}, ${state.distrito}` 
-      : `Atención 100% Online Nacional / Sede Surquillo`;
+      ? `${state.calle}${state.distrito ? ', ' + state.distrito : ''}` 
+      : `Atención Online / Coordinación Directa`;
 
     const celTexto = state.celular ? `\n📱 WhatsApp / Teléfono: ${state.celular}` : '';
 
-    let msg = `¡Hola ${nombreNegocio}! Deseo consultar / contratar los siguientes servicios contables:
+    let msg = `¡Hola ${nombreNegocio}! Deseo consultar / coordinar lo siguiente:
 
-👤 Contribuyente: ${state.nombre}${celTexto}
-📋 Servicios solicitados:
+👤 ${rolClienteNombre}: ${state.nombre}${celTexto}
+📋 Detalle solicitado:
 ${itemsList.join('\n')}
 💰 Total estimado: S/ ${total.toFixed(2)}
 💳 Medio de Pago: ${state.formaPago}
-📍 Domicilio / Modalidad: ${direccionTexto}`;
+📍 Modalidad / Dirección: ${direccionTexto}`;
 
     if (state.notas.trim()) {
-      msg += `\n📝 Consulta o RUC: ${state.notas.trim()}`;
+      msg += `\n📝 Detalle adicional: ${state.notas.trim()}`;
     }
 
-    msg += `\n\n🙏 ¿Podríamos coordinar los detalles de la atención y emisión del comprobante? ¡Muchas gracias!`;
+    msg += `\n\n🙏 ¿Podríamos coordinar los detalles de la atención? ¡Muchas gracias!`;
 
     return msg;
   }
@@ -119,7 +123,7 @@ ${itemsList.join('\n')}
     const { total, count } = calculateTotals();
     const finalMessage = buildMessage();
     const encoded = encodeURIComponent(finalMessage);
-    const neg = getls('minegocio') || {};
+    const neg = getls('wi_negocio') || getls('minegocio') || {};
     const numWa = String(neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || datosNegocio.whatsappLimpio || '').replace(/\D/g, '');
     const waBase = `https://wa.me/${numWa}`;
 
@@ -260,11 +264,12 @@ ${itemsList.join('\n')}
       return;
     }
 
-    const projectId = 'contabilidadwii';
+    const projectId = firebaseConfig?.projectId || 'contabilidadwii';
+    const coleccion = 'servicios';
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 5000);
 
-    fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/productos`, {
+    fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${coleccion}`, {
       signal: ctrl.signal
     })
       .then(res => res.ok ? res.json() : null)

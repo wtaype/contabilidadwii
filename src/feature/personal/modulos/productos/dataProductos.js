@@ -14,10 +14,10 @@ import {
   serverTimestamp
 } from 'firebase/firestore';
 import serviciosSemilla from '../../../../semillas/servicios.json';
-import { solicitarActualizacionWeb } from '../../../../actualizar.js';
+import { solicitarActualizacionWeb } from '../../lib/actualizar.js';
 
-export const STORAGE_KEY = 'contabilidad_servicios';
-export const OLD_STORAGE_KEY = 'gaswii_productos';
+export const STORAGE_KEY = 'wi_servicios';
+export const OLD_STORAGE_KEY = 'contabilidad_servicios';
 export const COLECCION_SERVICIOS = 'servicios';
 
 // Parser ultraligero de campos de la REST API de Firestore (para build-time SSG)
@@ -70,26 +70,26 @@ export function normalizarProducto(p = {}) {
   // Duración bilingüe
   const duracionEs = typeof prod.duracion === 'object' && prod.duracion !== null
     ? (prod.duracion.es || '')
-    : (prod.duracion || (tipo === 'servicio' ? 'Mensual' : '1 Hora'));
+    : (prod.duracion || '');
   const duracionEn = typeof prod.duracion === 'object' && prod.duracion !== null
     ? (prod.duracion.en || '')
-    : (prod.duracionEn || (tipo === 'servicio' ? 'Monthly' : '1 Hour'));
+    : (prod.duracionEn || '');
 
   // Modalidad bilingüe
   const modalidadEs = typeof prod.modalidad === 'object' && prod.modalidad !== null
     ? (prod.modalidad.es || '')
-    : (prod.modalidad || '100% Online y Presencial en Surquillo');
+    : (prod.modalidad || '');
   const modalidadEn = typeof prod.modalidad === 'object' && prod.modalidad !== null
     ? (prod.modalidad.en || '')
-    : (prod.modalidadEn || '100% Online & In-Person in Surquillo');
+    : (prod.modalidadEn || '');
 
   // Público bilingüe
   const publicoEs = typeof prod.publico === 'object' && prod.publico !== null
     ? (prod.publico.es || '')
-    : (prod.publico || 'MYPES, Emprendedores y Profesionales');
+    : (prod.publico || '');
   const publicoEn = typeof prod.publico === 'object' && prod.publico !== null
     ? (prod.publico.en || '')
-    : (prod.publicoEn || 'Small Businesses & Professionals');
+    : (prod.publicoEn || '');
 
   // Badge bilingüe
   const badgeEs = typeof prod.badge === 'object' && prod.badge !== null
@@ -99,7 +99,7 @@ export function normalizarProducto(p = {}) {
     ? (prod.badge.en || '')
     : (prod.badgeEn || (prod.pin ? 'Recommended' : ''));
 
-  const precio = Number(prod.precioPEN ?? prod.precio ?? prod.price ?? (tipo === 'servicio' ? 150 : 80));
+  const precio = Number(prod.precioPEN ?? prod.precio ?? prod.price ?? 0);
 
   return {
     id: String(idDefault),
@@ -111,8 +111,8 @@ export function normalizarProducto(p = {}) {
     orden: Number(prod.orden ?? 1),
     precioPEN: precio,
     precio: precio,
-    enfoque: String(prod.enfoque || (tipo === 'servicio' ? 'Contabilidad MYPE y Régimen Especial' : 'Asesoría y Diagnóstico Tributario')),
-    imagen: String(prod.imagen || (tipo === 'servicio' ? '/imgwii/servicios/servicio01.webp' : '/imgwii/servicios/servicio04.webp')),
+    enfoque: String(prod.enfoque || ''),
+    imagen: String(prod.imagen || ''),
     badgeIcon: String(prod.badgeIcon || 'fa-solid fa-star'),
     tagClase: String(prod.tagClase || 'badge-serenidad'),
     actualizado: prod.actualizado || null,
@@ -175,8 +175,8 @@ export function getUsuarioActivo() {
   const u = getls('wiSmile') || {};
   return {
     userId: u.uid || u.id || 'admin',
-    email: u.email || 'contacto@contabilidadwii.com',
-    autor: u.nombre || u.usuario || 'Lourdes Cusihuaman'
+    email: u.email || '',
+    autor: u.nombre || u.usuario || 'Usuario'
   };
 }
 
@@ -188,11 +188,12 @@ export function obtenerProductosLocal() {
     return _memoriaProductos;
   }
 
-  // 1. Revisar localStorage
+  // 1. Revisar localStorage (wi_servicios o contabilidad_servicios)
   try {
-    const local = getls(STORAGE_KEY);
+    const local = getls(STORAGE_KEY) || getls(OLD_STORAGE_KEY);
     if (Array.isArray(local) && local.length > 0) {
       _memoriaProductos = local.map(normalizarProducto).sort((a, b) => (a.orden || 999) - (b.orden || 999));
+      savels(STORAGE_KEY, _memoriaProductos);
       return _memoriaProductos;
     }
   } catch (e) {}

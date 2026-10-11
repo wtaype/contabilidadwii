@@ -1,0 +1,9 @@
+---
+// src/feature/redes/layout/RedesLayout.astro
+// Re-exporta el layout oficial Popular.astro
+import Popular from './Popular.astro';
+---
+
+<Popular {...Astro.props}>
+  <slot />
+</Popular>

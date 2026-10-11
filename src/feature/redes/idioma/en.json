@@ -1,0 +1,42 @@
+{
+  "meta_titulo": "Official Social Media & Direct Links · CPA Lourdes Cusihuaman",
+  "meta_descripcion": "Connect with me on my official social networks: YouTube, Facebook, Instagram, TikTok, WhatsApp, and Official Website. Accounting & tax advisory in Lima, Peru.",
+  "handle": "@lourdescusihuaman",
+  "nombre": "CPA Lourdes Cusihuaman",
+  "bio": "Strategic accounting and tax advisory to grow your business in Peru. 🇵🇪",
+  "badge_verificado": "OFFICIAL",
+  "btn_copiar": "Copy link",
+  "toast_copiado": "Link copied to clipboard!",
+  "canales": {
+    "youtube": {
+      "nombre": "YouTube",
+      "descripcion": "Official Channel"
+    },
+    "facebook": {
+      "nombre": "Facebook",
+      "descripcion": "Official Page"
+    },
+    "instagram": {
+      "nombre": "Instagram",
+      "descripcion": "@estudiocusihuaman"
+    },
+    "tiktok": {
+      "nombre": "TikTok",
+      "descripcion": "Videos & SUNAT Tips"
+    },
+    "whatsapp": {
+      "nombre": "WhatsApp Channel",
+      "descripcion": "Official Community"
+    },
+    "web": {
+      "nombre": "Official Website",
+      "descripcion": "Cusihuaman Firm"
+    }
+  },
+  "pill_atencion": "Personalized & Timely Attention",
+  "footer": {
+    "terminos": "Terms",
+    "privacidad": "Privacy",
+    "inicio": "Home"
+  }
+}

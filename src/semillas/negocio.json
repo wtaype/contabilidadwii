@@ -126,10 +126,18 @@
   },
 
   "redes": {
+    "youtube": "https://youtube.com/@estudiocusihuaman",
+    "youtubeUser": "estudiocusihuaman",
     "facebook": "https://facebook.com/estudiocusihuaman",
+    "facebookUser": "estudiocusihuaman",
     "instagram": "https://instagram.com/estudiocusihuaman",
+    "instagramUser": "estudiocusihuaman",
     "tiktok": "https://tiktok.com/@estudiocusihuaman",
-    "linkedin": "https://linkedin.com/in/lourdes-cusihuaman"
+    "tiktokUser": "estudiocusihuaman",
+    "canalWhatsapp": "",
+    "web": "https://lourdes.solgassurquillo.com",
+    "linkedin": "https://linkedin.com/in/lourdes-cusihuaman",
+    "linkedinUser": "lourdes-cusihuaman"
   },
 
   "seo": {

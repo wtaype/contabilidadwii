@@ -1,0 +1,81 @@
+---
+// src/feature/redes/componentes/RedesLista.astro
+// Contenedor y orquestador de botones de canales oficiales (100% Español, 0ms)
+import RedesCard from './RedesCard.astro';
+import { datosNegocio } from '../../../negocio.js';
+
+const redes = datosNegocio.redes || {};
+const wsNumero = datosNegocio.whatsapp || '51987594558';
+const wsMensaje = '¡Hola Lourdes! Te contacto desde tu página oficial de enlaces y redes.';
+const wsUrl = `https://wa.me/${wsNumero}?text=${encodeURIComponent(wsMensaje)}`;
+const canalWhatsappHref = redes.canalWhatsapp || wsUrl;
+const webUrl = redes.web || '/';
+
+// Lista de canales oficiales (coincide 1:1 con la Ficha de Negocio)
+const canales = [
+  {
+    id: 'youtube',
+    icono: 'fa-brands fa-youtube',
+    titulo: 'YouTube',
+    href: redes.youtube || 'https://youtube.com/@estudiocusihuaman',
+    mostrar: Boolean(redes.youtube || redes.youtubeUser || true)
+  },
+  {
+    id: 'facebook',
+    icono: 'fa-brands fa-facebook-f',
+    titulo: 'Facebook',
+    href: redes.facebook || 'https://facebook.com/estudiocusihuaman',
+    mostrar: true
+  },
+  {
+    id: 'instagram',
+    icono: 'fa-brands fa-instagram',
+    titulo: 'Instagram',
+    href: redes.instagram || 'https://instagram.com/estudiocusihuaman',
+    mostrar: true
+  },
+  {
+    id: 'tiktok',
+    icono: 'fa-brands fa-tiktok',
+    titulo: 'TikTok',
+    href: redes.tiktok || 'https://tiktok.com/@estudiocusihuaman',
+    mostrar: true
+  },
+  {
+    id: 'whatsapp',
+    icono: 'fa-brands fa-whatsapp',
+    titulo: 'Canal de WhatsApp',
+    href: canalWhatsappHref,
+    dataNegocioWs: !redes.canalWhatsapp,
+    mostrar: true
+  },
+  {
+    id: 'web',
+    icono: 'fa-solid fa-globe',
+    titulo: 'Web Oficial',
+    href: webUrl,
+    target: webUrl.startsWith('http') ? '_blank' : '_self',
+    mostrar: true
+  },
+  {
+    id: 'linkedin',
+    icono: 'fa-brands fa-linkedin-in',
+    titulo: 'LinkedIn',
+    href: redes.linkedin || '',
+    mostrar: Boolean(redes.linkedin || redes.linkedinUser)
+  }
+];
+---
+
+<div class="redes-lista" role="navigation" aria-label="Enlaces oficiales">
+  {canales.filter(c => c.mostrar).map((canal) => (
+    <RedesCard
+      href={canal.href}
+      redId={canal.id}
+      icono={canal.icono}
+      titulo={canal.titulo}
+      target={canal.target || '_blank'}
+      dataNegocioWs={canal.dataNegocioWs}
+    />
+  ))}
+</div>

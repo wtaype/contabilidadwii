@@ -280,27 +280,44 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
   font-size: var(--fz_s3, 12px);
   font-weight: 600;
   color: var(--ink, #0f172a);
+  min-width: 0;
+}
+
+.ng-label > span:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ng-label-hint {
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--muted, #64748b);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--brand-primary, var(--mco, #9e7b4f));
+  background: var(--raised, rgba(0, 0, 0, 0.05));
+  border: 1px solid var(--line, rgba(0, 0, 0, 0.06));
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  max-width: 125px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 
 .ng-input,
 .ng-textarea {
   width: 100%;
-  padding: 9px 12px;
+  padding: 8px 11px;
   background: var(--raised, rgba(0, 0, 0, 0.03));
   border: 1px solid var(--line, #e2e8f0);
   border-radius: 8px;
   color: var(--ink, #0f172a);
   font-family: inherit;
-  font-size: var(--fz_s4, 13px);
+  font-size: var(--fz_s4, 12.5px);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-sizing: border-box;
   outline: none;
@@ -317,17 +334,91 @@
   resize: vertical;
 }
 
-/* Horario en grupo abre/cierra */
+/* Horario en grupo compacto y responsive */
 .ng-input-group-horario {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  background: var(--raised, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 8px;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ng-input-group-horario:focus-within {
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.15);
+}
+
+.ng-input-group-horario input[type="time"] {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--ink, #0f172a);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 3px 2px;
+  outline: none;
 }
 
 .ng-input-group-horario span {
   font-size: 11px;
   color: var(--muted, #64748b);
-  font-weight: 500;
+  font-weight: 600;
+  padding: 0 2px;
+  user-select: none;
+}
+
+/* Input con Prefijo Visual para Handle de Redes Sociales */
+.ng-input-handle-wrap {
+  display: flex;
+  align-items: center;
+  background: var(--raised, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.ng-input-handle-wrap:focus-within {
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.15);
+}
+
+.ng-input-handle-prefix {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  background: var(--surface, #ffffff);
+  border-right: 1px solid var(--line, #e2e8f0);
+  color: var(--muted, #64748b);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  user-select: none;
+  height: 35px;
+  flex-shrink: 0;
+}
+
+.ng-input-handle-prefix i {
+  font-size: 13px;
+}
+
+.ng-input-handle-wrap input.ng-input-bare {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 7px 10px;
+  color: var(--ink, #0f172a);
+  font-family: inherit;
+  font-size: 12.5px;
+  outline: none;
 }
 
 /* Grupo Maps con botones */

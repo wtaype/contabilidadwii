@@ -1,0 +1,37 @@
+---
+// src/feature/redes/RedesPage.astro
+// Orquestador Maestro de la Vista Bio-Link Independiente (Estudio Cusihuaman)
+// 100% Español · Cero Header ni Footer institucional · Layout: Popular.astro
+import Popular from './layout/Popular.astro';
+import RedesTopBar from './componentes/RedesTopBar.astro';
+import RedesHero from './componentes/RedesHero.astro';
+import RedesLista from './componentes/RedesLista.astro';
+import RedesFooter from './componentes/RedesFooter.astro';
+import { datosNegocio } from '../../negocio.js';
+
+const titulo = `Redes Oficiales y Enlaces Directos · ${datosNegocio.nombre}`;
+const descripcion = `Conéctate conmigo en mis redes sociales oficiales: YouTube, Facebook, Instagram, TikTok, WhatsApp y Web Oficial. Asesoría contable y tributaria en Lima, Perú.`;
+---
+
+<Popular titulo={titulo} descripcion={descripcion}>
+  <main class="redes-screen">
+    <div class="redes-card">
+      <!-- 1. TopBar con Botón Copiar URL y Badge Oficial -->
+      <RedesTopBar />
+
+      <!-- 2. Hero con Avatar, Handle @ y Bio en 1ª persona -->
+      <RedesHero 
+        avatar={datosNegocio.hero?.imagen || '/imgwii/hero.webp'}
+        handle="@lourdescusihuaman"
+        bio="Asesoría contable y tributaria estratégica para hacer crecer tu negocio. 🇵🇪"
+        alt={datosNegocio.nombre}
+      />
+
+      <!-- 3. Lista de Botones Oficiales (YT, FB, IG, TikTok, WhatsApp, Web) -->
+      <RedesLista />
+
+      <!-- 4. Footer Discreto (Pill Promocional + Términos · Privacidad · Inicio) -->
+      <RedesFooter />
+    </div>
+  </main>
+</Popular>

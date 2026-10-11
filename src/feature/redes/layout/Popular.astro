@@ -1,0 +1,80 @@
+---
+// src/feature/redes/layout/Popular.astro
+// Layout Maestro Independiente para el Feature Redes (Bio-Link / Linktree)
+// 100% en Español, Cero Header institucional, Cero Footer institucional, Cero Dependencias pesadas
+import { datosNegocio } from '../../../negocio.js';
+import witemaCss from '../../../core/wicss/witema.css?inline';
+import redesCss from '../redes.css?inline';
+
+interface Props {
+  titulo?: string;
+  descripcion?: string;
+}
+
+const { 
+  titulo = `Redes Oficiales · ${datosNegocio.nombre} | Bio-Link Oficial`,
+  descripcion = `Canales verificados y redes sociales de ${datosNegocio.nombre}. Asesoría contable y tributaria estratégica en Lima, Perú.`
+} = Astro.props;
+
+const siteUrl = 'https://lourdes.solgassurquillo.com';
+const canonical = `${siteUrl}/redes`;
+const ogImage = `${siteUrl}/imgwii/hero.webp`;
+---
+
+<!DOCTYPE html>
+<html lang="es" data-theme="luz" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <title>{titulo}</title>
+  <meta name="description" content={descripcion} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Rastreadores y Miniaturas -->
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- OpenGraph Enriquecido para WhatsApp, Facebook, TikTok e Instagram -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={datosNegocio.nombre} />
+  <meta property="og:title" content={titulo} />
+  <meta property="og:description" content={descripcion} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content="es_PE" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={titulo} />
+  <meta name="twitter:description" content={descripcion} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Precarga de Tipografías Locales -->
+  <link rel="preload" href="/google/Outfit-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" href="/google/Poppins-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="/google/fonts.css" />
+  <link rel="stylesheet" href="/fontawesome/css/all.min.css" />
+
+  <!-- Anti-FOUC Inmediato y Reactividad de Tema (0ms) -->
+  <script is:inline>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem('wiTema') || (matchMedia('(prefers-color-scheme: light)').matches ? 'luz' : 'futuro');
+    } catch(e) {}
+  </script>
+
+  <!-- Estilos Inlined sin runtime (witema + redes) -->
+  <style is:global set:html={witemaCss}></style>
+  <style is:global set:html={redesCss}></style>
+</head>
+
+<body>
+  <!-- Contenido Central Autónomo -->
+  <slot />
+
+  <!-- Script Cliente del Feature Redes -->
+  <script>
+    import '../redes.js';
+  </script>
+</body>
+</html>

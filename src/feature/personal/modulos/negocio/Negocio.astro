@@ -164,22 +164,26 @@ const n = datosNegocio;
               <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51987594558" />
             </div>
 
-            <!-- Horarios Numéricos -->
+            <!-- Fila 3: Horarios Compactos y Responsive -->
             <div class="ng-field">
-              <label class="ng-label">Lunes a Viernes</label>
+              <label class="ng-label">
+                <span>Lunes a Viernes</span>
+              </label>
               <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSemanaAbre" class="ng-input" value="08:30" />
+                <input type="time" id="ngHorarioSemanaAbre" value="08:30" />
                 <span>a</span>
-                <input type="time" id="ngHorarioSemanaCierra" class="ng-input" value="19:00" />
+                <input type="time" id="ngHorarioSemanaCierra" value="19:00" />
               </div>
             </div>
 
             <div class="ng-field">
-              <label class="ng-label">Sábados</label>
+              <label class="ng-label">
+                <span>Sábados</span>
+              </label>
               <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSabadoAbre" class="ng-input" value="09:00" />
+                <input type="time" id="ngHorarioSabadoAbre" value="09:00" />
                 <span>a</span>
-                <input type="time" id="ngHorarioSabadoCierra" class="ng-input" value="13:00" />
+                <input type="time" id="ngHorarioSabadoCierra" value="13:00" />
               </div>
             </div>
           </div>
@@ -269,24 +273,88 @@ const n = datosNegocio;
           </div>
 
           <div class="ng-grid-2 sn-mt-10">
+            <!-- 1. YouTube -->
             <div class="ng-field">
-              <label class="ng-label" for="ngInputRedInstagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
-              <input type="url" id="ngInputRedInstagram" class="ng-input" placeholder="https://instagram.com/estudiocusihuaman" />
+              <label class="ng-label" for="ngInputRedYoutube">
+                <span><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube</span>
+                <span class="ng-label-hint">Solo usuario</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> @</span>
+                <input type="text" id="ngInputRedYoutube" class="ng-input-bare" placeholder="usuario o canal" />
+              </div>
             </div>
 
+            <!-- 2. Facebook -->
             <div class="ng-field">
-              <label class="ng-label" for="ngInputRedFacebook"><i class="fa-brands fa-facebook"></i> Facebook</label>
-              <input type="url" id="ngInputRedFacebook" class="ng-input" placeholder="https://facebook.com/estudiocusihuaman" />
+              <label class="ng-label" for="ngInputRedFacebook">
+                <span><i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> Facebook</span>
+                <span class="ng-label-hint">Solo usuario</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> /</span>
+                <input type="text" id="ngInputRedFacebook" class="ng-input-bare" placeholder="usuario o pagina" />
+              </div>
             </div>
 
+            <!-- 3. Instagram -->
             <div class="ng-field">
-              <label class="ng-label" for="ngInputRedTiktok"><i class="fa-brands fa-tiktok"></i> TikTok</label>
-              <input type="url" id="ngInputRedTiktok" class="ng-input" placeholder="https://tiktok.com/@estudiocusihuaman" />
+              <label class="ng-label" for="ngInputRedInstagram">
+                <span><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram</span>
+                <span class="ng-label-hint">Solo usuario</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> @</span>
+                <input type="text" id="ngInputRedInstagram" class="ng-input-bare" placeholder="usuario" />
+              </div>
             </div>
 
+            <!-- 4. TikTok -->
             <div class="ng-field">
-              <label class="ng-label" for="ngInputRedLinkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</label>
-              <input type="url" id="ngInputRedLinkedin" class="ng-input" placeholder="https://linkedin.com/in/lourdes-cusihuaman" />
+              <label class="ng-label" for="ngInputRedTiktok">
+                <span><i class="fa-brands fa-tiktok" style="color: var(--ink, #0f172a);"></i> TikTok</span>
+                <span class="ng-label-hint">Solo usuario</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-brands fa-tiktok" style="color: var(--ink, #0f172a);"></i> @</span>
+                <input type="text" id="ngInputRedTiktok" class="ng-input-bare" placeholder="usuario" />
+              </div>
+            </div>
+
+            <!-- 5. Canal de WhatsApp -->
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputRedCanalWhatsapp">
+                <span><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Canal WhatsApp</span>
+                <span class="ng-label-hint">Canal o link</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> wa.me/</span>
+                <input type="text" id="ngInputRedCanalWhatsapp" class="ng-input-bare" placeholder="canal o enlace (opcional)" />
+              </div>
+            </div>
+
+            <!-- 6. Web Oficial -->
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputRedWeb">
+                <span><i class="fa-solid fa-globe" style="color: #00a2ed;"></i> Web Oficial</span>
+                <span class="ng-label-hint">Ruta o url</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-solid fa-globe" style="color: #00a2ed;"></i> https://</span>
+                <input type="text" id="ngInputRedWeb" class="ng-input-bare" placeholder="lourdes.solgassurquillo.com" />
+              </div>
+            </div>
+
+            <!-- 7. LinkedIn (Opcional) -->
+            <div class="ng-field span-2">
+              <label class="ng-label" for="ngInputRedLinkedin">
+                <span><i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> LinkedIn (Profesional)</span>
+                <span class="ng-label-hint">Solo usuario</span>
+              </label>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix"><i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> in/</span>
+                <input type="text" id="ngInputRedLinkedin" class="ng-input-bare" placeholder="usuario linkedin" />
+              </div>
             </div>
           </div>
         </div>

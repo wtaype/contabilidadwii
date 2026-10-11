@@ -108,9 +108,12 @@ export function inicializarNegocio() {
   const inputMetricaPacientes = document.getElementById('ngInputMetricaPacientes');
   const inputMetricaSatisfaccion = document.getElementById('ngInputMetricaSatisfaccion');
   const inputMetricaConfidencialidad = document.getElementById('ngInputMetricaConfidencialidad');
-  const inputRedInstagram = document.getElementById('ngInputRedInstagram');
+  const inputRedYoutube = document.getElementById('ngInputRedYoutube');
   const inputRedFacebook = document.getElementById('ngInputRedFacebook');
+  const inputRedInstagram = document.getElementById('ngInputRedInstagram');
   const inputRedTiktok = document.getElementById('ngInputRedTiktok');
+  const inputRedCanalWhatsapp = document.getElementById('ngInputRedCanalWhatsapp');
+  const inputRedWeb = document.getElementById('ngInputRedWeb');
   const inputRedLinkedin = document.getElementById('ngInputRedLinkedin');
 
   // ── 7. SEO DINÁMICO BILINGÜE ──
@@ -264,6 +267,94 @@ export function inicializarNegocio() {
     }
   });
 
+  // ── SANITIZACIÓN Y GESTIÓN ERGONÓMICA DE REDES SOCIALES (SOLO USUARIO) ──
+  function limpiarHandleRed(valor, tipo) {
+    if (!valor) return '';
+    let limpio = String(valor).trim();
+    if (!limpio) return '';
+
+    if (tipo === 'web') {
+      return limpio
+        .replace(/^https?:\/\//i, '')
+        .replace(/^www\./i, '')
+        .replace(/\/+$/, '');
+    }
+
+    if (tipo === 'whatsapp') {
+      limpio = limpio
+        .replace(/^https?:\/\/(www\.)?wa\.me\//i, '')
+        .replace(/^https?:\/\/(www\.)?whatsapp\.com\/channel\//i, 'channel/')
+        .replace(/^https?:\/\/(www\.)?chat\.whatsapp\.com\//i, 'chat/');
+      return limpio;
+    }
+
+    // Remover protocolos y dominios si el usuario pega la URL completa
+    limpio = limpio
+      .replace(/^https?:\/\/(www\.)?youtube\.com\/(@|c\/|user\/)?/i, '')
+      .replace(/^https?:\/\/(www\.)?youtu\.be\//i, '')
+      .replace(/^https?:\/\/(www\.)?facebook\.com\//i, '')
+      .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
+      .replace(/^https?:\/\/(www\.)?tiktok\.com\/(@)?/i, '')
+      .replace(/^https?:\/\/(www\.)?linkedin\.com\/(in\/|company\/)?/i, '');
+
+    // Remover arrobas iniciales y slashes
+    limpio = limpio.replace(/^@+/, '');
+    limpio = limpio.replace(/^\/+|\/+$/g, '');
+
+    return limpio;
+  }
+
+  function armarUrlRed(handle, tipo) {
+    const user = limpiarHandleRed(handle, tipo);
+    if (!user) return '';
+
+    switch (tipo) {
+      case 'youtube':
+        return `https://youtube.com/@${user}`;
+      case 'facebook':
+        return `https://facebook.com/${user}`;
+      case 'instagram':
+        return `https://instagram.com/${user}`;
+      case 'tiktok':
+        return `https://tiktok.com/@${user}`;
+      case 'linkedin':
+        return `https://linkedin.com/in/${user}`;
+      case 'web':
+        return user.startsWith('http') ? user : `https://${user}`;
+      case 'whatsapp':
+        if (user.startsWith('http')) return user;
+        if (user.startsWith('channel/') || user.startsWith('chat/')) {
+          return `https://whatsapp.com/${user}`;
+        }
+        return `https://wa.me/${user.replace(/\D/g, '')}`;
+      default:
+        return user;
+    }
+  }
+
+  // Sanitización automática al desenfocar o pegar
+  const listaCamposRedes = [
+    { el: inputRedYoutube, tipo: 'youtube' },
+    { el: inputRedFacebook, tipo: 'facebook' },
+    { el: inputRedInstagram, tipo: 'instagram' },
+    { el: inputRedTiktok, tipo: 'tiktok' },
+    { el: inputRedCanalWhatsapp, tipo: 'whatsapp' },
+    { el: inputRedWeb, tipo: 'web' },
+    { el: inputRedLinkedin, tipo: 'linkedin' }
+  ];
+
+  listaCamposRedes.forEach(({ el, tipo }) => {
+    if (!el) return;
+    const sanitizar = () => {
+      const limpio = limpiarHandleRed(el.value, tipo);
+      if (el.value !== limpio) {
+        el.value = limpio;
+      }
+    };
+    el.addEventListener('blur', sanitizar);
+    el.addEventListener('paste', () => setTimeout(sanitizar, 20));
+  });
+
   // ── CARGAR DATOS EN FORMULARIO ──
   function cargarFormulario(cfg) {
     if (!cfg) return;
@@ -388,11 +479,29 @@ export function inicializarNegocio() {
     if (inputMetricaSatisfaccion) inputMetricaSatisfaccion.value = cfg.metricas?.satisfaccion || '99.4%';
     if (inputMetricaConfidencialidad) inputMetricaConfidencialidad.value = cfg.metricas?.confidencialidad || '100%';
 
-    // Redes
-    if (inputRedInstagram) inputRedInstagram.value = cfg.redes?.instagram || '';
-    if (inputRedFacebook) inputRedFacebook.value = cfg.redes?.facebook || '';
-    if (inputRedTiktok) inputRedTiktok.value = cfg.redes?.tiktok || '';
-    if (inputRedLinkedin) inputRedLinkedin.value = cfg.redes?.linkedin || '';
+    // Redes & Canales (Solo usuario/handle limpio para máxima sencillez)
+    const r = cfg.redes || {};
+    if (inputRedYoutube) {
+      inputRedYoutube.value = r.youtubeUser || limpiarHandleRed(r.youtube, 'youtube') || '';
+    }
+    if (inputRedFacebook) {
+      inputRedFacebook.value = r.facebookUser || limpiarHandleRed(r.facebook, 'facebook') || '';
+    }
+    if (inputRedInstagram) {
+      inputRedInstagram.value = r.instagramUser || limpiarHandleRed(r.instagram, 'instagram') || '';
+    }
+    if (inputRedTiktok) {
+      inputRedTiktok.value = r.tiktokUser || limpiarHandleRed(r.tiktok, 'tiktok') || '';
+    }
+    if (inputRedCanalWhatsapp) {
+      inputRedCanalWhatsapp.value = r.canalWhatsappUser || limpiarHandleRed(r.canalWhatsapp || r.whatsapp, 'whatsapp') || '';
+    }
+    if (inputRedWeb) {
+      inputRedWeb.value = r.webUser || limpiarHandleRed(r.web || r.webOficial, 'web') || '';
+    }
+    if (inputRedLinkedin) {
+      inputRedLinkedin.value = r.linkedinUser || limpiarHandleRed(r.linkedin, 'linkedin') || '';
+    }
 
     // SEO
     if (inputSeoTituloEs) inputSeoTituloEs.value = cfg.seo?.titulo?.es || '';
@@ -555,12 +664,32 @@ export function inicializarNegocio() {
         years: calcularAnosTrayectoria(inputLanzamiento?.value)
       },
 
-      redes: {
-        instagram: inputRedInstagram?.value?.trim() || "",
-        facebook: inputRedFacebook?.value?.trim() || "",
-        tiktok: inputRedTiktok?.value?.trim() || "",
-        linkedin: inputRedLinkedin?.value?.trim() || ""
-      },
+      redes: (() => {
+        const ytUser = limpiarHandleRed(inputRedYoutube?.value, 'youtube');
+        const fbUser = limpiarHandleRed(inputRedFacebook?.value, 'facebook');
+        const igUser = limpiarHandleRed(inputRedInstagram?.value, 'instagram');
+        const tkUser = limpiarHandleRed(inputRedTiktok?.value, 'tiktok');
+        const wsCanalUser = limpiarHandleRed(inputRedCanalWhatsapp?.value, 'whatsapp');
+        const wbUser = limpiarHandleRed(inputRedWeb?.value, 'web');
+        const inUser = limpiarHandleRed(inputRedLinkedin?.value, 'linkedin');
+
+        return {
+          youtube: armarUrlRed(ytUser, 'youtube'),
+          youtubeUser: ytUser,
+          facebook: armarUrlRed(fbUser, 'facebook'),
+          facebookUser: fbUser,
+          instagram: armarUrlRed(igUser, 'instagram'),
+          instagramUser: igUser,
+          tiktok: armarUrlRed(tkUser, 'tiktok'),
+          tiktokUser: tkUser,
+          canalWhatsapp: armarUrlRed(wsCanalUser, 'whatsapp'),
+          canalWhatsappUser: wsCanalUser,
+          web: armarUrlRed(wbUser, 'web'),
+          webUser: wbUser,
+          linkedin: armarUrlRed(inUser, 'linkedin'),
+          linkedinUser: inUser
+        };
+      })(),
 
       seo: {
         titulo: {

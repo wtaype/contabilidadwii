@@ -138,10 +138,18 @@ export function normalizarConfig(c = {}) {
       years: cfg.metricas?.years || base.metricas?.years || '12+'
     },
     redes: {
+      youtube: cfg.redes?.youtube || base.redes?.youtube || '',
+      youtubeUser: cfg.redes?.youtubeUser || base.redes?.youtubeUser || '',
       facebook: cfg.redes?.facebook || base.redes?.facebook || '',
+      facebookUser: cfg.redes?.facebookUser || base.redes?.facebookUser || '',
       instagram: cfg.redes?.instagram || base.redes?.instagram || '',
+      instagramUser: cfg.redes?.instagramUser || base.redes?.instagramUser || '',
       tiktok: cfg.redes?.tiktok || base.redes?.tiktok || '',
-      linkedin: cfg.redes?.linkedin || base.redes?.linkedin || ''
+      tiktokUser: cfg.redes?.tiktokUser || base.redes?.tiktokUser || '',
+      canalWhatsapp: cfg.redes?.canalWhatsapp || cfg.redes?.whatsapp || base.redes?.canalWhatsapp || '',
+      web: cfg.redes?.web || cfg.redes?.webOficial || base.redes?.web || '',
+      linkedin: cfg.redes?.linkedin || base.redes?.linkedin || '',
+      linkedinUser: cfg.redes?.linkedinUser || base.redes?.linkedinUser || ''
     },
     seo: {
       titulo: {

@@ -4,7 +4,7 @@
 import { buildRuta, resolverIdiomaSeccion } from '../idioma/idioma';
 
 interface Props {
-  seccionActiva: 'acerca' | 'terminos' | 'privacidad' | 'cookies' | 'libro-reclamaciones' | 'contacto' | 'redes' | 'feedback';
+  seccionActiva: 'acerca' | 'terminos' | 'privacidad' | 'cookies' | 'libro-reclamaciones' | 'contacto' | 'feedback';
   idioma?: string;
 }
 
@@ -18,7 +18,6 @@ const navItems = [
   { id: 'cookies', slug: '/cookies', label: t.nav.cookies, icon: 'fa-solid fa-cookie-bite' },
   { id: 'libro-reclamaciones', slug: '/libro-reclamaciones', label: t.nav.libro_reclamaciones, icon: 'fa-solid fa-book' },
   { id: 'contacto', slug: '/contacto', label: t.nav.contacto, icon: 'fa-solid fa-headset' },
-  { id: 'redes', slug: '/redes', label: t.nav.redes, icon: 'fa-solid fa-share-nodes' },
   { id: 'feedback', slug: '/feedback', label: t.nav.feedback, icon: 'fa-solid fa-star' }
 ];
 ---

@@ -134,6 +134,7 @@ export const datosNegocio = {
     return idioma === 'en' ? (this.raw.contacto?.whatsappMensajeEn || m || '') : (m || '');
   },
   get email() { return this.raw.contacto?.email || ''; },
+  get redes() { return this.raw.redes || {}; },
   get paisCode() { return this.raw.contacto?.paisCode || '51'; },
   get direccionSede() { return this.raw.ubicacion?.direccion || ''; },
   get distritoSede() { return this.raw.ubicacion?.distrito || 'Surquillo'; },

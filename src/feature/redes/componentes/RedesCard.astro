@@ -1,0 +1,39 @@
+---
+// src/feature/redes/componentes/RedesCard.astro
+// Botón individual ergonómico para cada red social con su marca oficial
+
+interface Props {
+  href: string;
+  redId: string;
+  icono: string;
+  titulo: string;
+  target?: string;
+  rel?: string;
+  dataNegocioWs?: boolean;
+}
+
+const {
+  href,
+  redId,
+  icono,
+  titulo,
+  target = '_blank',
+  rel = 'noopener noreferrer',
+  dataNegocioWs = false
+} = Astro.props;
+---
+
+<a 
+  href={href} 
+  target={target} 
+  rel={rel} 
+  class={`redes-link-btn ${redId}`}
+  data-red-id={redId}
+  data-negocio-ws-link={dataNegocioWs ? true : undefined}
+  aria-label={titulo}
+>
+  <span class="redes-link-icon">
+    <i class={icono}></i>
+  </span>
+  <span class="redes-link-text">{titulo}</span>
+</a>

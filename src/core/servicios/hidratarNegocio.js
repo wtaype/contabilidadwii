@@ -112,6 +112,32 @@ export function hidratarNegocioEnDOM(datos) {
       el.textContent = titulo;
     });
   }
+
+  // 6. HIDRATAR REDES SOCIALES (Bio-Link / Redes Cards)
+  const redes = datos.redes || {};
+  if (redes && typeof redes === 'object') {
+    if (redes.facebook) {
+      document.querySelectorAll('a[data-red-id="facebook"]').forEach(a => a.setAttribute('href', redes.facebook));
+    }
+    if (redes.instagram) {
+      document.querySelectorAll('a[data-red-id="instagram"]').forEach(a => a.setAttribute('href', redes.instagram));
+    }
+    if (redes.tiktok) {
+      document.querySelectorAll('a[data-red-id="tiktok"]').forEach(a => a.setAttribute('href', redes.tiktok));
+    }
+    if (redes.youtube) {
+      document.querySelectorAll('a[data-red-id="youtube"]').forEach(a => a.setAttribute('href', redes.youtube));
+    }
+    if (redes.canalWhatsapp) {
+      document.querySelectorAll('a[data-red-id="whatsapp"]').forEach(a => a.setAttribute('href', redes.canalWhatsapp));
+    }
+    if (redes.web) {
+      document.querySelectorAll('a[data-red-id="web"]').forEach(a => a.setAttribute('href', redes.web));
+    }
+    if (redes.linkedin) {
+      document.querySelectorAll('a[data-red-id="linkedin"]').forEach(a => a.setAttribute('href', redes.linkedin));
+    }
+  }
 }
 
 /**

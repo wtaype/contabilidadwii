@@ -7,8 +7,17 @@ import { datosNegocio } from '@/negocio.js';
 interface Props {
   cliente?: any;
 }
-const whatsappSede = datosNegocio.whatsappLimpio || datosNegocio.whatsapp;
-const telefonoSede = datosNegocio.telefonoLimpio;
+const whatsappSede = datosNegocio.whatsappLimpio || datosNegocio.whatsapp || '';
+const telefonoSede = datosNegocio.telefonoLimpio || '';
+const telefonoMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono || '';
+const nombreEspecialista = datosNegocio.identidad?.especialista || datosNegocio.identidad?.nombre || datosNegocio.nombre || '';
+const nombreNegocio = datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre || '';
+const distritoSede = datosNegocio.ubicacion?.distrito || '';
+const badgeSede = distritoSede ? `Sede ${distritoSede} & Online · Atención Activa` : 'Atención Online y Presencial Activa';
+const garantiaTxt = datosNegocio.identidad?.especialista
+  ? `Atención confidencial por ${datosNegocio.identidad.especialista}${datosNegocio.identidad?.colegiatura ? ` (${datosNegocio.identidad.colegiatura})` : ''}.`
+  : `Atención confidencial y asesoría personalizada por ${nombreNegocio}.`;
+const msjWsSoporte = `Hola ${nombreEspecialista || nombreNegocio}, deseo realizar una consulta tributaria.`;
 ---
 
 <div class="cl-soporte-module" id="moduloSoporte">
@@ -20,14 +29,14 @@ const telefonoSede = datosNegocio.telefonoLimpio;
         <span>Consultas Tributarias & Mesa de Ayuda SUNAT</span>
       </div>
       <span class="sp-panel-subtitle">
-        Canal directo con la CPC Lourdes Cusihuaman Gálvez para resolver dudas sobre tus declaraciones mensuales, esquelas o trámites fiscales.
+        Canal directo con {nombreEspecialista || nombreNegocio} para resolver dudas sobre tus declaraciones mensuales, esquelas o trámites fiscales.
       </span>
     </div>
 
     <!-- BADGE DE ATENCIÓN EN VIVO -->
     <div class="sp-head-badge">
       <span class="sp-live-dot"></span>
-      <span>Sede Surquillo & Online Nacional · Atención Activa</span>
+      <span>{badgeSede}</span>
     </div>
   </div>
 
@@ -144,7 +153,7 @@ const telefonoSede = datosNegocio.telefonoLimpio;
         <div class="sp-form-actions">
           <button type="submit" class="sp-btn-save" id="btnEnviarTicket">
             <i class="fa-solid fa-paper-plane"></i>
-            <span>Enviar Consulta a CPC Lourdes Cusihuaman</span>
+            <span>Enviar Consulta a {nombreEspecialista || 'Especialista'}</span>
           </button>
         </div>
       </form>
@@ -170,7 +179,7 @@ const telefonoSede = datosNegocio.telefonoLimpio;
               <span>Teléfono del Estudio</span>
             </div>
             <span class="sp-channel-desc">Horario de oficina</span>
-            <span class="sp-channel-val">987 594 558</span>
+            <span class="sp-channel-val">{telefonoMostrado}</span>
           </a>
 
           <a href={`https://wa.me/${whatsappSede}`} target="_blank" rel="noopener noreferrer" class="sp-channel-card">
@@ -179,18 +188,18 @@ const telefonoSede = datosNegocio.telefonoLimpio;
               <span>WhatsApp Directo</span>
             </div>
             <span class="sp-channel-desc">Consultas y citas rápidas</span>
-            <span class="sp-channel-val">+51 987 594 558</span>
+            <span class="sp-channel-val">{telefonoMostrado || (whatsappSede ? `+${whatsappSede}` : '')}</span>
           </a>
         </div>
 
         <div style="font-size:0.75rem; color:var(--muted); line-height:1.4; display:flex; align-items:center; gap:8px;">
           <i class="fa-solid fa-certificate" style="color:var(--cl-emerald); font-size:0.9rem;"></i>
-          <span><strong>Garantía Profesional Colegiada:</strong> Atención confidencial por CPC Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT con Matrícula Oficial.</span>
+          <span><strong>Garantía Profesional:</strong> {garantiaTxt}</span>
         </div>
 
         <!-- Botón Directo WhatsApp Oficial con mensaje prellenado inteligente -->
         <a 
-          href={`https://wa.me/${whatsappSede}?text=${encodeURIComponent('Hola CPC Lourdes Cusihuaman, deseo realizar una consulta tributaria.')}`}
+          href={`https://wa.me/${whatsappSede}?text=${encodeURIComponent(msjWsSoporte)}`}
           target="_blank"
           rel="noopener noreferrer"
           class="sp-btn-wa-full"

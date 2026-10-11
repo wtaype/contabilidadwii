@@ -4,6 +4,7 @@
 // Diseño Editorial en 2 Columnas (TOC Sticky + Artículo de Autoridad Contable)
 
 import { datosNegocio } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdiomaSeccion } from '../../idioma/idioma';
 import AcercasHeader from '../../componentes/AcercasHeader.astro';
 import AcercasNav from '../../componentes/AcercasNav.astro';
@@ -22,11 +23,7 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
 
 const anos = String(datosNegocio.experienciaAnos || '10+');
 const wsNumero = datosNegocio.whatsappLimpio;
-const wsMsg = encodeURIComponent(
-  idioma === 'en'
-    ? `Hello CPC Lourdes, I would like to learn more about your accounting and tax advisory services.`
-    : `Hola CPC Lourdes, le escribo desde su web para coordinar una asesoría contable y tributaria.`
-);
+const wsMsg = encodeURIComponent(t.ws_mensaje);
 const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
 ---
 
@@ -59,10 +56,14 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
         <div class="acerca-specialist-card">
           <div class="acerca-specialist-img-wrap">
             <img 
-              src="/imgwii/lourdes.webp" 
+              src={imgwii.svg} 
+              data-src="/imgwii/lourdes.webp" 
               alt="CPC Lourdes Cusihuaman Gálvez" 
-              class="acerca-specialist-img" 
+              class="acerca-specialist-img wi_skeleton" 
               loading="lazy" 
+              decoding="async"
+              width="240"
+              height="240"
             />
             <span class="acerca-specialist-badge">Ex-SUNAT</span>
           </div>
@@ -75,7 +76,7 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
             </p>
             <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acerca-consultar">
               <i class="fa-brands fa-whatsapp"></i>
-              <span>{idioma === 'en' ? 'Book Consultation' : 'Agendar Asesoría'}</span>
+              <span>{t.btn_agendar}</span>
             </a>
           </div>
         </div>
@@ -84,7 +85,7 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
         <nav class="acercas-toc-card" aria-label="Índice de la página">
           <div class="acercas-toc-title">
             <i class="fa-solid fa-list-ul color-primary"></i>
-            <span>{idioma === 'en' ? 'Table of Contents' : 'En Esta Página'}</span>
+            <span>{t.toc_titulo}</span>
           </div>
           <ul class="acercas-toc-list">
             <li><a href="#historia" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Trayectoria & Historia</a></li>
@@ -131,15 +132,15 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
           <div class="acerca-stats-row">
             <div class="acerca-stat-card">
               <div class="acerca-stat-num">+{anos}</div>
-              <div class="acerca-stat-label">{idioma === 'en' ? 'Years of Experience' : 'Años de Trayectoria'}</div>
+              <div class="acerca-stat-label">{t.stat_anos}</div>
             </div>
             <div class="acerca-stat-card">
               <div class="acerca-stat-num">+240</div>
-              <div class="acerca-stat-label">{idioma === 'en' ? 'Advised Businesses' : 'Clientes Asesorados'}</div>
+              <div class="acerca-stat-label">{t.stat_clientes}</div>
             </div>
             <div class="acerca-stat-card">
               <div class="acerca-stat-num">100%</div>
-              <div class="acerca-stat-label">{idioma === 'en' ? 'Tax Confidentiality' : 'Confidencialidad Fiscal'}</div>
+              <div class="acerca-stat-label">{t.stat_confidencialidad}</div>
             </div>
           </div>
         </article>
@@ -249,9 +250,14 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
           <div class="acerca-photos-grid">
             <div class="acerca-photo-item">
               <img 
-                src="/imgwii/oficina.webp" 
+                src={imgwii.svg} 
+                data-src="/imgwii/oficina.webp" 
                 alt="Sede Estudio Cusihuaman en Jr. Dante 260, Surquillo" 
                 loading="lazy"
+                decoding="async"
+                class="wi_skeleton"
+                width="400"
+                height="260"
               />
               <div class="acerca-photo-caption">
                 <i class="fa-solid fa-building color-primary"></i>
@@ -260,9 +266,14 @@ const wsLink = `https://wa.me/${wsNumero}?text=${wsMsg}`;
             </div>
             <div class="acerca-photo-item">
               <img 
-                src="/imgwii/experiencia.webp" 
+                src={imgwii.svg} 
+                data-src="/imgwii/experiencia.webp" 
                 alt="Balances y asesoría tributaria profesional" 
                 loading="lazy"
+                decoding="async"
+                class="wi_skeleton"
+                width="400"
+                height="260"
               />
               <div class="acerca-photo-caption">
                 <i class="fa-solid fa-briefcase color-primary"></i>

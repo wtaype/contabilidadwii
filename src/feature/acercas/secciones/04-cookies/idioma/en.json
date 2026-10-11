@@ -28,5 +28,10 @@
   "banner_mensaje": "We use cookies to improve your experience and offer a transparent accounting service",
   "banner_mas_info": "more info.",
   "banner_aceptar": "Accept",
-  "banner_rechazar": "Decline"
+  "banner_rechazar": "Decline",
+  "aria_banner": "Cookies and privacy consent",
+  "aria_mas_info": "Learn more about cookies policy and privacy",
+  "aria_aceptar": "Accept all cookies",
+  "aria_rechazar": "Reject optional cookies",
+  "toc_titulo": "Topics"
 }

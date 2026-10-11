@@ -2,6 +2,8 @@
 // src/feature/personal/modulos/correo/Correo.astro
 // Centro de Mensajería y Correo Tributario Estilo Hotmail / Outlook (Estudio Cusihuaman)
 // 3 Paneles: Carpetas (Recibidos, Enviados, Borradores) + Lista de Mensajes + Visor / Redactor con Live Preview
+import { datosNegocio } from '@/negocio.js';
+
 interface Props {
   esActivo?: boolean;
 }
@@ -85,7 +87,7 @@ const { esActivo = false } = Astro.props;
       <div class="cr-sidebar-footer">
         <strong><i class="fa-solid fa-shield-check" style="color:#10b981;"></i> Emisor Oficial</strong>
         <span id="crBadgeRemitenteActivo">contacto@contabilidadwii.com</span>
-        <div style="margin-top:4px; font-size:10px; color:#10b981; font-weight:600;">Estudio Cusihuaman</div>
+        <div style="margin-top:4px; font-size:10px; color:#10b981; font-weight:600;" data-negocio-nombre>{datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio'}</div>
       </div>
     </aside>
 
@@ -232,7 +234,7 @@ const { esActivo = false } = Astro.props;
               <label class="cr-label" for="crInputSubject">
                 <i class="fa-solid fa-heading" style="color:var(--brand-primary, var(--mco, #9e7b4f)); margin-right:4px;"></i> Asunto Oficial *
               </label>
-              <input type="text" id="crInputSubject" class="cr-input cr-live-input" value="📊 Liquidación de Impuestos Agosto 2026 · Estudio Cusihuaman" required />
+              <input type="text" id="crInputSubject" class="cr-input cr-live-input" value={`📊 Liquidación de Impuestos Agosto 2026 · ${datosNegocio.nombreCorto || datosNegocio.nombre || 'Oficial'}`} required />
             </div>
 
             <!-- BLOQUES DINÁMICOS POR PLANTILLA (CUADRITOS FÁCILES DE AUTOCOMPLETADO) -->
@@ -433,7 +435,7 @@ const { esActivo = false } = Astro.props;
           <div class="cr-form-row">
             <div class="cr-form-group">
               <label class="cr-label" for="crAjusteNombre">Nombre del Remitente</label>
-              <input type="text" id="crAjusteNombre" class="cr-input" value="Estudio Cusihuaman" required />
+              <input type="text" id="crAjusteNombre" class="cr-input" value={datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio'} required />
             </div>
             <div class="cr-form-group">
               <label class="cr-label" for="crAjusteEmail">Correo Emisor Autenticado</label>

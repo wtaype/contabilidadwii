@@ -9,6 +9,8 @@ import { getModulosActivos } from '../modulos.js';
 import witemaCss from '../../../core/wicss/witema.css?inline';
 import clienteCss from '../cliente.css?inline';
 
+import { datosNegocio } from '../../../negocio.js';
+
 interface Props {
   titulo?: string;
   moduloActivo?: string;
@@ -21,7 +23,7 @@ interface Props {
 }
 
 const { 
-  titulo = 'CPC Lourdes Cusihuaman · Portal del Contribuyente',
+  titulo = `${datosNegocio.nombre} · Portal del Cliente`,
   moduloActivo = 'pedidos',
   idioma = 'es',
   cliente = {}

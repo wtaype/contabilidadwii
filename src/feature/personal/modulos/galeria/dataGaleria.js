@@ -34,7 +34,7 @@ export function normalizarImagen(img = {}) {
     id: img.id || `img_${Date.now()}`,
     nombre: img.nombre || 'imagen.webp',
     titulo: img.titulo || 'Fotografía Oficial',
-    alt: img.alt || `Fotografía de ${img.titulo || 'Estudio Cusihuaman'}`,
+    alt: img.alt || (img.titulo ? `Fotografía de ${img.titulo}` : 'Fotografía Oficial'),
     url: img.url || '',
     categoria: img.categoria || 'otros',
     pesoKb: typeof img.pesoKb === 'number' ? img.pesoKb : 38,
@@ -190,7 +190,7 @@ export async function procesarSubidaImagen(file, categoria = 'otros', titulo = '
   let nombreArchivo = file.name || `media_${Date.now()}.webp`;
 
   try {
-    const res = await subirImagenR2(file, titulo || 'estudio-cusihuaman');
+    const res = await subirImagenR2(file, titulo || 'galeria');
     if (res && res.url) {
       urlPublica = res.url;
       nombreArchivo = res.key || nombreArchivo;
@@ -207,7 +207,7 @@ export async function procesarSubidaImagen(file, categoria = 'otros', titulo = '
     id: `img_${Date.now()}`,
     nombre: nombreArchivo,
     titulo: titulo || file.name.replace(/\.[^/.]+$/, ''),
-    alt: alt || `Fotografía de ${titulo || 'Estudio Cusihuaman'}`,
+    alt: alt || (titulo ? `Fotografía de ${titulo}` : 'Fotografía Oficial'),
     url: urlPublica,
     categoria: categoria || 'otros',
     pesoKb: Math.round(file.size / 1024) || 38,

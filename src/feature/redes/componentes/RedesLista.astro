@@ -5,64 +5,89 @@ import RedesCard from './RedesCard.astro';
 import { datosNegocio } from '../../../negocio.js';
 
 const redes = datosNegocio.redes || {};
-const wsNumero = datosNegocio.whatsapp || '51987594558';
-const wsMensaje = '¡Hola Lourdes! Te contacto desde tu página oficial de enlaces y redes.';
-const wsUrl = `https://wa.me/${wsNumero}?text=${encodeURIComponent(wsMensaje)}`;
+const wsNumero = datosNegocio.whatsappLimpio || datosNegocio.whatsapp || '';
+const wsMensaje = datosNegocio.whatsappMensaje || '¡Hola! Te contacto desde tu página oficial de enlaces y redes.';
+const wsUrl = wsNumero ? `https://wa.me/${wsNumero}?text=${encodeURIComponent(wsMensaje)}` : '';
 const canalWhatsappHref = redes.canalWhatsapp || wsUrl;
 const webUrl = redes.web || '/';
 
-// Lista de canales oficiales (coincide 1:1 con la Ficha de Negocio)
+function normalizarUrlRed(urlOrHandle = '', tipo = '') {
+  if (!urlOrHandle || typeof urlOrHandle !== 'string') return '';
+  const val = urlOrHandle.trim();
+  if (!val) return '';
+  if (val.startsWith('http://') || val.startsWith('https://')) return val;
+
+  const handle = val.replace(/^[@/]+/, '');
+  switch (tipo) {
+    case 'youtube': return `https://youtube.com/@${handle}`;
+    case 'facebook': return `https://facebook.com/${handle}`;
+    case 'instagram': return `https://instagram.com/${handle}`;
+    case 'tiktok': return `https://tiktok.com/@${handle}`;
+    case 'linkedin': return `https://linkedin.com/in/${handle}`;
+    case 'web': return `https://${handle}`;
+    default: return val;
+  }
+}
+
+const ytUrl = normalizarUrlRed(redes.youtube || redes.youtubeUser, 'youtube');
+const fbUrl = normalizarUrlRed(redes.facebook || redes.facebookUser, 'facebook');
+const igUrl = normalizarUrlRed(redes.instagram || redes.instagramUser, 'instagram');
+const ttUrl = normalizarUrlRed(redes.tiktok || redes.tiktokUser, 'tiktok');
+const liUrl = normalizarUrlRed(redes.linkedin || redes.linkedinUser, 'linkedin');
+const wbUrl = normalizarUrlRed(redes.web || redes.webOficial || webUrl, 'web');
+
+// Lista de canales oficiales: 100% dinámica desde Firestore / semillas (cero fallbacks estáticos)
 const canales = [
   {
     id: 'youtube',
     icono: 'fa-brands fa-youtube',
     titulo: 'YouTube',
-    href: redes.youtube || 'https://youtube.com/@estudiocusihuaman',
-    mostrar: Boolean(redes.youtube || redes.youtubeUser || true)
+    href: ytUrl,
+    mostrar: Boolean(ytUrl)
   },
   {
     id: 'facebook',
     icono: 'fa-brands fa-facebook-f',
     titulo: 'Facebook',
-    href: redes.facebook || 'https://facebook.com/estudiocusihuaman',
-    mostrar: true
+    href: fbUrl,
+    mostrar: Boolean(fbUrl)
   },
   {
     id: 'instagram',
     icono: 'fa-brands fa-instagram',
     titulo: 'Instagram',
-    href: redes.instagram || 'https://instagram.com/estudiocusihuaman',
-    mostrar: true
+    href: igUrl,
+    mostrar: Boolean(igUrl)
   },
   {
     id: 'tiktok',
     icono: 'fa-brands fa-tiktok',
     titulo: 'TikTok',
-    href: redes.tiktok || 'https://tiktok.com/@estudiocusihuaman',
-    mostrar: true
+    href: ttUrl,
+    mostrar: Boolean(ttUrl)
   },
   {
     id: 'whatsapp',
     icono: 'fa-brands fa-whatsapp',
     titulo: 'Canal de WhatsApp',
     href: canalWhatsappHref,
-    dataNegocioWs: !redes.canalWhatsapp,
-    mostrar: true
+    dataNegocioWs: !redes.canalWhatsapp && Boolean(wsNumero),
+    mostrar: Boolean(canalWhatsappHref)
   },
   {
     id: 'web',
     icono: 'fa-solid fa-globe',
     titulo: 'Web Oficial',
-    href: webUrl,
-    target: webUrl.startsWith('http') ? '_blank' : '_self',
-    mostrar: true
+    href: wbUrl,
+    target: wbUrl.startsWith('http') ? '_blank' : '_self',
+    mostrar: Boolean(wbUrl && wbUrl !== '/')
   },
   {
     id: 'linkedin',
     icono: 'fa-brands fa-linkedin-in',
     titulo: 'LinkedIn',
-    href: redes.linkedin || '',
-    mostrar: Boolean(redes.linkedin || redes.linkedinUser)
+    href: liUrl,
+    mostrar: Boolean(liUrl)
   }
 ];
 ---

@@ -5,6 +5,7 @@
 
 import { getls, savels } from '@widev';
 import entradasSemilla from '../../../../semillas/entradas.json';
+import { datosNegocio } from '../../../../negocio.js';
 
 export const STORAGE_KEY = 'minegocio_entradas_blog';
 export const COLECCION_ENTRADAS = 'entradas';
@@ -19,6 +20,9 @@ export function normalizarEntrada(e = {}) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 
+  const autorDef = datosNegocio.identidad?.especialista || datosNegocio.identidad?.nombre || 'Redacción';
+  const marcaDef = datosNegocio.nombreCorto || datosNegocio.nombre || 'Oficial';
+
   return {
     id: e.id || `art_${Date.now()}`,
     titulo: e.titulo || 'Artículo Tributario',
@@ -26,11 +30,11 @@ export function normalizarEntrada(e = {}) {
     categoria: e.categoria || 'Rentas Personales (4ta y 5ta)',
     estado: e.estado || 'publicado',
     fecha: e.fecha || 'Hoy',
-    autor: e.autor || 'CPC Lourdes Cusihuaman Gálvez',
+    autor: e.autor || autorDef,
     portada: e.portada || '/imgwii/hero.webp',
-    metaTitle: e.metaTitle || `${e.titulo || 'Artículo'} | Estudio Cusihuaman`,
-    metaDesc: e.metaDesc || e.resumen || 'Guía tributaria especializada por CPC Lourdes Cusihuaman Gálvez.',
-    tags: e.tags || 'sunat, tributario, contabilidad, surquillo',
+    metaTitle: e.metaTitle || `${e.titulo || 'Artículo'} | ${marcaDef}`,
+    metaDesc: e.metaDesc || e.resumen || (datosNegocio.identidad?.especialista ? `Guía tributaria especializada por ${datosNegocio.identidad.especialista}.` : 'Guía tributaria especializada.'),
+    tags: e.tags || 'tributario, contabilidad',
     contenido: e.contenido || ''
   };
 }

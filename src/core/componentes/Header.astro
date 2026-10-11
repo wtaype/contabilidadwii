@@ -126,7 +126,7 @@ const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
         <!-- Contenedor Auth (Visible en Desktop y Mobile si hay sesión) -->
         <div id="headerAuthContainer" class="header-auth-box">
           <!-- 1. Botón LOGIN (Se oculta en móvil por CSS de header-btn-login) -->
-          <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="header-btn-login" title="Iniciar Sesión o Registrarse">
+          <button id="headerBtnLogin" onclick="window.abrirModalLogin && window.abrirModalLogin()" class="header-btn-login" title="Iniciar Sesión o Registrarse" aria-label="Iniciar Sesión o Registrarse">
             <i class="fa-solid fa-circle-user"></i> <span>{t.login}</span>
           </button>
 
@@ -273,8 +273,9 @@ const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
                 const rol = (u.rol || 'cliente').toLowerCase();
                 const esStaff = ['personal', 'gestor', 'admin'].includes(rol);
                 const baseDestino = esStaff ? '/personal' : '/cliente';
-                const isEn = location.pathname.startsWith('/en');
-                const rutaFinal = isEn ? `/en${baseDestino}` : baseDestino;
+                const langMatch = location.pathname.match(/^\/([a-z]{2})(\/|$)/);
+                const prefixLang = (langMatch && langMatch[1] !== 'es') ? `/${langMatch[1]}` : '';
+                const rutaFinal = `${prefixLang}${baseDestino}`;
 
                 const primerNombre = (u.nombre || u.usuario || 'Usuario').trim().split(' ')[0];
                 const nombreCompleto = u.nombreCompleto || u.nombre || primerNombre;
@@ -304,7 +305,8 @@ const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
                 if (ddTextCuenta) ddTextCuenta.textContent = esStaff ? 'Consola de Gestión' : 'Mi Panel / Ver Cuenta';
 
                 if (ddLinkAccion) {
-                  ddLinkAccion.href = isEn ? (esStaff ? '/en/personal/clientes' : '/en/cliente/pedidos') : (esStaff ? '/personal/clientes' : '/cliente/pedidos');
+                  const subRuta = esStaff ? '/personal/clientes' : '/cliente/pedidos';
+                  ddLinkAccion.href = `${prefixLang}${subRuta}`;
                 }
                 if (ddTextAccion) {
                   ddTextAccion.textContent = esStaff ? 'Clientes y Asignaciones' : 'Mis Servicios y Asesorías';
@@ -352,6 +354,7 @@ const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
             onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
             class="header-btn-order desktop-only" 
             title="Agendar Consulta por WhatsApp"
+            aria-label="Agendar Consulta por WhatsApp"
           >
             <i class="fa-brands fa-whatsapp"></i> <span>{t.pedir}</span>
           </button>

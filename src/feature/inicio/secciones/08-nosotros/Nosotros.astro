@@ -2,6 +2,7 @@
 // src/feature/inicio/secciones/08-nosotros/Nosotros.astro
 // 8. SECCIÓN NOSOTROS · TRAYECTORIA Y COMPROMISO PROFESIONAL
 import { datosNegocio } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdioma } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
@@ -32,9 +33,10 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <div class="nosotros-card-photo">
           <div class="nosotros-img-box">
             <img 
-              src="/imgwii/lourdes.webp" 
+              src={imgwii.svg} 
+              data-src="/imgwii/lourdes.webp" 
               alt="Lourdes Cusihuaman Gálvez - Especialista Ex-SUNAT" 
-              class="nosotros-card-img" 
+              class="nosotros-card-img wi_skeleton" 
               loading="lazy" 
               decoding="async" 
               width="300" 
@@ -48,9 +50,10 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <div class="nosotros-card-photo">
           <div class="nosotros-img-box">
             <img 
-              src="/imgwii/oficina.webp" 
+              src={imgwii.svg} 
+              data-src="/imgwii/oficina.webp" 
               alt="Estudio Cusihuaman - Asesoría Tributaria y Contable en Surquillo" 
-              class="nosotros-card-img" 
+              class="nosotros-card-img wi_skeleton" 
               loading="lazy"
               decoding="async" 
               width="300" 

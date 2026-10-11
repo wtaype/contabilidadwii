@@ -2,7 +2,7 @@
 // Controlador Frontend Autónomo del Módulo Páginas (Editor Institucional & SERP)
 // 100% JS Nativo · Integrado con @widev
 
-import { Notificacion, wiSpin } from '@widev';
+import { Notificacion, wiSpin, getls } from '@widev';
 import { obtenerPaginas, guardarPagina } from './dataPaginas.js';
 
 export function inicializarModuloPaginas() {
@@ -78,8 +78,11 @@ export function inicializarModuloPaginas() {
   function actualizarSerpPreview(rutaOverride) {
     const p = obtenerPaginas().find(x => x.id === paginaSeleccionadaId);
     const ruta = rutaOverride || p?.ruta || '/';
-    const title = inMetaTitle?.value || 'CPC Lourdes Cusihuaman · Asesoría Contable & Tributaria';
-    const desc = inMetaDesc?.value || 'Asesoría contable para MYPES y profesionales en Lima y todo el Perú.';
+    const neg = getls('wi_negocio') || getls('minegocio') || {};
+    const defaultTitle = neg.identidad?.nombre ? `${neg.identidad.nombre} · Servicios Oficiales` : 'Servicios Oficiales';
+    const defaultDesc = neg.subtitulo || (typeof neg.bio === 'object' ? neg.bio?.es : neg.bio) || 'Información oficial y servicios.';
+    const title = inMetaTitle?.value || defaultTitle;
+    const desc = inMetaDesc?.value || defaultDesc;
 
     if (serpUrlPath) {
       serpUrlPath.textContent = ruta === '/' ? '' : `› ${ruta.replace('/', '')}`;

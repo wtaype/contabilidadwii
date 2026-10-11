@@ -21,15 +21,11 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
 const telLimpio = datosNegocio.telefonoLimpio;
 const telMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
 const wsNumero = datosNegocio.whatsapp;
-const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(
-  idioma === 'en'
-    ? `Hello CPC Lourdes, I would like to consult regarding your accounting and tax services.`
-    : `Hola CPC Lourdes, deseo consultar sobre sus servicios contables y tributarios.`
-)}`;
+const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(t.ws_mensaje)}`;
 
 const mapsUrl = datosNegocio.mapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(datosNegocio.direccionSede + ' ' + datosNegocio.distritoSede)}`;
 const wazeUrl = `https://waze.com/ul?q=${encodeURIComponent(datosNegocio.direccionSede + ' ' + datosNegocio.distritoSede)}`;
-const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.horario;
+const horarioTexto = datosNegocio.getHorario(idioma);
 ---
 
 <style is:global set:html={acercasMadreCss}></style>

@@ -3,6 +3,7 @@
 // 2. SECCIÓN ESPECIALIDADES CLÍNICAS (6 SERVICIOS EN GRILLA 3x2)
 // Consultorio Psicológico América - Lic. Sofía Reynaga
 import { datosNegocio, consultarProductosFirestoreFresco } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdioma, resolverIdiomas } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
@@ -92,9 +93,10 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
                 <!-- Imagen Fotográfica con Pastilla de Duración -->
                 <div class="producto-media-frame card-img-box">
                   <img 
-                    src={p.imagen || '/imgwii/servicios/servicio01.webp'} 
+                    src={imgwii.svg} 
+                    data-src={p.imagen || '/imgwii/servicios/servicio01.webp'} 
                     alt={nombre} 
-                    class="producto-img-tag card-img" 
+                    class="producto-img-tag card-img wi_skeleton" 
                     loading="lazy" 
                     decoding="async" 
                     width="360" 

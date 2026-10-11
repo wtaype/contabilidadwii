@@ -35,7 +35,7 @@ export function inicializarModuloAjustes() {
 
     if (inEta) inEta.value = data.etaMinutos || '15–30 min';
     if (inCostoDelivery) inCostoDelivery.value = (parseFloat(data.costoDelivery) || 80.00).toFixed(2);
-    if (inTelefono) inTelefono.value = data.telefonoContacto || '987 594 558';
+    if (inTelefono) inTelefono.value = data.telefonoContacto || '';
     if (inDireccion) inDireccion.value = data.direccionSede || 'Jr. Dante 260, Surquillo, Lima 15047';
     if (switchSonido) switchSonido.checked = data.sonidoPedidos;
     if (switchPush) switchPush.checked = data.notificacionesWebPush;
@@ -68,7 +68,7 @@ export function inicializarModuloAjustes() {
       guardarAjustes({
         etaMinutos: inEta?.value?.trim() || '15–30 min',
         costoDelivery: parseFloat(inCostoDelivery?.value) || 80.00,
-        telefonoContacto: inTelefono?.value?.trim() || '987 594 558',
+        telefonoContacto: inTelefono?.value?.trim() || '',
         direccionSede: inDireccion?.value?.trim() || 'Jr. Dante 260, Surquillo, Lima 15047',
         sonidoPedidos: switchSonido?.checked ?? true,
         notificacionesWebPush: switchPush?.checked ?? true

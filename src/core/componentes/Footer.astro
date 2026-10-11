@@ -2,6 +2,7 @@
 // src/core/componentes/Footer.astro
 // 10. FOOTER INSTITUCIONAL UX/UI - Estudio Contable Cusihuaman
 import { datosNegocio } from '../../negocio.js';
+import { imgwii } from '@widev';
 import { getI18n, buildRuta, type Idioma } from '../idioma/idioma';
 import CookiesBanner from '../../feature/acercas/secciones/04-cookies/componentes/CookiesBanner.astro';
 
@@ -11,7 +12,7 @@ interface Props {
 
 const { idioma = 'es' } = Astro.props;
 const t = getI18n(idioma).footer;
-const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.horario;
+const horarioTexto = datosNegocio.getHorario(idioma);
 ---
 
 <footer class="footer-main">
@@ -22,11 +23,14 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
       <div class="footer-col-brand">
         <div class="footer-brand-box">
           <img 
-            src={datosNegocio.logo} 
+            src={imgwii.svg} 
+            data-src={datosNegocio.logo} 
             alt={datosNegocio.nombre} 
             width="44"
             height="44"
-            class="footer-logo-img" 
+            loading="lazy"
+            decoding="async"
+            class="footer-logo-img wi_skeleton" 
           />
           <div>
             <span class="footer-brand-title">{datosNegocio.nombre}</span>
@@ -49,36 +53,36 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
       <!-- Columna 2: Páginas Institucionales y Legales -->
       <div class="footer-col-distritos">
         <h4 class="footer-col-title">
-          <i class="fa-solid fa-landmark-flag color-primary"></i> {idioma === 'en' ? 'Institutional Pages' : 'Páginas Oficiales'}
+          <i class="fa-solid fa-landmark-flag color-primary"></i> {t.paginas_oficiales}
         </h4>
         <ul class="footer-nav-list">
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/acerca', idioma)}>{idioma === 'en' ? 'About Us' : 'Nosotros'}</a>
+            <a href={buildRuta('/acerca', idioma)}>{t.link_nosotros}</a>
           </li>
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/terminos', idioma)}>{idioma === 'en' ? 'Terms of Service' : 'Términos del Servicio'}</a>
+            <a href={buildRuta('/terminos', idioma)}>{t.link_terminos}</a>
           </li>
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/privacidad', idioma)}>{idioma === 'en' ? 'Privacy Policy' : 'Política de Privacidad'}</a>
+            <a href={buildRuta('/privacidad', idioma)}>{t.link_privacidad}</a>
           </li>
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/cookies', idioma)}>{idioma === 'en' ? 'Cookies Policy' : 'Política de Cookies'}</a>
+            <a href={buildRuta('/cookies', idioma)}>{t.link_cookies}</a>
           </li>
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/contacto', idioma)}>{idioma === 'en' ? 'Contact & Hub' : 'Contacto y Sede'}</a>
+            <a href={buildRuta('/contacto', idioma)}>{t.link_contacto}</a>
           </li>
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/redes', idioma)}>{idioma === 'en' ? 'Official Networks' : 'Canales y Redes'}</a>
+            <a href={buildRuta('/redes', idioma)}>{t.link_redes}</a>
           </li>
           <li>
             <i class="fa-solid fa-chevron-right"></i> 
-            <a href={buildRuta('/feedback', idioma)}>{idioma === 'en' ? 'Service Feedback' : 'Feedback y Sugerencias'}</a>
+            <a href={buildRuta('/feedback', idioma)}>{t.link_feedback}</a>
           </li>
         </ul>
       </div>
@@ -119,11 +123,14 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
           title={t.reclamos_btn}
         >
           <img 
-            src="/imgwii/Libro-de-reclamaciones.webp" 
+            src={imgwii.svg} 
+            data-src="/imgwii/Libro-de-reclamaciones.webp" 
             alt="Libro de Reclamaciones INDECOPI" 
             width="130"
             height="55"
-            class="footer-claims-img"
+            loading="lazy"
+            decoding="async"
+            class="footer-claims-img wi_skeleton"
           />
           <span class="footer-claims-tag">
             <i class="fa-solid fa-shield-check"></i> {t.reclamos_tag}

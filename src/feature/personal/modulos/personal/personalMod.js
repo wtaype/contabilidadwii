@@ -2,7 +2,7 @@
 // Controlador Frontend Autónomo del Módulo Personal (Equipo Profesional del Estudio)
 // 100% JS Nativo · Integrado con @widev y Local-First
 
-import { Notificacion, wiSpin, wiConfirmar } from '@widev';
+import { Notificacion, wiSpin, wiConfirmar, getls } from '@widev';
 import {
   obtenerPersonal,
   guardarMiembroPersonal,
@@ -123,7 +123,9 @@ export function inicializarModuloPersonal() {
       btn.addEventListener('click', () => {
         const cel = btn.getAttribute('data-cel')?.replace(/\D/g, '') || '';
         const nom = btn.getAttribute('data-nombre') || 'Especialista';
-        const url = `https://wa.me/51${cel}?text=${encodeURIComponent(`Hola ${nom}, te saludo desde el portal del Estudio Contable CPC Lourdes Cusihuaman Gálvez.`)}`;
+        const neg = getls('wi_negocio') || getls('minegocio') || {};
+        const nombreEstudio = neg.identidad?.nombre || neg.identidad?.nombreCorto || 'nuestro equipo';
+        const url = `https://wa.me/51${cel}?text=${encodeURIComponent(`Hola ${nom}, te saludo desde el portal de ${nombreEstudio}.`)}`;
         window.open(url, '_blank');
       });
     });
@@ -171,8 +173,8 @@ export function inicializarModuloPersonal() {
     const cargo = document.getElementById('peModalCargo')?.value?.trim() || 'Especialista Contable';
     const colegiatura = document.getElementById('peModalColegiatura')?.value?.trim() || 'Habilitado/a';
     const especialidad = document.getElementById('peModalEspecialidad')?.value?.trim() || 'Asesoría Tributaria';
-    const cel = document.getElementById('peModalCelular')?.value?.trim() || '+51 987 594 558';
-    const email = document.getElementById('peModalEmail')?.value?.trim() || 'contacto@contabilidadwii.com';
+    const cel = document.getElementById('peModalCelular')?.value?.trim() || '';
+    const email = document.getElementById('peModalEmail')?.value?.trim() || '';
     const modalidad = document.getElementById('peModalModalidad')?.value || 'Online & Presencial Surquillo';
     const experiencia = document.getElementById('peModalExperiencia')?.value?.trim() || '5+ años de trayectoria';
 

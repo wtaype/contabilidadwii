@@ -1,9 +1,6 @@
 import { imgwii } from '@widev';
 import { ROL_PATH } from '@core/rutas.js';
 import { obtenerSaludoHora } from './whatsapp.js';
-import { iniciarSincronizacionNegocio, hidratarNegocioEnDOM } from '@core/servicios/hidratarNegocio.js';
-
-
 
 /**
  * Switcher de idiomas dinámico preservando ruta y anclas
@@ -15,9 +12,8 @@ function initLanguageSwitcher() {
       if (!targetLang) return;
       e.preventDefault();
       const pathActual = window.location.pathname.replace(/\/$/, '') || '/';
-      let limpia = pathActual;
-      if (limpia === '/en') limpia = '/';
-      else if (limpia.startsWith('/en/')) limpia = limpia.slice(3) || '/';
+      let limpia = pathActual.replace(/^\/[a-z]{2}(\/|$)/, '/');
+      if (!limpia.startsWith('/')) limpia = `/${limpia}`;
       const hash = window.location.hash || '';
 
       const dest = targetLang === 'es' 
@@ -61,6 +57,20 @@ function hidratarHeroDesdeNegocio(datos) {
   const horario = datos.contacto?.horario || '';
   if (horario) {
     document.querySelectorAll('[data-negocio-horario]').forEach(el => el.textContent = horario);
+  }
+
+  const wa = datos.contacto?.whatsappLimpio || datos.contacto?.whatsapp || telLimpio || '';
+  const waLimpio = String(wa).replace(/\D/g, '');
+  if (waLimpio) {
+    document.querySelectorAll('[data-negocio-ws-text]').forEach(el => el.textContent = `+${waLimpio}`);
+    document.querySelectorAll('a[data-negocio-ws-link]').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      if (href.includes('wa.me/')) {
+        const partes = href.split('?');
+        const query = partes[1] ? `?${partes[1]}` : '';
+        a.setAttribute('href', `https://wa.me/${waLimpio}${query}`);
+      }
+    });
   }
 }
 
@@ -122,14 +132,31 @@ function initReconciliacionServicios() {
 }
 
 /**
+ * Hidratación Local-First de negocio desde localStorage y eventos
+ */
+function initHidratacionNegocioLocal() {
+  try {
+    const raw = localStorage.getItem('minegocio') || localStorage.getItem('wi_negocio');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed) hidratarHeroDesdeNegocio(parsed);
+    }
+  } catch (e) {}
+
+  window.addEventListener('contabilidad:negocio-actualizado', (e) => {
+    if (e.detail) hidratarHeroDesdeNegocio(e.detail);
+  });
+}
+
+/**
  * Inicializador Maestro diferido por wiSmart()
  */
 export function initInicioInteractivo() {
   // 1. Activar lazy loading inteligente de imágenes
   imgwii.ver();
 
-  // 2. Sincronización e Hidratación Dinámica de Negocio y WhatsApp
-  iniciarSincronizacionNegocio();
+  // 2. Hidratación Local-First de Negocio y WhatsApp (0 KB Firebase)
+  initHidratacionNegocioLocal();
 
   // 3. Switcher de idiomas
   initLanguageSwitcher();

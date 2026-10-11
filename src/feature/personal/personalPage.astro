@@ -69,7 +69,7 @@ const estilosModulos = [
 ].join('\n');
 ---
 
-<Sonrisa titulo={`Panel de Gestión · ${datosNegocio.nombreCorto || 'Estudio Cusihuaman'}`} moduloActivo={moduloActivo} idioma={idioma}>
+<Sonrisa titulo={`Panel de Gestión · ${datosNegocio.nombreCorto || datosNegocio.nombre || 'Administración'}`} moduloActivo={moduloActivo} idioma={idioma}>
   <!-- Inyección limpia de CSS de los 15 módulos (0 CSS en runtime) -->
   <style slot="modulo-css" is:global set:html={estilosModulos}></style>
 

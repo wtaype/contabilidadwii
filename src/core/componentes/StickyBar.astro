@@ -19,6 +19,7 @@ const whatsappLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encode
     onclick="window.abrirModalAgendar && window.abrirModalAgendar()" 
     class="btn-test sticky-btn-test" 
     title="Agendar Asesoría"
+    aria-label="Agendar Asesoría"
   >
     <i class="fa-solid fa-calendar-check"></i> <span>{t.sticky_test}</span>
   </button>
@@ -28,6 +29,7 @@ const whatsappLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encode
     rel="noopener noreferrer"
     class="btn-whatsapp sticky-btn-order" 
     title="Contactar por WhatsApp"
+    aria-label="Contactar por WhatsApp"
     data-negocio-ws-link
   >
     <i class="fa-brands fa-whatsapp"></i> <span>{t.sticky_pedir}</span>

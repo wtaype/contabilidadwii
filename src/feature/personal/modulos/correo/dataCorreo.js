@@ -85,8 +85,9 @@ export function limpiarEmail(str = '') {
  * "Nombre Remitente <email@dominio.com>"
  */
 export function formatearRemitente(nombre = '', email = '') {
-  const emailPuro = limpiarEmail(email) || 'contacto@contabilidadwii.com';
-  const nombrePuro = (nombre || 'Estudio Cusihuaman').replace(/[<>]/g, '').trim();
+  const emailPuro = limpiarEmail(email) || datosNegocio.contacto?.email || 'contacto@contabilidadwii.com';
+  const nombreFallback = datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
+  const nombrePuro = (nombre || nombreFallback).replace(/[<>]/g, '').trim();
 
   return `${nombrePuro} <${emailPuro}>`;
 }
@@ -259,7 +260,7 @@ export async function enviarCorreo({
       pedidoId: pedidoId || '',
       clienteId: clienteId || ''
     },
-    autor: usuario.autor || 'CPC Lourdes Cusihuaman',
+    autor: usuario.autor || datosNegocio.identidad?.especialista || datosNegocio.identidad?.nombre || 'Administrador',
     userId: usuario.userId || '',
     email: usuario.email || '',
     fecha: formatearFechaLegible(ahora),

@@ -13,7 +13,7 @@ export function obtenerDatosPerfil() {
       apellidos: user.apellidos || 'Taype Espinoza',
       usuario: user.usuario || 'wilder',
       email: user.email || 'wtaypeee@gmail.com',
-      celular: user.celular || '961229280',
+      celular: user.celular || '',
       rol: user.rol || 'gestor',
       sede: 'Sede Principal Jr. Dante 260, Surquillo',
       avatar: user.avatar || user.foto || 'https://imgwii.web.app/smile.avif'
@@ -26,7 +26,7 @@ export function obtenerDatosPerfil() {
     apellidos: 'Taype Espinoza',
     usuario: 'wilder',
     email: 'wtaypeee@gmail.com',
-    celular: '961229280',
+    celular: '',
     rol: 'gestor',
     sede: 'Sede Principal Jr. Dante 260, Surquillo',
     avatar: 'https://imgwii.web.app/smile.avif'

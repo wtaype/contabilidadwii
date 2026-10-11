@@ -116,7 +116,7 @@ const { esActivo = false } = Astro.props;
       <div class="pf-id-card">
         <div class="pf-id-header">
           <div class="pf-id-brand">
-            <i class="fa-solid fa-scale-balanced"></i> {(datosNegocio.nombreCorto || 'ESTUDIO CUSIHUAMAN').toUpperCase()}
+            <i class="fa-solid fa-scale-balanced"></i> {(datosNegocio.nombreCorto || datosNegocio.nombre || 'ADMINISTRACIÓN').toUpperCase()}
           </div>
           <span class="pf-id-role-badge">ADMINISTRADOR</span>
         </div>
@@ -134,7 +134,7 @@ const { esActivo = false } = Astro.props;
           </div>
           <div class="pf-id-meta-row">
             <span class="pf-id-meta-lbl">WhatsApp:</span>
-            <span id="pfIdCelular">961229280</span>
+            <span id="pfIdCelular">-</span>
           </div>
           <div class="pf-id-meta-row">
             <span class="pf-id-meta-lbl">Sede:</span>

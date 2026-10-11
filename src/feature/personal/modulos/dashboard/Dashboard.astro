@@ -42,7 +42,7 @@ const { esActivo = true } = Astro.props;
         target="_blank" 
         rel="noopener noreferrer" 
         class="ps-btn ps-btn-secondary"
-        title={`Abrir canal WhatsApp de ${datosNegocio.nombreCorto || 'Estudio Cusihuaman'}`}
+        title={`Abrir canal WhatsApp de ${datosNegocio.nombreCorto || datosNegocio.nombre || 'Atención'}`}
       >
         <i class="fa-brands fa-whatsapp" style="color:var(--green);"></i> WhatsApp Asesoría
       </a>
@@ -78,7 +78,7 @@ const { esActivo = true } = Astro.props;
         <div class="db-table-head">
           <div>
             <strong class="db-table-head-title">Servicios Contables y Tarifas Vigentes</strong>
-            <p style="font-size:var(--fz_s3); color:var(--muted); margin:0;">Honorarios y servicios oficiales publicados en la web del Estudio Cusihuaman</p>
+            <p style="font-size:var(--fz_s3); color:var(--muted); margin:0;">Honorarios y servicios oficiales publicados en la web de {datosNegocio.nombreCorto || datosNegocio.nombre || 'nuestro equipo'}</p>
           </div>
           <button class="ps-btn ps-btn-secondary" style="padding:4px 10px; font-size:var(--fz_s3);" data-jump-to="productos">
             <i class="fa-solid fa-pen-to-square"></i> Modificar

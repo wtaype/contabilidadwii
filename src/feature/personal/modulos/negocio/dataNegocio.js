@@ -288,8 +288,8 @@ export function guardarDatosNegocio(input = {}) {
     moneda: input.moneda || actual.moneda || 'PEN',
     idiomaPrincipal: input.idiomaPrincipal || actual.idiomaPrincipal || 'es',
     idiomas: Array.isArray(input.idiomas) ? input.idiomas : (actual.idiomas || ['es', 'en']),
-    titulo: input.titulo || actual.titulo || 'Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez',
-    subtitulo: input.subtitulo || actual.subtitulo || 'Contabilidad & Tributación • Lima - Perú',
+    titulo: input.titulo || actual.titulo || '',
+    subtitulo: input.subtitulo ?? actual.subtitulo ?? '',
     hero: {
       ...actual.hero,
       ...(input.hero || {})
@@ -371,8 +371,8 @@ async function sincronizarNegocioFirestore(config, fechaStr) {
       moneda: config.moneda || 'PEN',
       idiomaPrincipal: config.idiomaPrincipal || 'es',
       idiomas: Array.isArray(config.idiomas) ? config.idiomas : ['es', 'en'],
-      titulo: config.titulo || 'Estudio Contable Cusihuaman | CPC Lourdes Cusihuaman Gálvez',
-      subtitulo: config.subtitulo || 'Contabilidad & Tributación • Lima - Perú',
+      titulo: config.titulo || '',
+      subtitulo: config.subtitulo || '',
       hero: config.hero || {},
       identidad: identidadLimpia,
       contacto: config.contacto || {},

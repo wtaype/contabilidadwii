@@ -2,6 +2,7 @@
 // src/feature/inicio/secciones/09-faq/Faq.astro
 // 9. SECCIÓN PREGUNTAS FRECUENTES CRO CLÍNICA
 import { datosNegocio } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdioma } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
@@ -63,11 +64,14 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         
         <div class="faq-media-box">
           <img 
-            src="/imgwii/lourdes.webp" 
+            src={imgwii.svg} 
+            data-src="/imgwii/lourdes.webp" 
             alt="Estudio Cusihuaman - Lourdes Cusihuaman Gálvez" 
             loading="lazy"
             decoding="async" 
-            class="faq-media-img"
+            class="faq-media-img wi_skeleton"
+            width="320"
+            height="200"
           />
           <div class="faq-media-overlay">
             <span class="faq-badge-fire">

@@ -11,28 +11,45 @@ interface Props {
 }
 
 const { idioma = 'es' } = Astro.props;
-const t = idioma === 'en' ? en : es;
+const DICCIONARIOS: Record<string, typeof es> = { es, en };
+const t = DICCIONARIOS[idioma] || DICCIONARIOS.es;
 const cookiesUrl = buildRuta('/cookies', idioma);
 ---
 
 <aside 
   class="cookiess" 
   id="cookiess" 
-  role="dialog" 
+  role="region" 
   aria-live="polite" 
-  aria-label={t.banner_mensaje} 
+  aria-label={t.aria_banner} 
   aria-describedby="cookiess-desc"
 >
   <p class="cookiess_txt" id="cookiess-desc">
     <i class="fa-solid fa-cookie-bite cookiess_ico" aria-hidden="true"></i>
     <span>{t.banner_mensaje}</span>
-    <a href={cookiesUrl} class="cookiess_link">{t.banner_mas_info}</a>
+    <a 
+      href={cookiesUrl} 
+      class="cookiess_link"
+      aria-label={t.aria_mas_info}
+    >
+      {t.banner_mas_info}
+    </a>
   </p>
   <div class="cookiess_btns">
-    <button type="button" class="cookiess_aceptar" id="ck_aceptar">
+    <button 
+      type="button" 
+      class="cookiess_aceptar" 
+      id="ck_aceptar"
+      aria-label={t.aria_aceptar}
+    >
       <i class="fa-solid fa-check" aria-hidden="true"></i> {t.banner_aceptar}
     </button>
-    <button type="button" class="cookiess_rechazar" id="ck_rechazar">
+    <button 
+      type="button" 
+      class="cookiess_rechazar" 
+      id="ck_rechazar"
+      aria-label={t.aria_rechazar}
+    >
       {t.banner_rechazar}
     </button>
   </div>

@@ -21,29 +21,28 @@ export const SEO_IMAGEN = {
 // ==========================================
 // 2. METADATOS CANÓNICOS DINÁMICOS DE INICIO (PÁGINA PRINCIPAL)
 // ==========================================
+const MAPA_LOCALES = {
+  es: 'es_PE',
+  en: 'en_US'
+};
+
+export function obtenerSeoInicio(lang = 'es') {
+  const s = datosNegocio.seo || {};
+  const isDefault = lang === 'es';
+  return {
+    title: (typeof s.titulo === 'object' ? s.titulo?.[lang] : (isDefault ? s.titulo?.es : s.titulo?.en)) || (isDefault ? datosNegocio.nombre : (datosNegocio.nombreCorto || datosNegocio.nombre)),
+    description: (typeof s.descripcion === 'object' ? s.descripcion?.[lang] : (isDefault ? s.descripcion?.es : s.descripcion?.en)) || datosNegocio.bio,
+    path: isDefault ? '/' : `/${lang}`,
+    keywords: Array.isArray(s.keywords?.[lang]) ? s.keywords[lang] : (Array.isArray(s.keywords?.es) ? s.keywords.es : []),
+    audience: s.audiencia?.[lang] || s.audiencia?.es || [],
+    intent: s.intencion?.[lang] || s.intencion?.es || ''
+  };
+}
+
 export const SEO_INICIO = {
-  get es() {
-    const s = datosNegocio.seo || {};
-    return {
-      title: s.titulo?.es || datosNegocio.nombre,
-      description: s.descripcion?.es || datosNegocio.bio,
-      path: '/',
-      keywords: Array.isArray(s.keywords?.es) ? s.keywords.es : [],
-      audience: s.audiencia?.es || [],
-      intent: s.intencion?.es || ''
-    };
-  },
-  get en() {
-    const s = datosNegocio.seo || {};
-    return {
-      title: s.titulo?.en || datosNegocio.nombreCorto,
-      description: s.descripcion?.en || datosNegocio.bio,
-      path: '/en',
-      keywords: Array.isArray(s.keywords?.en) ? s.keywords.en : [],
-      audience: s.audiencia?.en || [],
-      intent: s.intencion?.en || ''
-    };
-  }
+  get es() { return obtenerSeoInicio('es'); },
+  get en() { return obtenerSeoInicio('en'); },
+  get(lang = 'es') { return obtenerSeoInicio(lang); }
 };
 
 // ==========================================
@@ -58,13 +57,15 @@ export const seo = {
  */
 export function getMeta(ruta = '/', idioma = 'es') {
   const clave = ruta === '/' || ruta === '/en' ? 'inicio' : ruta.replace(/^\/(en\/)?/, '');
-  const data = seo[clave] ? seo[clave][idioma] : seo.inicio[idioma];
+  const data = (seo[clave] && typeof seo[clave].get === 'function')
+    ? seo[clave].get(idioma)
+    : (seo[clave] ? (seo[clave][idioma] || seo[clave].es) : (seo.inicio.get ? seo.inicio.get(idioma) : seo.inicio[idioma]));
   const urlBase = (app.linkweb || 'https://lourdes.solgassurquillo.com').replace(/\/$/, '');
   const canonical = `${urlBase}${ruta}`;
 
-  const title = data.title || datosNegocio.nombre;
-  const description = data.description || datosNegocio.bio;
-  const keywordsList = Array.isArray(data.keywords) && data.keywords.length > 0 
+  const title = data?.title || datosNegocio.nombre;
+  const description = data?.description || datosNegocio.bio;
+  const keywordsList = Array.isArray(data?.keywords) && data.keywords.length > 0 
     ? data.keywords 
     : [];
   const keywords = keywordsList.join(', ');
@@ -72,6 +73,10 @@ export function getMeta(ruta = '/', idioma = 'es') {
   const imgCanonical = SEO_IMAGEN.url.startsWith('http') 
     ? SEO_IMAGEN.url 
     : `${urlBase}${SEO_IMAGEN.url}`;
+
+  const currentLocale = MAPA_LOCALES[idioma] || `${idioma}_${idioma.toUpperCase()}`;
+  const alternateLang = idioma === 'es' ? 'en' : 'es';
+  const alternateLocale = MAPA_LOCALES[alternateLang] || `${alternateLang}_${alternateLang.toUpperCase()}`;
 
   return {
     title,
@@ -92,12 +97,12 @@ export function getMeta(ruta = '/', idioma = 'es') {
     twitterImage: imgCanonical,
     idioma,
     alternateHref: ruta === '/en' || ruta.startsWith('/en/') ? `${urlBase}/` : `${urlBase}/en/`,
-    alternateLang: idioma === 'es' ? 'en' : 'es',
+    alternateLang,
     ogType: 'website',
     siteName: datosNegocio.nombre,
     telefono: datosNegocio.telefonoMostrado,
-    locale: idioma === 'es' ? 'es_PE' : 'en_US',
-    localeAlternate: idioma === 'es' ? 'en_US' : 'es_PE',
+    locale: currentLocale,
+    localeAlternate: alternateLocale,
     hreflang: {
       es: `${urlBase}/`,
       en: `${urlBase}/en`,
@@ -163,7 +168,7 @@ export function getJsonLd(ruta = '/', idioma = 'es') {
         url: canonical,
         name: title,
         description: description,
-        inLanguage: isEn ? 'en-US' : 'es-PE',
+        inLanguage: MAPA_LOCALES[idioma] ? MAPA_LOCALES[idioma].replace('_', '-') : `${idioma}-${idioma.toUpperCase()}`,
         isPartOf: {
           '@type': 'WebSite',
           '@id': `${urlBase}/#website`,

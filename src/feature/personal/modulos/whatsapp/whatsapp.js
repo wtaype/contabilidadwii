@@ -4,6 +4,7 @@
 
 import { Notificacion } from '@widev';
 import { PLANTILLAS_WHATSAPP, formatearPlantilla } from './dataWhatsapp.js';
+import { obtenerDatosNegocio } from '../negocio/dataNegocio.js';
 
 export function inicializarModuloWhatsapp() {
   const panel = document.getElementById('panel-whatsapp');
@@ -34,8 +35,12 @@ export function inicializarModuloWhatsapp() {
   // 1. RECOGER PARÁMETROS Y FORMATEAR MENSAJE EN VIVO
   // ════════════════════════════════════════════════════════════
   function obtenerValoresParametros() {
+    const neg = obtenerDatosNegocio() || {};
+    const dir = neg.ubicacion?.direccion ? `${neg.ubicacion.direccion} (previa cita)` : 'Atención presencial previa cita';
+    const dist = neg.ubicacion?.distrito ? ` (Sede ${neg.ubicacion.distrito})` : '';
+
     return {
-      cliente: inpCliente?.value?.trim() || 'Inversiones Gastronómicas S.A.C.',
+      cliente: inpCliente?.value?.trim() || 'Estimado/a cliente',
       ruc: inpRuc?.value?.trim() || '20554897123',
       digito: inpDigito?.value?.trim() || '3',
       periodo: inpPeriodo?.value?.trim() || 'Agosto 2026',
@@ -43,10 +48,10 @@ export function inicializarModuloWhatsapp() {
       regimen: 'Régimen MYPE Tributario',
       monto: inpMonto?.value?.trim() || '185.00',
       nps: inpNps?.value?.trim() || '9827364510',
-      modalidad: 'Presencial (Sede Surquillo) / Virtual Meet',
+      modalidad: `Presencial${dist} / Virtual Meet`,
       fechaHora: 'Viernes 25 Sep · 4:00 p.m.',
       honorario: '80.00',
-      lugarEnlace: 'Jr. Dante 260, Surquillo (previa cita) / Link: meet.google.com/abc-defg-hij',
+      lugarEnlace: `${dir} / Link: meet.google.com`,
       comprobanteTipo: 'Factura Electrónica',
       comprobanteNumero: 'F001-000104',
       fecha: '25 Sep 2026',

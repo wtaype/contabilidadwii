@@ -2,12 +2,18 @@
 // src/feature/personal/modulos/sunat/Sunat.astro
 // Módulo de SUNAT: Facturación Electrónica & Comprobantes (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev, Firestore y comprobantes contables B001 / F001
+import { datosNegocio } from '@/negocio.js';
 
 interface Props {
   esActivo?: boolean;
 }
 
 const { esActivo = false } = Astro.props;
+const nombreTicket = (datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre || '').toUpperCase();
+const subTicket = datosNegocio.identidad?.especialista || datosNegocio.identidad?.cargo || '';
+const rucTicket = datosNegocio.identidad?.ruc || '';
+const direccionTicket = datosNegocio.ubicacion?.direccion || '';
+const telefonoTicket = datosNegocio.telefonoMostrado || datosNegocio.whatsapp || '';
 ---
 
 <section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-sunat" data-sunat-init="false">
@@ -242,11 +248,11 @@ const { esActivo = false } = Astro.props;
     <div class="sn-ticket-wrap">
       <div class="sn-ticket-card" id="snTicketPreviewCard">
         <div class="sn-ticket-header">
-          <div class="sn-ticket-brand">ESTUDIO CUSIHUAMAN</div>
-          <div class="sn-ticket-sub">CPC Lourdes Cusihuaman Gálvez</div>
-          <div class="sn-ticket-ruc">RUC: 10478912345</div>
-          <div class="sn-ticket-address">Jr. Dante 260, Surquillo, Lima 15047</div>
-          <div class="sn-ticket-address">Telf / WhatsApp: +51 987 594 558</div>
+          <div class="sn-ticket-brand" data-negocio-nombre>{nombreTicket}</div>
+          {subTicket && <div class="sn-ticket-sub" data-negocio-especialista>{subTicket}</div>}
+          {rucTicket && <div class="sn-ticket-ruc">RUC: {rucTicket}</div>}
+          {direccionTicket && <div class="sn-ticket-address" data-negocio-direccion>{direccionTicket}</div>}
+          {telefonoTicket && <div class="sn-ticket-address">Telf / WhatsApp: {telefonoTicket}</div>}
           <div class="sn-ticket-type" id="snTicketTipoBadge">BOLETA DE VENTA ELECTRÓNICA</div>
           <div class="sn-ticket-number" id="snTicketSerieNumero">B001-000101</div>
         </div>

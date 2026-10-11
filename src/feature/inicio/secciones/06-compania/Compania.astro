@@ -2,6 +2,7 @@
 // src/feature/inicio/secciones/06-compania/Compania.astro
 // 6. SECCIÓN ACOMPAÑAMIENTO TERAPÉUTICO Y METODOLOGÍA EN 3 PASOS
 import { datosNegocio } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdioma } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
@@ -84,13 +85,14 @@ const wsLink = `https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURICom
         <div class="seguridad-image-card">
           <div class="seguridad-media-box">
             <img 
-              src="/imgwii/claves.webp" 
+              src={imgwii.svg} 
+              data-src="/imgwii/claves.webp" 
               alt="Atención paso a paso y sin complicaciones - Estudio Cusihuaman" 
               width="500" 
               height="400" 
               loading="lazy" 
               decoding="async" 
-              class="seguridad-media-img"
+              class="seguridad-media-img wi_skeleton"
             />
             <div class="seguridad-caption-overlay">
               <span class="seguridad-caption-badge">

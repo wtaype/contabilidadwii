@@ -2,6 +2,7 @@
 // src/feature/inicio/secciones/04-calculadora/Calculadora.astro
 // 4. COTIZADOR TRANSPARENTE DE SESIONES Y PAQUETES DE AHORRO FAMILIAR
 import { datosNegocio, consultarProductosFirestoreFresco } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdioma, resolverIdiomas } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
@@ -132,13 +133,14 @@ const defaultWsLink = `https://wa.me/${whatsappNumero}?text=${encodeURIComponent
         <div>
           <div class="calc-tips-media">
             <img 
-              src="/imgwii/experiencia.webp" 
+              src={imgwii.svg} 
+              data-src="/imgwii/experiencia.webp" 
               alt="Tarifas claras y presupuesto a tu medida - Estudio Cusihuaman" 
               width="600" 
               height="350" 
               loading="lazy" 
               decoding="async" 
-              class="calc-tips-img"
+              class="calc-tips-img wi_skeleton"
             />
             <div class="calc-caption-overlay">
               <span class="calc-caption-badge">

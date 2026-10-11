@@ -3,11 +3,17 @@
 // Módulo de WhatsApp: Centro de Mensajería & Sandbox Tributario (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev · 0 CSS Inline
 
+import { datosNegocio } from '@/negocio.js';
+
 interface Props {
   esActivo?: boolean;
 }
 
 const { esActivo = false } = Astro.props;
+
+const nombreNegocio = datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre || '';
+const subNegocio = datosNegocio.identidad?.especialista ? `${datosNegocio.identidad.especialista} · Oficial` : (datosNegocio.subtitulo || 'Canal Oficial');
+const avatarNegocio = datosNegocio.identidad?.logo || datosNegocio.logo || '/imgwii/logo.webp';
 ---
 
 <section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-whatsapp" data-whatsapp-init="false">
@@ -52,7 +58,7 @@ const { esActivo = false } = Astro.props;
           </div>
           <div class="sn-form-group">
             <label class="sn-label" for="waInpCelular">Celular WhatsApp Destino</label>
-            <input type="tel" id="waInpCelular" class="sn-input" value="961229280" placeholder="961229280" />
+            <input type="tel" id="waInpCelular" class="sn-input" value="" placeholder="51900000000" />
           </div>
         </div>
 
@@ -116,13 +122,13 @@ const { esActivo = false } = Astro.props;
         <div class="wa-chat-header">
           <div class="wa-chat-sender-info">
             <i class="fa-solid fa-arrow-left" style="color: #aebac1; font-size: 13px;"></i>
-            <img src="/imgwii/logo.webp" alt="Estudio Cusihuaman" class="wa-chat-avatar" />
+            <img src={avatarNegocio} alt={nombreNegocio} class="wa-chat-avatar" data-negocio-avatar />
             <div class="wa-chat-sender-meta">
               <div class="wa-chat-sender-name">
-                Estudio Cusihuaman
+                <span data-negocio-nombre>{nombreNegocio}</span>
                 <i class="fa-solid fa-circle-check wa-chat-verified-icon"></i>
               </div>
-              <div class="wa-chat-sender-sub">CPC Lourdes Cusihuaman · Oficial</div>
+              <div class="wa-chat-sender-sub" data-negocio-especialista>{subNegocio}</div>
             </div>
           </div>
 

@@ -9,7 +9,7 @@ export function envoltorioBase({ contenidoHtml, asunto, vistaPreviaTexto = '', n
   const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
   const logoUrl = negocio?.logoUrl || '/imgwii/logo.webp';
   const direccion = negocio?.direccion || 'Jr. Dante 260, Surquillo, Lima 15047';
-  const telefono = negocio?.telefono || '+51 987 594 558';
+  const telefono = negocio?.telefono || '';
   const especialista = negocio?.especialista || 'CPC Lourdes Cusihuaman Gálvez';
 
   return `
@@ -61,7 +61,7 @@ export function envoltorioBase({ contenidoHtml, asunto, vistaPreviaTexto = '', n
     <!-- Pie de Página Institucional -->
     <div class="email-footer">
       <p style="margin:0 0 4px 0;"><strong>${nombreEmpresa}</strong> · ${especialista}</p>
-      <p style="margin:0 0 6px 0;">Sede: ${direccion} · WhatsApp: <strong>${telefono}</strong></p>
+      <p style="margin:0 0 6px 0;">Sede: ${direccion}${telefono ? ` · WhatsApp: <strong>${telefono}</strong>` : ''}</p>
       <p style="margin:0;font-size:11px;color:#94a3b8;">Estudio Contable y Asesoría Tributaria Especializada. Atención presencial en Lima y modalidad 100% online a nivel nacional.</p>
     </div>
   </div>

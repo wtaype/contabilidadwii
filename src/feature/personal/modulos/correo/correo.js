@@ -18,6 +18,7 @@ import {
   eliminarCorreoPorCarpeta,
   limpiarEmail
 } from './dataCorreo.js';
+import { datosNegocio } from '../../../../negocio.js';
 import {
   generarPlantillaLiquidacion,
   generarPlantillaCronograma,
@@ -138,10 +139,12 @@ export function inicializarModuloCorreo() {
   // ════════════════════════════════════════════════════════════
   function cargarAjustes() {
     const aj = obtenerAjustesCorreo();
-    if (inputAjusteNombre) inputAjusteNombre.value = aj.remitenteNombre || 'Estudio Cusihuaman';
-    if (inputAjusteEmail) inputAjusteEmail.value = aj.remitenteEmail || 'contacto@contabilidadwii.com';
-    if (inputAjusteReplyTo) inputAjusteReplyTo.value = aj.responderA || aj.remitenteEmail || 'contacto@contabilidadwii.com';
-    if (badgeRemitente) badgeRemitente.textContent = aj.remitenteEmail || 'contacto@contabilidadwii.com';
+    const nomDef = datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
+    const emDef = datosNegocio.contacto?.email || 'contacto@contabilidadwii.com';
+    if (inputAjusteNombre) inputAjusteNombre.value = aj.remitenteNombre || nomDef;
+    if (inputAjusteEmail) inputAjusteEmail.value = aj.remitenteEmail || emDef;
+    if (inputAjusteReplyTo) inputAjusteReplyTo.value = aj.responderA || aj.remitenteEmail || emDef;
+    if (badgeRemitente) badgeRemitente.textContent = aj.remitenteEmail || emDef;
   }
 
   function actualizarBadges() {
@@ -327,7 +330,8 @@ export function inicializarModuloCorreo() {
     });
 
     if (readSubject) readSubject.textContent = msg.mensaje?.asunto || 'Sin Asunto';
-    if (readFrom) readFrom.textContent = msg.remitente?.desde || 'Estudio Cusihuaman <contacto@contabilidadwii.com>';
+    const senderFallback = `${datosNegocio.nombreCorto || 'Emisor'} <${datosNegocio.contacto?.email || 'contacto@contabilidadwii.com'}>`;
+    if (readFrom) readFrom.textContent = msg.remitente?.desde || senderFallback;
     if (readTo) readTo.textContent = `Para: ${msg.destinatario?.para || 'Cliente'}`;
     if (readDate) readDate.textContent = msg.fecha || 'Reciente';
 
@@ -481,21 +485,23 @@ export function inicializarModuloCorreo() {
     if (boxCotizacion) boxCotizacion.style.display = tipo === 'cotizacion' ? 'block' : 'none';
 
     if (sobrescribirTextos) {
+      const sufijoMarca = datosNegocio.nombreCorto || datosNegocio.nombre || 'Oficial';
       if (tipo === 'liquidacion') {
-        if (inputSubject) inputSubject.value = '📊 Liquidación de Impuestos Agosto 2026 · Estudio Cusihuaman';
+        if (inputSubject) inputSubject.value = `📊 Liquidación de Impuestos Agosto 2026 · ${sufijoMarca}`;
         if (textMarkdown) textMarkdown.value = 'Adjuntamos el detalle del cálculo tributario para su revisión y conformidad.\nRecuerde realizar el abono antes de la fecha límite para evitar recargos o intereses.';
       } else if (tipo === 'cronograma') {
-        if (inputSubject) inputSubject.value = '⏰ Recordatorio de Vencimiento Declaración SUNAT · Estudio Cusihuaman';
+        if (inputSubject) inputSubject.value = `⏰ Recordatorio de Vencimiento Declaración SUNAT · ${sufijoMarca}`;
         if (textMarkdown) textMarkdown.value = 'Agradecemos hacernos llegar sus comprobantes de compras y ventas a la brevedad para culminar el cierre contable sin contratiempos.';
       } else if (tipo === 'comprobante') {
-        if (inputSubject) inputSubject.value = '📄 Comprobante de Honorarios Profesionales · Estudio Cusihuaman';
+        if (inputSubject) inputSubject.value = `📄 Comprobante de Honorarios Profesionales · ${sufijoMarca}`;
         if (textMarkdown) textMarkdown.value = 'Adjuntamos la representación impresa de su comprobante electrónico por servicios contables prestados con validez ante SUNAT.';
       } else if (tipo === 'cotizacion') {
-        if (inputSubject) inputSubject.value = '📋 Propuesta de Servicios Contables y Asesoría Tributaria · Estudio Cusihuaman';
+        if (inputSubject) inputSubject.value = `📋 Propuesta de Servicios Contables y Asesoría Tributaria · ${sufijoMarca}`;
         if (textMarkdown) textMarkdown.value = 'Presentamos nuestra propuesta formal de asesoría tributaria y planillas con honorarios competitivos y respaldo profesional permanente.';
       } else {
-        if (inputSubject) inputSubject.value = 'Comunicado Tributario Oficial · Estudio Cusihuaman';
-        if (textMarkdown) textMarkdown.value = 'Estimado cliente,\nNos comunicamos desde el **Estudio Contable CPC Lourdes Cusihuaman Gálvez** (Surquillo, Lima).';
+        if (inputSubject) inputSubject.value = `Comunicado Oficial · ${sufijoMarca}`;
+        const dir = datosNegocio.ubicacion?.distrito ? ` (${datosNegocio.ubicacion.distrito}, ${datosNegocio.ubicacion?.ciudad || 'Lima'})` : '';
+        if (textMarkdown) textMarkdown.value = `Estimado cliente,\nNos comunicamos desde **${datosNegocio.nombre}**${dir}.`;
       }
     }
 
@@ -718,8 +724,8 @@ export function inicializarModuloCorreo() {
   // Guardar Ajustes de Emisor
   formAjustes?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const nom = inputAjusteNombre?.value?.trim() || 'Estudio Cusihuaman';
-    const email = inputAjusteEmail?.value?.trim() || 'contacto@contabilidadwii.com';
+    const nom = inputAjusteNombre?.value?.trim() || datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
+    const email = inputAjusteEmail?.value?.trim() || datosNegocio.contacto?.email || 'contacto@contabilidadwii.com';
     const rep = inputAjusteReplyTo?.value?.trim() || email;
 
     guardarAjustesCorreo({

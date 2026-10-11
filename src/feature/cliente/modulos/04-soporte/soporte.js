@@ -23,9 +23,10 @@ function actualizarEnlaceWhatsApp(tipo) {
   const btnWa = document.getElementById('spBtnWhatsApp');
   if (!btnWa) return;
 
-  const neg = getls('minegocio') || {};
+  const neg = getls('wi_negocio') || getls('minegocio') || {};
   const numWa = String(neg.contacto?.whatsappLimpio || neg.contacto?.whatsapp || datosNegocio.whatsappLimpio || '').replace(/\D/g, '');
   const nombreNegocio = neg.identidad?.nombreCorto || neg.identidad?.nombre || datosNegocio.nombreCorto || datosNegocio.nombre || '';
+  const especialista = neg.identidad?.especialista || datosNegocio.identidad?.especialista || '';
 
   const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);
   const clienteNombre = user?.nombre ? ` de ${user.nombre}` : '';
@@ -51,8 +52,9 @@ function actualizarEnlaceWhatsApp(tipo) {
     tipoLabel = 'Presupuesto Contable';
   }
 
+  const espTxt = especialista ? ` de ${especialista}` : '';
   const mensaje = `¡Hola ${nombreNegocio}! 👋
-He visto en su portal web y solicito atención de la CPC Lourdes Cusihuaman:
+He visto en su portal web y solicito atención${espTxt}:
 
 🏷️ Origen: [Portal Cliente - Consultas / ${tipoLabel}]${clienteNombre ? `\n👤 Contribuyente:${clienteNombre}` : ''}${rucInfo}
 💬 Asunto: ${motivo}
@@ -184,6 +186,9 @@ export function renderizarTicketsUI() {
     return;
   }
 
+  const neg = getls('wi_negocio') || getls('minegocio') || {};
+  const nombreEstudio = neg.identidad?.nombreCorto || neg.identidad?.nombre || datosNegocio.nombreCorto || datosNegocio.nombre || 'Atención Contable';
+
   const html = tickets.map(t => {
     const estadoClass = t.estado || 'pendiente';
     const estadoLabel = estadoClass === 'atendido' ? 'Atendido' : (estadoClass === 'en_proceso' ? 'En Proceso' : 'Pendiente');
@@ -209,7 +214,7 @@ export function renderizarTicketsUI() {
         </div>
         <div class="sp-ticket-meta">
           <span><i class="fa-regular fa-clock" style="margin-right:4px;"></i>${t.fechaTexto || 'Reciente'}</span>
-          <span>Estudio Cusihuaman</span>
+          <span>${nombreEstudio}</span>
         </div>
       </div>
     `;
@@ -262,7 +267,10 @@ function configurarFormularioSoporte() {
       if (instSelectTipoComp) instSelectTipoComp.setValue('factura');
       alternarCamposContextuales('declaracion');
 
-      Notificacion(`¡Consulta #${nuevo.ticketId} registrada con éxito! La CPC Lourdes Cusihuaman la revisará a la brevedad.`, 'success', 5000);
+      const neg = getls('wi_negocio') || getls('minegocio') || {};
+      const esp = neg.identidad?.especialista || datosNegocio.identidad?.especialista || '';
+      const destTxt = esp ? ` ${esp}` : ' Nuestro equipo';
+      Notificacion(`¡Consulta #${nuevo.ticketId} registrada con éxito!${destTxt} la revisará a la brevedad.`, 'success', 5000);
     } catch (err) {
       console.error('[Soporte] Error al enviar consulta:', err);
       Notificacion(err.message || 'Error al enviar la consulta.', 'error');

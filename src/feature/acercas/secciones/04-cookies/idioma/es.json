@@ -28,5 +28,10 @@
   "banner_mensaje": "Usamos cookies para mejorar tu experiencia y ofrecerte un servicio contable transparente",
   "banner_mas_info": "más info.",
   "banner_aceptar": "Aceptar",
-  "banner_rechazar": "Rechazar"
+  "banner_rechazar": "Rechazar",
+  "aria_banner": "Consentimiento de cookies y privacidad",
+  "aria_mas_info": "Más información sobre la política de cookies y privacidad",
+  "aria_aceptar": "Aceptar cookies y continuar",
+  "aria_rechazar": "Rechazar cookies opcionales",
+  "toc_titulo": "En Este Artículo"
 }

@@ -99,7 +99,7 @@ export async function enviarConfirmacionCorreo(reclamo) {
             <strong>${datosNegocio.nombre || 'CPC Lourdes Cusihuaman Gálvez'}</strong><br />
             Asesoría Contable y Tributaria SUNAT<br />
             Jr. Dante 260, Surquillo · Lima, Perú<br />
-            Central Telefónica: ${datosNegocio.telefonoMostrado || '987 594 558'}
+            Central Telefónica: ${datosNegocio.telefonoMostrado || ''}
           </p>
         </div>
       </div>

@@ -75,14 +75,17 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
   const tagClase = p.tagClase || (idx === 0 ? 'badge-fire' : 'badge-blue');
   const precioPEN = Number(p.precioPEN ?? (p.precio ?? 0));
   const imagen = p.imagen || '/imgwii/productos/orientacion.webp';
-  const modalidad = extraerTexto(p.modalidad, 'Online vía Meet y Presencial Surquillo');
+  const modalidad = extraerTexto(p.modalidad, 'Online y Presencial previa cita');
+  const fallbackEnfoque = datosNegocio.identidad?.especialista
+    ? `Atención personalizada por ${datosNegocio.identidad.especialista}`
+    : 'Atención profesional personalizada';
   const enfoque = (Array.isArray(p.caracteristicas) && p.caracteristicas.length > 0)
     ? extraerTexto(p.caracteristicas[0], '')
     : (Array.isArray(p.garantias?.es) && p.garantias.es.length > 0)
       ? extraerTexto(p.garantias.es[0], '')
       : (Array.isArray(p.garantias) && p.garantias.length > 0)
         ? extraerTexto(p.garantias[0], '')
-        : extraerTexto(p.enfoque, 'Atención personalizada por CPC Lourdes Cusihuaman');
+        : extraerTexto(p.enfoque, fallbackEnfoque);
 
   return {
     id: p.id || `prod-${idx}`,
@@ -316,10 +319,10 @@ const whatsappSede = datosNegocio.whatsappLimpio || datosNegocio.whatsapp;
       <div class="cl-wa-box">
         <div class="cl-wa-header">
           <div class="cl-wa-header-left">
-            <img src="/imgwii/logo.webp" alt="Estudio Cusihuaman" class="cl-wa-avatar" />
+            <img src={datosNegocio.identidad?.logo || datosNegocio.logo || '/imgwii/logo.webp'} alt={datosNegocio.nombre} class="cl-wa-avatar" data-negocio-avatar />
             <div>
-              <strong style="font-size:0.84rem;">CPC Lourdes Cusihuaman</strong>
-              <small style="font-size:0.68rem; opacity:0.9; display:block;">Asesoría Contable en línea · Sede Surquillo</small>
+              <strong style="font-size:0.84rem;" data-negocio-nombre>{datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre}</strong>
+              <small style="font-size:0.68rem; opacity:0.9; display:block;" data-negocio-especialista>{datosNegocio.identidad?.especialista ? `${datosNegocio.identidad.especialista} · En línea` : 'Asesoría en línea'}</small>
             </div>
           </div>
           <i class="fa-solid fa-phone" style="font-size:0.85rem;"></i>

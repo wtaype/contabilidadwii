@@ -3,11 +3,14 @@
 // Módulo de Páginas: Editor Institucional & Google SERP Simulator (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev · 0 CSS Inline
 
+import { datosNegocio } from '@/negocio.js';
+
 interface Props {
   esActivo?: boolean;
 }
 
 const { esActivo = false } = Astro.props;
+const nombreSitio = datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre || 'Mi Negocio';
 ---
 
 <section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-paginas" data-paginas-init="false">
@@ -96,7 +99,7 @@ const { esActivo = false } = Astro.props;
         <div class="pg-google-box">
           <div class="pg-google-url-row">
             <img src="/favicon.ico" alt="Favicon" class="pg-google-favicon" />
-            <span class="pg-google-site-name">CPC Lourdes Cusihuaman</span>
+            <span class="pg-google-site-name" data-negocio-nombre>{nombreSitio}</span>
             <span class="pg-google-url-path">https://contabilidadwii.web.app <span id="pgSerpUrlPath"></span></span>
           </div>
 

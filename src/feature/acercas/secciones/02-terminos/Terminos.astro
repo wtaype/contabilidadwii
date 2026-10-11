@@ -23,11 +23,7 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
 const telLimpio = datosNegocio.telefonoLimpio;
 const telMostrado = datosNegocio.telefonoMostrado || datosNegocio.telefono;
 const wsNumero = datosNegocio.whatsappLimpio;
-const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(
-  idioma === 'en'
-    ? `Hello CPC Lourdes, I have a question regarding accounting terms of service.`
-    : `Hola CPC Lourdes, tengo una consulta sobre los términos del servicio contable.`
-)}`;
+const wsLink = `https://wa.me/${wsNumero}?text=${encodeURIComponent(t.ws_mensaje)}`;
 
 const clausulas = [
   { id: 'clausula-1', num: '01', tit: t.clausula_1_tit, desc: t.clausula_1_desc, icon: 'fa-solid fa-id-card' },
@@ -69,7 +65,7 @@ const clausulas = [
         <nav class="acercas-toc-card" aria-label="Índice de Cláusulas">
           <div class="acercas-toc-title">
             <i class="fa-solid fa-list-check color-primary"></i>
-            <span>{idioma === 'en' ? 'Contract Clauses' : 'Índice de Cláusulas'}</span>
+            <span>{t.toc_titulo}</span>
           </div>
           <ul class="acercas-toc-list">
             {clausulas.map(c => (
@@ -100,7 +96,7 @@ const clausulas = [
           </div>
           <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--brd);">
             <a href={wsLink} target="_blank" rel="noopener noreferrer" class="btn-acercas-action primary" style="width:100%; justify-content:center; box-sizing:border-box;">
-              <i class="fa-brands fa-whatsapp"></i> {idioma === 'en' ? 'Ask a Question' : 'Consultar Términos'}
+              <i class="fa-brands fa-whatsapp"></i> {t.btn_consultar}
             </a>
           </div>
         </div>

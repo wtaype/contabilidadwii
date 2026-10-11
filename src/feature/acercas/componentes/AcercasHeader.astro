@@ -3,6 +3,8 @@
 // Cabecera institucional transversal con badge, título Outfit y metadatos
 import { datosNegocio } from '../../../negocio.js';
 
+import { resolverIdiomaSeccion } from '../idioma/idioma';
+
 interface Props {
   badge?: string;
   badgeIcon?: string;
@@ -21,7 +23,8 @@ const {
   idioma = 'es'
 } = Astro.props;
 
-const labelActualizado = idioma === 'en' ? 'Last updated:' : 'Vigencia oficial:';
+const t = resolverIdiomaSeccion({}, idioma);
+const labelActualizado = t.comun.actualizado;
 const sedeDistrito = (datosNegocio.distritoSede || 'Surquillo').toUpperCase();
 ---
 

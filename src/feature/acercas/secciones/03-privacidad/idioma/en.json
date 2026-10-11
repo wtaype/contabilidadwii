@@ -17,5 +17,7 @@
   "seguridad_titulo": "6. Security Measures and Local-First Architecture",
   "seguridad_desc": "We apply strict technical encryption protocols. Our web management dashboard operates Local-First, managing session preferences within your local device browser to minimize cloud exposure.",
   "contacto_legal_titulo": "Official Channel for ARCO Rights",
-  "btn_enviar_solicitud": "Send ARCO Request by Email"
+  "btn_enviar_solicitud": "Send ARCO Request by Email",
+  "email_asunto": "Request for ARCO Rights Exercise",
+  "toc_titulo": "Privacy Sections"
 }

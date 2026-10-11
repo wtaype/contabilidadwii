@@ -41,7 +41,15 @@
     "derechos": "All rights reserved.",
     "desarrollo": "High performance development by",
     "delivery_central": "Advisory Desk:",
-    "volver_arriba": "Back to top"
+    "volver_arriba": "Back to top",
+    "paginas_oficiales": "Institutional Pages",
+    "link_nosotros": "About Us",
+    "link_terminos": "Terms of Service",
+    "link_privacidad": "Privacy Policy",
+    "link_cookies": "Cookies Policy",
+    "link_contacto": "Contact & Hub",
+    "link_redes": "Official Networks",
+    "link_feedback": "Service Feedback"
   },
   "sistema": {
     "cargando": "Loading...",

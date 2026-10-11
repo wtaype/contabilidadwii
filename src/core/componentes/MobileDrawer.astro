@@ -28,7 +28,7 @@ for (const code of Object.keys(IDIOMAS)) {
 
 const esInicio = rutaBase === '/';
 const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
-const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.horario;
+const horarioTexto = datosNegocio.getHorario(idioma);
 ---
 
 <!-- BACKDROP PARA DRAWER MÓVIL -->
@@ -75,7 +75,7 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
   <!-- Botones en Drawer Móvil -->
   <div class="drawer-footer-actions">
     <!-- Botón Login Móvil -->
-    <button id="drawerBtnLogin" onclick="window.cerrarDrawer && window.cerrarDrawer(); window.abrirModalLogin && window.abrirModalLogin();" class="btn-outline w-full justify-center">
+    <button id="drawerBtnLogin" onclick="window.cerrarDrawer && window.cerrarDrawer(); window.abrirModalLogin && window.abrirModalLogin();" class="btn-outline w-full justify-center" aria-label="Iniciar Sesión o Registrarse">
       <i class="fa-solid fa-circle-user"></i> <span>{t.login}</span>
     </button>
 
@@ -88,13 +88,13 @@ const horarioTexto = idioma === 'en' ? datosNegocio.horarioEn : datosNegocio.hor
           <div id="drawerUserBadge" class="drawer-user-badge">@usuario</div>
         </div>
       </a>
-      <button type="button" onclick="window.cerrarSesionHeader && window.cerrarSesionHeader()" class="drawer-btn-logout" title="Cerrar Sesión">
+      <button type="button" onclick="window.cerrarSesionHeader && window.cerrarSesionHeader()" class="drawer-btn-logout" title="Cerrar Sesión" aria-label="Cerrar Sesión">
         <i class="fa-solid fa-right-from-bracket"></i>
       </button>
     </div>
 
     <!-- Botón Agendar Cita Móvil -->
-    <a href={`https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(datosNegocio.whatsappMensaje)}`} target="_blank" rel="noopener noreferrer" onclick="window.cerrarDrawer && window.cerrarDrawer()" class="btn-whatsapp w-full justify-center" data-negocio-ws-link>
+    <a href={`https://wa.me/${datosNegocio.whatsappLimpio}?text=${encodeURIComponent(datosNegocio.whatsappMensaje)}`} target="_blank" rel="noopener noreferrer" onclick="window.cerrarDrawer && window.cerrarDrawer()" class="btn-whatsapp w-full justify-center" data-negocio-ws-link aria-label="Agendar Consulta por WhatsApp">
       <i class="fa-brands fa-whatsapp"></i> <span>{t.pedir}</span>
     </a>
 

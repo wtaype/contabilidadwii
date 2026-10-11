@@ -2,7 +2,7 @@
 // Controlador Frontend Autónomo del Módulo Entradas (Blog Tributario Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y Local-First
 
-import { Notificacion, wiSpin, wiConfirmar } from '@widev';
+import { Notificacion, wiSpin, wiConfirmar, getls } from '@widev';
 import {
   obtenerEntradas,
   guardarEntrada,
@@ -258,7 +258,7 @@ export function inicializarModuloEntradas() {
         categoria: selectCategoria?.value || 'Rentas Personales (4ta y 5ta)',
         portada: inPortada?.value?.trim() || '/imgwii/hero.webp',
         contenido: inContenido?.value || '',
-        autor: 'CPC Lourdes Cusihuaman Gálvez'
+        autor: (getls('wi_negocio') || getls('minegocio') || {})?.identidad?.especialista || 'Redacción'
       });
 
       entradaSeleccionadaId = guardado.id;

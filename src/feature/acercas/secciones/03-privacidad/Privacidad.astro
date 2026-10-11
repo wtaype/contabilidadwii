@@ -22,9 +22,7 @@ const t = resolverIdiomaSeccion({ es, en }, idioma);
 
 const emailLegal = datosNegocio.email || 'contacto@contabilidadwii.com';
 const emailSubject = encodeURIComponent(
-  idioma === 'en'
-    ? `Request for ARCO Rights Exercise - ${datosNegocio.nombre || 'Estudio Cusihuaman'}`
-    : `Solicitud de Ejercicio de Derechos ARCO - ${datosNegocio.nombre || 'Estudio Cusihuaman'}`
+  `${t.email_asunto} - ${datosNegocio.nombre || 'Estudio Cusihuaman'}`
 );
 const mailtoArco = `mailto:${emailLegal}?subject=${emailSubject}`;
 ---
@@ -55,7 +53,7 @@ const mailtoArco = `mailto:${emailLegal}?subject=${emailSubject}`;
         <nav class="acercas-toc-card" aria-label="Índice de Privacidad">
           <div class="acercas-toc-title">
             <i class="fa-solid fa-shield-halved color-primary"></i>
-            <span>{idioma === 'en' ? 'Privacy Sections' : 'Puntos Clave'}</span>
+            <span>{t.toc_titulo}</span>
           </div>
           <ul class="acercas-toc-list">
             <li><a href="#banco-datos" class="acercas-toc-link"><i class="fa-solid fa-chevron-right"></i> Titular del Banco de Datos</a></li>

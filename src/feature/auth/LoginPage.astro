@@ -3,7 +3,7 @@
 // Plantilla maestra de pagina de inicio de sesion dedicada (Bilingue, Anti-FOUC y con Layout Oficial #wimain)
 
 import Principal from '../../core/layouts/Principal.astro';
-import type { Idioma } from '../../core/idioma/idioma';
+import { buildRuta, type Idioma } from '../../core/idioma/idioma';
 import loginCss from './login.css?inline';
 
 interface Props {
@@ -11,8 +11,7 @@ interface Props {
 }
 
 const { idioma = 'es' } = Astro.props;
-const isEn = idioma === 'en';
-const ruta = isEn ? '/en/login' : '/login';
+const ruta = buildRuta('/login', idioma);
 ---
 
 <Principal idioma={idioma} ruta={ruta}>

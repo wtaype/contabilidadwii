@@ -1,6 +1,7 @@
 // src/feature/personal/modulos/whatsapp/dataWhatsapp.js
 // Centro de Plantillas y Generador de Mensajes Oficiales de WhatsApp (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y Local-First
+import { obtenerDatosNegocio } from '../negocio/dataNegocio.js';
 
 export const PLANTILLAS_WHATSAPP = [
   {
@@ -9,7 +10,7 @@ export const PLANTILLAS_WHATSAPP = [
     icono: 'fa-solid fa-calendar-check',
     categoria: 'tributario',
     descripcion: 'Alerta oportuna de la fecha límite según el último dígito del RUC.',
-    mensaje: `¡Hola *{cliente}*! 👋 Le saluda el *Estudio Contable CPC Lourdes Cusihuaman Gálvez*.
+    mensaje: `¡Hola *{cliente}*! 👋 Le saluda *{estudio}*.
 
 ⏰ *Recordatorio de Vencimiento SUNAT*
 • RUC: *{ruc}* (Último dígito: *{digito}*)
@@ -49,7 +50,7 @@ Cualquier duda quedamos atentos para orientarle.`
     mensaje: `¡Hola *{cliente}*! Su cita tributaria ha sido confirmada con éxito. 🤝
 
 💼 *Detalle de la Asesoría:*
-• Especialista: *CPC Lourdes Cusihuaman Gálvez* (Ex-orientadora SUNAT)
+• Especialista: *{especialista}*
 • Modalidad: *{modalidad}*
 • Fecha y Hora: *{fechaHora}*
 • Honorario: *S/ {honorario}*
@@ -90,7 +91,7 @@ Podemos tramitar su constancia autorizada de forma inmediata y entregarle el doc
 
 Puede verificar la autenticidad en el portal de SUNAT. Agradecemos su puntual preferencia.
 
-*Estudio Contable CPC Lourdes Cusihuaman Gálvez*`
+*{estudio}*`
   },
   {
     id: 'tpl_cierre_contable',
@@ -98,7 +99,7 @@ Puede verificar la autenticidad en el portal de SUNAT. Agradecemos su puntual pr
     icono: 'fa-solid fa-folder-open',
     categoria: 'operaciones',
     descripcion: 'Solicitud proactiva de compras, ventas y estados de cuenta bancarios.',
-    mensaje: `Estimados señores de *{cliente}*, un cordial saludo desde el *Estudio Cusihuaman*. 📂
+    mensaje: `Estimados señores de *{cliente}*, un cordial saludo desde *{estudio}*. 📂
 
 Estamos iniciando el procesamiento de la información contable para el período *{periodo}*. Por favor remitirnos:
 
@@ -112,8 +113,15 @@ Quedamos atentos a la recepción de sus archivos para trabajar su liquidación c
 
 export function formatearPlantilla(textoBase, valores = {}) {
   let resultado = textoBase;
+  const neg = obtenerDatosNegocio() || {};
+  const nombreEstudio = neg.identidad?.nombre || neg.nombre || 'nuestro equipo';
+  const especialista = neg.identidad?.especialista || neg.especialista || 'Especialista Contable';
+  const direccionSede = neg.ubicacion?.direccion ? `${neg.ubicacion.direccion} (previa cita)` : 'Atención presencial previa cita';
+
   const defaults = {
-    cliente: 'Inversiones Gastronómicas S.A.C.',
+    cliente: 'Estimado/a cliente',
+    estudio: nombreEstudio,
+    especialista: especialista,
     ruc: '20554897123',
     digito: '3',
     periodo: 'Agosto 2026',
@@ -121,10 +129,10 @@ export function formatearPlantilla(textoBase, valores = {}) {
     regimen: 'Régimen MYPE Tributario',
     monto: '185.00',
     nps: '9827364510',
-    modalidad: 'Presencial (Sede Surquillo) / Virtual Meet',
+    modalidad: 'Presencial / Virtual Meet',
     fechaHora: 'Viernes 25 Sep · 4:00 p.m.',
     honorario: '80.00',
-    lugarEnlace: 'Jr. Dante 260, Surquillo (previa cita) / Link: meet.google.com/abc-defg-hij',
+    lugarEnlace: `${direccionSede} / Link: meet.google.com`,
     comprobanteTipo: 'Factura Electrónica',
     comprobanteNumero: 'F001-000104',
     fecha: '25 Sep 2026',

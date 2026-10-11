@@ -116,26 +116,77 @@ export function hidratarNegocioEnDOM(datos) {
   // 6. HIDRATAR REDES SOCIALES (Bio-Link / Redes Cards)
   const redes = datos.redes || {};
   if (redes && typeof redes === 'object') {
-    if (redes.facebook) {
-      document.querySelectorAll('a[data-red-id="facebook"]').forEach(a => a.setAttribute('href', redes.facebook));
-    }
-    if (redes.instagram) {
-      document.querySelectorAll('a[data-red-id="instagram"]').forEach(a => a.setAttribute('href', redes.instagram));
-    }
-    if (redes.tiktok) {
-      document.querySelectorAll('a[data-red-id="tiktok"]').forEach(a => a.setAttribute('href', redes.tiktok));
-    }
-    if (redes.youtube) {
-      document.querySelectorAll('a[data-red-id="youtube"]').forEach(a => a.setAttribute('href', redes.youtube));
-    }
-    if (redes.canalWhatsapp) {
-      document.querySelectorAll('a[data-red-id="whatsapp"]').forEach(a => a.setAttribute('href', redes.canalWhatsapp));
-    }
-    if (redes.web) {
-      document.querySelectorAll('a[data-red-id="web"]').forEach(a => a.setAttribute('href', redes.web));
-    }
-    if (redes.linkedin) {
-      document.querySelectorAll('a[data-red-id="linkedin"]').forEach(a => a.setAttribute('href', redes.linkedin));
+    const normalizarUrl = (val, tipo) => {
+      if (!val || typeof val !== 'string') return '';
+      const v = val.trim();
+      if (!v) return '';
+      if (v.startsWith('http://') || v.startsWith('https://')) return v;
+      const h = v.replace(/^[@/]+/, '');
+      switch (tipo) {
+        case 'youtube': return `https://youtube.com/@${h}`;
+        case 'facebook': return `https://facebook.com/${h}`;
+        case 'instagram': return `https://instagram.com/${h}`;
+        case 'tiktok': return `https://tiktok.com/@${h}`;
+        case 'linkedin': return `https://linkedin.com/in/${h}`;
+        case 'web': return `https://${h}`;
+        default: return v;
+      }
+    };
+
+    const mapeoRedes = [
+      { id: 'facebook', val: normalizarUrl(redes.facebook || redes.facebookUser, 'facebook') },
+      { id: 'instagram', val: normalizarUrl(redes.instagram || redes.instagramUser, 'instagram') },
+      { id: 'tiktok', val: normalizarUrl(redes.tiktok || redes.tiktokUser, 'tiktok') },
+      { id: 'youtube', val: normalizarUrl(redes.youtube || redes.youtubeUser, 'youtube') },
+      { id: 'linkedin', val: normalizarUrl(redes.linkedin || redes.linkedinUser, 'linkedin') },
+      { id: 'web', val: normalizarUrl(redes.web || redes.webOficial, 'web') },
+      { id: 'whatsapp', val: redes.canalWhatsapp || (wsLimpio ? `https://wa.me/${wsLimpio}` : '') }
+    ];
+
+    mapeoRedes.forEach(({ id, val }) => {
+      document.querySelectorAll(`a[data-red-id="${id}"]`).forEach(a => {
+        if (val) {
+          a.setAttribute('href', val);
+          a.style.display = '';
+        } else {
+          a.style.display = 'none';
+        }
+      });
+    });
+
+    // Hidratar Hero Redes (Handle, Bio y Avatar)
+    const handle = redes.instagramUser 
+      ? `@${redes.instagramUser.replace(/^@/, '')}`
+      : (redes.tiktokUser 
+          ? `@${redes.tiktokUser.replace(/^@/, '')}`
+          : (redes.youtubeUser 
+              ? `@${redes.youtubeUser.replace(/^@/, '')}`
+              : (identidad.nombreCorto ? `@${identidad.nombreCorto.toLowerCase().replace(/\s+/g, '')}` : '')));
+
+    document.querySelectorAll('[data-negocio-handle]').forEach(el => {
+      if (handle) {
+        el.textContent = handle;
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+
+    const bio = datos.subtitulo || identidad.subtitulo || (typeof identidad.bio === 'object' ? identidad.bio?.es : identidad.bio) || datos.bio || '';
+    document.querySelectorAll('[data-negocio-bio]').forEach(el => {
+      if (bio) {
+        el.textContent = bio;
+        el.style.display = '';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+
+    const avatar = datos.hero?.imagen || identidad.logo || datos.logo || '';
+    if (avatar) {
+      document.querySelectorAll('[data-negocio-avatar]').forEach(img => {
+        img.setAttribute('src', avatar);
+      });
     }
   }
 }

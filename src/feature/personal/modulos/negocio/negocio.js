@@ -234,7 +234,7 @@ export function inicializarNegocio() {
       inputWhatsapp.value = wsApi;
     }
     if (hintWhatsappFormato) {
-      hintWhatsappFormato.textContent = wsApi || '51987594558';
+      hintWhatsappFormato.textContent = wsApi || '';
     }
   });
 
@@ -250,7 +250,7 @@ export function inicializarNegocio() {
     const limpio = soloDigitos(inputWhatsapp.value);
     inputWhatsapp.value = limpio;
     if (hintWhatsappFormato) {
-      hintWhatsappFormato.textContent = limpio || '51987594558';
+      hintWhatsappFormato.textContent = limpio || '';
     }
     if (limpio && inputTelefono && !inputTelefono.value) {
       inputTelefono.value = formatearTelefonoVisible(limpio, getPaisCodeActual());
@@ -260,9 +260,9 @@ export function inicializarNegocio() {
   // ── SALUDO DINÁMICO WHATSAPP ──
   btnRestaurarMensajeWs?.addEventListener('click', () => {
     const saludo = Saludar ? Saludar() : 'Hola';
-    const esp = inputEspecialista?.value?.trim() || 'Lourdes';
+    const esp = inputEspecialista?.value?.trim() || inputNombreCorto?.value?.trim() || '';
     if (inputWhatsappMensaje) {
-      inputWhatsappMensaje.value = `¡${saludo} ${esp}! Deseo orientación sobre mis trámites y declaraciones ante SUNAT.`;
+      inputWhatsappMensaje.value = `¡${saludo}${esp ? ' ' + esp : ''}! Deseo orientación sobre mis trámites y declaraciones.`;
       Notificacion('Mensaje restaurado', 'info', 1800);
     }
   });
@@ -416,7 +416,7 @@ export function inicializarNegocio() {
     if (inputTelefono) inputTelefono.value = cfg.contacto?.telefono || '';
     if (inputWhatsapp) {
       inputWhatsapp.value = soloDigitos(cfg.contacto?.whatsapp || '');
-      if (hintWhatsappFormato) hintWhatsappFormato.textContent = inputWhatsapp.value || '51987594558';
+      if (hintWhatsappFormato) hintWhatsappFormato.textContent = inputWhatsapp.value || '';
     }
     if (inputEmail) inputEmail.value = cfg.contacto?.email || '';
 
@@ -607,49 +607,32 @@ export function inicializarNegocio() {
         }
       },
 
-      sedes: [
-        {
-          id: "surquillo",
-          nombre: "Sede Surquillo",
-          distrito: "Surquillo",
-          modalidad: "Presencial",
-          direccion: inputDireccion?.value?.trim() || "Jr. Dante 260, Surquillo, Lima 15047",
-          referencia: inputReferencia?.value?.trim() || "Cerca a Av. Angamos y Av. Paseo de la República",
-          atencion: {
-            es: ngSedeVesAtencionEs?.value?.trim() || "Lunes a Viernes (Previa Cita)",
-            en: ngSedeVesAtencionEn?.value?.trim() || "Monday to Friday (By Appointment)"
-          },
-          tag: {
-            es: ngSedeVesTagEs?.value?.trim() || "Sede Surquillo",
-            en: ngSedeVesTagEn?.value?.trim() || "Surquillo Office"
-          },
-          mapsUrl: inputMapsUrl?.value?.trim() || "https://maps.app.goo.gl/surquillo",
-          coordenadas: {
-            lat: parseFloat(inputLat?.value) || -12.1125,
-            lng: parseFloat(inputLng?.value) || -77.0258
-          },
-          activo: true
-        },
-        {
-          id: "virtual",
-          nombre: "Modalidad Online / Asesoría Virtual",
-          distrito: "Online",
-          modalidad: "Virtual",
-          direccion: "Google Meet / Zoom (Nacional e Internacional)",
-          referencia: "Sesiones en vivo 100% privadas y seguras",
-          atencion: {
-            es: ngSedeVirtualAtencionEs?.value?.trim() || "Horarios Flexibles",
-            en: ngSedeVirtualAtencionEn?.value?.trim() || "Flexible Schedule"
-          },
-          tag: {
-            es: ngSedeVirtualTagEs?.value?.trim() || "100% Online",
-            en: ngSedeVirtualTagEn?.value?.trim() || "100% Online"
-          },
-          mapsUrl: "",
-          coordenadas: { lat: 0, lng: 0 },
-          activo: true
-        }
-      ],
+      sedes: (actual.sedes && actual.sedes.length > 0)
+        ? actual.sedes.map((s, idx) => {
+            if (idx === 0) {
+              return {
+                ...s,
+                direccion: inputDireccion?.value?.trim() || s.direccion || '',
+                referencia: inputReferencia?.value?.trim() || s.referencia || '',
+                distrito: inputDistrito?.value?.trim() || s.distrito || '',
+                mapsUrl: inputMapsUrl?.value?.trim() || s.mapsUrl || '',
+                atencion: {
+                  es: ngSedeVesAtencionEs?.value?.trim() || s.atencion?.es || '',
+                  en: ngSedeVesAtencionEn?.value?.trim() || s.atencion?.en || ''
+                },
+                tag: {
+                  es: ngSedeVesTagEs?.value?.trim() || s.tag?.es || '',
+                  en: ngSedeVesTagEn?.value?.trim() || s.tag?.en || ''
+                },
+                coordenadas: {
+                  lat: parseFloat(inputLat?.value) || s.coordenadas?.lat || 0,
+                  lng: parseFloat(inputLng?.value) || s.coordenadas?.lng || 0
+                }
+              };
+            }
+            return s;
+          })
+        : [],
 
       metricas: {
         clientes: inputMetricaPacientes?.value?.trim() || "240+",
@@ -688,41 +671,35 @@ export function inicializarNegocio() {
 
       seo: {
         titulo: {
-          es: inputSeoTituloEs?.value?.trim() || "Estudio Cusihuaman | CPC Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT",
-          en: inputSeoTituloEn?.value?.trim() || "Estudio Cusihuaman | Lourdes Cusihuaman - Tax & Accounting Firm Peru"
+          es: inputSeoTituloEs?.value?.trim() || actual.seo?.titulo?.es || '',
+          en: inputSeoTituloEn?.value?.trim() || actual.seo?.titulo?.en || ''
         },
         descripcion: {
-          es: inputSeoDescEs?.value?.trim() || "Asesoría contable y tributaria estratégica con Lourdes Cusihuaman Gálvez, ex-orientadora de SUNAT. Especialista en 4ta categoría (RHE), 5ta categoría (planillas), regularización de Buzón SOL y devoluciones.",
-          en: inputSeoDescEn?.value?.trim() || "Expert tax and accounting advisory in Lima & online with Lourdes Cusihuaman, former SUNAT officer. Specialized in 4th & 5th category taxes, payroll, and audit defense."
+          es: inputSeoDescEs?.value?.trim() || actual.seo?.descripcion?.es || '',
+          en: inputSeoDescEn?.value?.trim() || actual.seo?.descripcion?.en || ''
         },
         keywords: {
-          es: kwEs,
-          en: kwEn
+          es: kwEs.length > 0 ? kwEs : (actual.seo?.keywords?.es || []),
+          en: kwEn.length > 0 ? kwEn : (actual.seo?.keywords?.en || [])
         },
-        imagen: {
+        imagen: actual.seo?.imagen || {
           url: "/imgwii/hero.webp",
           width: 1200,
           height: 630,
           type: "image/webp",
-          alt: "Estudio Cusihuaman - CPC Lourdes Cusihuaman Gálvez, Asesoría Tributaria SUNAT",
-          caption: "Asesoría contable y tributaria especializada ante SUNAT en Surquillo y modalidad online"
+          alt: inputNombreCorto?.value?.trim() || idnt.nombre || '',
+          caption: inputTitulo?.value?.trim() || idnt.cargo || ''
         },
-        schema: {
-          tipo: ["AccountingService", "FinancialService", "ProfessionalService"],
-          especialidades: ["TaxPreparation", "PayrollServices", "TaxConsulting", "Bookkeeping", "SUNATCompliance"],
+        schema: actual.seo?.schema || {
+          tipo: ["AccountingService", "ProfessionalService"],
+          especialidades: ["TaxPreparation", "PayrollServices", "TaxConsulting"],
           descripcionCorta: {
-            es: "Estudio de asesoría contable y tributaria en Surquillo y modalidad online a nivel nacional. Especializado en rentas de 4ta y 5ta categoría, planillas y fiscalización SUNAT.",
-            en: "Accounting and tax advisory firm in Surquillo, Lima and online nationwide. Specialized in 4th/5th category income taxes and SUNAT compliance."
+            es: inputBioEs?.value?.trim() || "",
+            en: inputBioEn?.value?.trim() || ""
           }
         },
-        audiencia: {
-          es: ["profesionales independientes y freelancers con RHE (4ta categoría)", "trabajadores en planilla con retenciones en exceso (5ta categoría)", "pequeñas y medianas empresas (MYPEs) con personal en planilla", "personas naturales con negocio y emprendedores"],
-          en: ["independent contractors and freelancers", "salaried workers seeking tax refunds", "small and medium enterprises with payroll", "business owners and entrepreneurs"]
-        },
-        intencion: {
-          es: "asesoria tributaria sunat, declaracion renta 4ta categoria, suspension retenciones 1609, regularizacion buzon sol, planillas plame",
-          en: "tax consulting peru, sunat tax compliance, 4th category tax return, payroll advisory"
-        }
+        audiencia: actual.seo?.audiencia || { es: [], en: [] },
+        intencion: actual.seo?.intencion || { es: "", en: "" }
       }
     };
   }

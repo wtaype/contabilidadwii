@@ -16,9 +16,11 @@ const {
   descripcion = datosNegocio.slogan || `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}.`
 } = Astro.props;
 
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || (datosNegocio.web ? (datosNegocio.web.startsWith('http') ? datosNegocio.web : `https://${datosNegocio.web}`) : '');
-const canonical = `${siteUrl}/redes`;
-const ogImage = `${siteUrl}/imgwii/hero.webp`;
+const webUrl = datosNegocio.redes?.web || datosNegocio.web || '';
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || (webUrl ? (webUrl.startsWith('http') ? webUrl : `https://${webUrl}`) : '');
+const canonical = siteUrl ? `${siteUrl}/redes` : '/redes';
+const ogImgRel = datosNegocio.hero?.imagen || datosNegocio.logo || '/imgwii/hero.webp';
+const ogImage = ogImgRel.startsWith('http') ? ogImgRel : (siteUrl ? `${siteUrl}${ogImgRel.startsWith('/') ? '' : '/'}${ogImgRel}` : ogImgRel);
 ---
 
 <!DOCTYPE html>

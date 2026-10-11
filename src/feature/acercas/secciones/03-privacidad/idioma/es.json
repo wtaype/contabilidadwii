@@ -17,5 +17,7 @@
   "seguridad_titulo": "6. Medidas de Seguridad y Enfoque Local-First",
   "seguridad_desc": "Aplicamos estrictos protocolos técnicos de cifrado y autenticación. El panel web implementa arquitectura Local-First, conservando las preferencias de sesión en su propio navegador para reducir la exposición innecesaria de credenciales en servidores externos.",
   "contacto_legal_titulo": "Canal Oficial para Derechos ARCO",
-  "btn_enviar_solicitud": "Solicitar Atención ARCO por Correo"
+  "btn_enviar_solicitud": "Solicitar Atención ARCO por Correo",
+  "email_asunto": "Solicitud de Ejercicio de Derechos ARCO",
+  "toc_titulo": "Puntos Clave"
 }

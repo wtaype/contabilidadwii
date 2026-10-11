@@ -54,7 +54,7 @@ export function inicializarModuloPerfil() {
     const nom = `${inNombre?.value || 'Wilder'} ${inApellidos?.value || 'Taype'}`;
     const usr = inUsuario?.value || 'wilder';
     const email = inEmail?.value || 'wtaypeee@gmail.com';
-    const cel = inCelular?.value || '961229280';
+    const cel = inCelular?.value || '-';
     const avt = inAvatar?.value || 'https://imgwii.web.app/smile.avif';
 
     if (idAvatar) idAvatar.src = avt;

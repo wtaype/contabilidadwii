@@ -41,7 +41,15 @@
     "derechos": "Todos los derechos reservados.",
     "desarrollo": "Desarrollado con alta velocidad por",
     "delivery_central": "Central de Asesoría:",
-    "volver_arriba": "Volver arriba"
+    "volver_arriba": "Volver arriba",
+    "paginas_oficiales": "Páginas Oficiales",
+    "link_nosotros": "Nosotros",
+    "link_terminos": "Términos del Servicio",
+    "link_privacidad": "Política de Privacidad",
+    "link_cookies": "Política de Cookies",
+    "link_contacto": "Contacto y Sede",
+    "link_redes": "Canales y Redes",
+    "link_feedback": "Feedback y Sugerencias"
   },
   "sistema": {
     "cargando": "Cargando...",

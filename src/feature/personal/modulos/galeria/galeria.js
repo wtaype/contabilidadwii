@@ -121,7 +121,7 @@ export function inicializarModuloGaleria() {
       : todas.filter(img => img.categoria === categoriaActual);
 
     if (statsBadge) {
-      statsBadge.textContent = `${filtradas.length} archivos · Estudio Cusihuaman`;
+      statsBadge.textContent = `${filtradas.length} archivos multimedia`;
     }
 
     if (filtradas.length === 0) {

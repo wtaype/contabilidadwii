@@ -28,10 +28,11 @@ const {
       height="104" 
       loading="eager"
       decoding="async"
+      data-negocio-avatar
     />
   </div>
 
   <!-- Handle y Biografía Descriptiva -->
-  <h1 class="redes-handle">{handle}</h1>
-  <p class="redes-bio">{bio}</p>
+  <h1 class="redes-handle" data-negocio-handle style={handle ? undefined : "display: none;"}>{handle}</h1>
+  <p class="redes-bio" data-negocio-bio style={bio ? undefined : "display: none;"}>{bio}</p>
 </div>

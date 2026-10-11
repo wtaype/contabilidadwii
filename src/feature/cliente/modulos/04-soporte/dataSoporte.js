@@ -61,7 +61,7 @@ async function despacharCorreoWorker(ticket) {
               <p style="margin:6px 0 0; font-size:0.85rem; color:#64748b;"><strong>Detalle:</strong> ${ticket.detalle}</p>
             </div>
             <p style="font-size:0.82rem; color:#64748b;">
-              Un especialista del equipo revisará tu caso a la brevedad. Para urgencias, puedes escribir directo a WhatsApp al ${datosNegocio.telefono || '+51 987 594 558'}.
+              Un especialista del equipo revisará tu caso a la brevedad. Para urgencias, puedes escribir directo a WhatsApp al ${datosNegocio.telefonoMostrado || datosNegocio.whatsapp || ''}.
             </p>
           </div>
         </div>

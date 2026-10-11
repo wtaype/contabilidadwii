@@ -412,7 +412,9 @@ export function inicializarModuloSunat() {
       const emisor = obtenerDatosEmisor();
 
       const itemsTxt = itemsActuales.map(i => `• ${i.cantidad}x ${i.descripcion} (S/ ${(i.cantidad * i.precioUnitario).toFixed(2)})`).join('\n');
-      const mensaje = `Hola *${cliente}*, te saludamos de *${emisor.nombreComercial}* (CPC Lourdes Cusihuaman).\n\nAdjuntamos la constancia de tu *${tipoDocActual === 'factura' ? 'Factura' : 'Boleta'} Electrónica ${correlativoActual.serieNumero}*:\n\n${itemsTxt}\n\n*Total Pagado:* S/ ${total.toFixed(2)}\n\n¡Gracias por confiar en nuestros servicios contables!`;
+      const nombreMarca = emisor.nombreComercial || emisor.razonSocial || 'nuestro equipo';
+      const subEsp = emisor.razonSocial && emisor.nombreComercial ? ` (${emisor.razonSocial})` : '';
+      const mensaje = `Hola *${cliente}*, te saludamos de *${nombreMarca}*${subEsp}.\n\nAdjuntamos la constancia de tu *${tipoDocActual === 'factura' ? 'Factura' : 'Boleta'} Electrónica ${correlativoActual.serieNumero}*:\n\n${itemsTxt}\n\n*Total Pagado:* S/ ${total.toFixed(2)}\n\n¡Gracias por confiar en nuestros servicios contables!`;
 
       const numDestino = cel.length >= 9 ? (cel.startsWith('51') ? cel : `51${cel}`) : '';
       const url = numDestino

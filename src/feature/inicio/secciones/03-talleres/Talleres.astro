@@ -2,6 +2,7 @@
 // src/feature/inicio/secciones/03-talleres/Talleres.astro
 // 3. SECCIÓN ASESORÍAS Y DIAGNÓSTICO ANTE SUNAT (3 ASESORÍAS PUNTUALES)
 import { datosNegocio, consultarProductosFirestoreFresco } from '../../../../negocio.js';
+import { imgwii } from '@widev';
 import { resolverIdioma, resolverIdiomas } from '../../idioma/idioma.js';
 import es from './idioma/es.json';
 import en from './idioma/en.json';
@@ -91,9 +92,10 @@ const whatsappNumero = datosNegocio.whatsappLimpio;
               <!-- Imagen Fotográfica de la Asesoría -->
               <div class="taller-img-box">
                 <img 
-                  src={p.imagen || '/imgwii/servicios/asesoria01.webp'} 
+                  src={imgwii.svg} 
+                  data-src={p.imagen || '/imgwii/servicios/asesoria01.webp'} 
                   alt={nombre} 
-                  class="taller-img" 
+                  class="taller-img wi_skeleton" 
                   loading="lazy" 
                   decoding="async" 
                   width="360" 

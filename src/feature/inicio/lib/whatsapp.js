@@ -1,9 +1,14 @@
 // src/feature/inicio/lib/whatsapp.js
-// 🚀 Motor Centralizado de Mensajes WhatsApp para Gaswii
+// 🚀 Motor Centralizado de Mensajes WhatsApp para Contabilidadwii
 // Funciona de forma isomórfica (Build-time SSR en Astro + Runtime en Cliente)
-// Genera mensajes naturales, directos y amigables según la hora del día sin tecnicismos.
+// Prioridad:
+// 1. Cliente: localStorage ('wi_negocio' o 'minegocio' actualizado desde Firestore)
+// 2. Compilación (al cocinarse): datos frescos de Firebase Firestore ('negocio/principal')
+// 3. Semilla: semillas/negocio.json
+// 4. Si no existe o se eliminó: '' (cadena vacía, 0 números quemados)
 
 import { datosNegocio } from '../../../negocio.js';
+import negocioSemilla from '@/semillas/negocio.json';
 
 /**
  * Obtiene el saludo dinámico según la hora del día en Perú
@@ -16,37 +21,54 @@ export function obtenerSaludoHora() {
 }
 
 /**
- * Obtiene el número de WhatsApp canónico (desde caché local o fallback negocio)
+ * Obtiene el número de WhatsApp canónico siguiendo la prioridad:
+ * 1. Cliente: localStorage ('wi_negocio' / 'minegocio' de Firestore)
+ * 2. Compilación / Firebase: datosNegocio.whatsappLimpio
+ * 3. Semilla: semillas/negocio.json
+ * 4. Vacío '' si no hay número
  */
 export function obtenerNumeroWhatsApp() {
+  // 1. Cliente: consultar último número actualizado en caché local de Firestore
   if (typeof window !== 'undefined') {
     try {
-      const raw = localStorage.getItem('minegocio');
+      const raw = localStorage.getItem('wi_negocio') || localStorage.getItem('minegocio');
       if (raw) {
         const cfg = JSON.parse(raw);
-        const wa = cfg.contacto?.whatsappLimpio || cfg.contacto?.whatsapp;
+        const wa = cfg.contacto?.whatsappLimpio || cfg.contacto?.whatsapp || cfg.contacto?.telefonoLimpio || cfg.contacto?.telefono;
         if (wa) return String(wa).replace(/\D/g, '');
       }
     } catch (e) {}
   }
-  return datosNegocio.whatsappLimpio || datosNegocio.whatsapp || '';
+
+  // 2. Al momento de cocinarse / servidor: consultar datos frescos de Firebase Firestore
+  try {
+    const waBuild = datosNegocio?.whatsappLimpio || datosNegocio?.whatsapp;
+    if (waBuild) return String(waBuild).replace(/\D/g, '');
+  } catch (e) {}
+
+  // 3. Respaldo de Semillas
+  const waSemilla = negocioSemilla?.contacto?.whatsapp || negocioSemilla?.contacto?.telefono;
+  if (waSemilla) return String(waSemilla).replace(/\D/g, '');
+
+  // 4. Si no hay número configurado o el dueño lo eliminó: ''
+  return '';
 }
 
 /**
- * Obtiene el nombre del negocio (desde caché local o fallback canónico)
+ * Obtiene el nombre del negocio (desde caché local, Firebase o semillas)
  */
 export function obtenerNombreNegocio() {
   if (typeof window !== 'undefined') {
     try {
-      const raw = localStorage.getItem('minegocio');
+      const raw = localStorage.getItem('wi_negocio') || localStorage.getItem('minegocio');
       if (raw) {
         const cfg = JSON.parse(raw);
-        const nom = cfg.identidad?.nombre;
+        const nom = cfg.identidad?.nombre || cfg.nombre;
         if (nom) return nom;
       }
     } catch (e) {}
   }
-  return datosNegocio.nombre || 'Estudio Cusihuaman';
+  return datosNegocio?.nombre || negocioSemilla?.identidad?.nombre || '';
 }
 
 /**
@@ -129,6 +151,7 @@ export function generarMensajeWhatsApp({
 export function crearEnlaceWhatsApp(opciones = {}, numeroPersonalizado = null) {
   const num = numeroPersonalizado ? String(numeroPersonalizado).replace(/\D/g, '') : obtenerNumeroWhatsApp();
   const msg = typeof opciones === 'string' ? opciones : generarMensajeWhatsApp(opciones);
+  if (!num) return '#';
   return `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
 }
 

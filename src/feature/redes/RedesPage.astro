@@ -9,8 +9,20 @@ import RedesLista from './componentes/RedesLista.astro';
 import RedesFooter from './componentes/RedesFooter.astro';
 import { datosNegocio } from '../../negocio.js';
 
+const redes = datosNegocio.redes || {};
 const titulo = `Redes Oficiales y Enlaces Directos · ${datosNegocio.nombre}`;
-const descripcion = `Conéctate conmigo en mis redes sociales oficiales: YouTube, Facebook, Instagram, TikTok, WhatsApp y Web Oficial. Asesoría contable y tributaria en Lima, Perú.`;
+const descripcion = `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}. ${datosNegocio.subtitulo || datosNegocio.bio || ''}`;
+
+const handleUsuario = redes.instagramUser 
+  ? `@${redes.instagramUser.replace(/^@/, '')}`
+  : (redes.tiktokUser 
+      ? `@${redes.tiktokUser.replace(/^@/, '')}`
+      : (redes.youtubeUser 
+          ? `@${redes.youtubeUser.replace(/^@/, '')}`
+          : (datosNegocio.nombreCorto ? `@${datosNegocio.nombreCorto.toLowerCase().replace(/\s+/g, '')}` : '')));
+
+const bioTexto = datosNegocio.subtitulo || datosNegocio.bio || '';
+const avatarImg = datosNegocio.hero?.imagen || datosNegocio.logo || '/imgwii/hero.webp';
 ---
 
 <Popular titulo={titulo} descripcion={descripcion}>
@@ -19,11 +31,11 @@ const descripcion = `Conéctate conmigo en mis redes sociales oficiales: YouTube
       <!-- 1. TopBar con Botón Copiar URL y Badge Oficial -->
       <RedesTopBar />
 
-      <!-- 2. Hero con Avatar, Handle @ y Bio en 1ª persona -->
+      <!-- 2. Hero con Avatar, Handle @ y Bio dinámicos -->
       <RedesHero 
-        avatar={datosNegocio.hero?.imagen || '/imgwii/hero.webp'}
-        handle="@lourdescusihuaman"
-        bio="Asesoría contable y tributaria estratégica para hacer crecer tu negocio. 🇵🇪"
+        avatar={avatarImg}
+        handle={handleUsuario}
+        bio={bioTexto}
         alt={datosNegocio.nombre}
       />
 

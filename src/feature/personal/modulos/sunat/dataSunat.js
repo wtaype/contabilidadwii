@@ -256,13 +256,13 @@ export async function sincronizarComprobantesFirestore() {
 export function obtenerDatosEmisor() {
   const negocio = obtenerDatosNegocio() || {};
   return {
-    razonSocial: negocio.identidad?.nombre || 'Lourdes Cusihuaman Gálvez',
-    nombreComercial: negocio.identidad?.nombreCorto || 'Estudio Cusihuaman',
-    ruc: '10478912345',
-    direccion: 'Jr. Dante 260, Surquillo, Lima 15047',
-    atencion: 'Atención 100% Online y Presencial previa cita',
-    telefono: negocio.contacto?.telefono || '+51 987 594 558',
-    email: negocio.contacto?.email || 'contacto@contabilidadwii.com'
+    razonSocial: negocio.identidad?.nombre || '',
+    nombreComercial: negocio.identidad?.nombreCorto || '',
+    ruc: negocio.identidad?.ruc || '',
+    direccion: negocio.ubicacion?.direccion || '',
+    atencion: 'Atención Online y Presencial previa cita',
+    telefono: negocio.contacto?.telefono || '',
+    email: negocio.contacto?.email || ''
   };
 }
 

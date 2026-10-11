@@ -355,6 +355,163 @@ export function inicializarNegocio() {
     el.addEventListener('paste', () => setTimeout(sanitizar, 20));
   });
 
+  // ── GESTIÓN DINÁMICA DE REDES SOCIALES (ORDEN, DRAG & DROP Y BADGES) ──
+  function reordenarFilasRedes(ordenIds = []) {
+    const contenedor = document.getElementById('ngListaRedesOrdenables');
+    if (!contenedor || !Array.isArray(ordenIds) || ordenIds.length === 0) return;
+
+    const filas = Array.from(contenedor.querySelectorAll('.ng-red-row'));
+    const mapaFilas = new Map();
+    filas.forEach(f => mapaFilas.set(f.dataset.redId, f));
+
+    ordenIds.forEach(id => {
+      const f = mapaFilas.get(id);
+      if (f) {
+        contenedor.appendChild(f);
+        mapaFilas.delete(id);
+      }
+    });
+
+    // Añadir al final las filas que no estuvieran en el arreglo
+    mapaFilas.forEach(f => contenedor.appendChild(f));
+  }
+
+  function actualizarBadgesRedes() {
+    const mapaInputs = [
+      { id: 'youtube', input: inputRedYoutube },
+      { id: 'facebook', input: inputRedFacebook },
+      { id: 'instagram', input: inputRedInstagram },
+      { id: 'tiktok', input: inputRedTiktok },
+      { id: 'whatsapp', input: inputRedCanalWhatsapp },
+      { id: 'web', input: inputRedWeb },
+      { id: 'linkedin', input: inputRedLinkedin }
+    ];
+
+    mapaInputs.forEach(({ id, input }) => {
+      const badge = document.querySelector(`[data-badge-red="${id}"]`);
+      if (!badge) return;
+      const tieneValor = Boolean(input?.value?.trim());
+      if (tieneValor) {
+        badge.textContent = 'Visible';
+        badge.className = 'ng-red-badge active';
+      } else {
+        badge.textContent = 'Sin enlace';
+        badge.className = 'ng-red-badge inactive';
+      }
+    });
+  }
+
+  function inicializarReordenamientoRedes() {
+    const contenedor = document.getElementById('ngListaRedesOrdenables');
+    if (!contenedor) return;
+
+    // 1. Botones de Subir y Bajar (▲ / ▼)
+    contenedor.addEventListener('click', (e) => {
+      const btn = e.target.closest('.ng-btn-move');
+      if (!btn) return;
+      const row = btn.closest('.ng-red-row');
+      if (!row) return;
+
+      const dir = btn.dataset.dir;
+      if (dir === 'up') {
+        const prev = row.previousElementSibling;
+        if (prev && prev.classList.contains('ng-red-row')) {
+          contenedor.insertBefore(row, prev);
+        }
+      } else if (dir === 'down') {
+        const next = row.nextElementSibling;
+        if (next && next.classList.contains('ng-red-row')) {
+          contenedor.insertBefore(next, row);
+        }
+      }
+    });
+
+    // 2. Drag & Drop HTML5 para Desktop
+    let draggedRow = null;
+
+    contenedor.querySelectorAll('.ng-red-row').forEach(row => {
+      row.addEventListener('dragstart', (e) => {
+        draggedRow = row;
+        row.classList.add('is-dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', row.dataset.redId || '');
+      });
+
+      row.addEventListener('dragend', () => {
+        if (draggedRow) draggedRow.classList.remove('is-dragging');
+        draggedRow = null;
+        contenedor.querySelectorAll('.ng-red-row').forEach(r => r.classList.remove('is-drag-over'));
+      });
+
+      row.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (!draggedRow || draggedRow === row) return;
+        row.classList.add('is-drag-over');
+      });
+
+      row.addEventListener('dragleave', () => {
+        row.classList.remove('is-drag-over');
+      });
+
+      row.addEventListener('drop', (e) => {
+        e.preventDefault();
+        row.classList.remove('is-drag-over');
+        if (!draggedRow || draggedRow === row) return;
+
+        const rect = row.getBoundingClientRect();
+        const middleY = rect.top + rect.height / 2;
+        if (e.clientY < middleY) {
+          contenedor.insertBefore(draggedRow, row);
+        } else {
+          contenedor.insertBefore(draggedRow, row.nextSibling);
+        }
+      });
+    });
+
+    // 3. Touch Drag nativo en el handle para Celulares Android / iOS
+    let touchRow = null;
+
+    contenedor.querySelectorAll('.ng-red-drag-handle').forEach(handle => {
+      handle.addEventListener('touchstart', (e) => {
+        const row = handle.closest('.ng-red-row');
+        if (!row) return;
+        touchRow = row;
+        row.classList.add('is-dragging');
+      }, { passive: true });
+
+      handle.addEventListener('touchmove', (e) => {
+        if (!touchRow) return;
+        const touch = e.touches[0];
+        const targetElem = document.elementFromPoint(touch.clientX, touch.clientY);
+        const targetRow = targetElem?.closest('.ng-red-row');
+        if (targetRow && targetRow !== touchRow && targetRow.parentElement === contenedor) {
+          const rect = targetRow.getBoundingClientRect();
+          const middleY = rect.top + rect.height / 2;
+          if (touch.clientY < middleY) {
+            contenedor.insertBefore(touchRow, targetRow);
+          } else {
+            contenedor.insertBefore(touchRow, targetRow.nextSibling);
+          }
+        }
+      }, { passive: true });
+
+      handle.addEventListener('touchend', () => {
+        if (touchRow) {
+          touchRow.classList.remove('is-dragging');
+          touchRow = null;
+        }
+      });
+    });
+
+    // Escuchar cambios en los inputs para actualizar estado visual activo/inactivo
+    [inputRedYoutube, inputRedFacebook, inputRedInstagram, inputRedTiktok, inputRedCanalWhatsapp, inputRedWeb, inputRedLinkedin].forEach(inp => {
+      inp?.addEventListener('input', actualizarBadgesRedes);
+    });
+  }
+
+  inicializarReordenamientoRedes();
+
   // ── CARGAR DATOS EN FORMULARIO ──
   function cargarFormulario(cfg) {
     if (!cfg) return;
@@ -502,6 +659,13 @@ export function inicializarNegocio() {
     if (inputRedLinkedin) {
       inputRedLinkedin.value = r.linkedinUser || limpiarHandleRed(r.linkedin, 'linkedin') || '';
     }
+
+    // Reordenar filas visuales según redesOrden y actualizar estados (Visible/Oculto)
+    const ordenGuardado = Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
+      ? cfg.redesOrden
+      : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube'];
+    reordenarFilasRedes(ordenGuardado);
+    actualizarBadgesRedes();
 
     // SEO
     if (inputSeoTituloEs) inputSeoTituloEs.value = cfg.seo?.titulo?.es || '';
@@ -667,6 +831,13 @@ export function inicializarNegocio() {
           linkedin: armarUrlRed(inUser, 'linkedin'),
           linkedinUser: inUser
         };
+      })(),
+
+      redesOrden: (() => {
+        const contenedorRedes = document.getElementById('ngListaRedesOrdenables');
+        return contenedorRedes
+          ? Array.from(contenedorRedes.querySelectorAll('.ng-red-row')).map(r => r.dataset.redId).filter(Boolean)
+          : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube'];
       })(),
 
       seo: {

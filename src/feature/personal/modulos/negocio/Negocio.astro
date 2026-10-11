@@ -272,87 +272,201 @@ const n = datosNegocio;
             </div>
           </div>
 
-          <!-- Divisor elegante de subsección interna -->
+          <!-- Subsección interactiva: Enlaces y Redes Oficiales Reordenables -->
           <div class="ng-subseccion-header">
-            <span class="ng-subseccion-title"><i class="fa-solid fa-share-nodes"></i> Enlaces y Redes Oficiales</span>
-            <span class="ng-subseccion-desc">Ingresa solo tu usuario o handle</span>
+            <div>
+              <span class="ng-subseccion-title"><i class="fa-solid fa-share-nodes"></i> Enlaces y Redes Oficiales</span>
+              <span class="ng-subseccion-desc">Arrastra o usa las flechas para ordenar. Solo los canales con enlace saldrán en la web.</span>
+            </div>
           </div>
 
-          <div class="ng-grid-2">
-            <!-- 1. YouTube -->
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputRedYoutube">
-                <span><i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube</span>
-              </label>
+          <div class="ng-redes-lista-ordenada" id="ngListaRedesOrdenables">
+            <!-- 1. LinkedIn -->
+            <div class="ng-red-row" data-red-id="linkedin" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> LinkedIn
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="linkedin">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">@</span>
-                <input type="text" id="ngInputRedYoutube" class="ng-input-bare" placeholder="usuario o canal" />
+                <span class="ng-input-handle-prefix">in/</span>
+                <input type="text" id="ngInputRedLinkedin" class="ng-input-bare" placeholder="usuario linkedin" />
               </div>
             </div>
 
-            <!-- 2. Facebook -->
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputRedFacebook">
-                <span><i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> Facebook</span>
-              </label>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">/</span>
-                <input type="text" id="ngInputRedFacebook" class="ng-input-bare" placeholder="usuario o pagina" />
+            <!-- 2. Web Oficial -->
+            <div class="ng-red-row" data-red-id="web" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-solid fa-globe" style="color: #00a2ed;"></i> Web Oficial
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="web">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
               </div>
-            </div>
-
-            <!-- 3. Instagram -->
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputRedInstagram">
-                <span><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram</span>
-              </label>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">@</span>
-                <input type="text" id="ngInputRedInstagram" class="ng-input-bare" placeholder="usuario" />
-              </div>
-            </div>
-
-            <!-- 4. TikTok -->
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputRedTiktok">
-                <span><i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i> TikTok</span>
-              </label>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">@</span>
-                <input type="text" id="ngInputRedTiktok" class="ng-input-bare" placeholder="usuario" />
-              </div>
-            </div>
-
-            <!-- 5. Canal de WhatsApp -->
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputRedCanalWhatsapp">
-                <span><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Canal WhatsApp</span>
-              </label>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">wa.me/</span>
-                <input type="text" id="ngInputRedCanalWhatsapp" class="ng-input-bare" placeholder="canal o enlace (opcional)" />
-              </div>
-            </div>
-
-            <!-- 6. Web Oficial -->
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputRedWeb">
-                <span><i class="fa-solid fa-globe" style="color: #00a2ed;"></i> Web Oficial</span>
-              </label>
               <div class="ng-input-handle-wrap">
                 <span class="ng-input-handle-prefix">https://</span>
                 <input type="text" id="ngInputRedWeb" class="ng-input-bare" placeholder="tuempresa.com" />
               </div>
             </div>
 
-            <!-- 7. LinkedIn (Opcional) -->
-            <div class="ng-field span-2">
-              <label class="ng-label" for="ngInputRedLinkedin">
-                <span><i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> LinkedIn (Profesional)</span>
-              </label>
+            <!-- 3. Canal de WhatsApp -->
+            <div class="ng-red-row" data-red-id="whatsapp" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Canal WhatsApp
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="whatsapp">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
               <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">in/</span>
-                <input type="text" id="ngInputRedLinkedin" class="ng-input-bare" placeholder="usuario linkedin" />
+                <span class="ng-input-handle-prefix">wa.me/</span>
+                <input type="text" id="ngInputRedCanalWhatsapp" class="ng-input-bare" placeholder="canal o enlace (opcional)" />
+              </div>
+            </div>
+
+            <!-- 4. Instagram -->
+            <div class="ng-red-row" data-red-id="instagram" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="instagram">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix">@</span>
+                <input type="text" id="ngInputRedInstagram" class="ng-input-bare" placeholder="usuario" />
+              </div>
+            </div>
+
+            <!-- 5. Facebook -->
+            <div class="ng-red-row" data-red-id="facebook" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> Facebook
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="facebook">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix">/</span>
+                <input type="text" id="ngInputRedFacebook" class="ng-input-bare" placeholder="usuario o pagina" />
+              </div>
+            </div>
+
+            <!-- 6. TikTok -->
+            <div class="ng-red-row" data-red-id="tiktok" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i> TikTok
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="tiktok">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix">@</span>
+                <input type="text" id="ngInputRedTiktok" class="ng-input-bare" placeholder="usuario" />
+              </div>
+            </div>
+
+            <!-- 7. YouTube -->
+            <div class="ng-red-row" data-red-id="youtube" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
+                  <i class="fa-solid fa-grip-vertical"></i>
+                </div>
+                <div class="ng-red-info">
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="youtube">Comprobando...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
+                    <i class="fa-solid fa-chevron-up"></i>
+                  </button>
+                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
+                    <i class="fa-solid fa-chevron-down"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="ng-input-handle-wrap">
+                <span class="ng-input-handle-prefix">@</span>
+                <input type="text" id="ngInputRedYoutube" class="ng-input-bare" placeholder="usuario o canal" />
               </div>
             </div>
           </div>

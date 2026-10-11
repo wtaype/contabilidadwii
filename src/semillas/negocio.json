@@ -140,6 +140,16 @@
     "linkedinUser": "lourdes-cusihuaman"
   },
 
+  "redesOrden": [
+    "linkedin",
+    "web",
+    "whatsapp",
+    "instagram",
+    "facebook",
+    "tiktok",
+    "youtube"
+  ],
+
   "seo": {
     "titulo": {
       "es": "Estudio Cusihuaman | CPC Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT",

@@ -90,10 +90,21 @@ const canales = [
     mostrar: Boolean(liUrl)
   }
 ];
+
+// Orden dinámico configurable desde Firestore / semillas con fallback inteligente
+const ordenPrioridad = (Array.isArray(datosNegocio.redesOrden) && datosNegocio.redesOrden.length > 0)
+  ? datosNegocio.redesOrden
+  : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube'];
+
+const canalesOrdenados = [...canales].sort((a, b) => {
+  const idxA = ordenPrioridad.indexOf(a.id);
+  const idxB = ordenPrioridad.indexOf(b.id);
+  return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
+});
 ---
 
 <div class="redes-lista" role="navigation" aria-label="Enlaces oficiales">
-  {canales.filter(c => c.mostrar).map((canal) => (
+  {canalesOrdenados.filter(c => c.mostrar).map((canal) => (
     <RedesCard
       href={canal.href}
       redId={canal.id}

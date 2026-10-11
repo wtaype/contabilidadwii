@@ -554,3 +554,152 @@
 
 /* Clases utilitarias */
 .sn-mt-10 { margin-top: 10px; }
+
+/* ── 7. LISTA ORDENABLE DE REDES SOCIALES (DRAG & DROP + TOUCH + FLECHAS) ── */
+.ng-redes-lista-ordenada {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.ng-red-row {
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  box-sizing: border-box;
+}
+
+[data-theme="futuro"] .ng-red-row {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.ng-red-row.is-dragging {
+  opacity: 0.45;
+  transform: scale(0.98);
+  border: 1px dashed var(--brand-primary, var(--mco, #9e7b4f));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ng-red-row.is-drag-over {
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.2);
+  transform: translateY(-2px);
+}
+
+.ng-red-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ng-red-drag-handle {
+  cursor: grab;
+  padding: 6px 8px;
+  color: var(--muted, #64748b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  border-radius: 6px;
+  background: var(--raised, rgba(0, 0, 0, 0.03));
+  transition: color 0.15s ease, background 0.15s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.ng-red-drag-handle:hover,
+.ng-red-drag-handle:active {
+  color: var(--brand-primary, var(--mco, #9e7b4f));
+  background: rgba(158, 123, 79, 0.12);
+}
+
+.ng-red-drag-handle:active {
+  cursor: grabbing;
+}
+
+.ng-red-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.ng-red-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink, #0f172a);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ng-red-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.ng-red-badge.active {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.ng-red-badge.inactive {
+  background: rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.ng-red-move-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ng-btn-move {
+  background: var(--raised, rgba(0, 0, 0, 0.04));
+  border: 1px solid var(--line, #e2e8f0);
+  color: var(--muted, #64748b);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+[data-theme="futuro"] .ng-btn-move {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.ng-btn-move:hover {
+  background: var(--brand-primary, var(--mco, #9e7b4f));
+  color: #ffffff;
+  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+}
+
+.ng-btn-move:active {
+  transform: scale(0.92);
+}

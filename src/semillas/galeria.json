@@ -1,5 +1,21 @@
 [
   {
+    "id": "img_jesus_3745_6t2kz",
+    "nombre": "jesus-3745-6t2kz.webp",
+    "titulo": "CPC Jesús - Asesor Contable",
+    "alt": "CPC Jesús especialista tributario de Estudio Cusihuaman en Cloudflare R2",
+    "url": "https://pub-79d1116858324ab5b78a2c9de2149342.r2.dev/jesus-3745-6t2kz.webp",
+    "categoria": "especialista",
+    "pesoKb": 38,
+    "dimensiones": "Optimizado WebP",
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-11",
+    "creado": "2026-10-11T12:00:00.000Z",
+    "actualizado": "2026-10-11T12:00:00.000Z"
+  },
+  {
     "id": "img_lourdes_oficial",
     "nombre": "lourdes.webp",
     "titulo": "CPC Lourdes Cusihuaman Gálvez",
@@ -8,7 +24,12 @@
     "categoria": "especialista",
     "pesoKb": 71,
     "dimensiones": "800x1000",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-10",
+    "creado": "2026-10-10T10:00:00.000Z",
+    "actualizado": "2026-10-10T10:00:00.000Z"
   },
   {
     "id": "img_hero_portada",
@@ -19,7 +40,12 @@
     "categoria": "especialista",
     "pesoKb": 61,
     "dimensiones": "1200x800",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-09",
+    "creado": "2026-10-09T10:00:00.000Z",
+    "actualizado": "2026-10-09T10:00:00.000Z"
   },
   {
     "id": "img_experiencia_cpc",
@@ -30,7 +56,12 @@
     "categoria": "especialista",
     "pesoKb": 82,
     "dimensiones": "800x600",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-08",
+    "creado": "2026-10-08T10:00:00.000Z",
+    "actualizado": "2026-10-08T10:00:00.000Z"
   },
   {
     "id": "img_sede_surquillo",
@@ -41,7 +72,12 @@
     "categoria": "sede",
     "pesoKb": 95,
     "dimensiones": "1200x800",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-07",
+    "creado": "2026-10-07T10:00:00.000Z",
+    "actualizado": "2026-10-07T10:00:00.000Z"
   },
   {
     "id": "img_servicio_mype",
@@ -52,7 +88,12 @@
     "categoria": "servicios",
     "pesoKb": 64,
     "dimensiones": "800x600",
-    "fechaSubida": "Feb 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-06",
+    "creado": "2026-10-06T10:00:00.000Z",
+    "actualizado": "2026-10-06T10:00:00.000Z"
   },
   {
     "id": "img_servicio_rer",
@@ -63,7 +104,12 @@
     "categoria": "servicios",
     "pesoKb": 81,
     "dimensiones": "800x600",
-    "fechaSubida": "Feb 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-05",
+    "creado": "2026-10-05T10:00:00.000Z",
+    "actualizado": "2026-10-05T10:00:00.000Z"
   },
   {
     "id": "img_servicio_plame",
@@ -74,7 +120,12 @@
     "categoria": "servicios",
     "pesoKb": 85,
     "dimensiones": "800x600",
-    "fechaSubida": "Feb 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-04",
+    "creado": "2026-10-04T10:00:00.000Z",
+    "actualizado": "2026-10-04T10:00:00.000Z"
   },
   {
     "id": "img_servicio_clavesol",
@@ -85,7 +136,12 @@
     "categoria": "servicios",
     "pesoKb": 67,
     "dimensiones": "800x600",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-03",
+    "creado": "2026-10-03T10:00:00.000Z",
+    "actualizado": "2026-10-03T10:00:00.000Z"
   },
   {
     "id": "img_asesoria_4ta",
@@ -96,7 +152,12 @@
     "categoria": "asesorias",
     "pesoKb": 91,
     "dimensiones": "800x600",
-    "fechaSubida": "Feb 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-03",
+    "creado": "2026-10-03T09:00:00.000Z",
+    "actualizado": "2026-10-03T09:00:00.000Z"
   },
   {
     "id": "img_asesoria_fiscalizacion",
@@ -107,7 +168,12 @@
     "categoria": "asesorias",
     "pesoKb": 85,
     "dimensiones": "800x600",
-    "fechaSubida": "Feb 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-02",
+    "creado": "2026-10-02T10:00:00.000Z",
+    "actualizado": "2026-10-02T10:00:00.000Z"
   },
   {
     "id": "img_asesoria_planificacion",
@@ -118,7 +184,12 @@
     "categoria": "asesorias",
     "pesoKb": 69,
     "dimensiones": "800x600",
-    "fechaSubida": "Feb 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-02",
+    "creado": "2026-10-02T09:00:00.000Z",
+    "actualizado": "2026-10-02T09:00:00.000Z"
   },
   {
     "id": "img_logo_oficial",
@@ -129,7 +200,12 @@
     "categoria": "institucional",
     "pesoKb": 13,
     "dimensiones": "512x512",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-01",
+    "creado": "2026-10-01T10:00:00.000Z",
+    "actualizado": "2026-10-01T10:00:00.000Z"
   },
   {
     "id": "img_logo_completo",
@@ -140,6 +216,11 @@
     "categoria": "institucional",
     "pesoKb": 20,
     "dimensiones": "512x512",
-    "fechaSubida": "Ene 2026"
+    "pin": false,
+    "estado": "activo",
+    "userId": "",
+    "fechaSubida": "2026-10-01",
+    "creado": "2026-10-01T09:00:00.000Z",
+    "actualizado": "2026-10-01T09:00:00.000Z"
   }
 ]

@@ -63,5 +63,10 @@ service cloud.firestore {
     match /correos/{id} {
       allow read, write: if esPersonal();
     }
+
+    match /galeria/{id} {
+      allow read: if true;
+      allow write: if esPersonal();
+    }
   }
 }

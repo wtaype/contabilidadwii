@@ -32,17 +32,16 @@ const { esActivo = false } = Astro.props;
 
   <!-- TOOLBAR Y FILTROS -->
   <div class="gl-toolbar">
+    <!-- Filtros dinámicos en cascada desde galeria.json -->
     <div class="gl-filters" id="glFiltersWrap">
       <button type="button" class="gl-filter-pill active" data-cat="todas">Todas</button>
-      <button type="button" class="gl-filter-pill" data-cat="especialista">Especialista</button>
-      <button type="button" class="gl-filter-pill" data-cat="sede">Sede Surquillo</button>
-      <button type="button" class="gl-filter-pill" data-cat="servicios">Servicios</button>
-      <button type="button" class="gl-filter-pill" data-cat="asesorias">Asesorías</button>
-      <button type="button" class="gl-filter-pill" data-cat="institucional">Institucional</button>
     </div>
 
     <div class="gl-toolbar-right">
-      <span class="gl-stats-badge" id="glStatsBadge">13 archivos · Estudio Cusihuaman</span>
+      <button type="button" class="gl-btn-sync" id="btnGlSync" title="Sincronizar galería con Cloudflare R2 y Firestore">
+        <i class="fa-solid fa-arrows-rotate"></i> Sincronizar
+      </button>
+      <span class="gl-stats-badge" id="glStatsBadge">14 archivos · Estudio Cusihuaman</span>
     </div>
   </div>
 
@@ -75,11 +74,12 @@ const { esActivo = false } = Astro.props;
         <div class="sn-form-group">
           <label class="sn-label" for="glSelectCategoria">Categoría de Archivo</label>
           <select id="glSelectCategoria" class="sn-select">
-            <option value="especialista">Especialista (Lourdes Cusihuaman)</option>
-            <option value="sede">Sede Surquillo</option>
-            <option value="servicios">Servicios (MYPE, SIRE, PLAME, RER)</option>
-            <option value="asesorias">Asesorías (1 a 1, SUNAT, 4ta Cat.)</option>
-            <option value="institucional">Institucional y Logos</option>
+            <option value="especialista">Especialista</option>
+            <option value="sede">Sede Presencial</option>
+            <option value="servicios">Servicios</option>
+            <option value="asesorias">Asesorías</option>
+            <option value="institucional">Institucional</option>
+            <option value="otros">Otros</option>
           </select>
         </div>
 
@@ -99,6 +99,94 @@ const { esActivo = false } = Astro.props;
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- MODAL DE EDICIÓN DE IMAGEN A GRAN ESCALA (SPLIT 90vw x 90vh) -->
+  <div class="gl-modal-overlay" id="glModalEditar">
+    <div class="gl-modal gl-modal-xl">
+      <div class="cl-modal-head">
+        <h3 class="cl-modal-title">
+          <i class="fa-solid fa-pen-to-square sn-title-icon"></i> Editar Detalles de Imagen
+        </h3>
+        <button type="button" class="cl-modal-close" id="btnGlModalEditClose">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="gl-edit-split-container">
+        <!-- COLUMNA IZQUIERDA: GRAN VISTA DE IMAGEN (70-75%) -->
+        <div class="gl-edit-stage-column">
+          <div class="gl-edit-stage-wrap">
+            <img src="" alt="Vista previa en alta resolución" id="glEditPreviewImg" class="gl-edit-stage-img" />
+            <div class="gl-edit-stage-badges" id="glEditStageBadges"></div>
+          </div>
+          <div class="gl-edit-stage-footer">
+            <span class="gl-edit-storage-badge" id="glEditStorageBadge">
+              <i class="fa-solid fa-cloud"></i> Cloudflare R2 & Firestore
+            </span>
+            <span class="gl-edit-meta-pill" id="glEditPeso">38 KB · WebP</span>
+            <span class="gl-edit-meta-pill" id="glEditDimensiones">800x1000</span>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: FORMULARIO DE INFORMACIÓN & CONTROL (25-30%) -->
+        <div class="gl-edit-info-column">
+          <form id="formGlEditar" class="gl-edit-form">
+            <input type="hidden" id="glEditInpId" />
+
+            <div class="sn-form-group">
+              <label class="sn-label" for="glEditInpTitulo">Título Descriptivo</label>
+              <input type="text" id="glEditInpTitulo" class="sn-input" placeholder="Título de la imagen..." required />
+            </div>
+
+            <div class="sn-form-group">
+              <label class="sn-label" for="glEditSelectCategoria">Categoría de Archivo</label>
+              <select id="glEditSelectCategoria" class="sn-select">
+                <!-- Se llena dinámicamente desde galeria.json + otros -->
+              </select>
+            </div>
+
+            <div class="sn-form-group">
+              <label class="sn-label" for="glEditInpAlt">Texto Alternativo (ALT) para Google SEO</label>
+              <textarea id="glEditInpAlt" class="sn-input" rows="3" placeholder="Texto descriptivo para buscadores..."></textarea>
+            </div>
+
+            <div class="gl-edit-pin-group">
+              <label class="gl-edit-pin-label" for="glEditInpPin">
+                <input type="checkbox" id="glEditInpPin" class="gl-edit-pin-checkbox" />
+                <span class="gl-edit-pin-text">
+                  <i class="fa-solid fa-thumbtack"></i> Fijar al inicio de la Galería (Pin Destacado)
+                </span>
+              </label>
+            </div>
+
+            <div class="gl-edit-audit-card">
+              <div class="gl-edit-audit-item">
+                <span class="gl-audit-label"><i class="fa-regular fa-calendar"></i> Fecha subida:</span>
+                <span class="gl-audit-value" id="glEditFecha">2026-10-11</span>
+              </div>
+              <div class="gl-edit-audit-item">
+                <span class="gl-audit-label"><i class="fa-solid fa-clock-rotate-left"></i> Modificado:</span>
+                <span class="gl-audit-value" id="glEditActualizado">Reciente</span>
+              </div>
+              <div class="gl-edit-audit-item">
+                <span class="gl-audit-label"><i class="fa-regular fa-user"></i> Subido por:</span>
+                <span class="gl-audit-value" id="glEditUsuario">Admin</span>
+              </div>
+            </div>
+
+            <div class="cl-modal-actions">
+              <button type="button" class="ps-btn ps-btn-secondary" id="btnGlCancelEdit">
+                Cancelar
+              </button>
+              <button type="submit" class="ps-btn ps-btn-primary" id="btnGlSubmitEdit">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 

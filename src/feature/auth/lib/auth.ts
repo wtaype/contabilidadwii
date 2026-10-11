@@ -1,5 +1,5 @@
-// src/core/tipos/auth.ts
-// 🔐 Definición centralizada de tipos TypeScript para la autenticación y perfil Smile de GasWii
+// src/feature/auth/lib/auth.ts
+// 🔐 Definición centralizada de tipos TypeScript para la autenticación y perfil Smile
 
 export interface SmileDireccion {
   id?: string;

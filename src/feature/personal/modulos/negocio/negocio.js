@@ -16,17 +16,61 @@ export function inicializarNegocio() {
   if (!panelNegocio || panelNegocio.dataset.negocioInit === 'true') return;
   panelNegocio.dataset.negocioInit = 'true';
 
-  const DRAFT_KEY = 'negocio_borrador_timestamp';
   let isSaving = false;
-  let draftTimer = null;
 
   // Botón Principal Guardar
   const btnGuardarNegocio = document.getElementById('btnGuardarNegocio');
   const ngBadgeTrayectoria = document.getElementById('ngBadgeTrayectoria');
   const ngYearsText = document.getElementById('ngYearsText');
-  const ngLangTabs = document.getElementById('ngLangTabs');
 
-  // ── 1. SELECTOR DE PESTAÑAS DE IDIOMA (ES / EN) ──
+  // ── HELPERS DE URLS INTELIGENTES COMPLETAS ──
+  function formatearUrlCompleta(url = '') {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : '';
+    const clean = url.startsWith('/') ? url : `/${url}`;
+    return `${origin}${clean}`;
+  }
+
+  function normalizarUrlParaGuardar(url = '') {
+    if (!url) return '';
+    const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : '';
+    if (origin && url.startsWith(origin)) {
+      return url.replace(origin, '');
+    }
+    return url;
+  }
+
+  // ── 0. SELECTOR DE PESTAÑAS HORIZONTALES PRO (PERSISTENTE) ──
+  const TAB_STORAGE_KEY = 'wi_negocio_tab';
+  const mainTabBtns = document.querySelectorAll('.ng-tab-btn');
+  const mainTabPanes = document.querySelectorAll('.ng-tab-pane');
+
+  function switchMainTab(targetId) {
+    if (!targetId) return;
+    const pane = document.getElementById(targetId);
+    if (!pane) targetId = 'ng-tab-identidad';
+
+    mainTabBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-tab-target') === targetId));
+    mainTabPanes.forEach(p => p.classList.toggle('active', p.id === targetId));
+    savels(TAB_STORAGE_KEY, targetId);
+  }
+
+  mainTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-tab-target');
+      switchMainTab(target);
+    });
+  });
+
+  const tabGuardada = getls(TAB_STORAGE_KEY);
+  if (tabGuardada && document.getElementById(tabGuardada) && tabGuardada !== 'ng-tab-bilingue') {
+    switchMainTab(tabGuardada);
+  } else {
+    switchMainTab('ng-tab-identidad');
+  }
+
+  // ── 1. SELECTOR DE PESTAÑAS DE IDIOMA EN SECCIÓN LIBRE INFERIOR (ES / EN) ──
   document.querySelectorAll('.ng-lang-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.ng-lang-tab-btn').forEach(b => b.classList.remove('active'));
@@ -50,6 +94,9 @@ export function inicializarNegocio() {
   const imgLogoPreview = document.getElementById('ngImgLogoPreview');
   const imgLogoFullPreview = document.getElementById('ngImgLogoFullPreview');
   const imgHeroPreview = document.getElementById('ngImgHeroPreview');
+  const btnLinkHero = document.getElementById('btnLinkHero');
+  const btnLinkLogo = document.getElementById('btnLinkLogo');
+  const btnLinkLogoFull = document.getElementById('btnLinkLogoFull');
 
   // Inputs Bilingües: Identidad (ES)
   const inputNombre = document.getElementById('ngInputNombre');
@@ -67,6 +114,8 @@ export function inicializarNegocio() {
   const selectPais = document.getElementById('ngSelectPais');
   const hintPaisCodigo = document.getElementById('hintPaisCodigo');
   const inputTelefono = document.getElementById('ngInputTelefono');
+  const inputTelefonoFijo = document.getElementById('ngInputTelefonoFijo');
+  const inputTelefonoSecundario = document.getElementById('ngInputTelefonoSecundario');
   const inputWhatsapp = document.getElementById('ngInputWhatsapp');
   const inputEmail = document.getElementById('ngInputEmail');
   const ngHorarioSemanaAbre = document.getElementById('ngHorarioSemanaAbre');
@@ -115,6 +164,11 @@ export function inicializarNegocio() {
   const inputRedCanalWhatsapp = document.getElementById('ngInputRedCanalWhatsapp');
   const inputRedWeb = document.getElementById('ngInputRedWeb');
   const inputRedLinkedin = document.getElementById('ngInputRedLinkedin');
+  const inputRedTwitter = document.getElementById('ngInputRedTwitter');
+
+  // Toolbar de Agregar Red
+  const selectAgregarRed = document.getElementById('ngSelectAgregarRed');
+  const btnAgregarRed = document.getElementById('btnAgregarRed');
 
   // ── 7. SEO DINÁMICO BILINGÜE ──
   const inputSeoTituloEs = document.getElementById('ngInputSeoTituloEs');
@@ -124,26 +178,52 @@ export function inicializarNegocio() {
   const inputSeoDescEn = document.getElementById('ngInputSeoDescEn');
   const inputSeoKeywordsEn = document.getElementById('ngInputSeoKeywordsEn');
 
+  // ── CATÁLOGO OFICIAL DE REDES SOCIALES ──
+  const CATALOGO_REDES = [
+    { id: 'linkedin', nombre: 'LinkedIn', icon: 'fa-brands fa-linkedin', color: '#0a66c2', formato: 'https://linkedin.com/in/usuario', portal: 'https://www.linkedin.com/in/' },
+    { id: 'web', nombre: 'Web Oficial', icon: 'fa-solid fa-globe', color: '#00a2ed', formato: 'https://tuweb.com', portal: 'https://google.com' },
+    { id: 'whatsapp', nombre: 'Canal WhatsApp', icon: 'fa-brands fa-whatsapp', color: '#25d366', formato: 'https://whatsapp.com/channel/...', portal: 'https://web.whatsapp.com' },
+    { id: 'instagram', nombre: 'Instagram', icon: 'fa-brands fa-instagram', color: '#e1306c', formato: 'https://instagram.com/usuario', portal: 'https://www.instagram.com/' },
+    { id: 'facebook', nombre: 'Facebook', icon: 'fa-brands fa-facebook-f', color: '#1877f2', formato: 'https://facebook.com/pagina', portal: 'https://www.facebook.com/' },
+    { id: 'tiktok', nombre: 'TikTok', icon: 'fa-brands fa-tiktok', color: '#ffffff', formato: 'https://tiktok.com/@usuario', portal: 'https://www.tiktok.com/' },
+    { id: 'youtube', nombre: 'YouTube', icon: 'fa-brands fa-youtube', color: '#ff0000', formato: 'https://youtube.com/@canal', portal: 'https://www.youtube.com/' },
+    { id: 'twitter', nombre: 'X (Twitter)', icon: 'fa-brands fa-x-twitter', color: '#e2e8f0', formato: 'https://x.com/usuario', portal: 'https://x.com/' }
+  ];
+
+  const MAPA_INPUTS_REDES = {
+    linkedin: inputRedLinkedin,
+    web: inputRedWeb,
+    whatsapp: inputRedCanalWhatsapp,
+    instagram: inputRedInstagram,
+    facebook: inputRedFacebook,
+    tiktok: inputRedTiktok,
+    youtube: inputRedYoutube,
+    twitter: inputRedTwitter
+  };
+
   // ── GESTIÓN DE AÑOS DE TRAYECTORIA ──
   inputLanzamiento?.addEventListener('change', () => {
     const years = calcularAnosTrayectoria(inputLanzamiento.value);
     if (ngYearsText) ngYearsText.textContent = `${years} años`;
   });
 
-  // ── ACTUALIZACIÓN DE PREVIEWS EN TIEMPO REAL ──
+  // ── ACTUALIZACIÓN DE PREVIEWS EN TIEMPO REAL CON URL COMPLETA ──
   inputImagenSede?.addEventListener('input', () => {
     const val = inputImagenSede.value.trim();
     if (imgHeroPreview) imgHeroPreview.src = val || '/imgwii/hero.webp';
+    if (btnLinkHero) btnLinkHero.href = val || '/imgwii/hero.webp';
   });
 
   inputLogo?.addEventListener('input', () => {
     const val = inputLogo.value.trim();
     if (imgLogoPreview) imgLogoPreview.src = val || '/imgwii/logo.webp';
+    if (btnLinkLogo) btnLinkLogo.href = val || '/imgwii/logo.webp';
   });
 
   inputLogoFull?.addEventListener('input', () => {
     const val = inputLogoFull.value.trim();
     if (imgLogoFullPreview) imgLogoFullPreview.src = val || '/imgwii/logo_full.webp';
+    if (btnLinkLogoFull) btnLinkLogoFull.href = val || '/imgwii/logo_full.webp';
   });
 
   // ── ASISTENTE DE GOOGLE MAPS ──
@@ -267,7 +347,7 @@ export function inicializarNegocio() {
     }
   });
 
-  // ── SANITIZACIÓN Y GESTIÓN ERGONÓMICA DE REDES SOCIALES (SOLO USUARIO) ──
+  // ── GESTIÓN DE ENLACES COMPLETOS Y HANDLES DE REDES SOCIALES ──
   function limpiarHandleRed(valor, tipo) {
     if (!valor) return '';
     let limpio = String(valor).trim();
@@ -288,24 +368,31 @@ export function inicializarNegocio() {
       return limpio;
     }
 
-    // Remover protocolos y dominios si el usuario pega la URL completa
     limpio = limpio
       .replace(/^https?:\/\/(www\.)?youtube\.com\/(@|c\/|user\/)?/i, '')
       .replace(/^https?:\/\/(www\.)?youtu\.be\//i, '')
       .replace(/^https?:\/\/(www\.)?facebook\.com\//i, '')
       .replace(/^https?:\/\/(www\.)?instagram\.com\//i, '')
       .replace(/^https?:\/\/(www\.)?tiktok\.com\/(@)?/i, '')
-      .replace(/^https?:\/\/(www\.)?linkedin\.com\/(in\/|company\/)?/i, '');
+      .replace(/^https?:\/\/(www\.)?linkedin\.com\/(in\/|company\/)?/i, '')
+      .replace(/^https?:\/\/(www\.)?(twitter\.com|x\.com)\//i, '');
 
-    // Remover arrobas iniciales y slashes
     limpio = limpio.replace(/^@+/, '');
     limpio = limpio.replace(/^\/+|\/+$/g, '');
 
     return limpio;
   }
 
-  function armarUrlRed(handle, tipo) {
-    const user = limpiarHandleRed(handle, tipo);
+  function armarUrlRed(valor, tipo) {
+    if (!valor) return '';
+    const raw = String(valor).trim();
+    if (!raw) return '';
+
+    if (raw.startsWith('http://') || raw.startsWith('https://')) {
+      return raw;
+    }
+
+    const user = limpiarHandleRed(raw, tipo);
     if (!user) return '';
 
     switch (tipo) {
@@ -319,43 +406,112 @@ export function inicializarNegocio() {
         return `https://tiktok.com/@${user}`;
       case 'linkedin':
         return `https://linkedin.com/in/${user}`;
+      case 'twitter':
+        return `https://x.com/${user}`;
       case 'web':
-        return user.startsWith('http') ? user : `https://${user}`;
+        return `https://${user}`;
       case 'whatsapp':
-        if (user.startsWith('http')) return user;
         if (user.startsWith('channel/') || user.startsWith('chat/')) {
           return `https://whatsapp.com/${user}`;
         }
         return `https://wa.me/${user.replace(/\D/g, '')}`;
       default:
-        return user;
+        return raw;
     }
   }
 
-  // Sanitización automática al desenfocar o pegar
-  const listaCamposRedes = [
-    { el: inputRedYoutube, tipo: 'youtube' },
-    { el: inputRedFacebook, tipo: 'facebook' },
-    { el: inputRedInstagram, tipo: 'instagram' },
-    { el: inputRedTiktok, tipo: 'tiktok' },
-    { el: inputRedCanalWhatsapp, tipo: 'whatsapp' },
-    { el: inputRedWeb, tipo: 'web' },
-    { el: inputRedLinkedin, tipo: 'linkedin' }
-  ];
+  // ── GESTIÓN DINÁMICA DE REDES SOCIALES (AGREGAR / QUITAR / REORDENAR / PROBAR) ──
+  let instSelectAgregarRed = null;
 
-  listaCamposRedes.forEach(({ el, tipo }) => {
-    if (!el) return;
-    const sanitizar = () => {
-      const limpio = limpiarHandleRed(el.value, tipo);
-      if (el.value !== limpio) {
-        el.value = limpio;
+  function refrescarSelectAgregarRed() {
+    if (!selectAgregarRed) return;
+
+    const disponibles = CATALOGO_REDES.filter(red => {
+      const row = document.querySelector(`.ng-red-row[data-red-id="${red.id}"]`);
+      return row && row.classList.contains('ng-red-hidden');
+    });
+
+    selectAgregarRed.innerHTML = '';
+    const optDefecto = document.createElement('option');
+    optDefecto.value = '';
+    optDefecto.disabled = true;
+    optDefecto.selected = true;
+    optDefecto.textContent = disponibles.length > 0 ? '+ Agregar red social...' : '✓ Todas las redes agregadas';
+    selectAgregarRed.appendChild(optDefecto);
+
+    disponibles.forEach(red => {
+      const opt = document.createElement('option');
+      opt.value = red.id;
+      opt.textContent = `+ ${red.nombre}`;
+      selectAgregarRed.appendChild(opt);
+    });
+
+    if (btnAgregarRed) {
+      btnAgregarRed.disabled = disponibles.length === 0;
+    }
+  }
+
+  function agregarRedPorId(redId) {
+    if (!redId) return;
+    const row = document.querySelector(`.ng-red-row[data-red-id="${redId}"]`);
+    const input = MAPA_INPUTS_REDES[redId];
+    const contenedor = document.getElementById('ngListaRedesOrdenables');
+
+    if (row) {
+      row.classList.remove('ng-red-hidden');
+      if (contenedor) contenedor.appendChild(row);
+      if (input) {
+        input.focus();
+        const cfg = CATALOGO_REDES.find(r => r.id === redId);
+        if (cfg && !input.value) {
+          input.placeholder = cfg.formato;
+        }
       }
-    };
-    el.addEventListener('blur', sanitizar);
-    el.addEventListener('paste', () => setTimeout(sanitizar, 20));
-  });
+      actualizarBadgesRedes();
+      refrescarSelectAgregarRed();
+      Notificacion(`Red agregada a la lista`, 'success', 2000);
+    }
+  }
 
-  // ── GESTIÓN DINÁMICA DE REDES SOCIALES (ORDEN, DRAG & DROP Y BADGES) ──
+  function quitarRedPorId(redId) {
+    if (!redId) return;
+    const row = document.querySelector(`.ng-red-row[data-red-id="${redId}"]`);
+    const input = MAPA_INPUTS_REDES[redId];
+
+    if (row) {
+      if (input) input.value = '';
+      row.classList.add('ng-red-hidden');
+      actualizarBadgesRedes();
+      refrescarSelectAgregarRed();
+      Notificacion(`Red quitada de la lista`, 'info', 1800);
+    }
+  }
+
+  // Inicializar wiSelect para el selector de agregar red
+  if (selectAgregarRed) {
+    if (wiSelect) {
+      instSelectAgregarRed = wiSelect(selectAgregarRed, {
+        placeholder: '+ Agregar red social...',
+        onChange: (val) => {
+          if (val) {
+            agregarRedPorId(val);
+            selectAgregarRed.value = '';
+          }
+        }
+      });
+    }
+
+    btnAgregarRed?.addEventListener('click', () => {
+      const val = selectAgregarRed.value;
+      if (val) {
+        agregarRedPorId(val);
+        selectAgregarRed.value = '';
+      } else {
+        Notificacion('Selecciona una red para agregar', 'info', 1800);
+      }
+    });
+  }
+
   function reordenarFilasRedes(ordenIds = []) {
     const contenedor = document.getElementById('ngListaRedesOrdenables');
     if (!contenedor || !Array.isArray(ordenIds) || ordenIds.length === 0) return;
@@ -372,7 +528,6 @@ export function inicializarNegocio() {
       }
     });
 
-    // Añadir al final las filas que no estuvieran en el arreglo
     mapaFilas.forEach(f => contenedor.appendChild(f));
   }
 
@@ -384,7 +539,8 @@ export function inicializarNegocio() {
       { id: 'tiktok', input: inputRedTiktok },
       { id: 'whatsapp', input: inputRedCanalWhatsapp },
       { id: 'web', input: inputRedWeb },
-      { id: 'linkedin', input: inputRedLinkedin }
+      { id: 'linkedin', input: inputRedLinkedin },
+      { id: 'twitter', input: inputRedTwitter }
     ];
 
     mapaInputs.forEach(({ id, input }) => {
@@ -401,11 +557,47 @@ export function inicializarNegocio() {
     });
   }
 
-  function inicializarReordenamientoRedes() {
+  function inicializarEventosRedes() {
     const contenedor = document.getElementById('ngListaRedesOrdenables');
     if (!contenedor) return;
 
-    // 1. Botones de Subir y Bajar (▲ / ▼)
+    // 1. Botón Probar Enlace
+    contenedor.querySelectorAll('.ng-btn-probar-red').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const redId = btn.dataset.redId;
+        const el = MAPA_INPUTS_REDES[redId];
+        const val = el?.value?.trim() || '';
+        if (!val) {
+          Notificacion('Ingresa un enlace o usuario para probar esta red', 'info', 2000);
+          return;
+        }
+        const targetUrl = armarUrlRed(val, redId);
+        if (targetUrl) {
+          window.open(targetUrl, '_blank');
+        }
+      });
+    });
+
+    // 2. Botón Portal Oficial (Buscar o conseguir usuario)
+    contenedor.querySelectorAll('.ng-btn-portal-red').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const redId = btn.dataset.redId;
+        const config = CATALOGO_REDES.find(r => r.id === redId);
+        if (config?.portal) {
+          window.open(config.portal, '_blank');
+        }
+      });
+    });
+
+    // 3. Botón Quitar Red de la Lista
+    contenedor.querySelectorAll('.ng-btn-quitar-red').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const redId = btn.dataset.redId;
+        quitarRedPorId(redId);
+      });
+    });
+
+    // 4. Botones de Subir y Bajar (▲ / ▼)
     contenedor.addEventListener('click', (e) => {
       const btn = e.target.closest('.ng-btn-move');
       if (!btn) return;
@@ -426,7 +618,7 @@ export function inicializarNegocio() {
       }
     });
 
-    // 2. Drag & Drop HTML5 para Desktop
+    // 5. Drag & Drop HTML5 para Desktop
     let draggedRow = null;
 
     contenedor.querySelectorAll('.ng-red-row').forEach(row => {
@@ -469,7 +661,7 @@ export function inicializarNegocio() {
       });
     });
 
-    // 3. Touch Drag nativo en el handle para Celulares Android / iOS
+    // 6. Touch Drag nativo en el handle para Celulares
     let touchRow = null;
 
     contenedor.querySelectorAll('.ng-red-drag-handle').forEach(handle => {
@@ -504,13 +696,13 @@ export function inicializarNegocio() {
       });
     });
 
-    // Escuchar cambios en los inputs para actualizar estado visual activo/inactivo
-    [inputRedYoutube, inputRedFacebook, inputRedInstagram, inputRedTiktok, inputRedCanalWhatsapp, inputRedWeb, inputRedLinkedin].forEach(inp => {
+    // Escuchar cambios en los inputs para actualizar badges
+    Object.values(MAPA_INPUTS_REDES).forEach(inp => {
       inp?.addEventListener('input', actualizarBadgesRedes);
     });
   }
 
-  inicializarReordenamientoRedes();
+  inicializarEventosRedes();
 
   // ── CARGAR DATOS EN FORMULARIO ──
   function cargarFormulario(cfg) {
@@ -530,12 +722,15 @@ export function inicializarNegocio() {
     const foto = cfg.identidad?.imagenSede || '/imgwii/hero.webp';
     const logo = cfg.identidad?.logo || '/imgwii/logo.webp';
     const logoFull = cfg.identidad?.logoFull || '/imgwii/logo_full.webp';
-    if (inputImagenSede) inputImagenSede.value = foto;
-    if (inputLogo) inputLogo.value = logo;
-    if (inputLogoFull) inputLogoFull.value = logoFull;
+    if (inputImagenSede) inputImagenSede.value = formatearUrlCompleta(foto);
+    if (inputLogo) inputLogo.value = formatearUrlCompleta(logo);
+    if (inputLogoFull) inputLogoFull.value = formatearUrlCompleta(logoFull);
     if (imgHeroPreview) imgHeroPreview.src = foto;
     if (imgLogoPreview) imgLogoPreview.src = logo;
     if (imgLogoFullPreview) imgLogoFullPreview.src = logoFull;
+    if (btnLinkHero) btnLinkHero.href = formatearUrlCompleta(foto);
+    if (btnLinkLogo) btnLinkLogo.href = formatearUrlCompleta(logo);
+    if (btnLinkLogoFull) btnLinkLogoFull.href = formatearUrlCompleta(logoFull);
 
     // Identidad (ES)
     if (inputNombre) inputNombre.value = cfg.identidad?.nombre || '';
@@ -557,7 +752,7 @@ export function inicializarNegocio() {
         : (cfg.identidad?.bioEn || '');
     }
 
-    // Canales
+    // Canales de Atención Directa
     const paisVal = cfg.contacto?.pais || cfg.ubicacion?.pais || 'PE';
     if (selectPais) {
       selectPais.value = paisVal;
@@ -571,6 +766,8 @@ export function inicializarNegocio() {
     }
 
     if (inputTelefono) inputTelefono.value = cfg.contacto?.telefono || '';
+    if (inputTelefonoFijo) inputTelefonoFijo.value = cfg.contacto?.telefonoFijo || '';
+    if (inputTelefonoSecundario) inputTelefonoSecundario.value = cfg.contacto?.telefonoSecundario || '';
     if (inputWhatsapp) {
       inputWhatsapp.value = soloDigitos(cfg.contacto?.whatsapp || '');
       if (hintWhatsappFormato) hintWhatsappFormato.textContent = inputWhatsapp.value || '';
@@ -594,7 +791,7 @@ export function inicializarNegocio() {
         : (cfg.contacto?.horarioEn || '');
     }
 
-    // WhatsApp Mensaje (Sanitizado para evitar [object Object])
+    // WhatsApp Mensaje
     const ws = cfg.contacto?.whatsappMensaje;
     if (inputWhatsappMensaje) {
       inputWhatsappMensaje.value = typeof ws === 'object' && ws !== null
@@ -636,36 +833,55 @@ export function inicializarNegocio() {
     if (inputMetricaSatisfaccion) inputMetricaSatisfaccion.value = cfg.metricas?.satisfaccion || '99.4%';
     if (inputMetricaConfidencialidad) inputMetricaConfidencialidad.value = cfg.metricas?.confidencialidad || '100%';
 
-    // Redes & Canales (Solo usuario/handle limpio para máxima sencillez)
+    // Redes & Canales
     const r = cfg.redes || {};
     if (inputRedYoutube) {
-      inputRedYoutube.value = r.youtubeUser || limpiarHandleRed(r.youtube, 'youtube') || '';
+      inputRedYoutube.value = r.youtube || (r.youtubeUser ? armarUrlRed(r.youtubeUser, 'youtube') : '');
     }
     if (inputRedFacebook) {
-      inputRedFacebook.value = r.facebookUser || limpiarHandleRed(r.facebook, 'facebook') || '';
+      inputRedFacebook.value = r.facebook || (r.facebookUser ? armarUrlRed(r.facebookUser, 'facebook') : '');
     }
     if (inputRedInstagram) {
-      inputRedInstagram.value = r.instagramUser || limpiarHandleRed(r.instagram, 'instagram') || '';
+      inputRedInstagram.value = r.instagram || (r.instagramUser ? armarUrlRed(r.instagramUser, 'instagram') : '');
     }
     if (inputRedTiktok) {
-      inputRedTiktok.value = r.tiktokUser || limpiarHandleRed(r.tiktok, 'tiktok') || '';
+      inputRedTiktok.value = r.tiktok || (r.tiktokUser ? armarUrlRed(r.tiktokUser, 'tiktok') : '');
     }
     if (inputRedCanalWhatsapp) {
-      inputRedCanalWhatsapp.value = r.canalWhatsappUser || limpiarHandleRed(r.canalWhatsapp || r.whatsapp, 'whatsapp') || '';
+      inputRedCanalWhatsapp.value = r.canalWhatsapp || (r.canalWhatsappUser ? armarUrlRed(r.canalWhatsappUser, 'whatsapp') : (r.whatsapp || ''));
     }
     if (inputRedWeb) {
-      inputRedWeb.value = r.webUser || limpiarHandleRed(r.web || r.webOficial, 'web') || '';
+      inputRedWeb.value = r.web || (r.webUser ? armarUrlRed(r.webUser, 'web') : (r.webOficial || ''));
     }
     if (inputRedLinkedin) {
-      inputRedLinkedin.value = r.linkedinUser || limpiarHandleRed(r.linkedin, 'linkedin') || '';
+      inputRedLinkedin.value = r.linkedin || (r.linkedinUser ? armarUrlRed(r.linkedinUser, 'linkedin') : '');
+    }
+    if (inputRedTwitter) {
+      inputRedTwitter.value = r.twitter || (r.twitterUser ? armarUrlRed(r.twitterUser, 'twitter') : '');
     }
 
-    // Reordenar filas visuales según redesOrden y actualizar estados (Visible/Oculto)
+    // Ocultar redes vacías para que se listen en el selector de agregar
+    CATALOGO_REDES.forEach(red => {
+      const row = document.querySelector(`.ng-red-row[data-red-id="${red.id}"]`);
+      const inp = MAPA_INPUTS_REDES[red.id];
+      if (row) {
+        if (inp && inp.value.trim()) {
+          row.classList.remove('ng-red-hidden');
+        } else {
+          row.classList.add('ng-red-hidden');
+        }
+      }
+    });
+
+    // Reordenar filas visuales según redesOrden
     const ordenGuardado = Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
       ? cfg.redesOrden
-      : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube'];
+      : ['linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'whatsapp', 'twitter'];
     reordenarFilasRedes(ordenGuardado);
+
+    // Actualizar badges y selector de agregar red
     actualizarBadgesRedes();
+    refrescarSelectAgregarRed();
 
     // SEO
     if (inputSeoTituloEs) inputSeoTituloEs.value = cfg.seo?.titulo?.es || '';
@@ -723,17 +939,17 @@ export function inicializarNegocio() {
           en: inputBioEn?.value?.trim() || (typeof idnt.bio === 'object' ? idnt.bio?.en : idnt.bioEn) || ''
         },
         lanzamientoFecha: inputLanzamiento?.value || idnt.lanzamientoFecha || '2020-01-01',
-        logo: inputLogo?.value?.trim() || idnt.logo || '/imgwii/logo.webp',
-        logoFull: inputLogoFull?.value?.trim() || idnt.logoFull || '/imgwii/logo_full.webp',
-        imagenSede: inputImagenSede?.value?.trim() || idnt.imagenSede || '/imgwii/hero.webp'
+        logo: normalizarUrlParaGuardar(inputLogo?.value?.trim()) || idnt.logo || '/imgwii/logo.webp',
+        logoFull: normalizarUrlParaGuardar(inputLogoFull?.value?.trim()) || idnt.logoFull || '/imgwii/logo_full.webp',
+        imagenSede: normalizarUrlParaGuardar(inputImagenSede?.value?.trim()) || idnt.imagenSede || '/imgwii/hero.webp'
       },
 
       contacto: {
         pais: paisSel,
         paisCode: paisCodeSel,
         telefono: rawTel || cont.telefono || '',
-        telefonoFijo: cont.telefonoFijo || '',
-        telefonoSecundario: cont.telefonoSecundario || '',
+        telefonoFijo: inputTelefonoFijo?.value?.trim() || cont.telefonoFijo || '',
+        telefonoSecundario: inputTelefonoSecundario?.value?.trim() || cont.telefonoSecundario || '',
         whatsapp: rawWs || (rawTel ? `${paisCodeSel}${soloDigitos(rawTel)}` : (cont.whatsapp || '')),
         email: (inputEmail?.value || '').trim() || cont.email || '',
         whatsappMensaje: {
@@ -807,37 +1023,40 @@ export function inicializarNegocio() {
       },
 
       redes: (() => {
-        const ytUser = limpiarHandleRed(inputRedYoutube?.value, 'youtube');
-        const fbUser = limpiarHandleRed(inputRedFacebook?.value, 'facebook');
-        const igUser = limpiarHandleRed(inputRedInstagram?.value, 'instagram');
-        const tkUser = limpiarHandleRed(inputRedTiktok?.value, 'tiktok');
-        const wsCanalUser = limpiarHandleRed(inputRedCanalWhatsapp?.value, 'whatsapp');
-        const wbUser = limpiarHandleRed(inputRedWeb?.value, 'web');
-        const inUser = limpiarHandleRed(inputRedLinkedin?.value, 'linkedin');
+        const ytVal = inputRedYoutube?.value?.trim() || '';
+        const fbVal = inputRedFacebook?.value?.trim() || '';
+        const igVal = inputRedInstagram?.value?.trim() || '';
+        const tkVal = inputRedTiktok?.value?.trim() || '';
+        const wsVal = inputRedCanalWhatsapp?.value?.trim() || '';
+        const wbVal = inputRedWeb?.value?.trim() || '';
+        const inVal = inputRedLinkedin?.value?.trim() || '';
+        const twVal = inputRedTwitter?.value?.trim() || '';
 
         return {
-          youtube: armarUrlRed(ytUser, 'youtube'),
-          youtubeUser: ytUser,
-          facebook: armarUrlRed(fbUser, 'facebook'),
-          facebookUser: fbUser,
-          instagram: armarUrlRed(igUser, 'instagram'),
-          instagramUser: igUser,
-          tiktok: armarUrlRed(tkUser, 'tiktok'),
-          tiktokUser: tkUser,
-          canalWhatsapp: armarUrlRed(wsCanalUser, 'whatsapp'),
-          canalWhatsappUser: wsCanalUser,
-          web: armarUrlRed(wbUser, 'web'),
-          webUser: wbUser,
-          linkedin: armarUrlRed(inUser, 'linkedin'),
-          linkedinUser: inUser
+          youtube: armarUrlRed(ytVal, 'youtube'),
+          youtubeUser: limpiarHandleRed(ytVal, 'youtube'),
+          facebook: armarUrlRed(fbVal, 'facebook'),
+          facebookUser: limpiarHandleRed(fbVal, 'facebook'),
+          instagram: armarUrlRed(igVal, 'instagram'),
+          instagramUser: limpiarHandleRed(igVal, 'instagram'),
+          tiktok: armarUrlRed(tkVal, 'tiktok'),
+          tiktokUser: limpiarHandleRed(tkVal, 'tiktok'),
+          canalWhatsapp: armarUrlRed(wsVal, 'whatsapp'),
+          canalWhatsappUser: limpiarHandleRed(wsVal, 'whatsapp'),
+          web: armarUrlRed(wbVal, 'web'),
+          webUser: limpiarHandleRed(wbVal, 'web'),
+          linkedin: armarUrlRed(inVal, 'linkedin'),
+          linkedinUser: limpiarHandleRed(inVal, 'linkedin'),
+          twitter: armarUrlRed(twVal, 'twitter'),
+          twitterUser: limpiarHandleRed(twVal, 'twitter')
         };
       })(),
 
       redesOrden: (() => {
         const contenedorRedes = document.getElementById('ngListaRedesOrdenables');
         return contenedorRedes
-          ? Array.from(contenedorRedes.querySelectorAll('.ng-red-row')).map(r => r.dataset.redId).filter(Boolean)
-          : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube'];
+          ? Array.from(contenedorRedes.querySelectorAll('.ng-red-row:not(.ng-red-hidden)')).map(r => r.dataset.redId).filter(Boolean)
+          : ['linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'whatsapp', 'twitter'];
       })(),
 
       seo: {
@@ -930,4 +1149,3 @@ if (document.readyState === 'loading') {
 }
 
 document.addEventListener('astro:page-load', inicializarNegocio);
-

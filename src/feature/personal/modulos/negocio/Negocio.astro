@@ -1,8 +1,8 @@
 ---
 // src/feature/personal/modulos/negocio/Negocio.astro
-// Módulo: Ficha de Negocio & Especialista (Psicología América)
-// Layout Profesional Bilingüe de 2 Columnas (Datos Globales + Pestañas ES / EN)
-// 100% JS Nativo · Cero TypeScript · Local-First · Sincronizado con Firestore
+// Módulo: Ficha de Mi Negocio & Especialista (Estudio Cusihuaman)
+// Rediseño Pro: Tabs Horizontales Compactos + Redes Dinámicas + SEO Prioritario + Métricas Reordenadas
+// 100% JS Nativo · Local-First · Sincronizado con Firestore · Cero Bloatware
 
 import { datosNegocio } from '@/negocio.js';
 
@@ -18,9 +18,9 @@ const n = datosNegocio;
   <!-- Encabezado de Sección -->
   <div class="ps-section-header">
     <div class="ps-section-title-wrap">
-      <h1 class="ps-section-title">Ficha de Estudio & Especialista</h1>
+      <h1 class="ps-section-title">Ficha de Mi Negocio</h1>
       <p class="ps-section-sub">
-        Gestión central de credenciales contables y tributarias, canales de atención WhatsApp, sede y posicionamiento web bilingüe.
+        Configuración central de identidad oficial, canales de contacto directo, sede y presencia web bilingüe.
       </p>
     </div>
     <div class="ps-header-actions">
@@ -34,60 +34,129 @@ const n = datosNegocio;
   </div>
 
   <div class="ng-container">
-    <!-- ── LAYOUT PRINCIPAL DE 2 COLUMNAS (SPLIT LAYOUT) ── -->
-    <div class="ng-split-layout">
-      
-      <!-- ── COLUMNA IZQUIERDA: DATOS GLOBALES / NEUTRALES DE IDIOMA ── -->
-      <div class="ng-col-global">
+    
+    <!-- ── BARRA DE PESTAÑAS HORIZONTALES COMPACTAS (BORDER-RADIUS 8px) ── -->
+    <div class="ng-tabs-bar" id="ngMainTabs">
+      <button type="button" class="ng-tab-btn active" data-tab-target="ng-tab-identidad">
+        <i class="fa-solid fa-camera-retro"></i>
+        <span>Fotos & Identidad</span>
+      </button>
 
-        <!-- 1. IDENTIDAD PROFESIONAL & MULTIMEDIA -->
+      <button type="button" class="ng-tab-btn" data-tab-target="ng-tab-contacto">
+        <i class="fa-solid fa-share-nodes"></i>
+        <span>Redes & Contacto</span>
+      </button>
+
+      <button type="button" class="ng-tab-btn" data-tab-target="ng-tab-sede">
+        <i class="fa-solid fa-location-dot"></i>
+        <span>Sede & Horarios</span>
+      </button>
+
+      <button type="button" class="ng-tab-btn" data-tab-target="ng-tab-metricas">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Métricas & Trayectoria</span>
+      </button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- PESTAÑA 1: 📸 FOTOS & IDENTIDAD (LAYOUT PRO 60% / 40%)     -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="ng-tab-pane active" id="ng-tab-identidad">
+      <div class="ng-grid-media-identidad">
+        
+        <!-- Columna Izquierda (Width 60%): Fotografías & Logotipos Oficiales (Inspirado en Imagen 2) -->
         <div class="ng-card">
           <div class="ng-card-header">
             <div>
-              <h2 class="ng-card-title"><i class="fa-solid fa-user-tie"></i> Especialista & Multimedia</h2>
-              <p class="ng-card-desc">Credenciales oficiales y fotografías representativas.</p>
-            </div>
-            <span class="ng-badge-trayectoria" id="ngBadgeTrayectoria">
-              <i class="fa-solid fa-award"></i> <span id="ngYearsText">12+ años</span>
-            </span>
-          </div>
-
-          <!-- Previews de Fotos -->
-          <div class="ng-media-dual-grid">
-            <!-- Foto de la Especialista -->
-            <div class="ng-media-preview-box is-hero">
-              <img id="ngImgHeroPreview" src="/imgwii/hero.webp" alt="Foto Especialista" class="ng-media-thumb" />
-              <div class="ng-media-meta">
-                <span class="ng-media-label"><i class="fa-solid fa-camera"></i> Foto Especialista</span>
-                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-sm" placeholder="/imgwii/hero.webp" />
-              </div>
-            </div>
-
-            <!-- Columna de Logos: Isotipo + Logo Full -->
-            <div class="ng-media-logos-col">
-              <!-- Logo Oficial (Isotipo Circular) -->
-              <div class="ng-media-preview-box">
-                <img id="ngImgLogoPreview" src="/imgwii/logo.webp" alt="Logo Estudio" class="ng-media-thumb" />
-                <div class="ng-media-meta">
-                  <span class="ng-media-label"><i class="fa-solid fa-shield-heart"></i> Logo Oficial</span>
-                  <input type="text" id="ngInputLogo" class="ng-input ng-input-sm" placeholder="/imgwii/logo.webp" />
-                </div>
-              </div>
-
-              <!-- Logo Full (Horizontal Completo) -->
-              <div class="ng-media-preview-box">
-                <img id="ngImgLogoFullPreview" src="/imgwii/logo_full.webp" alt="Logo Full Estudio" class="ng-media-thumb-full" />
-                <div class="ng-media-meta">
-                  <span class="ng-media-label"><i class="fa-solid fa-gem"></i> Logo Full</span>
-                  <input type="text" id="ngInputLogoFull" class="ng-input ng-input-sm" placeholder="/imgwii/logo_full.webp" />
-                </div>
-              </div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-images"></i> Fotografías & Logotipos Oficiales</h2>
+              <p class="ng-card-desc">Imágenes institucionales en alta resolución con previsualización en vivo.</p>
             </div>
           </div>
 
-          <div class="ng-grid-2 sn-mt-10">
-            <div class="ng-field span-2">
-              <label class="ng-label" for="ngInputEspecialista">Nombre de la Especialista *</label>
+          <!-- Cuadrícula interna: Foto Especialista (Izquierda) + Logos Oficial y Full (Derecha) -->
+          <div class="ng-media-2col-grid">
+            
+            <!-- 1. Foto Especialista Grande -->
+            <div class="ng-photo-box ng-photo-box-hero">
+              <div class="ng-photo-avatar-wrap">
+                <img id="ngImgHeroPreview" src="/imgwii/hero.webp" alt="Foto Especialista" class="ng-thumb-specialist-lg" />
+              </div>
+              <div class="ng-photo-box-title">
+                <i class="fa-solid fa-camera"></i>
+                <span>Foto Especialista</span>
+              </div>
+              <div class="ng-input-url-group">
+                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-url" placeholder="http://localhost:4321/imgwii/hero.webp" />
+                <a id="btnLinkHero" href="/imgwii/hero.webp" target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- 2. Columna Derecha: Stack de Logo Oficial y Logo Full -->
+            <div class="ng-media-right-stack">
+              
+              <!-- Mini-tarjeta: Logo Oficial Circular -->
+              <div class="ng-photo-box">
+                <div class="ng-photo-avatar-wrap">
+                  <img id="ngImgLogoPreview" src="/imgwii/logo.webp" alt="Logo Oficial" class="ng-thumb-circle-lg" />
+                </div>
+                <div class="ng-photo-box-title">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  <span>Logo Oficial</span>
+                </div>
+                <div class="ng-input-url-group">
+                  <input type="text" id="ngInputLogo" class="ng-input ng-input-url" placeholder="http://localhost:4321/imgwii/logo.webp" />
+                  <a id="btnLinkLogo" href="/imgwii/logo.webp" target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Mini-tarjeta: Logo Full Horizontal -->
+              <div class="ng-photo-box">
+                <div class="ng-photo-avatar-wrap">
+                  <img id="ngImgLogoFullPreview" src="/imgwii/logo_full.webp" alt="Logo Full" class="ng-thumb-full-lg" />
+                </div>
+                <div class="ng-photo-box-title">
+                  <i class="fa-solid fa-gem"></i>
+                  <span>Logo Full</span>
+                </div>
+                <div class="ng-input-url-group">
+                  <input type="text" id="ngInputLogoFull" class="ng-input ng-input-url" placeholder="http://localhost:4321/imgwii/logo_full.webp" />
+                  <a id="btnLinkLogoFull" href="/imgwii/logo_full.webp" target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Columna Derecha (Width 40%): Identidad Comercial & Legal con espaciado amigable -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-id-card"></i> Identidad Comercial & Legal</h2>
+              <p class="ng-card-desc">Datos oficiales de registro y titularidad profesional.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-1 ng-gap-comfortable">
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputNombre">Nombre Oficial / Razón Social *</label>
+              <input type="text" id="ngInputNombre" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputNombreCorto">Nombre Corto / Marca Comercial</label>
+              <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder="Estudio Cusihuaman" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputEspecialista">Nombre del Especialista / Titular *</label>
               <input type="text" id="ngInputEspecialista" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
             </div>
 
@@ -97,39 +166,323 @@ const n = datosNegocio;
             </div>
 
             <div class="ng-field">
-              <label class="ng-label" for="ngInputLanzamiento">Fecha de Fundación / Trayectoria</label>
-              <input type="date" id="ngInputLanzamiento" class="ng-input" value="2014-03-15" />
-            </div>
-
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputTitulo">Título Universitario</label>
+              <label class="ng-label" for="ngInputTitulo">Título Profesional</label>
               <input type="text" id="ngInputTitulo" class="ng-input" placeholder="Asesora Contable y Tributaria" />
             </div>
 
             <div class="ng-field">
-              <label class="ng-label" for="ngInputGrado">Grado / Trayectoria</label>
+              <label class="ng-label" for="ngInputGrado">Grado / Acreditación</label>
               <input type="text" id="ngInputGrado" class="ng-input" placeholder="Ex-funcionaria de SUNAT · Universidad de Lima" />
             </div>
           </div>
         </div>
 
-        <!-- 2. CANALES DIRECTOS DE CONTACTO & HORARIOS -->
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- PESTAÑA 2: 📞 REDES & CONTACTO (LAYOUT PRO 60% / 40%)       -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="ng-tab-pane" id="ng-tab-contacto">
+      <div class="ng-grid-redes-contacto">
+        
+        <!-- Columna Izquierda (Width 60%): Redes Sociales Oficiales con Agregar Red y Acciones Pro -->
         <div class="ng-card">
           <div class="ng-card-header">
             <div>
-              <h2 class="ng-card-title"><i class="fa-solid fa-headset"></i> Canales de Contacto Directo</h2>
-              <p class="ng-card-desc">Líneas telefónicas, WhatsApp y horarios de operación.</p>
+              <h2 class="ng-card-title"><i class="fa-solid fa-share-nodes"></i> Enlaces y Redes Oficiales</h2>
+              <p class="ng-card-desc">Arrastra o usa las flechas para ordenar. Solo los canales activos saldrán en la web.</p>
+            </div>
+            
+            <!-- Barra de Agregar Red Social Dinámica -->
+            <div class="ng-add-red-toolbar">
+              <select id="ngSelectAgregarRed" class="ng-select-add-red">
+                <option value="" disabled selected>+ Agregar red social...</option>
+              </select>
+              <button type="button" class="ps-btn ps-btn-secondary ng-btn-sm" id="btnAgregarRed" title="Agregar red seleccionada">
+                <i class="fa-solid fa-plus"></i> Agregar
+              </button>
             </div>
           </div>
 
-          <div class="ng-grid-2">
-            <!-- Fila 1: País (wiSelect) + Correo Electrónico Oficial -->
+          <div class="ng-redes-list-wrap" id="ngListaRedesOrdenables">
+            
+            <!-- 1. LinkedIn -->
+            <div class="ng-red-row" data-red-id="linkedin" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> LinkedIn
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="linkedin">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://linkedin.com/in/usuario</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedLinkedin" class="ng-input ng-input-red-url" placeholder="https://linkedin.com/in/usuario" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="linkedin" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="linkedin" title="Abrir portal oficial para copiar usuario">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="linkedin" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Web Oficial -->
+            <div class="ng-red-row" data-red-id="web" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-solid fa-globe" style="color: #00a2ed;"></i> Web Oficial
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="web">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://tudominio.com</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedWeb" class="ng-input ng-input-red-url" placeholder="https://tuweb.com" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="web" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="web" title="Abrir portal oficial para verificar dominio">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="web" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Canal WhatsApp -->
+            <div class="ng-red-row" data-red-id="whatsapp" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Canal WhatsApp
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="whatsapp">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://whatsapp.com/channel/...</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedCanalWhatsapp" class="ng-input ng-input-red-url" placeholder="https://whatsapp.com/channel/... o https://wa.me/..." />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="whatsapp" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="whatsapp" title="Abrir WhatsApp Web">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="whatsapp" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Instagram -->
+            <div class="ng-red-row" data-red-id="instagram" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="instagram">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://instagram.com/usuario</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedInstagram" class="ng-input ng-input-red-url" placeholder="https://instagram.com/usuario" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="instagram" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="instagram" title="Abrir Instagram">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="instagram" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Facebook -->
+            <div class="ng-red-row" data-red-id="facebook" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> Facebook
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="facebook">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://facebook.com/pagina</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedFacebook" class="ng-input ng-input-red-url" placeholder="https://facebook.com/pagina" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="facebook" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="facebook" title="Abrir Facebook">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="facebook" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. TikTok -->
+            <div class="ng-red-row" data-red-id="tiktok" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-tiktok" style="color: #ffffff;"></i> TikTok
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="tiktok">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://tiktok.com/@usuario</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedTiktok" class="ng-input ng-input-red-url" placeholder="https://tiktok.com/@usuario" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="tiktok" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="tiktok" title="Abrir TikTok">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="tiktok" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. YouTube -->
+            <div class="ng-red-row" data-red-id="youtube" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="youtube">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://youtube.com/@canal</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedYoutube" class="ng-input ng-input-red-url" placeholder="https://youtube.com/@usuario" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="youtube" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="youtube" title="Abrir YouTube">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="youtube" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. X / Twitter -->
+            <div class="ng-red-row" data-red-id="twitter" draggable="true">
+              <div class="ng-red-row-header">
+                <div class="ng-red-row-title-wrap">
+                  <span class="ng-red-drag-handle" title="Arrastrar para reordenar"><i class="fa-solid fa-grip-vertical"></i></span>
+                  <span class="ng-red-name">
+                    <i class="fa-brands fa-x-twitter" style="color: #e2e8f0;"></i> X (Twitter)
+                  </span>
+                  <span class="ng-red-badge" data-badge-red="twitter">Comprobando...</span>
+                  <span class="ng-red-formato-hint">https://x.com/usuario</span>
+                </div>
+                <div class="ng-red-move-actions">
+                  <button type="button" class="ng-btn-move" data-dir="up" title="Subir"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button type="button" class="ng-btn-move" data-dir="down" title="Bajar"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+              <div class="ng-input-url-test-wrap">
+                <input type="text" id="ngInputRedTwitter" class="ng-input ng-input-red-url" placeholder="https://x.com/usuario" />
+                <div class="ng-red-actions-group">
+                  <button type="button" class="ng-btn-red-action ng-btn-probar-red" data-red-id="twitter" title="Probar enlace actual">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-portal-red" data-red-id="twitter" title="Abrir X (Twitter)">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                  <button type="button" class="ng-btn-red-action ng-btn-quitar-red" data-red-id="twitter" title="Quitar de la lista activa">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Columna Derecha (Width 40%): Canales de Atención Directa en 1 sola columna -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-headset"></i> Canales de Atención Directa</h2>
+              <p class="ng-card-desc">Líneas telefónicas, WhatsApp de atención y correo corporativo.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-1 ng-gap-comfortable">
+            <!-- 1. País de Operación -->
             <div class="ng-field">
               <label class="ng-label" for="ngSelectPais">
                 <span>País de Operación</span>
                 <span class="ng-label-hint" id="hintPaisCodigo">🇵🇪 +51</span>
               </label>
-              <select id="ngSelectPais" class="ng-input ng-select" data-wiselect-placeholder="Selecciona país...">
+              <select id="ngSelectPais" class="ng-input ng-select">
                 <option value="PE" data-code="51" selected>🇵🇪 Perú (+51)</option>
                 <option value="US" data-code="1">🇺🇸 Estados Unidos (+1)</option>
                 <option value="CL" data-code="56">🇨🇱 Chile (+56)</option>
@@ -142,59 +495,65 @@ const n = datosNegocio;
               </select>
             </div>
 
+            <!-- 2. Correo Electrónico Oficial -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputEmail">Correo Electrónico Oficial</label>
               <input type="email" id="ngInputEmail" class="ng-input" placeholder="contacto@contabilidadwii.com" />
             </div>
 
-            <!-- Fila 2: Teléfono Visible y WhatsApp API -->
+            <!-- 3. Teléfono Visible / Principal -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputTelefono">
-                <span>Teléfono Visible</span>
-                <span class="ng-label-hint" id="hintTelefonoFormato">+51 900 000 000</span>
+                <span>Teléfono Visible / Principal</span>
+                <span class="ng-label-hint" id="hintTelefonoFormato">+51 933 878 512</span>
               </label>
-              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder="+51 900 000 000" />
+              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder="+51 933 878 512" />
             </div>
 
+            <!-- 4. Teléfono Fijo -->
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputTelefonoFijo">
+                <span>Teléfono Fijo</span>
+                <span class="ng-label-hint">Línea de oficina / sede</span>
+              </label>
+              <input type="tel" id="ngInputTelefonoFijo" class="ng-input" placeholder="(01) 447-6849" />
+            </div>
+
+            <!-- 5. Celular Secundario / Emergencias -->
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputTelefonoSecundario">
+                <span>Celular Secundario</span>
+                <span class="ng-label-hint">Línea de guardia o soporte</span>
+              </label>
+              <input type="tel" id="ngInputTelefonoSecundario" class="ng-input" placeholder="+51 900 000 000" />
+            </div>
+
+            <!-- 6. WhatsApp API (Para Enlaces) -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputWhatsapp">
-                <span>WhatsApp API (Sin +)</span>
-                <span class="ng-label-hint" id="hintWhatsappFormato">51900000000</span>
+                <span>WhatsApp API (Para Enlaces)</span>
+                <span class="ng-label-hint" id="hintWhatsappFormato">51933878512</span>
               </label>
-              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51900000000" />
-            </div>
-
-            <!-- Fila 3: Horarios Compactos y Responsive -->
-            <div class="ng-field">
-              <label class="ng-label">
-                <span>Lunes a Viernes</span>
-              </label>
-              <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSemanaAbre" value="08:30" />
-                <span>a</span>
-                <input type="time" id="ngHorarioSemanaCierra" value="19:00" />
-              </div>
-            </div>
-
-            <div class="ng-field">
-              <label class="ng-label">
-                <span>Sábados</span>
-              </label>
-              <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSabadoAbre" value="09:00" />
-                <span>a</span>
-                <input type="time" id="ngHorarioSabadoCierra" value="13:00" />
-              </div>
+              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51933878512" />
             </div>
           </div>
         </div>
 
-        <!-- 3. UBICACIÓN FÍSICA OFICIAL & GOOGLE MAPS -->
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- PESTAÑA 3: 📍 SEDE, MODALIDAD & HORARIOS                   -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="ng-tab-pane" id="ng-tab-sede">
+      <div class="ng-grid-2-equal">
+        
+        <!-- Ubicación Física & Google Maps -->
         <div class="ng-card">
           <div class="ng-card-header">
             <div>
-              <h2 class="ng-card-title"><i class="fa-solid fa-map-location-dot"></i> Ubicación Principal (Surquillo)</h2>
-              <p class="ng-card-desc">Sede principal de atención y coordenadas oficiales.</p>
+              <h2 class="ng-card-title"><i class="fa-solid fa-map-location-dot"></i> Ubicación Principal & Google Maps</h2>
+              <p class="ng-card-desc">Sede física de atención, puntos de encuentro y coordenadas.</p>
             </div>
           </div>
 
@@ -246,238 +605,119 @@ const n = datosNegocio;
           </div>
         </div>
 
-        <!-- 4. MÉTRICAS DE CONFIANZA & REDES SOCIALES -->
+        <!-- Horarios de Operación y Modalidades -->
         <div class="ng-card">
           <div class="ng-card-header">
             <div>
-              <h2 class="ng-card-title"><i class="fa-solid fa-chart-line"></i> Métricas & Redes Sociales</h2>
-              <p class="ng-card-desc">Cifras de impacto y perfiles sociales oficiales.</p>
+              <h2 class="ng-card-title"><i class="fa-solid fa-clock"></i> Horarios de Atención</h2>
+              <p class="ng-card-desc">Rangos de disponibilidad semanal y fin de semana.</p>
             </div>
           </div>
 
-          <div class="ng-grid-3">
+          <div class="ng-grid-1">
             <div class="ng-field">
-              <label class="ng-label" for="ngInputMetricaPacientes">Clientes Asesorados</label>
-              <input type="text" id="ngInputMetricaPacientes" class="ng-input ng-input-center" placeholder="+240" />
+              <label class="ng-label">
+                <span>Lunes a Viernes</span>
+                <span class="ng-label-hint">Días laborales</span>
+              </label>
+              <div class="ng-input-group-horario">
+                <input type="time" id="ngHorarioSemanaAbre" value="08:30" />
+                <span>a</span>
+                <input type="time" id="ngHorarioSemanaCierra" value="19:00" />
+              </div>
             </div>
 
             <div class="ng-field">
-              <label class="ng-label" for="ngInputMetricaSatisfaccion">Satisfacción</label>
-              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input ng-input-center" placeholder="99.4%" />
-            </div>
-
-            <div class="ng-field">
-              <label class="ng-label" for="ngInputMetricaConfidencialidad">Confidencial</label>
-              <input type="text" id="ngInputMetricaConfidencialidad" class="ng-input ng-input-center" placeholder="100%" />
-            </div>
-          </div>
-
-          <!-- Subsección interactiva: Enlaces y Redes Oficiales Reordenables -->
-          <div class="ng-subseccion-header">
-            <div>
-              <span class="ng-subseccion-title"><i class="fa-solid fa-share-nodes"></i> Enlaces y Redes Oficiales</span>
-              <span class="ng-subseccion-desc">Arrastra o usa las flechas para ordenar. Solo los canales con enlace saldrán en la web.</span>
-            </div>
-          </div>
-
-          <div class="ng-redes-lista-ordenada" id="ngListaRedesOrdenables">
-            <!-- 1. LinkedIn -->
-            <div class="ng-red-row" data-red-id="linkedin" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-brands fa-linkedin" style="color: #0a66c2;"></i> LinkedIn
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="linkedin">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">in/</span>
-                <input type="text" id="ngInputRedLinkedin" class="ng-input-bare" placeholder="usuario linkedin" />
-              </div>
-            </div>
-
-            <!-- 2. Web Oficial -->
-            <div class="ng-red-row" data-red-id="web" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-solid fa-globe" style="color: #00a2ed;"></i> Web Oficial
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="web">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">https://</span>
-                <input type="text" id="ngInputRedWeb" class="ng-input-bare" placeholder="tuempresa.com" />
-              </div>
-            </div>
-
-            <!-- 3. Canal de WhatsApp -->
-            <div class="ng-red-row" data-red-id="whatsapp" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> Canal WhatsApp
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="whatsapp">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">wa.me/</span>
-                <input type="text" id="ngInputRedCanalWhatsapp" class="ng-input-bare" placeholder="canal o enlace (opcional)" />
-              </div>
-            </div>
-
-            <!-- 4. Instagram -->
-            <div class="ng-red-row" data-red-id="instagram" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="instagram">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">@</span>
-                <input type="text" id="ngInputRedInstagram" class="ng-input-bare" placeholder="usuario" />
-              </div>
-            </div>
-
-            <!-- 5. Facebook -->
-            <div class="ng-red-row" data-red-id="facebook" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-brands fa-facebook-f" style="color: #1877f2;"></i> Facebook
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="facebook">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">/</span>
-                <input type="text" id="ngInputRedFacebook" class="ng-input-bare" placeholder="usuario o pagina" />
-              </div>
-            </div>
-
-            <!-- 6. TikTok -->
-            <div class="ng-red-row" data-red-id="tiktok" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-brands fa-tiktok" style="color: #00f2fe;"></i> TikTok
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="tiktok">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">@</span>
-                <input type="text" id="ngInputRedTiktok" class="ng-input-bare" placeholder="usuario" />
-              </div>
-            </div>
-
-            <!-- 7. YouTube -->
-            <div class="ng-red-row" data-red-id="youtube" draggable="true">
-              <div class="ng-red-row-header">
-                <div class="ng-red-drag-handle" title="Arrastrar para reordenar">
-                  <i class="fa-solid fa-grip-vertical"></i>
-                </div>
-                <div class="ng-red-info">
-                  <span class="ng-red-name">
-                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube
-                  </span>
-                  <span class="ng-red-badge" data-badge-red="youtube">Comprobando...</span>
-                </div>
-                <div class="ng-red-move-actions">
-                  <button type="button" class="ng-btn-move btn-move-up" data-dir="up" title="Subir posición">
-                    <i class="fa-solid fa-chevron-up"></i>
-                  </button>
-                  <button type="button" class="ng-btn-move btn-move-down" data-dir="down" title="Bajar posición">
-                    <i class="fa-solid fa-chevron-down"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="ng-input-handle-wrap">
-                <span class="ng-input-handle-prefix">@</span>
-                <input type="text" id="ngInputRedYoutube" class="ng-input-bare" placeholder="usuario o canal" />
+              <label class="ng-label">
+                <span>Sábados</span>
+                <span class="ng-label-hint">Medio día</span>
+              </label>
+              <div class="ng-input-group-horario">
+                <input type="time" id="ngHorarioSabadoAbre" value="09:00" />
+                <span>a</span>
+                <input type="time" id="ngHorarioSabadoCierra" value="13:00" />
               </div>
             </div>
           </div>
         </div>
 
       </div>
+    </div>
 
-      <!-- ── COLUMNA DERECHA: FICHA BILINGÜE (ESPAÑOL | ENGLISH) ── -->
-      <div class="ng-col-traducciones">
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- PESTAÑA 4: 📈 MÉTRICAS & TRAYECTORIA                        -->
+    <!-- REORDENADO: MÉTRICAS EN LEFT Y TRAYECTORIA EN RIGHT        -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="ng-tab-pane" id="ng-tab-metricas">
+      <div class="ng-grid-2-equal">
         
-        <!-- Pestañas de Idioma Superiores -->
+        <!-- Columna Izquierda (LEFT): Cifras de Impacto y Confianza -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-chart-pie"></i> Métricas de Confianza</h2>
+              <p class="ng-card-desc">Indicadores destacados visibles en la página web.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-1">
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputMetricaPacientes">Clientes Asesorados</label>
+              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder="450+" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputMetricaResenas">Reseñas 5 Estrellas</label>
+              <input type="text" id="ngInputMetricaResenas" class="ng-input" placeholder="98%" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label" for="ngInputMetricaSatisfaccion">Satisfacción de Clientes</label>
+              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input" placeholder="99.4%" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha (RIGHT): Fecha de Fundación & Trayectoria Calculada -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h2 class="ng-card-title"><i class="fa-solid fa-calendar-days"></i> Trayectoria & Fundación</h2>
+              <p class="ng-card-desc">Cálculo dinámico de experiencia profesional en vivo.</p>
+            </div>
+            <span class="ng-badge-trayectoria" id="ngBadgeTrayectoria">
+              <i class="fa-solid fa-award"></i> <span id="ngYearsText">12+ años</span>
+            </span>
+          </div>
+
+          <div class="ng-field">
+            <label class="ng-label" for="ngInputLanzamiento">Fecha de Fundación / Inicio de Operaciones</label>
+            <input type="date" id="ngInputLanzamiento" class="ng-input" value="2014-03-15" />
+            <p class="ng-field-hint sn-mt-10">Calcula y actualiza automáticamente los años de experiencia para la web.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- 🌐 SECCIÓN LIBRE INFERIOR: TEXTOS BILINGÜES & SEO           -->
+    <!-- ORDEN: 1. SEO  2. PRESENTACIÓN  3. SEDES & MODALIDADES      -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="ng-section-bilingue-wrap" id="ngSeccionBilingue">
+      
+      <!-- Cabecera de la Sección Bilingüe con Switcher Pro -->
+      <div class="ng-section-bilingue-header">
+        <div class="ng-section-bilingue-title-wrap">
+          <h2 class="ng-section-bilingue-title">
+            <i class="fa-solid fa-language"></i> Textos Bilingües & Optimización SEO
+          </h2>
+          <p class="ng-section-bilingue-sub">
+            Posicionamiento en Google, redacción comercial oficial y sedes por idioma.
+          </p>
+        </div>
+
+        <!-- Selector de Idioma Bilingüe Cápsula (Estilo Imagen 5) -->
         <div class="ng-lang-tabs" id="ngLangTabs">
           <button type="button" class="ng-lang-tab-btn active" data-target="ng-pane-es">
             <i class="fa-solid fa-language"></i> Español [ES]
@@ -486,227 +726,259 @@ const n = datosNegocio;
             <i class="fa-solid fa-globe"></i> English [EN]
           </button>
         </div>
+      </div>
 
-        <!-- ═════════ PANEL ESPAÑOL [ES] ═════════ -->
-        <div class="ng-lang-pane active" id="ng-pane-es">
-          
-          <!-- Identidad Comercial (ES) -->
-          <div class="ng-card">
-            <div class="ng-card-header">
-              <h2 class="ng-card-title"><i class="fa-solid fa-signature"></i> Identidad y Textos Oficiales (ES)</h2>
-            </div>
-
-            <div class="ng-grid-2">
-              <div class="ng-field">
-                <label class="ng-label" for="ngInputNombre">Nombre Oficial (ES) *</label>
-                <input type="text" id="ngInputNombre" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
-              </div>
-
-              <div class="ng-field">
-                <label class="ng-label" for="ngInputNombreCorto">Nombre Corto / Marca (ES)</label>
-                <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder="Estudio Cusihuaman" />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputEnfoques">Especialidades Tributarias (ES)</label>
-                <input type="text" id="ngInputEnfoques" class="ng-input" placeholder="Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Buzón SOL" />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputBioEs">Biografía Profesional / Resumen (ES)</label>
-                <textarea id="ngInputBioEs" class="ng-textarea" rows="3" placeholder="Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria..."></textarea>
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputHorario">Horario de Atención Descriptivo (ES)</label>
-                <input type="text" id="ngInputHorario" class="ng-input" placeholder="Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m." />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputWhatsappMensaje">
-                  <span>Mensaje Predeterminado WhatsApp (ES)</span>
-                  <button type="button" class="ng-link-btn" id="btnRestaurarMensajeWs" title="Restaurar saludo dinámico">
-                    <i class="fa-solid fa-rotate-left"></i> Restaurar
-                  </button>
-                </label>
-                <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder="¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación." />
-              </div>
+      <!-- ────── PANEL ESPAÑOL [ES] ────── -->
+      <div class="ng-lang-pane active" id="ng-pane-es">
+        
+        <!-- 1. Posicionamiento SEO para Google (PRIMERO) -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h3 class="ng-card-title"><i class="fa-solid fa-magnifying-glass"></i> Posicionamiento SEO & Palabras Clave (ES)</h3>
+              <p class="ng-card-desc">Metadatos prioritarios de indexación orgánica para Google y redes sociales.</p>
             </div>
           </div>
 
-          <!-- Sedes & Modalidades (ES) -->
-          <div class="ng-card">
-            <div class="ng-card-header">
-              <h2 class="ng-card-title"><i class="fa-solid fa-building"></i> Sedes y Modalidades Oficiales (ES)</h2>
+          <div class="ng-grid-1 ng-gap-comfortable">
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputSeoTituloEs">
+                <span>Meta Título para Google</span>
+                <span class="ng-label-hint">Recomendado: 50 a 65 caracteres</span>
+              </label>
+              <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder="Estudio Cusihuaman | Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT" />
             </div>
 
-            <!-- Sede 1: Surquillo -->
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputSeoDescEs">
+                <span>Meta Descripción para Google</span>
+                <span class="ng-label-hint">Recomendado: 120 a 160 caracteres</span>
+              </label>
+              <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="3" placeholder="Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT..."></textarea>
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputSeoKeywordsEs">
+                <span>Palabras Clave SEO (Separadas por comas)</span>
+                <span class="ng-label-hint">Términos de búsqueda frecuentes</span>
+              </label>
+              <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder="contabilidad 4ta categoria, declaracion 5ta categoria, recibos por honorarios sunat, suspension retenciones, estudio contable surquillo..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Presentación & Biografía Ejecutiva (SEGUNDO) -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h3 class="ng-card-title"><i class="fa-solid fa-signature"></i> Presentación & Biografía Ejecutiva (ES)</h3>
+              <p class="ng-card-desc">Narrativa del titular profesional visible en la cabecera y sección nosotros.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-1 ng-gap-comfortable">
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputBioEs">
+                <span>Biografía Profesional / Resumen Ejecutivo</span>
+                <span class="ng-label-hint">Párrafo principal de presentación</span>
+              </label>
+              <textarea id="ngInputBioEs" class="ng-textarea ng-textarea-lg" rows="5" placeholder="Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria..."></textarea>
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputEnfoques">
+                <span>Especialidades Tributarias / Enfoques Principales</span>
+                <span class="ng-label-hint">Separados por viñetas o comas</span>
+              </label>
+              <input type="text" id="ngInputEnfoques" class="ng-input" placeholder="Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Buzón SOL" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputHorario">
+                <span>Horario de Atención Descriptivo</span>
+              </label>
+              <input type="text" id="ngInputHorario" class="ng-input" placeholder="Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m." />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputWhatsappMensaje">
+                <span>Mensaje Predeterminado de WhatsApp</span>
+                <button type="button" class="ng-link-btn" id="btnRestaurarMensajeWs" title="Restaurar saludo dinámico">
+                  <i class="fa-solid fa-rotate-left"></i> Restaurar
+                </button>
+              </label>
+              <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder="¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación." />
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Sedes & Modalidades Oficiales (TERCERO / ÚLTIMO) -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h3 class="ng-card-title"><i class="fa-solid fa-building"></i> Sedes y Modalidades Oficiales (ES)</h3>
+              <p class="ng-card-desc">Etiquetas públicas y disponibilidad por modalidad de atención.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-2">
             <div class="ng-sede-box">
               <div class="ng-sede-box-badge"><i class="fa-solid fa-location-dot"></i> Sede Presencial</div>
-              <div class="ng-grid-2">
+              <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVesTagEs">Etiqueta / Badge (ES)</label>
+                  <label class="ng-label" for="ngSedeVesTagEs">Etiqueta / Badge</label>
                   <input type="text" id="ngSedeVesTagEs" class="ng-input" placeholder="Sede Surquillo" />
                 </div>
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVesAtencionEs">Horario de Atención (ES)</label>
+                  <label class="ng-label" for="ngSedeVesAtencionEs">Horario de Atención</label>
                   <input type="text" id="ngSedeVesAtencionEs" class="ng-input" placeholder="Lunes a Viernes (Previa Cita)" />
                 </div>
               </div>
             </div>
 
-            <!-- Sede 2: Modalidad Virtual -->
-            <div class="ng-sede-box sn-mt-10">
+            <div class="ng-sede-box">
               <div class="ng-sede-box-badge online"><i class="fa-solid fa-video"></i> Modalidad Virtual</div>
-              <div class="ng-grid-2">
+              <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVirtualTagEs">Etiqueta / Badge (ES)</label>
+                  <label class="ng-label" for="ngSedeVirtualTagEs">Etiqueta / Badge</label>
                   <input type="text" id="ngSedeVirtualTagEs" class="ng-input" placeholder="100% Online" />
                 </div>
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVirtualAtencionEs">Horario de Atención (ES)</label>
+                  <label class="ng-label" for="ngSedeVirtualAtencionEs">Horario de Atención</label>
                   <input type="text" id="ngSedeVirtualAtencionEs" class="ng-input" placeholder="Horarios Flexibles" />
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- SEO Dinámico (ES) -->
-          <div class="ng-card">
-            <div class="ng-card-header">
-              <h2 class="ng-card-title"><i class="fa-solid fa-magnifying-glass"></i> Posicionamiento SEO & Palabras Clave (ES)</h2>
-            </div>
-
-            <div class="ng-grid-2">
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputSeoTituloEs">Meta Título (ES)</label>
-                <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder="Estudio Cusihuaman | Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT" />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputSeoDescEs">Meta Descripción (ES)</label>
-                <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="2" placeholder="Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT. Rentas de 4ta y 5ta categoría, planillas PLAME y regularización..."></textarea>
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputSeoKeywordsEs">
-                  <span>Palabras Clave (Separadas por comas)</span>
-                </label>
-                <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder="contabilidad 4ta categoria, declaracion 5ta categoria, recibos por honorarios sunat, suspension retenciones, estudio contable surquillo..."></textarea>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        <!-- ═════════ PANEL INGLÉS [EN] ═════════ -->
-        <div class="ng-lang-pane" id="ng-pane-en">
-          
-          <!-- Identidad Comercial (EN) -->
-          <div class="ng-card">
-            <div class="ng-card-header">
-              <h2 class="ng-card-title"><i class="fa-solid fa-signature"></i> Official Identity & Content (EN)</h2>
-            </div>
+      </div>
 
-            <div class="ng-grid-2">
-              <div class="ng-field">
-                <label class="ng-label" for="ngInputNombreEn">Official Name (EN)</label>
-                <input type="text" id="ngInputNombreEn" class="ng-input" placeholder="Cusihuaman Accounting & Tax Firm" />
-              </div>
-
-              <div class="ng-field">
-                <label class="ng-label" for="ngInputNombreCortoEn">Short Name / Brand (EN)</label>
-                <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder="Estudio Cusihuaman" />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputEnfoquesEn">Tax Specializations (EN)</label>
-                <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder="4th Category Income • 5th Category Payroll • SUNAT Tax Compliance • SOL Mailbox Advisory" />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputBioEn">Professional Summary (EN)</label>
-                <textarea id="ngInputBioEn" class="ng-textarea" rows="3" placeholder="Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience..."></textarea>
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputHorarioEn">Operating Hours Description (EN)</label>
-                <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder="Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m." />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputWhatsappMensajeEn">Default WhatsApp Message (EN)</label>
-                <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder="Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT." />
-              </div>
+      <!-- ────── PANEL INGLÉS [EN] ────── -->
+      <div class="ng-lang-pane" id="ng-pane-en">
+        
+        <!-- 1. SEO & Search Keywords (EN) (PRIMERO) -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h3 class="ng-card-title"><i class="fa-solid fa-magnifying-glass"></i> SEO & Search Keywords (EN)</h3>
+              <p class="ng-card-desc">Google metadata for english-speaking searches.</p>
             </div>
           </div>
 
-          <!-- Sedes & Modalidades (EN) -->
-          <div class="ng-card">
-            <div class="ng-card-header">
-              <h2 class="ng-card-title"><i class="fa-solid fa-building"></i> Offices & Modalities (EN)</h2>
+          <div class="ng-grid-1 ng-gap-comfortable">
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputSeoTituloEn">
+                <span>Meta Title</span>
+                <span class="ng-label-hint">Recommended: 50 to 65 characters</span>
+              </label>
+              <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder="Estudio Cusihuaman | Tax & Accounting Services in Peru" />
             </div>
 
-            <!-- Sede 1: Surquillo (EN) -->
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputSeoDescEn">
+                <span>Meta Description</span>
+                <span class="ng-label-hint">Recommended: 120 to 160 characters</span>
+              </label>
+              <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="3" placeholder="Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer..."></textarea>
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputSeoKeywordsEn">
+                <span>Keywords (Comma separated)</span>
+                <span class="ng-label-hint">Frequent search terms</span>
+              </label>
+              <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder="peru tax consultant, 4th category tax filing peru, accounting firm surquillo lima..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Official Content & Executive Summary (EN) (SEGUNDO) -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h3 class="ng-card-title"><i class="fa-solid fa-signature"></i> Official Content & Executive Summary (EN)</h3>
+              <p class="ng-card-desc">Professional narrative for international and english-speaking clients.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-2">
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputNombreEn">Official Name</label>
+              <input type="text" id="ngInputNombreEn" class="ng-input" placeholder="Cusihuaman Accounting & Tax Firm" />
+            </div>
+
+            <div class="ng-field">
+              <label class="ng-label ng-label-prominent" for="ngInputNombreCortoEn">Short Name / Brand</label>
+              <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder="Estudio Cusihuaman" />
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label ng-label-prominent" for="ngInputBioEn">Professional Summary</label>
+              <textarea id="ngInputBioEn" class="ng-textarea ng-textarea-lg" rows="5" placeholder="Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience..."></textarea>
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label ng-label-prominent" for="ngInputEnfoquesEn">Tax Specializations</label>
+              <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder="4th Category Income • 5th Category Payroll • SUNAT Tax Compliance • SOL Mailbox Advisory" />
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label ng-label-prominent" for="ngInputHorarioEn">Operating Hours Description</label>
+              <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder="Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m." />
+            </div>
+
+            <div class="ng-field span-2">
+              <label class="ng-label ng-label-prominent" for="ngInputWhatsappMensajeEn">Default WhatsApp Message</label>
+              <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder="Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT." />
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Offices & Modalities (EN) (TERCERO / ÚLTIMO) -->
+        <div class="ng-card">
+          <div class="ng-card-header">
+            <div>
+              <h3 class="ng-card-title"><i class="fa-solid fa-building"></i> Offices & Modalities (EN)</h3>
+              <p class="ng-card-desc">Public badges and operational availability in English.</p>
+            </div>
+          </div>
+
+          <div class="ng-grid-2">
             <div class="ng-sede-box">
               <div class="ng-sede-box-badge"><i class="fa-solid fa-location-dot"></i> In-Person Office</div>
-              <div class="ng-grid-2">
+              <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVesTagEn">Tag / Badge (EN)</label>
+                  <label class="ng-label" for="ngSedeVesTagEn">Tag / Badge</label>
                   <input type="text" id="ngSedeVesTagEn" class="ng-input" placeholder="Surquillo Office" />
                 </div>
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVesAtencionEn">Opening Hours (EN)</label>
+                  <label class="ng-label" for="ngSedeVesAtencionEn">Opening Hours</label>
                   <input type="text" id="ngSedeVesAtencionEn" class="ng-input" placeholder="Monday to Friday (By Appointment)" />
                 </div>
               </div>
             </div>
 
-            <!-- Sede 2: Modalidad Virtual (EN) -->
-            <div class="ng-sede-box sn-mt-10">
+            <div class="ng-sede-box">
               <div class="ng-sede-box-badge online"><i class="fa-solid fa-video"></i> Online Modality</div>
-              <div class="ng-grid-2">
+              <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVirtualTagEn">Tag / Badge (EN)</label>
+                  <label class="ng-label" for="ngSedeVirtualTagEn">Tag / Badge</label>
                   <input type="text" id="ngSedeVirtualTagEn" class="ng-input" placeholder="100% Online" />
                 </div>
                 <div class="ng-field">
-                  <label class="ng-label" for="ngSedeVirtualAtencionEn">Opening Hours (EN)</label>
+                  <label class="ng-label" for="ngSedeVirtualAtencionEn">Opening Hours</label>
                   <input type="text" id="ngSedeVirtualAtencionEn" class="ng-input" placeholder="Flexible Schedule" />
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- SEO Dinámico (EN) -->
-          <div class="ng-card">
-            <div class="ng-card-header">
-              <h2 class="ng-card-title"><i class="fa-solid fa-magnifying-glass"></i> SEO & Search Keywords (EN)</h2>
-            </div>
-
-            <div class="ng-grid-2">
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputSeoTituloEn">Meta Title (EN)</label>
-                <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder="Estudio Cusihuaman | Tax & Accounting Services in Peru (4th & 5th Category)" />
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputSeoDescEn">Meta Description (EN)</label>
-                <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="2" placeholder="Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer. 4th & 5th category tax filings..."></textarea>
-              </div>
-
-              <div class="ng-field span-2">
-                <label class="ng-label" for="ngInputSeoKeywordsEn">Keywords (Comma separated)</label>
-                <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder="peru tax consultant, 4th category tax filing peru, accounting firm surquillo lima..."></textarea>
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div>
 
     </div>
+
   </div>
 </section>
 

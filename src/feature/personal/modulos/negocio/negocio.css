@@ -1,6 +1,6 @@
 /* src/feature/personal/modulos/negocio/negocio.css */
-/* Estilos Oficiales del Módulo Ficha de Negocio & Especialista (Psicología América) */
-/* Cero CSS Inline · Layout Split de 2 Columnas · Pestañas Bilingües ES/EN · 100% WiTema */
+/* Estilos Oficiales del Módulo Ficha de Mi Negocio (Estudio Cusihuaman) */
+/* Cero CSS Inline · Layout con Pestañas Horizontales Compactas · 100% WiTema */
 
 .ng-container {
   display: flex;
@@ -13,91 +13,71 @@
   box-sizing: border-box;
 }
 
-/* ── 1. LAYOUT SPLIT A 2 COLUMNAS (Aprovechamiento Espacial 35% / Auto) ── */
-.ng-split-layout {
-  display: grid;
-  grid-template-columns: 35% auto;
-  gap: 20px;
-  align-items: start;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-@media (max-width: 991px) {
-  .ng-split-layout {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
-/* Columna Izquierda: Global */
-.ng-col-global {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* Columna Derecha: Bilingüe */
-.ng-col-traducciones {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 0;
-}
-
-/* ── 2. PESTAÑAS DE IDIOMA (ESPAÑOL | ENGLISH) ── */
-.ng-lang-tabs {
+/* ── 1. BARRA DE PESTAÑAS HORIZONTALES COMPACTAS (BORDER-RADIUS 8PX) ── */
+.ng-tabs-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--surface, #ffffff);
-  border: 1px solid var(--line, #e2e8f0);
-  border-radius: var(--br_m, 12px);
-  padding: 6px 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  overflow-x: auto;
+  padding: 2px 2px 8px 2px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line, #e2e8f0);
+  scrollbar-width: thin;
 }
 
-.ng-lang-tab-btn {
+.ng-tab-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: none;
-  background: transparent;
+  gap: 7px;
+  padding: 7px 15px;
+  border-radius: 8px; /* Idéntico al botón Guardar Cambios */
+  border: 1px solid var(--line, #e2e8f0);
+  background: var(--surface, #ffffff);
   color: var(--muted, #64748b);
-  font-family: inherit;
-  font-size: var(--fz_s4, 13px);
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--fz_s3, 12.5px);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-.ng-lang-tab-btn i {
-  font-size: 14px;
+.ng-tab-btn i {
+  font-size: 13px;
+  transition: transform 0.2s;
 }
 
-.ng-lang-tab-btn:hover {
+.ng-tab-btn:hover {
   color: var(--ink, #0f172a);
-  background: var(--raised, rgba(0, 0, 0, 0.04));
+  border-color: var(--brand-primary, #9e7b4f);
+  background: var(--raised, rgba(0, 0, 0, 0.02));
+  transform: translateY(-1px);
 }
 
-.ng-lang-tab-btn.active {
-  background: var(--brand-primary, var(--mco, #9e7b4f));
+.ng-tab-btn:hover i {
+  transform: scale(1.08);
+}
+
+.ng-tab-btn.active {
+  background: var(--brand-primary, #9e7b4f);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(158, 123, 79, 0.25);
+  border-color: var(--brand-primary, #9e7b4f);
+  box-shadow: 0 2px 10px rgba(158, 123, 79, 0.28);
 }
 
-/* Paneles de Idioma */
-.ng-lang-pane {
+.ng-tab-btn.active i {
+  color: #ffffff;
+}
+
+/* Paneles de Pestañas */
+.ng-tab-pane {
   display: none;
-  flex-direction: column;
-  gap: 16px;
+  width: 100%;
 }
 
-.ng-lang-pane.active {
-  display: flex;
-  animation: ngFadeIn 0.22s ease-out;
+.ng-tab-pane.active {
+  display: block;
+  animation: ngFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes ngFadeIn {
@@ -105,22 +85,61 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ── 2. LAYOUTS EN GRILLA PARA LAS PESTAÑAS ── */
+.ng-grid-media-identidad {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* 60% Multimedia / 40% Identidad */
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ng-grid-redes-contacto {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* 60% Redes Izquierda / 40% Canales Derecha */
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ng-grid-2-equal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 960px) {
+  .ng-grid-media-identidad,
+  .ng-grid-redes-contacto,
+  .ng-grid-2-equal {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 /* ── 3. TARJETAS DE FORMULARIO ── */
 .ng-card {
   background: var(--surface, #ffffff);
   border: 1px solid var(--line, #e2e8f0);
-  border-radius: var(--br_m, 12px);
-  padding: 16px 18px;
+  border-radius: var(--br_m, 14px);
+  padding: 20px 22px;
   box-sizing: border-box;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .ng-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
-  padding-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--line, #e2e8f0);
 }
 
@@ -132,10 +151,11 @@
   font-weight: 700;
   color: var(--ink, #0f172a);
   margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 .ng-card-title i {
-  color: var(--brand-primary, var(--mco, #9e7b4f));
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .ng-card-desc {
@@ -152,110 +172,171 @@
   font-weight: 700;
   background: rgba(16, 185, 129, 0.12);
   color: #10b981;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
   border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
-/* ── 4. PREVIEW MULTIMEDIA DUAL (ESPECIALISTA + LOGO) ── */
-.ng-media-dual-grid {
+/* ── 4. MULTIMEDIA & LOGOTIPOS (INSPIRADO EN IMAGEN 2) ── */
+.ng-media-2col-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 14px;
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-@media (max-width: 480px) {
-  .ng-media-dual-grid {
+@media (max-width: 640px) {
+  .ng-media-2col-grid {
     grid-template-columns: 1fr;
   }
 }
 
-.ng-media-preview-box {
+.ng-photo-box {
+  background: var(--raised, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 12px;
+  padding: 16px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: var(--raised, rgba(0, 0, 0, 0.03));
-  border: 1px solid var(--line, #e2e8f0);
-  border-radius: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  text-align: center;
+  justify-content: space-between;
 }
 
-.ng-media-thumb {
-  width: 72px;
-  height: 72px;
+[data-theme="futuro"] .ng-photo-box {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ng-photo-box-hero {
+  min-height: 290px;
+}
+
+.ng-photo-avatar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.ng-thumb-specialist-lg {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--line, #e2e8f0);
-  margin-bottom: 8px;
+  border: 2px solid var(--brand-primary, #9e7b4f);
   background: var(--surface, #ffffff);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s;
 }
 
-.ng-media-meta {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.ng-thumb-specialist-lg:hover {
+  transform: scale(1.03);
 }
 
-.ng-media-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted, #64748b);
+.ng-thumb-circle-lg {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  object-fit: contain;
+  padding: 6px;
+  border: 1px solid var(--line, #e2e8f0);
+  background: var(--surface, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.ng-thumb-full-lg {
+  width: 128px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: contain;
+  padding: 4px;
+  border: 1px solid var(--line, #e2e8f0);
+  background: var(--surface, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.ng-photo-box-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink, #0f172a);
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
 }
 
-.ng-media-logos-col {
+.ng-photo-box-title i {
+  color: var(--brand-primary, #9e7b4f);
+  font-size: 13px;
+}
+
+.ng-media-right-stack {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-
-.ng-media-thumb-full {
-  width: 100%;
-  max-width: 150px;
-  height: 52px;
-  object-fit: contain;
-  border-radius: 8px;
-  border: 1px solid var(--line, #e2e8f0);
-  margin-bottom: 8px;
-  background: var(--surface, #ffffff);
-  padding: 4px;
-  box-sizing: border-box;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-.ng-media-preview-box.is-hero {
+  gap: 12px;
   height: 100%;
+}
+
+.ng-input-url-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.ng-input-url {
+  font-family: monospace;
+  font-size: 11.5px;
+  letter-spacing: -0.01em;
+}
+
+.ng-btn-icon-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--line, #e2e8f0);
+  display: flex;
+  align-items: center;
   justify-content: center;
+  color: var(--brand-primary, #9e7b4f);
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  font-size: 13px;
 }
 
-.ng-input-sm {
-  padding: 6px 8px;
-  font-size: 11px;
+.ng-btn-icon-link:hover {
+  background: var(--brand-primary, #9e7b4f);
+  color: #ffffff;
+  border-color: var(--brand-primary, #9e7b4f);
+  transform: translateY(-1px);
 }
 
-/* ── 5. GRILLAS Y CAMPOS DE FORMULARIO ── */
+/* ── 5. CAMPOS Y GRILLAS DE FORMULARIO ── */
+.ng-grid-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ng-gap-comfortable {
+  gap: 16px;
+}
+
 .ng-grid-2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.ng-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 14px;
 }
 
 @media (max-width: 600px) {
-  .ng-grid-2,
-  .ng-grid-3 {
+  .ng-grid-2 {
     grid-template-columns: 1fr;
   }
 }
@@ -280,426 +361,489 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  font-size: var(--fz_s3, 12px);
+  font-size: var(--fz_s3, 12.5px);
   font-weight: 600;
   color: var(--ink, #0f172a);
-  min-width: 0;
 }
 
-.ng-label > span:first-child {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.ng-label-prominent {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink, #0f172a);
+  margin-bottom: 2px;
 }
 
 .ng-label-hint {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--brand-primary, var(--mco, #9e7b4f));
-  background: var(--raised, rgba(0, 0, 0, 0.05));
-  border: 1px solid var(--line, rgba(0, 0, 0, 0.06));
-  padding: 1px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-  max-width: 125px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: normal;
+  color: var(--muted, #64748b);
+}
+
+.ng-field-hint {
+  font-size: 11.5px;
+  color: var(--muted, #64748b);
+  margin: 0;
+}
+
+.sn-mt-10 {
+  margin-top: 10px;
 }
 
 .ng-input,
-.ng-textarea {
+.ng-textarea,
+.ng-select {
   width: 100%;
-  padding: 8px 11px;
-  background: var(--raised, rgba(0, 0, 0, 0.03));
+  padding: 9px 13px;
   border: 1px solid var(--line, #e2e8f0);
   border-radius: 8px;
+  background: var(--bg, #f8fafc);
   color: var(--ink, #0f172a);
   font-family: inherit;
-  font-size: var(--fz_s4, 12.5px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-size: var(--fz_s4, 13px);
   box-sizing: border-box;
-  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .ng-input:focus,
-.ng-textarea:focus {
-  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+.ng-textarea:focus,
+.ng-select:focus {
+  outline: none;
+  border-color: var(--brand-primary, #9e7b4f);
   box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.15);
 }
 
 .ng-textarea {
-  min-height: 60px;
   resize: vertical;
+  line-height: 1.55;
 }
 
-/* Horario en grupo compacto y responsive */
+.ng-textarea-lg {
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* ── 6. CONTACTO, HORARIOS & GOOGLE MAPS ── */
 .ng-input-group-horario {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: var(--raised, rgba(0, 0, 0, 0.03));
-  border: 1px solid var(--line, #e2e8f0);
-  border-radius: 8px;
-  padding: 3px 6px;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.ng-input-group-horario:focus-within {
-  border-color: var(--brand-primary, var(--mco, #9e7b4f));
-  box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.15);
+  gap: 8px;
 }
 
 .ng-input-group-horario input[type="time"] {
   flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  color: var(--ink, #0f172a);
-  font-family: inherit;
-  font-size: 12px;
-  padding: 3px 2px;
-  outline: none;
-}
-
-.ng-input-group-horario span {
-  font-size: 11px;
-  color: var(--muted, #64748b);
-  font-weight: 600;
-  padding: 0 2px;
-  user-select: none;
-}
-
-/* Inputs centrados para KPIs y Métricas */
-.ng-input.ng-input-center {
-  text-align: center;
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--ink, #0f172a);
-  letter-spacing: 0.3px;
-}
-
-/* Divisor y Encabezado de Subsección interna */
-.ng-subseccion-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin: 14px 0 10px 0;
-  padding-top: 12px;
-  border-top: 1px solid var(--line, rgba(255, 255, 255, 0.08));
-}
-
-.ng-subseccion-title {
-  font-size: var(--fz_s3, 12px);
-  font-weight: 700;
-  color: var(--ink, #0f172a);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.ng-subseccion-title i {
-  color: var(--brand-primary, var(--mco, #9e7b4f));
-}
-
-.ng-subseccion-desc {
-  font-size: 11px;
-  color: var(--muted, #64748b);
-  font-weight: 500;
-}
-
-/* Input con Prefijo Visual para Handle de Redes Sociales (Premium & Responsive) */
-.ng-input-handle-wrap {
-  display: flex;
-  align-items: stretch;
-  background: var(--raised, rgba(0, 0, 0, 0.03));
+  padding: 8px 10px;
   border: 1px solid var(--line, #e2e8f0);
   border-radius: 8px;
-  overflow: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  box-sizing: border-box;
-  min-height: 38px;
-}
-
-.ng-input-handle-wrap:focus-within {
-  border-color: var(--brand-primary, var(--mco, #9e7b4f));
-  box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.15);
-}
-
-.ng-input-handle-prefix {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-  background: rgba(158, 123, 79, 0.08);
-  border-right: 1px solid var(--line, rgba(255, 255, 255, 0.08));
-  color: var(--brand-primary, var(--mco, #9e7b4f));
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  user-select: none;
-  flex-shrink: 0;
-  letter-spacing: 0.2px;
-}
-
-[data-theme="futuro"] .ng-input-handle-prefix {
-  background: rgba(197, 168, 128, 0.12);
-  border-right-color: rgba(255, 255, 255, 0.08);
-  color: var(--mco, #c5a880);
-}
-
-.ng-input-handle-wrap input.ng-input-bare {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  padding: 8px 11px;
+  background: var(--bg, #f8fafc);
   color: var(--ink, #0f172a);
   font-family: inherit;
-  font-size: var(--fz_s4, 12.5px);
-  outline: none;
-  box-sizing: border-box;
+  font-size: 13px;
 }
 
-.ng-input-handle-wrap input.ng-input-bare::placeholder {
-  color: var(--muted, #64748b);
-  opacity: 0.55;
-}
-
-/* Grupo Maps con botones */
 .ng-input-group-maps {
   display: flex;
-  gap: 6px;
-  align-items: center;
+  gap: 8px;
+}
+
+.ng-input-group-maps .ng-input {
+  flex-grow: 1;
 }
 
 .ng-btn-maps-action {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  gap: 6px;
+  padding: 8px 14px;
   border: 1px solid var(--line, #e2e8f0);
+  border-radius: 8px;
   background: var(--surface, #ffffff);
   color: var(--ink, #0f172a);
-  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: all 0.15s;
 }
 
 .ng-btn-maps-action:hover {
-  border-color: var(--brand-primary, var(--mco, #9e7b4f));
-  color: var(--brand-primary, var(--mco, #9e7b4f));
+  border-color: var(--brand-primary, #9e7b4f);
+  color: var(--brand-primary, #9e7b4f);
 }
 
 .ng-btn-maps-test {
-  background: rgba(59, 130, 246, 0.08);
-  border-color: rgba(59, 130, 246, 0.25);
-  color: #3b82f6;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
-.ng-link-btn {
-  background: none;
-  border: none;
-  color: var(--brand-primary, var(--mco, #9e7b4f));
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0;
-  margin: 0;
+.ng-btn-maps-test:hover {
+  background: #10b981;
+  color: #ffffff;
 }
 
-.ng-link-btn:hover {
-  text-decoration: underline;
-}
-
-/* ── 6. CAJAS DE SEDES OFICIALES (VES & VIRTUAL) ── */
-.ng-sede-box {
-  background: var(--raised, rgba(0, 0, 0, 0.02));
-  border: 1px solid var(--line, #e2e8f0);
-  border-radius: 10px;
-  padding: 12px 14px;
+/* ── 7. REDES SOCIALES OFICIALES (INSPIRADO EN IMAGEN 4) ── */
+.ng-add-red-toolbar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 8px;
 }
 
-.ng-sede-box-badge {
+.ng-select-add-red {
+  padding: 6px 12px;
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 8px;
+  background: var(--bg, #f8fafc);
+  color: var(--ink, #0f172a);
+  font-size: 12px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  min-width: 170px;
+}
+
+.ng-select-add-red:focus {
+  border-color: var(--brand-primary, #9e7b4f);
+}
+
+.ng-btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  background: rgba(30, 94, 117, 0.12);
-  color: var(--p_v1, #1e5e75);
-  padding: 3px 8px;
-  border-radius: 6px;
-  align-self: flex-start;
+  cursor: pointer;
 }
 
-.ng-sede-box-badge.online {
-  background: rgba(16, 185, 129, 0.12);
-  color: #10b981;
-}
-
-/* Clases utilitarias */
-.sn-mt-10 { margin-top: 10px; }
-
-/* ── 7. LISTA ORDENABLE DE REDES SOCIALES (DRAG & DROP + TOUCH + FLECHAS) ── */
-.ng-redes-lista-ordenada {
+.ng-redes-list-wrap {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 6px;
+  gap: 9px;
 }
 
 .ng-red-row {
-  background: var(--surface, #ffffff);
-  border: 1px solid var(--line, #e2e8f0);
-  border-radius: 10px;
-  padding: 10px 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
-  box-sizing: border-box;
+  padding: 10px 14px;
+  background: var(--raised, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 10px;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.ng-red-row.ng-red-hidden {
+  display: none !important;
 }
 
 [data-theme="futuro"] .ng-red-row {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .ng-red-row.is-dragging {
   opacity: 0.45;
-  transform: scale(0.98);
-  border: 1px dashed var(--brand-primary, var(--mco, #9e7b4f));
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px dashed var(--brand-primary, #9e7b4f);
 }
 
 .ng-red-row.is-drag-over {
-  border-color: var(--brand-primary, var(--mco, #9e7b4f));
-  box-shadow: 0 0 0 2px rgba(158, 123, 79, 0.2);
-  transform: translateY(-2px);
+  border-top: 2px solid var(--brand-primary, #9e7b4f);
 }
 
 .ng-red-row-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
 }
 
-.ng-red-drag-handle {
-  cursor: grab;
-  padding: 6px 8px;
-  color: var(--muted, #64748b);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  touch-action: none;
-  border-radius: 6px;
-  background: var(--raised, rgba(0, 0, 0, 0.03));
-  transition: color 0.15s ease, background 0.15s ease;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.ng-red-drag-handle:hover,
-.ng-red-drag-handle:active {
-  color: var(--brand-primary, var(--mco, #9e7b4f));
-  background: rgba(158, 123, 79, 0.12);
-}
-
-.ng-red-drag-handle:active {
-  cursor: grabbing;
-}
-
-.ng-red-info {
-  flex: 1;
+.ng-red-row-title-wrap {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 0;
   flex-wrap: wrap;
 }
 
+.ng-red-drag-handle {
+  color: var(--muted, #64748b);
+  cursor: grab;
+  padding: 2px 4px;
+  font-size: 13px;
+  transition: color 0.15s;
+}
+
+.ng-red-drag-handle:hover {
+  color: var(--ink, #0f172a);
+}
+
 .ng-red-name {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--ink, #0f172a);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .ng-red-badge {
   font-size: 10px;
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 12px;
-  letter-spacing: 0.3px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--line, #e2e8f0);
+  color: var(--muted, #64748b);
   text-transform: uppercase;
-  transition: all 0.2s ease;
-  user-select: none;
 }
 
 .ng-red-badge.active {
   background: rgba(16, 185, 129, 0.12);
   color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 
 .ng-red-badge.inactive {
-  background: rgba(148, 163, 184, 0.12);
-  color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--muted, #64748b);
+  border-color: var(--line, #e2e8f0);
+}
+
+.ng-red-formato-hint {
+  font-size: 10.5px;
+  color: var(--muted, #64748b);
+  font-family: monospace;
+  background: var(--surface, #ffffff);
+  padding: 1px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--line, #e2e8f0);
+  display: inline-block;
+}
+
+@media (max-width: 600px) {
+  .ng-red-formato-hint {
+    display: none;
+  }
 }
 
 .ng-red-move-actions {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
-  flex-shrink: 0;
 }
 
 .ng-btn-move {
-  background: var(--raised, rgba(0, 0, 0, 0.04));
+  width: 24px;
+  height: 24px;
   border: 1px solid var(--line, #e2e8f0);
-  color: var(--muted, #64748b);
-  width: 28px;
-  height: 28px;
   border-radius: 6px;
-  display: flex;
+  background: var(--surface, #ffffff);
+  color: var(--muted, #64748b);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-size: 10px;
   cursor: pointer;
-  font-size: 11px;
-  transition: all 0.15s ease;
-  user-select: none;
-}
-
-[data-theme="futuro"] .ng-btn-move {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.15s;
 }
 
 .ng-btn-move:hover {
-  background: var(--brand-primary, var(--mco, #9e7b4f));
-  color: #ffffff;
-  border-color: var(--brand-primary, var(--mco, #9e7b4f));
+  color: var(--ink, #0f172a);
+  border-color: var(--brand-primary, #9e7b4f);
+  background: var(--raised, rgba(0, 0, 0, 0.04));
 }
 
-.ng-btn-move:active {
-  transform: scale(0.92);
+.ng-input-url-test-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.ng-input-red-url {
+  font-family: monospace;
+  font-size: 12px;
+  letter-spacing: -0.01em;
+  flex-grow: 1;
+}
+
+.ng-red-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.ng-btn-red-action {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--line, #e2e8f0);
+  background: var(--surface, #ffffff);
+  color: var(--muted, #64748b);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.ng-btn-red-action:hover {
+  color: var(--ink, #0f172a);
+  border-color: var(--line, #cbd5e1);
+  transform: translateY(-1px);
+}
+
+.ng-btn-probar-red {
+  color: var(--brand-primary, #9e7b4f);
+}
+
+.ng-btn-probar-red:hover {
+  background: var(--brand-primary, #9e7b4f);
+  color: #ffffff;
+  border-color: var(--brand-primary, #9e7b4f);
+}
+
+.ng-btn-portal-red:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.ng-btn-quitar-red:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ── 8. SECCIÓN LIBRE INFERIOR: TEXTOS BILINGÜES & SEO (ESTILO IMAGEN 5) ── */
+.ng-section-bilingue-wrap {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 2px dashed var(--line, #e2e8f0);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ng-section-bilingue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.ng-section-bilingue-title {
+  font-size: var(--fz_s6, 17px);
+  font-weight: 700;
+  color: var(--ink, #0f172a);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.ng-section-bilingue-title i {
+  color: var(--brand-primary, #9e7b4f);
+}
+
+.ng-section-bilingue-sub {
+  font-size: var(--fz_s3, 12px);
+  color: var(--muted, #64748b);
+  margin: 4px 0 0 0;
+}
+
+.ng-lang-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 4px 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.ng-lang-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ng-lang-tab-btn:hover {
+  color: #f8fafc;
+}
+
+.ng-lang-tab-btn.active {
+  background: #c39a6b;
+  color: #171717;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(195, 154, 107, 0.35);
+}
+
+.ng-lang-pane {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ng-lang-pane.active {
+  display: flex;
+  animation: ngFadeIn 0.22s ease-out;
+}
+
+/* Sedes y Modalidades */
+.ng-sede-box {
+  background: var(--raised, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--line, #e2e8f0);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+[data-theme="futuro"] .ng-sede-box {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.ng-sede-box-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--brand-primary, #9e7b4f);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+
+.ng-sede-box-badge.online {
+  color: #3b82f6;
+}
+
+.ng-link-btn {
+  background: transparent;
+  border: none;
+  color: var(--brand-primary, #9e7b4f);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ng-link-btn:hover {
+  text-decoration: underline;
 }

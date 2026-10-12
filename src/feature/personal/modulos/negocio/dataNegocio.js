@@ -149,7 +149,9 @@ export function normalizarConfig(c = {}) {
       canalWhatsapp: cfg.redes?.canalWhatsapp || cfg.redes?.whatsapp || base.redes?.canalWhatsapp || '',
       web: cfg.redes?.web || cfg.redes?.webOficial || base.redes?.web || '',
       linkedin: cfg.redes?.linkedin || base.redes?.linkedin || '',
-      linkedinUser: cfg.redes?.linkedinUser || base.redes?.linkedinUser || ''
+      linkedinUser: cfg.redes?.linkedinUser || base.redes?.linkedinUser || '',
+      twitter: cfg.redes?.twitter || base.redes?.twitter || '',
+      twitterUser: cfg.redes?.twitterUser || base.redes?.twitterUser || ''
     },
     seo: {
       titulo: {

@@ -29,13 +29,18 @@ export function obtenerUsuarioActualId() {
 export function normalizarImagen(img = {}) {
   const ahoraIso = new Date().toISOString();
   const fechaHoy = ahoraIso.slice(0, 10);
+  let urlFinal = img.url || '';
+  // Auto-versionar recursos locales estáticos para romper caché inmutable persistente
+  if (urlFinal.startsWith('/imgwii/') && !urlFinal.includes('?')) {
+    urlFinal = `${urlFinal}?v=2`;
+  }
 
   return {
     id: img.id || `img_${Date.now()}`,
     nombre: img.nombre || 'imagen.webp',
     titulo: img.titulo || 'Fotografía Oficial',
     alt: img.alt || (img.titulo ? `Fotografía de ${img.titulo}` : 'Fotografía Oficial'),
-    url: img.url || '',
+    url: urlFinal,
     categoria: img.categoria || 'otros',
     pesoKb: typeof img.pesoKb === 'number' ? img.pesoKb : 38,
     dimensiones: img.dimensiones || 'Optimizado WebP',
@@ -85,8 +90,34 @@ export function obtenerImagenesGaleria(incluirEliminadas = false) {
     // Si contiene formato de fecha viejo con texto ("Feb 2026"), autorreparar con las semillas de octubre
     const tieneFechasViejas = guardadas.some(img => img.fechaSubida && (img.fechaSubida.includes('Ene') || img.fechaSubida.includes('Feb')));
     if (!tieneFechasViejas) {
+      // 🎯 Auto-actualización inteligente de semillas (pesos reales y ?v=2 sin esperar Firestore)
+      let huboCambios = false;
+      const semillasMap = new Map(IMAGENES_SEMILLA.map(s => [s.id, s]));
+      const sincronizadas = guardadas.map(img => {
+        const semilla = semillasMap.get(img.id);
+        if (semilla) {
+          const urlDistinta = semilla.url !== img.url;
+          const pesoDistinto = semilla.pesoKb !== img.pesoKb;
+          if (urlDistinta || pesoDistinto) {
+            huboCambios = true;
+            return {
+              ...img,
+              url: semilla.url,
+              pesoKb: semilla.pesoKb,
+              dimensiones: semilla.dimensiones || img.dimensiones,
+              actualizado: semilla.actualizado || img.actualizado
+            };
+          }
+        }
+        return img;
+      });
+
+      if (huboCambios) {
+        savels(STORAGE_KEY, sincronizadas);
+      }
+
       verificarSyncBackground();
-      const normalizadas = guardadas.map(normalizarImagen);
+      const normalizadas = (huboCambios ? sincronizadas : guardadas).map(normalizarImagen);
       const filtradas = incluirEliminadas ? normalizadas : normalizadas.filter(x => x.estado !== 'eliminado');
       return ordenarGaleria(filtradas);
     }
@@ -137,13 +168,48 @@ export async function sincronizarGaleriaConFirestore(forzar = false) {
     const data = snap.data() || {};
     const itemsFirestore = (Array.isArray(data.items) ? data.items : []).map(normalizarImagen);
 
-    // Fusionar: lo que está en Firestore manda; aseguramos semillas faltantes
-    const idsFirestore = new Set(itemsFirestore.map(i => i.id));
-    const semillasAdicionales = IMAGENES_SEMILLA.filter(s => !idsFirestore.has(s.id)).map(normalizarImagen);
-    const consolidado = [...itemsFirestore, ...semillasAdicionales];
+    // 🎯 Sincronización Inteligente:
+    // Las semillas oficiales actualizadas (?v=2, nuevos KB) refrescan automáticamente sus homólogos en Firestore
+    let huboCambios = false;
+    const semillasMap = new Map(IMAGENES_SEMILLA.map(s => [s.id, normalizarImagen(s)]));
+
+    const itemsFusionados = itemsFirestore.map(item => {
+      const semilla = semillasMap.get(item.id);
+      if (semilla) {
+        const urlDistinta = semilla.url !== item.url;
+        const pesoDistinto = semilla.pesoKb !== item.pesoKb;
+        if (urlDistinta || pesoDistinto) {
+          huboCambios = true;
+          return {
+            ...item,
+            url: semilla.url,
+            pesoKb: semilla.pesoKb,
+            dimensiones: semilla.dimensiones,
+            actualizado: semilla.actualizado
+          };
+        }
+      }
+      return item;
+    });
+
+    const idsFirestore = new Set(itemsFusionados.map(i => i.id));
+    const semillasFaltantes = IMAGENES_SEMILLA.filter(s => !idsFirestore.has(s.id)).map(normalizarImagen);
+    if (semillasFaltantes.length > 0) huboCambios = true;
+
+    const consolidado = [...itemsFusionados, ...semillasFaltantes];
 
     savels(STORAGE_KEY, consolidado);
     savels(CACHE_KEY, ahora.toString());
+
+    // Si hubo cambios o se forzó manualmente (clic en botón Sincronizar), guardar de inmediato en Firestore (1 Write atómico)
+    if (forzar || huboCambios) {
+      await setDoc(docRef, {
+        items: consolidado,
+        total: consolidado.filter(x => x.estado !== 'eliminado').length,
+        actualizado: serverTimestamp(),
+        version: Date.now()
+      }, { merge: true });
+    }
 
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('wi:galeria:actualizada', { detail: consolidado }));

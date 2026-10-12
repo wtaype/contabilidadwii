@@ -112,7 +112,11 @@ export function normalizarProducto(p = {}) {
     precioPEN: precio,
     precio: precio,
     enfoque: String(prod.enfoque || ''),
-    imagen: String(prod.imagen || ''),
+    imagen: (() => {
+      let img = String(prod.imagen || '');
+      if (img.startsWith('/imgwii/') && !img.includes('?')) return `${img}?v=2`;
+      return img;
+    })(),
     badgeIcon: String(prod.badgeIcon || 'fa-solid fa-star'),
     tagClase: String(prod.tagClase || 'badge-serenidad'),
     actualizado: prod.actualizado || null,

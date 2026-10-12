@@ -29,18 +29,13 @@ export function obtenerUsuarioActualId() {
 export function normalizarImagen(img = {}) {
   const ahoraIso = new Date().toISOString();
   const fechaHoy = ahoraIso.slice(0, 10);
-  let urlFinal = img.url || '';
-  // Auto-versionar recursos locales estáticos para romper caché inmutable persistente
-  if (urlFinal.startsWith('/imgwii/') && !urlFinal.includes('?')) {
-    urlFinal = `${urlFinal}?v=2`;
-  }
 
   return {
     id: img.id || `img_${Date.now()}`,
     nombre: img.nombre || 'imagen.webp',
     titulo: img.titulo || 'Fotografía Oficial',
     alt: img.alt || (img.titulo ? `Fotografía de ${img.titulo}` : 'Fotografía Oficial'),
-    url: urlFinal,
+    url: img.url || '',
     categoria: img.categoria || 'otros',
     pesoKb: typeof img.pesoKb === 'number' ? img.pesoKb : 38,
     dimensiones: img.dimensiones || 'Optimizado WebP',
@@ -90,7 +85,7 @@ export function obtenerImagenesGaleria(incluirEliminadas = false) {
     // Si contiene formato de fecha viejo con texto ("Feb 2026"), autorreparar con las semillas de octubre
     const tieneFechasViejas = guardadas.some(img => img.fechaSubida && (img.fechaSubida.includes('Ene') || img.fechaSubida.includes('Feb')));
     if (!tieneFechasViejas) {
-      // 🎯 Auto-actualización inteligente de semillas (pesos reales y ?v=2 sin esperar Firestore)
+      // 🎯 Auto-actualización inteligente de semillas (pesos reales y URLs sin esperar Firestore)
       let huboCambios = false;
       const semillasMap = new Map(IMAGENES_SEMILLA.map(s => [s.id, s]));
       const sincronizadas = guardadas.map(img => {
@@ -169,7 +164,7 @@ export async function sincronizarGaleriaConFirestore(forzar = false) {
     const itemsFirestore = (Array.isArray(data.items) ? data.items : []).map(normalizarImagen);
 
     // 🎯 Sincronización Inteligente:
-    // Las semillas oficiales actualizadas (?v=2, nuevos KB) refrescan automáticamente sus homólogos en Firestore
+    // Las semillas oficiales actualizadas (nuevos KB y URLs) refrescan automáticamente sus homólogos en Firestore
     let huboCambios = false;
     const semillasMap = new Map(IMAGENES_SEMILLA.map(s => [s.id, normalizarImagen(s)]));
 

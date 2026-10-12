@@ -427,7 +427,7 @@ const { esActivo = false } = Astro.props;
             <i class="fa-solid fa-sliders"></i> Ajustes de Correo y Emisor
           </h2>
           <span class="ps-badge ps-badge-success">
-            <i class="fa-solid fa-shield-check"></i> contabilidadwii.com
+            <i class="fa-solid fa-shield-check"></i> {datosNegocio.email ? datosNegocio.email.split('@')[1] : 'Dominio Oficial'}
           </span>
         </div>
 
@@ -435,16 +435,16 @@ const { esActivo = false } = Astro.props;
           <div class="cr-form-row">
             <div class="cr-form-group">
               <label class="cr-label" for="crAjusteNombre">Nombre del Remitente</label>
-              <input type="text" id="crAjusteNombre" class="cr-input" value={datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio'} required />
+              <input type="text" id="crAjusteNombre" class="cr-input" value={datosNegocio.nombreCorto || datosNegocio.nombre || ''} required />
             </div>
             <div class="cr-form-group">
               <label class="cr-label" for="crAjusteEmail">Correo Emisor Autenticado</label>
-              <input type="email" id="crAjusteEmail" class="cr-input" value="contacto@contabilidadwii.com" required />
+              <input type="email" id="crAjusteEmail" class="cr-input" value={datosNegocio.email || ''} required />
             </div>
           </div>
           <div class="cr-form-group">
             <label class="cr-label" for="crAjusteReplyTo">Responder A (Reply-To)</label>
-            <input type="email" id="crAjusteReplyTo" class="cr-input" value="contacto@contabilidadwii.com" />
+            <input type="email" id="crAjusteReplyTo" class="cr-input" value={datosNegocio.email || ''} />
           </div>
 
           <div style="margin-top: 16px;">

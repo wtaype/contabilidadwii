@@ -139,12 +139,12 @@ export function inicializarModuloCorreo() {
   // ════════════════════════════════════════════════════════════
   function cargarAjustes() {
     const aj = obtenerAjustesCorreo();
-    const nomDef = datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
-    const emDef = datosNegocio.contacto?.email || 'contacto@contabilidadwii.com';
+    const nomDef = datosNegocio.nombreCorto || datosNegocio.nombre || '';
+    const emDef = datosNegocio.email || datosNegocio.contacto?.email || '';
     if (inputAjusteNombre) inputAjusteNombre.value = aj.remitenteNombre || nomDef;
     if (inputAjusteEmail) inputAjusteEmail.value = aj.remitenteEmail || emDef;
     if (inputAjusteReplyTo) inputAjusteReplyTo.value = aj.responderA || aj.remitenteEmail || emDef;
-    if (badgeRemitente) badgeRemitente.textContent = aj.remitenteEmail || emDef;
+    if (badgeRemitente) badgeRemitente.textContent = aj.remitenteEmail || emDef || 'Sin configurar';
   }
 
   function actualizarBadges() {
@@ -412,7 +412,7 @@ export function inicializarModuloCorreo() {
           <div class="cr-empty-box">
             <i class="fa-solid fa-gear cr-empty-icon"></i>
             <p style="margin:0; font-size:13px; font-weight:600;">Configuración de Correo</p>
-            <span style="font-size:11.5px;">Parámetros de salida de contacto@contabilidadwii.com</span>
+            <span style="font-size:11.5px;">Parámetros de salida de ${inputAjusteEmail?.value || datosNegocio.email || 'servidor'}</span>
           </div>
         `;
       }
@@ -649,7 +649,7 @@ export function inicializarModuloCorreo() {
   btnSaveDraft?.addEventListener('click', () => {
     const draft = {
       destinatario: { para: inputTo?.value || '', nombre: inputNombre?.value || '' },
-      remitente: { desde: inputAjusteEmail?.value || 'contacto@contabilidadwii.com' },
+      remitente: { desde: inputAjusteEmail?.value || datosNegocio.email || '' },
       mensaje: {
         asunto: inputSubject?.value || 'Borrador sin asunto',
         tipo: plantillaSeleccionada,
@@ -724,8 +724,8 @@ export function inicializarModuloCorreo() {
   // Guardar Ajustes de Emisor
   formAjustes?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const nom = inputAjusteNombre?.value?.trim() || datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
-    const email = inputAjusteEmail?.value?.trim() || datosNegocio.contacto?.email || 'contacto@contabilidadwii.com';
+    const nom = inputAjusteNombre?.value?.trim() || datosNegocio.nombreCorto || datosNegocio.nombre || '';
+    const email = inputAjusteEmail?.value?.trim() || datosNegocio.email || '';
     const rep = inputAjusteReplyTo?.value?.trim() || email;
 
     guardarAjustesCorreo({

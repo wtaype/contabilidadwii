@@ -2,7 +2,7 @@
 // Controlador de cliente unificado para Feature Personal (Estudio Cusihuaman)
 // 100% JS Nativo · Integrado con @widev y @/feature/auth/sesion.js
 
-import { Notificacion, wiConfirmar, wiTema, wiAtajo, getls, savels } from '@widev';
+import { Notificacion, wiConfirmar, wiTema, getls, savels } from '@widev';
 import { salir } from '@/feature/auth/sesion.js';
 import { moduloDefecto, esModuloValido } from './modulos.js';
 import { inicializarProgresoDeploy } from './lib/progreso.js';
@@ -211,10 +211,12 @@ export function inicializarPersonal() {
     Notificacion('No hay cambios pendientes por guardar en este módulo.', 'info', 2000);
   }
 
-  // Registrar el atajo universal para todo el panel
-  wiAtajo('ctrl+s, cmd+s', (e) => {
-    e.preventDefault();
-    ejecutarGuardadoUniversal();
+  // Registrar el atajo universal para todo el panel (Ctrl+S / Cmd+S)
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+      e.preventDefault();
+      ejecutarGuardadoUniversal();
+    }
   });
 }
 

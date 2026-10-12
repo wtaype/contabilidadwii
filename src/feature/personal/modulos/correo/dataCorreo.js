@@ -85,8 +85,8 @@ export function limpiarEmail(str = '') {
  * "Nombre Remitente <email@dominio.com>"
  */
 export function formatearRemitente(nombre = '', email = '') {
-  const emailPuro = limpiarEmail(email) || datosNegocio.contacto?.email || 'contacto@contabilidadwii.com';
-  const nombreFallback = datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
+  const emailPuro = limpiarEmail(email) || datosNegocio.email || '';
+  const nombreFallback = datosNegocio.nombreCorto || datosNegocio.nombre || '';
   const nombrePuro = (nombre || nombreFallback).replace(/[<>]/g, '').trim();
 
   return `${nombrePuro} <${emailPuro}>`;
@@ -162,7 +162,7 @@ export async function enviarCorreo({
 
   const responderAFinal = responderA 
     ? limpiarEmail(responderA) 
-    : (limpiarEmail(ajustes.responderA) || 'contacto@contabilidadwii.com');
+    : (limpiarEmail(ajustes.responderA) || datosNegocio.email || '');
 
   // Limpiar y asegurar formato de los destinatarios
   const rawDestinatarios = Array.isArray(para)
@@ -206,7 +206,10 @@ export async function enviarCorreo({
 
   let respuestaResend = null;
   try {
-    const endpoint = ajustes.workerUrl || import.meta.env.PUBLIC_CORREO_WORKER_ENDPOINT || 'https://correo.contabilidadwii.workers.dev/enviar';
+    const endpoint = ajustes.workerUrl || import.meta.env.PUBLIC_CORREO_WORKER || '';
+    if (!endpoint) {
+      throw new Error('Falta configurar la variable PUBLIC_CORREO_WORKER en las variables de entorno (.env).');
+    }
 
     const res = await fetch(endpoint, {
       method: 'POST',

@@ -876,7 +876,7 @@ export function inicializarNegocio() {
     // Reordenar filas visuales según redesOrden
     const ordenGuardado = Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
       ? cfg.redesOrden
-      : ['linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'whatsapp', 'twitter'];
+      : ['whatsapp', 'linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
     reordenarFilasRedes(ordenGuardado);
 
     // Actualizar badges y selector de agregar red
@@ -1062,7 +1062,7 @@ export function inicializarNegocio() {
         const contenedorRedes = document.getElementById('ngListaRedesOrdenables');
         return contenedorRedes
           ? Array.from(contenedorRedes.querySelectorAll('.ng-red-row:not(.ng-red-hidden)')).map(r => r.dataset.redId).filter(Boolean)
-          : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
+          : ['whatsapp', 'linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
       })(),
 
       seo: {

@@ -187,7 +187,7 @@ export function normalizarConfig(c = {}) {
     })(),
     redesOrden: Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
       ? cfg.redesOrden
-      : (Array.isArray(base.redesOrden) && base.redesOrden.length > 0 ? base.redesOrden : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter']),
+      : (Array.isArray(base.redesOrden) && base.redesOrden.length > 0 ? base.redesOrden : ['whatsapp', 'linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter']),
     seo: {
       titulo: {
         es: cfg.seo?.titulo?.es || base.seo?.titulo?.es || '',

@@ -40,6 +40,16 @@ const wbUrl = normalizarUrlRed(redes.web || redes.webOficial || webUrl, 'web');
 // Lista de canales oficiales con metadatos de alta conversión
 const canales = [
   {
+    id: 'whatsapp',
+    icono: 'fa-brands fa-whatsapp',
+    titulo: 'WhatsApp',
+    subtitulo: 'Atención directa y consultas',
+    badge: 'Directo',
+    href: canalWhatsappHref,
+    dataNegocioWs: !redes.canalWhatsapp && Boolean(wsNumero),
+    mostrar: Boolean(canalWhatsappHref)
+  },
+  {
     id: 'linkedin',
     icono: 'fa-brands fa-linkedin-in',
     titulo: 'LinkedIn',
@@ -59,14 +69,13 @@ const canales = [
     mostrar: Boolean(wbUrl && wbUrl !== '/')
   },
   {
-    id: 'whatsapp',
-    icono: 'fa-brands fa-whatsapp',
-    titulo: 'WhatsApp',
-    subtitulo: 'Atención directa y consultas',
-    badge: 'Directo',
-    href: canalWhatsappHref,
-    dataNegocioWs: !redes.canalWhatsapp && Boolean(wsNumero),
-    mostrar: Boolean(canalWhatsappHref)
+    id: 'facebook',
+    icono: 'fa-brands fa-facebook-f',
+    titulo: 'Facebook',
+    subtitulo: 'Página oficial y comunidad',
+    badge: 'Página',
+    href: fbUrl,
+    mostrar: Boolean(fbUrl)
   },
   {
     id: 'instagram',
@@ -76,15 +85,6 @@ const canales = [
     badge: 'Social',
     href: igUrl,
     mostrar: Boolean(igUrl)
-  },
-  {
-    id: 'facebook',
-    icono: 'fa-brands fa-facebook-f',
-    titulo: 'Facebook',
-    subtitulo: 'Página oficial y comunidad',
-    badge: 'Página',
-    href: fbUrl,
-    mostrar: Boolean(fbUrl)
   },
   {
     id: 'tiktok',
@@ -115,10 +115,12 @@ const canales = [
   }
 ];
 
-// Orden dinámico configurable desde Firestore / semillas con fallback inteligente
-const ordenPrioridad = (Array.isArray(datosNegocio.redesOrden) && datosNegocio.redesOrden.length > 0)
-  ? datosNegocio.redesOrden
-  : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
+// WhatsApp siempre es la prioridad #1 absoluta de contacto directo en la parte superior
+const ordenBase = (Array.isArray(datosNegocio.redesOrden) && datosNegocio.redesOrden.length > 0)
+  ? datosNegocio.redesOrden.filter(id => id !== 'whatsapp')
+  : ['linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
+
+const ordenPrioridad = ['whatsapp', ...ordenBase];
 
 const canalesOrdenados = [...canales].sort((a, b) => {
   const idxA = ordenPrioridad.indexOf(a.id);

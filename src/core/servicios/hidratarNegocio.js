@@ -156,25 +156,29 @@ export function hidratarNegocioEnDOM(datos) {
       });
     });
 
-    // Reordenar botones de redes en el DOM según la prioridad configurada en tiempo real
-    if (Array.isArray(datos.redesOrden) && datos.redesOrden.length > 0) {
-      document.querySelectorAll('.redes-lista').forEach(contenedor => {
-        const enlaces = Array.from(contenedor.querySelectorAll('a[data-red-id]'));
-        const mapa = new Map();
-        enlaces.forEach(el => {
-          const redId = el.getAttribute('data-red-id');
-          if (redId) mapa.set(redId, el);
-        });
-        datos.redesOrden.forEach(id => {
-          const el = mapa.get(id);
-          if (el) {
-            contenedor.appendChild(el);
-            mapa.delete(id);
-          }
-        });
-        mapa.forEach(el => contenedor.appendChild(el));
+    // Reordenar botones de redes en el DOM: WhatsApp siempre primero que todo (#1), luego el orden del usuario
+    const ordenBase = (Array.isArray(datos.redesOrden) && datos.redesOrden.length > 0)
+      ? datos.redesOrden.filter(id => id !== 'whatsapp')
+      : ['linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
+
+    const ordenFinal = ['whatsapp', ...ordenBase];
+
+    document.querySelectorAll('.redes-lista').forEach(contenedor => {
+      const enlaces = Array.from(contenedor.querySelectorAll('a[data-red-id]'));
+      const mapa = new Map();
+      enlaces.forEach(el => {
+        const redId = el.getAttribute('data-red-id');
+        if (redId) mapa.set(redId, el);
       });
-    }
+      ordenFinal.forEach(id => {
+        const el = mapa.get(id);
+        if (el) {
+          contenedor.appendChild(el);
+          mapa.delete(id);
+        }
+      });
+      mapa.forEach(el => contenedor.appendChild(el));
+    });
 
     // Hidratar Hero Redes (Handle, Bio y Avatar)
     const handle = redes.instagramUser 

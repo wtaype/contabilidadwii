@@ -22,7 +22,8 @@ const handleUsuario = redes.instagramUser
           : (datosNegocio.nombreCorto ? `@${datosNegocio.nombreCorto.toLowerCase().replace(/\s+/g, '')}` : '')));
 
 const bioTexto = datosNegocio.subtitulo || datosNegocio.bio || '';
-const avatarImg = datosNegocio.hero?.imagen || datosNegocio.logo || '/imgwii/hero.webp';
+// La foto que sale en redes tiene que ser la misma de foto de especialista que guardamos en Mi Negocio
+const avatarImg = datosNegocio.fotoEspecialista || datosNegocio.identidad?.imagenSede || datosNegocio.hero?.imagen || '/imgwii/hero.webp';
 ---
 
 <Popular titulo={titulo} descripcion={descripcion}>

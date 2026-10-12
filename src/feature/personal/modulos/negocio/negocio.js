@@ -1023,32 +1023,38 @@ export function inicializarNegocio() {
       },
 
       redes: (() => {
-        const ytVal = inputRedYoutube?.value?.trim() || '';
-        const fbVal = inputRedFacebook?.value?.trim() || '';
-        const igVal = inputRedInstagram?.value?.trim() || '';
-        const tkVal = inputRedTiktok?.value?.trim() || '';
-        const wsVal = inputRedCanalWhatsapp?.value?.trim() || '';
-        const wbVal = inputRedWeb?.value?.trim() || '';
-        const inVal = inputRedLinkedin?.value?.trim() || '';
-        const twVal = inputRedTwitter?.value?.trim() || '';
+        const getVal = (redId, input) => {
+          const row = document.querySelector(`.ng-red-row[data-red-id="${redId}"]`);
+          if (row && row.classList.contains('ng-red-hidden')) return '';
+          return input?.value?.trim() || '';
+        };
+
+        const ytVal = getVal('youtube', inputRedYoutube);
+        const fbVal = getVal('facebook', inputRedFacebook);
+        const igVal = getVal('instagram', inputRedInstagram);
+        const tkVal = getVal('tiktok', inputRedTiktok);
+        const wsVal = getVal('whatsapp', inputRedCanalWhatsapp);
+        const wbVal = getVal('web', inputRedWeb);
+        const inVal = getVal('linkedin', inputRedLinkedin);
+        const twVal = getVal('twitter', inputRedTwitter);
 
         return {
-          youtube: armarUrlRed(ytVal, 'youtube'),
-          youtubeUser: limpiarHandleRed(ytVal, 'youtube'),
-          facebook: armarUrlRed(fbVal, 'facebook'),
-          facebookUser: limpiarHandleRed(fbVal, 'facebook'),
-          instagram: armarUrlRed(igVal, 'instagram'),
-          instagramUser: limpiarHandleRed(igVal, 'instagram'),
-          tiktok: armarUrlRed(tkVal, 'tiktok'),
-          tiktokUser: limpiarHandleRed(tkVal, 'tiktok'),
-          canalWhatsapp: armarUrlRed(wsVal, 'whatsapp'),
-          canalWhatsappUser: limpiarHandleRed(wsVal, 'whatsapp'),
-          web: armarUrlRed(wbVal, 'web'),
-          webUser: limpiarHandleRed(wbVal, 'web'),
-          linkedin: armarUrlRed(inVal, 'linkedin'),
-          linkedinUser: limpiarHandleRed(inVal, 'linkedin'),
-          twitter: armarUrlRed(twVal, 'twitter'),
-          twitterUser: limpiarHandleRed(twVal, 'twitter')
+          youtube: ytVal ? armarUrlRed(ytVal, 'youtube') : '',
+          youtubeUser: ytVal ? limpiarHandleRed(ytVal, 'youtube') : '',
+          facebook: fbVal ? armarUrlRed(fbVal, 'facebook') : '',
+          facebookUser: fbVal ? limpiarHandleRed(fbVal, 'facebook') : '',
+          instagram: igVal ? armarUrlRed(igVal, 'instagram') : '',
+          instagramUser: igVal ? limpiarHandleRed(igVal, 'instagram') : '',
+          tiktok: tkVal ? armarUrlRed(tkVal, 'tiktok') : '',
+          tiktokUser: tkVal ? limpiarHandleRed(tkVal, 'tiktok') : '',
+          canalWhatsapp: wsVal ? armarUrlRed(wsVal, 'whatsapp') : '',
+          canalWhatsappUser: wsVal ? limpiarHandleRed(wsVal, 'whatsapp') : '',
+          web: wbVal ? armarUrlRed(wbVal, 'web') : '',
+          webUser: wbVal ? limpiarHandleRed(wbVal, 'web') : '',
+          linkedin: inVal ? armarUrlRed(inVal, 'linkedin') : '',
+          linkedinUser: inVal ? limpiarHandleRed(inVal, 'linkedin') : '',
+          twitter: twVal ? armarUrlRed(twVal, 'twitter') : '',
+          twitterUser: twVal ? limpiarHandleRed(twVal, 'twitter') : ''
         };
       })(),
 
@@ -1056,7 +1062,7 @@ export function inicializarNegocio() {
         const contenedorRedes = document.getElementById('ngListaRedesOrdenables');
         return contenedorRedes
           ? Array.from(contenedorRedes.querySelectorAll('.ng-red-row:not(.ng-red-hidden)')).map(r => r.dataset.redId).filter(Boolean)
-          : ['linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'whatsapp', 'twitter'];
+          : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
       })(),
 
       seo: {

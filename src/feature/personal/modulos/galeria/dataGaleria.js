@@ -246,7 +246,7 @@ async function persistirGaleriaCompleta(lista) {
 /**
  * Sube el archivo físico a Cloudflare R2 y actualiza el array consolidado en Firestore (1 Write atómico)
  */
-export async function procesarSubidaImagen(file, categoria = 'otros', titulo = '', alt = '') {
+export async function procesarSubidaImagen(file, categoria = 'otros', titulo = '', alt = '', pin = false) {
   let urlPublica = '';
   let nombreArchivo = file.name || `media_${Date.now()}.webp`;
 
@@ -273,7 +273,7 @@ export async function procesarSubidaImagen(file, categoria = 'otros', titulo = '
     categoria: categoria || 'otros',
     pesoKb: Math.round(file.size / 1024) || 38,
     dimensiones: 'Optimizado WebP',
-    pin: false,
+    pin: Boolean(pin),
     estado: 'activo',
     userId: obtenerUsuarioActualId(),
     fechaSubida: fechaHoy,

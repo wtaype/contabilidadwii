@@ -26,16 +26,27 @@ export function inicializarModuloGaleria() {
   const btnSubirTrigger = document.getElementById('btnGlSubirTrigger');
   const btnSync = document.getElementById('btnGlSync');
 
-  // ── Modal de Subida ──
+  // ── Modal de Subida Split 90vw x 90vh ──
   const modalSubida = document.getElementById('glModalSubida');
   const btnModalClose = document.getElementById('btnGlModalClose');
+  const btnCancelSubida = document.getElementById('btnGlCancelSubida');
   const dropzone = document.getElementById('glDropzone');
+  const btnBrowseFile = document.getElementById('btnGlBrowseFile');
   const fileInput = document.getElementById('glFileInput');
+  const uploadEmptyState = document.getElementById('glUploadEmptyState');
+  const uploadPreviewState = document.getElementById('glUploadPreviewState');
+  const uploadPreviewImg = document.getElementById('glUploadPreviewImg');
+  const btnChangeFile = document.getElementById('btnGlChangeFile');
+  const uploadPeso = document.getElementById('glUploadPeso');
+  const uploadDimensiones = document.getElementById('glUploadDimensiones');
+  const uploadStorageBadge = document.getElementById('glUploadStorageBadge');
   const selectCategoria = document.getElementById('glSelectCategoria');
   const inTitulo = document.getElementById('glInpTitulo');
   const inAlt = document.getElementById('glInpAlt');
+  const inPinSubida = document.getElementById('glInpPinSubida');
   const formSubida = document.getElementById('formGlSubida');
   const btnSubmitSubida = document.getElementById('btnGlSubmitSubida');
+  let previewObjectURL = null;
 
   // ── Modal de Edición Split 90vw x 90vh ──
   const modalEditar = document.getElementById('glModalEditar');
@@ -329,17 +340,87 @@ export function inicializarModuloGaleria() {
   });
 
   // ════════════════════════════════════════════════════════════
-  // 5. SUBIDA DE ARCHIVOS CON DROPZONE
   // ════════════════════════════════════════════════════════════
+  // 5. SUBIDA DE ARCHIVOS CON PREVIEW SPLIT (90vw x 90vh)
+  // ════════════════════════════════════════════════════════════
+  function limpiarModalSubida() {
+    formSubida?.reset();
+    if (previewObjectURL) {
+      URL.revokeObjectURL(previewObjectURL);
+      previewObjectURL = null;
+    }
+    if (uploadPreviewImg) uploadPreviewImg.src = '';
+    if (uploadPeso) uploadPeso.textContent = '-- KB · Original';
+    if (uploadDimensiones) uploadDimensiones.textContent = '-- x -- px';
+    if (uploadEmptyState) uploadEmptyState.style.display = 'flex';
+    if (uploadPreviewState) uploadPreviewState.style.display = 'none';
+    modalSubida?.classList.remove('open');
+  }
+
+  function mostrarPrevisualizacionSubida(file) {
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      Notificacion('El archivo seleccionado debe ser una imagen (WebP, PNG, JPG, JPEG).', 'warning', 3000);
+      return;
+    }
+
+    if (previewObjectURL) {
+      URL.revokeObjectURL(previewObjectURL);
+    }
+
+    previewObjectURL = URL.createObjectURL(file);
+    if (uploadPreviewImg) uploadPreviewImg.src = previewObjectURL;
+
+    // Calcular peso y formato
+    const kb = Math.round(file.size / 1024);
+    const formato = (file.type ? file.type.replace('image/', '') : 'IMG').toUpperCase();
+    if (uploadPeso) uploadPeso.textContent = `${kb} KB · ${formato}`;
+
+    // Obtener dimensiones naturales reales
+    const tempImg = new Image();
+    tempImg.onload = () => {
+      if (uploadDimensiones) {
+        uploadDimensiones.textContent = `${tempImg.naturalWidth}x${tempImg.naturalHeight} px`;
+      }
+    };
+    tempImg.src = previewObjectURL;
+
+    // Sugerir Título y ALT si están vacíos
+    if (inTitulo && (!inTitulo.value || inTitulo.value.trim() === '')) {
+      const nombreLimpio = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+      inTitulo.value = nombreLimpio.charAt(0).toUpperCase() + nombreLimpio.slice(1);
+    }
+    if (inAlt && (!inAlt.value || inAlt.value.trim() === '') && inTitulo?.value) {
+      inAlt.value = `Fotografía oficial de ${inTitulo.value}`;
+    }
+
+    // Alternar visibilidad de las columnas
+    if (uploadEmptyState) uploadEmptyState.style.display = 'none';
+    if (uploadPreviewState) uploadPreviewState.style.display = 'flex';
+
+    Notificacion(`Imagen "${file.name}" cargada para revisión.`, 'info', 2000);
+  }
+
   btnSubirTrigger?.addEventListener('click', () => {
+    sincronizarControlesCategorias();
     modalSubida?.classList.add('open');
   });
 
-  btnModalClose?.addEventListener('click', () => {
-    modalSubida?.classList.remove('open');
+  btnModalClose?.addEventListener('click', limpiarModalSubida);
+  btnCancelSubida?.addEventListener('click', limpiarModalSubida);
+
+  modalSubida?.addEventListener('click', (e) => {
+    if (e.target === modalSubida) limpiarModalSubida();
   });
 
+  // Acciones para seleccionar o cambiar archivo
   dropzone?.addEventListener('click', () => fileInput?.click());
+  btnBrowseFile?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fileInput?.click();
+  });
+  btnChangeFile?.addEventListener('click', () => fileInput?.click());
 
   dropzone?.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -355,23 +436,20 @@ export function inicializarModuloGaleria() {
     dropzone.classList.remove('dragover');
     if (e.dataTransfer?.files?.length > 0) {
       if (fileInput) fileInput.files = e.dataTransfer.files;
-      const file = e.dataTransfer.files[0];
-      if (inTitulo && !inTitulo.value) inTitulo.value = file.name.replace(/\.[^/.]+$/, '');
-      Notificacion(`Archivo ${file.name} seleccionado.`, 'info', 2000);
+      mostrarPrevisualizacionSubida(e.dataTransfer.files[0]);
     }
   });
 
   fileInput?.addEventListener('change', () => {
     if (fileInput.files?.length > 0) {
-      const file = fileInput.files[0];
-      if (inTitulo && !inTitulo.value) inTitulo.value = file.name.replace(/\.[^/.]+$/, '');
+      mostrarPrevisualizacionSubida(fileInput.files[0]);
     }
   });
 
   formSubida?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!fileInput?.files || fileInput.files.length === 0) {
-      Notificacion('Selecciona al menos una imagen para subir.', 'warning', 2500);
+      Notificacion('Selecciona o arrastra una imagen antes de subir.', 'warning', 2500);
       return;
     }
 
@@ -379,15 +457,15 @@ export function inicializarModuloGaleria() {
     const cat = selectCategoria?.value || 'otros';
     const titulo = inTitulo?.value?.trim() || file.name;
     const alt = inAlt?.value?.trim() || titulo;
+    const pin = Boolean(inPinSubida?.checked);
 
     const spin = wiSpin ? wiSpin(btnSubmitSubida) : null;
     if (btnSubmitSubida) btnSubmitSubida.disabled = true;
 
     try {
-      await procesarSubidaImagen(file, cat, titulo, alt);
+      await procesarSubidaImagen(file, cat, titulo, alt, pin);
       Notificacion('¡Fotografía añadida a la galería con éxito!', 'success', 3000);
-      formSubida.reset();
-      modalSubida?.classList.remove('open');
+      limpiarModalSubida();
       sincronizarControlesCategorias();
       renderizarGrid();
     } catch (err) {

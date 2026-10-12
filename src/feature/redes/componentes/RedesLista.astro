@@ -34,45 +34,17 @@ const fbUrl = normalizarUrlRed(redes.facebook || redes.facebookUser, 'facebook')
 const igUrl = normalizarUrlRed(redes.instagram || redes.instagramUser, 'instagram');
 const ttUrl = normalizarUrlRed(redes.tiktok || redes.tiktokUser, 'tiktok');
 const liUrl = normalizarUrlRed(redes.linkedin || redes.linkedinUser, 'linkedin');
+const twUrl = normalizarUrlRed(redes.twitter || redes.twitterUser, 'twitter');
 const wbUrl = normalizarUrlRed(redes.web || redes.webOficial || webUrl, 'web');
 
 // Lista de canales oficiales: 100% dinámica desde Firestore / semillas (cero fallbacks estáticos)
 const canales = [
   {
-    id: 'youtube',
-    icono: 'fa-brands fa-youtube',
-    titulo: 'YouTube',
-    href: ytUrl,
-    mostrar: Boolean(ytUrl)
-  },
-  {
-    id: 'facebook',
-    icono: 'fa-brands fa-facebook-f',
-    titulo: 'Facebook',
-    href: fbUrl,
-    mostrar: Boolean(fbUrl)
-  },
-  {
-    id: 'instagram',
-    icono: 'fa-brands fa-instagram',
-    titulo: 'Instagram',
-    href: igUrl,
-    mostrar: Boolean(igUrl)
-  },
-  {
-    id: 'tiktok',
-    icono: 'fa-brands fa-tiktok',
-    titulo: 'TikTok',
-    href: ttUrl,
-    mostrar: Boolean(ttUrl)
-  },
-  {
-    id: 'whatsapp',
-    icono: 'fa-brands fa-whatsapp',
-    titulo: 'Canal de WhatsApp',
-    href: canalWhatsappHref,
-    dataNegocioWs: !redes.canalWhatsapp && Boolean(wsNumero),
-    mostrar: Boolean(canalWhatsappHref)
+    id: 'linkedin',
+    icono: 'fa-brands fa-linkedin-in',
+    titulo: 'LinkedIn',
+    href: liUrl,
+    mostrar: Boolean(liUrl)
   },
   {
     id: 'web',
@@ -83,18 +55,54 @@ const canales = [
     mostrar: Boolean(wbUrl && wbUrl !== '/')
   },
   {
-    id: 'linkedin',
-    icono: 'fa-brands fa-linkedin-in',
-    titulo: 'LinkedIn',
-    href: liUrl,
-    mostrar: Boolean(liUrl)
+    id: 'whatsapp',
+    icono: 'fa-brands fa-whatsapp',
+    titulo: 'Canal de WhatsApp',
+    href: canalWhatsappHref,
+    dataNegocioWs: !redes.canalWhatsapp && Boolean(wsNumero),
+    mostrar: Boolean(canalWhatsappHref)
+  },
+  {
+    id: 'instagram',
+    icono: 'fa-brands fa-instagram',
+    titulo: 'Instagram',
+    href: igUrl,
+    mostrar: Boolean(igUrl)
+  },
+  {
+    id: 'facebook',
+    icono: 'fa-brands fa-facebook-f',
+    titulo: 'Facebook',
+    href: fbUrl,
+    mostrar: Boolean(fbUrl)
+  },
+  {
+    id: 'tiktok',
+    icono: 'fa-brands fa-tiktok',
+    titulo: 'TikTok',
+    href: ttUrl,
+    mostrar: Boolean(ttUrl)
+  },
+  {
+    id: 'youtube',
+    icono: 'fa-brands fa-youtube',
+    titulo: 'YouTube',
+    href: ytUrl,
+    mostrar: Boolean(ytUrl)
+  },
+  {
+    id: 'twitter',
+    icono: 'fa-brands fa-x-twitter',
+    titulo: 'X (Twitter)',
+    href: twUrl,
+    mostrar: Boolean(twUrl)
   }
 ];
 
 // Orden dinámico configurable desde Firestore / semillas con fallback inteligente
 const ordenPrioridad = (Array.isArray(datosNegocio.redesOrden) && datosNegocio.redesOrden.length > 0)
   ? datosNegocio.redesOrden
-  : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube'];
+  : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
 
 const canalesOrdenados = [...canales].sort((a, b) => {
   const idxA = ordenPrioridad.indexOf(a.id);
@@ -104,14 +112,15 @@ const canalesOrdenados = [...canales].sort((a, b) => {
 ---
 
 <div class="redes-lista" role="navigation" aria-label="Enlaces oficiales">
-  {canalesOrdenados.filter(c => c.mostrar).map((canal) => (
+  {canalesOrdenados.map((canal) => (
     <RedesCard
-      href={canal.href}
+      href={canal.href || '#'}
       redId={canal.id}
       icono={canal.icono}
       titulo={canal.titulo}
       target={canal.target || '_blank'}
       dataNegocioWs={canal.dataNegocioWs}
+      style={canal.mostrar ? undefined : "display: none;"}
     />
   ))}
 </div>

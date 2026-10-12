@@ -137,22 +137,57 @@ export function normalizarConfig(c = {}) {
       satisfaccion: cfg.metricas?.satisfaccion || base.metricas?.satisfaccion || '99.4%',
       years: cfg.metricas?.years || base.metricas?.years || '12+'
     },
-    redes: {
-      youtube: cfg.redes?.youtube || base.redes?.youtube || '',
-      youtubeUser: cfg.redes?.youtubeUser || base.redes?.youtubeUser || '',
-      facebook: cfg.redes?.facebook || base.redes?.facebook || '',
-      facebookUser: cfg.redes?.facebookUser || base.redes?.facebookUser || '',
-      instagram: cfg.redes?.instagram || base.redes?.instagram || '',
-      instagramUser: cfg.redes?.instagramUser || base.redes?.instagramUser || '',
-      tiktok: cfg.redes?.tiktok || base.redes?.tiktok || '',
-      tiktokUser: cfg.redes?.tiktokUser || base.redes?.tiktokUser || '',
-      canalWhatsapp: cfg.redes?.canalWhatsapp || cfg.redes?.whatsapp || base.redes?.canalWhatsapp || '',
-      web: cfg.redes?.web || cfg.redes?.webOficial || base.redes?.web || '',
-      linkedin: cfg.redes?.linkedin || base.redes?.linkedin || '',
-      linkedinUser: cfg.redes?.linkedinUser || base.redes?.linkedinUser || '',
-      twitter: cfg.redes?.twitter || base.redes?.twitter || '',
-      twitterUser: cfg.redes?.twitterUser || base.redes?.twitterUser || ''
-    },
+    redes: (() => {
+      const bRedes = base.redes || {};
+      const cRedes = cfg.redes;
+
+      // Si no existe configuración de redes (inicio virgen), usar valores de semilla
+      if (!cRedes || typeof cRedes !== 'object') {
+        return {
+          youtube: bRedes.youtube || '',
+          youtubeUser: bRedes.youtubeUser || '',
+          facebook: bRedes.facebook || '',
+          facebookUser: bRedes.facebookUser || '',
+          instagram: bRedes.instagram || '',
+          instagramUser: bRedes.instagramUser || '',
+          tiktok: bRedes.tiktok || '',
+          tiktokUser: bRedes.tiktokUser || '',
+          canalWhatsapp: bRedes.canalWhatsapp || bRedes.whatsapp || '',
+          web: bRedes.web || bRedes.webOficial || '',
+          linkedin: bRedes.linkedin || '',
+          linkedinUser: bRedes.linkedinUser || '',
+          twitter: bRedes.twitter || '',
+          twitterUser: bRedes.twitterUser || ''
+        };
+      }
+
+      // Si cRedes existe, se respeta estrictamente lo que guardó el usuario (incluso vacío "")
+      const valorRed = (k, alt) => {
+        if (cRedes[k] !== undefined && cRedes[k] !== null) return cRedes[k];
+        if (alt && cRedes[alt] !== undefined && cRedes[alt] !== null) return cRedes[alt];
+        return '';
+      };
+
+      return {
+        youtube: valorRed('youtube'),
+        youtubeUser: valorRed('youtubeUser'),
+        facebook: valorRed('facebook'),
+        facebookUser: valorRed('facebookUser'),
+        instagram: valorRed('instagram'),
+        instagramUser: valorRed('instagramUser'),
+        tiktok: valorRed('tiktok'),
+        tiktokUser: valorRed('tiktokUser'),
+        canalWhatsapp: valorRed('canalWhatsapp', 'whatsapp'),
+        web: valorRed('web', 'webOficial'),
+        linkedin: valorRed('linkedin'),
+        linkedinUser: valorRed('linkedinUser'),
+        twitter: valorRed('twitter'),
+        twitterUser: valorRed('twitterUser')
+      };
+    })(),
+    redesOrden: Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
+      ? cfg.redesOrden
+      : (Array.isArray(base.redesOrden) && base.redesOrden.length > 0 ? base.redesOrden : ['linkedin', 'web', 'whatsapp', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter']),
     seo: {
       titulo: {
         es: cfg.seo?.titulo?.es || base.seo?.titulo?.es || '',
@@ -267,6 +302,7 @@ export function guardarDatosNegocioLocal(config) {
     const normalizado = normalizarConfig(config);
     _memoriaNegocio = normalizado;
     savels(STORAGE_KEY, normalizado);
+    savels(OLD_STORAGE_KEY, normalizado);
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('contabilidad:negocio-actualizado', { detail: normalizado }));
     }
@@ -323,6 +359,7 @@ export function guardarDatosNegocio(input = {}) {
       ...actual.redes,
       ...(input.redes || {})
     },
+    redesOrden: Array.isArray(input.redesOrden) ? input.redesOrden : (actual.redesOrden || []),
     seo: {
       ...actual.seo,
       ...(input.seo || {})
@@ -383,6 +420,7 @@ async function sincronizarNegocioFirestore(config, fechaStr) {
       sedes: config.sedes || [],
       metricas: metricasLimpias,
       redes: config.redes || {},
+      redesOrden: Array.isArray(config.redesOrden) ? config.redesOrden : [],
       seo: config.seo || {},
       userId: config.userId || '',
       actualizado: serverTimestamp()

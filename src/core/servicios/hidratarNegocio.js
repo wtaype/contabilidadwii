@@ -128,6 +128,7 @@ export function hidratarNegocioEnDOM(datos) {
         case 'instagram': return `https://instagram.com/${h}`;
         case 'tiktok': return `https://tiktok.com/@${h}`;
         case 'linkedin': return `https://linkedin.com/in/${h}`;
+        case 'twitter': return `https://x.com/${h}`;
         case 'web': return `https://${h}`;
         default: return v;
       }
@@ -139,6 +140,7 @@ export function hidratarNegocioEnDOM(datos) {
       { id: 'tiktok', val: normalizarUrl(redes.tiktok || redes.tiktokUser, 'tiktok') },
       { id: 'youtube', val: normalizarUrl(redes.youtube || redes.youtubeUser, 'youtube') },
       { id: 'linkedin', val: normalizarUrl(redes.linkedin || redes.linkedinUser, 'linkedin') },
+      { id: 'twitter', val: normalizarUrl(redes.twitter || redes.twitterUser, 'twitter') },
       { id: 'web', val: normalizarUrl(redes.web || redes.webOficial, 'web') },
       { id: 'whatsapp', val: redes.canalWhatsapp || (wsLimpio ? `https://wa.me/${wsLimpio}` : '') }
     ];
@@ -202,7 +204,8 @@ export function hidratarNegocioEnDOM(datos) {
       }
     });
 
-    const avatar = datos.hero?.imagen || identidad.logo || datos.logo || '';
+    // Avatar de Redes: Prioridad 1: Foto Especialista guardada en Negocio (identidad.imagenSede)
+    const avatar = identidad.imagenSede || datos.fotoEspecialista || datos.hero?.imagen || identidad.logo || '';
     if (avatar) {
       document.querySelectorAll('[data-negocio-avatar]').forEach(img => {
         img.setAttribute('src', avatar);
@@ -224,10 +227,10 @@ export function iniciarSincronizacionNegocio() {
 
   // Paso 1: Hidratación inmediata desde localStorage o datos ya cargados
   try {
-    const local = localStorage.getItem('minegocio');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (parsed && (parsed.contacto || parsed.identidad)) {
+    const rawLocal = localStorage.getItem('wi_negocio') || localStorage.getItem('minegocio');
+    if (rawLocal) {
+      const parsed = JSON.parse(rawLocal);
+      if (parsed && (parsed.contacto || parsed.identidad || parsed.redes)) {
         hidratarNegocioEnDOM(parsed);
       }
     } else {
@@ -250,7 +253,7 @@ export function iniciarSincronizacionNegocio() {
 
   // Paso 3: Escuchar cambios en otras pestañas / ventanas del navegador
   window.addEventListener('storage', (e) => {
-    if (e.key === 'minegocio' && e.newValue) {
+    if ((e.key === 'wi_negocio' || e.key === 'minegocio') && e.newValue) {
       try {
         const actualizado = JSON.parse(e.newValue);
         hidratarNegocioEnDOM(actualizado);

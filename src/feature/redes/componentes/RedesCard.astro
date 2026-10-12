@@ -10,6 +10,7 @@ interface Props {
   target?: string;
   rel?: string;
   dataNegocioWs?: boolean;
+  style?: string;
 }
 
 const {
@@ -19,7 +20,8 @@ const {
   titulo,
   target = '_blank',
   rel = 'noopener noreferrer',
-  dataNegocioWs = false
+  dataNegocioWs = false,
+  style
 } = Astro.props;
 ---
 
@@ -31,6 +33,7 @@ const {
   data-red-id={redId}
   data-negocio-ws-link={dataNegocioWs ? true : undefined}
   aria-label={titulo}
+  style={style}
 >
   <span class="redes-link-icon">
     <i class={icono}></i>

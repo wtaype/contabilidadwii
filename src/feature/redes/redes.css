@@ -224,6 +224,11 @@
   background-color: #0a66c2;
 }
 
+.redes-link-btn.twitter {
+  background-color: #0f1419;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 /* 8. Footer de la Tarjeta */
 .redes-footer {
   text-align: center;

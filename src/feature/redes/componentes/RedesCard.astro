@@ -1,12 +1,14 @@
 ---
 // src/feature/redes/componentes/RedesCard.astro
-// Botón individual ergonómico para cada red social con su marca oficial
+// Botón individual de enlace / red social con identidad visual rica y jerarquía pro
 
 interface Props {
   href: string;
   redId: string;
   icono: string;
   titulo: string;
+  subtitulo?: string;
+  badge?: string;
   target?: string;
   rel?: string;
   dataNegocioWs?: boolean;
@@ -18,6 +20,8 @@ const {
   redId,
   icono,
   titulo,
+  subtitulo = '',
+  badge = '',
   target = '_blank',
   rel = 'noopener noreferrer',
   dataNegocioWs = false,
@@ -32,11 +36,25 @@ const {
   class={`redes-link-btn ${redId}`}
   data-red-id={redId}
   data-negocio-ws-link={dataNegocioWs ? true : undefined}
-  aria-label={titulo}
+  aria-label={`${titulo} - ${subtitulo || 'Enlace oficial'}`}
   style={style}
 >
-  <span class="redes-link-icon">
+  <!-- Icono dentro de caja translúcida con relieve -->
+  <span class="redes-link-icon-box">
     <i class={icono}></i>
   </span>
-  <span class="redes-link-text">{titulo}</span>
+
+  <!-- Bloque central de contenido con jerarquía -->
+  <span class="redes-link-content">
+    <span class="redes-link-title-row">
+      <span class="redes-link-title">{titulo}</span>
+      {badge && <span class="redes-link-chip">{badge}</span>}
+    </span>
+    {subtitulo && <span class="redes-link-sub">{subtitulo}</span>}
+  </span>
+
+  <!-- Flecha de acción externa sutil -->
+  <span class="redes-link-action" aria-hidden="true">
+    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+  </span>
 </a>

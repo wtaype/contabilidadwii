@@ -37,12 +37,14 @@ const liUrl = normalizarUrlRed(redes.linkedin || redes.linkedinUser, 'linkedin')
 const twUrl = normalizarUrlRed(redes.twitter || redes.twitterUser, 'twitter');
 const wbUrl = normalizarUrlRed(redes.web || redes.webOficial || webUrl, 'web');
 
-// Lista de canales oficiales: 100% dinámica desde Firestore / semillas (cero fallbacks estáticos)
+// Lista de canales oficiales con metadatos de alta conversión
 const canales = [
   {
     id: 'linkedin',
     icono: 'fa-brands fa-linkedin-in',
     titulo: 'LinkedIn',
+    subtitulo: 'Trayectoria y perfil profesional',
+    badge: 'Profesional',
     href: liUrl,
     mostrar: Boolean(liUrl)
   },
@@ -50,6 +52,8 @@ const canales = [
     id: 'web',
     icono: 'fa-solid fa-globe',
     titulo: 'Web Oficial',
+    subtitulo: 'Portal corporativo y sedes',
+    badge: 'Portal Web',
     href: wbUrl,
     target: wbUrl.startsWith('http') ? '_blank' : '_self',
     mostrar: Boolean(wbUrl && wbUrl !== '/')
@@ -57,7 +61,9 @@ const canales = [
   {
     id: 'whatsapp',
     icono: 'fa-brands fa-whatsapp',
-    titulo: 'Canal de WhatsApp',
+    titulo: 'WhatsApp',
+    subtitulo: 'Atención directa y consultas',
+    badge: 'Directo',
     href: canalWhatsappHref,
     dataNegocioWs: !redes.canalWhatsapp && Boolean(wsNumero),
     mostrar: Boolean(canalWhatsappHref)
@@ -66,6 +72,8 @@ const canales = [
     id: 'instagram',
     icono: 'fa-brands fa-instagram',
     titulo: 'Instagram',
+    subtitulo: 'Historias, fotos y actualidad',
+    badge: 'Social',
     href: igUrl,
     mostrar: Boolean(igUrl)
   },
@@ -73,6 +81,8 @@ const canales = [
     id: 'facebook',
     icono: 'fa-brands fa-facebook-f',
     titulo: 'Facebook',
+    subtitulo: 'Página oficial y comunidad',
+    badge: 'Página',
     href: fbUrl,
     mostrar: Boolean(fbUrl)
   },
@@ -80,6 +90,8 @@ const canales = [
     id: 'tiktok',
     icono: 'fa-brands fa-tiktok',
     titulo: 'TikTok',
+    subtitulo: 'Videos informativos y tips',
+    badge: 'Videos',
     href: ttUrl,
     mostrar: Boolean(ttUrl)
   },
@@ -87,6 +99,8 @@ const canales = [
     id: 'youtube',
     icono: 'fa-brands fa-youtube',
     titulo: 'YouTube',
+    subtitulo: 'Canal de contenido y tutoriales',
+    badge: 'Canal',
     href: ytUrl,
     mostrar: Boolean(ytUrl)
   },
@@ -94,6 +108,8 @@ const canales = [
     id: 'twitter',
     icono: 'fa-brands fa-x-twitter',
     titulo: 'X (Twitter)',
+    subtitulo: 'Comunicados y noticias',
+    badge: 'Oficial',
     href: twUrl,
     mostrar: Boolean(twUrl)
   }
@@ -118,6 +134,8 @@ const canalesOrdenados = [...canales].sort((a, b) => {
       redId={canal.id}
       icono={canal.icono}
       titulo={canal.titulo}
+      subtitulo={canal.subtitulo}
+      badge={canal.badge}
       target={canal.target || '_blank'}
       dataNegocioWs={canal.dataNegocioWs}
       style={canal.mostrar ? undefined : "display: none;"}

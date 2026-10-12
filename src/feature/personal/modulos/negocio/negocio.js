@@ -182,7 +182,7 @@ export function inicializarNegocio() {
   const CATALOGO_REDES = [
     { id: 'linkedin', nombre: 'LinkedIn', icon: 'fa-brands fa-linkedin', color: '#0a66c2', formato: 'https://linkedin.com/in/usuario', portal: 'https://www.linkedin.com/in/' },
     { id: 'web', nombre: 'Web Oficial', icon: 'fa-solid fa-globe', color: '#00a2ed', formato: 'https://tuweb.com', portal: 'https://google.com' },
-    { id: 'whatsapp', nombre: 'Canal WhatsApp', icon: 'fa-brands fa-whatsapp', color: '#25d366', formato: 'https://whatsapp.com/channel/...', portal: 'https://web.whatsapp.com' },
+    { id: 'whatsapp', nombre: 'WhatsApp', icon: 'fa-brands fa-whatsapp', color: '#25d366', formato: 'https://wa.me/51... o canal', portal: 'https://web.whatsapp.com' },
     { id: 'instagram', nombre: 'Instagram', icon: 'fa-brands fa-instagram', color: '#e1306c', formato: 'https://instagram.com/usuario', portal: 'https://www.instagram.com/' },
     { id: 'facebook', nombre: 'Facebook', icon: 'fa-brands fa-facebook-f', color: '#1877f2', formato: 'https://facebook.com/pagina', portal: 'https://www.facebook.com/' },
     { id: 'tiktok', nombre: 'TikTok', icon: 'fa-brands fa-tiktok', color: '#ffffff', formato: 'https://tiktok.com/@usuario', portal: 'https://www.tiktok.com/' },

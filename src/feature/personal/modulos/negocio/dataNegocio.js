@@ -16,220 +16,20 @@ export function obtenerSemillaLocal() {
   return negocioSemilla && typeof negocioSemilla === 'object' ? negocioSemilla : null;
 }
 
-// 2. Parser ultraligero de campos de la REST API de Firestore
-export function parseFirestoreDoc(fields = {}) {
-  const res = {};
-  for (const [k, v] of Object.entries(fields)) {
-    if (v.stringValue !== undefined) res[k] = v.stringValue;
-    else if (v.integerValue !== undefined) res[k] = parseInt(v.integerValue, 10);
-    else if (v.doubleValue !== undefined) res[k] = parseFloat(v.doubleValue);
-    else if (v.booleanValue !== undefined) res[k] = v.booleanValue;
-    else if (v.timestampValue !== undefined) res[k] = v.timestampValue;
-    else if (v.mapValue) res[k] = parseFirestoreDoc(v.mapValue.fields || {});
-    else if (v.arrayValue) res[k] = (v.arrayValue.values || []).map(item => item.mapValue ? parseFirestoreDoc(item.mapValue.fields || {}) : Object.values(item)[0]);
-  }
-  return res;
-}
+// 2. Importación y re-exportación canónica desde la fachada oficial @/negocio.js
+import {
+  parseFirestoreDoc,
+  normalizarConfig,
+  obtenerDatosNegocio,
+  obtenerNegocioLocal
+} from '@/negocio.js';
 
-// 3. Normalizador neutro: SOLO UN FALLBACK (src/semillas/negocio.json). Cero textos quemados en código.
-export function normalizarConfig(c = {}) {
-  const cfg = c && typeof c === 'object' ? c : {};
-  const base = negocioSemilla || {};
-
-  const bioBase = base.identidad?.bio || {};
-  const bioCfg = cfg.identidad?.bio;
-  const bioEs = (typeof bioCfg === 'object' && bioCfg?.es) || (typeof bioCfg === 'string' && bioCfg) || bioBase.es || '';
-  const bioEn = (typeof bioCfg === 'object' && bioCfg?.en) || cfg.identidad?.bioEn || bioBase.en || '';
-
-  const wsBase = base.contacto?.whatsappMensaje;
-  const wsCfg = cfg.contacto?.whatsappMensaje;
-  const wsEs = (typeof wsCfg === 'object' && wsCfg?.es) || (typeof wsCfg === 'string' && wsCfg) || (typeof wsBase === 'object' ? wsBase?.es : wsBase) || '';
-  const wsEn = (typeof wsCfg === 'object' && wsCfg?.en) || cfg.contacto?.whatsappMensajeEn || (typeof wsBase === 'object' ? wsBase?.en : '') || '';
-
-  const horBase = base.contacto?.horario || {};
-  const horCfg = cfg.contacto?.horario;
-  const horEs = (typeof horCfg === 'object' && horCfg?.es) || (typeof horCfg === 'string' && horCfg) || horBase.es || '';
-  const horEn = (typeof horCfg === 'object' && horCfg?.en) || cfg.contacto?.horarioEn || horBase.en || '';
-
-  return {
-    id: cfg.id || base.id || DOC_NEGOCIO_ID,
-    moneda: cfg.moneda || base.moneda || 'PEN',
-    idiomaPrincipal: cfg.idiomaPrincipal || cfg.idiomaDefecto || base.idiomaPrincipal || base.idiomaDefecto || 'es',
-    idiomas: Array.isArray(cfg.idiomas) && cfg.idiomas.length > 0 ? cfg.idiomas : (Array.isArray(cfg.idiomasSoportados) ? cfg.idiomasSoportados : (base.idiomas || base.idiomasSoportados || ['es', 'en'])),
-    titulo: cfg.titulo || base.titulo || '',
-    subtitulo: cfg.subtitulo ?? base.subtitulo ?? '',
-    hero: {
-      titulo: cfg.hero?.titulo ?? base.hero?.titulo ?? '',
-      subtitulo: cfg.hero?.subtitulo ?? base.hero?.subtitulo ?? '',
-      imagen: cfg.hero?.imagen ?? base.hero?.imagen ?? '',
-      alt: cfg.hero?.alt ?? base.hero?.alt ?? '',
-      precioHero: cfg.hero?.precioHero ?? base.hero?.precioHero ?? '',
-      servicio: cfg.hero?.servicio ?? base.hero?.servicio ?? '',
-      descripcion: cfg.hero?.descripcion ?? base.hero?.descripcion ?? ''
-    },
-    identidad: {
-      nombre: cfg.identidad?.nombre || base.identidad?.nombre || '',
-      nombreCorto: cfg.identidad?.nombreCorto || base.identidad?.nombreCorto || '',
-      subtitulo: cfg.identidad?.subtitulo || base.identidad?.subtitulo || '',
-      especialista: cfg.identidad?.especialista || base.identidad?.especialista || '',
-      colegiatura: cfg.identidad?.colegiatura || base.identidad?.colegiatura || '',
-      cargo: cfg.identidad?.cargo || cfg.identidad?.titulo || base.identidad?.cargo || base.identidad?.titulo || '',
-      titulo: cfg.identidad?.titulo || cfg.identidad?.cargo || base.identidad?.titulo || base.identidad?.cargo || '',
-      grado: cfg.identidad?.grado || base.identidad?.grado || '',
-      enfoques: cfg.identidad?.enfoques || base.identidad?.enfoques || '',
-      nombreEn: cfg.identidad?.nombreEn || base.identidad?.nombreEn || base.identidad?.nombre || '',
-      nombreCortoEn: cfg.identidad?.nombreCortoEn || base.identidad?.nombreCortoEn || base.identidad?.nombreCorto || '',
-      enfoquesEn: cfg.identidad?.enfoquesEn || base.identidad?.enfoquesEn || base.identidad?.enfoques || '',
-      bio: {
-        es: bioEs,
-        en: bioEn
-      },
-      lanzamientoFecha: cfg.identidad?.lanzamientoFecha || base.identidad?.lanzamientoFecha || '',
-      logo: cfg.identidad?.logo || base.identidad?.logo || '',
-      logoFull: cfg.identidad?.logoFull || base.identidad?.logoFull || '',
-      imagenSede: cfg.identidad?.imagenSede || base.identidad?.imagenSede || ''
-    },
-    contacto: {
-      pais: cfg.contacto?.pais || cfg.ubicacion?.pais || base.contacto?.pais || 'PE',
-      paisCode: cfg.contacto?.paisCode || base.contacto?.paisCode || '51',
-      telefono: cfg.contacto?.telefono || base.contacto?.telefono || '',
-      telefonoFijo: cfg.contacto?.telefonoFijo || base.contacto?.telefonoFijo || '',
-      telefonoSecundario: cfg.contacto?.telefonoSecundario ?? base.contacto?.telefonoSecundario ?? '',
-      whatsapp: cfg.contacto?.whatsapp || base.contacto?.whatsapp || '',
-      email: cfg.contacto?.email || base.contacto?.email || '',
-      whatsappMensaje: {
-        es: wsEs,
-        en: wsEn
-      },
-      horario: {
-        es: horEs,
-        en: horEn
-      }
-    },
-    horarios: {
-      semana: {
-        abre: cfg.horarios?.semana?.abre || base.horarios?.semana?.abre || '',
-        cierra: cfg.horarios?.semana?.cierra || base.horarios?.semana?.cierra || ''
-      },
-      sabado: {
-        abre: cfg.horarios?.sabado?.abre || base.horarios?.sabado?.abre || '',
-        cierra: cfg.horarios?.sabado?.cierra || base.horarios?.sabado?.cierra || ''
-      }
-    },
-    ubicacion: {
-      direccion: cfg.ubicacion?.direccion || base.ubicacion?.direccion || '',
-      referencia: cfg.ubicacion?.referencia || base.ubicacion?.referencia || '',
-      distrito: cfg.ubicacion?.distrito || base.ubicacion?.distrito || '',
-      ciudad: cfg.ubicacion?.ciudad || base.ubicacion?.ciudad || '',
-      pais: cfg.ubicacion?.pais || base.ubicacion?.pais || '',
-      codigoPostal: cfg.ubicacion?.codigoPostal || base.ubicacion?.codigoPostal || '',
-      mapsUrl: cfg.ubicacion?.mapsUrl || base.ubicacion?.mapsUrl || '',
-      coordenadas: {
-        lat: Number(cfg.ubicacion?.coordenadas?.lat ?? base.ubicacion?.coordenadas?.lat ?? 0),
-        lng: Number(cfg.ubicacion?.coordenadas?.lng ?? base.ubicacion?.coordenadas?.lng ?? 0)
-      }
-    },
-    sedes: Array.isArray(cfg.sedes) && cfg.sedes.length > 0 ? cfg.sedes : (Array.isArray(base.sedes) ? base.sedes : []),
-    metricas: {
-      clientes: cfg.metricas?.clientes || cfg.metricas?.pacientes || base.metricas?.clientes || base.metricas?.pacientes || '+240',
-      pacientes: cfg.metricas?.pacientes || cfg.metricas?.clientes || base.metricas?.pacientes || '+240',
-      confidencialidad: cfg.metricas?.confidencialidad || base.metricas?.confidencialidad || '100%',
-      satisfaccion: cfg.metricas?.satisfaccion || base.metricas?.satisfaccion || '99.4%',
-      years: cfg.metricas?.years || base.metricas?.years || '12+'
-    },
-    redes: (() => {
-      const bRedes = base.redes || {};
-      const cRedes = cfg.redes;
-
-      // Si no existe configuración de redes (inicio virgen), usar valores de semilla
-      if (!cRedes || typeof cRedes !== 'object') {
-        return {
-          youtube: bRedes.youtube || '',
-          youtubeUser: bRedes.youtubeUser || '',
-          facebook: bRedes.facebook || '',
-          facebookUser: bRedes.facebookUser || '',
-          instagram: bRedes.instagram || '',
-          instagramUser: bRedes.instagramUser || '',
-          tiktok: bRedes.tiktok || '',
-          tiktokUser: bRedes.tiktokUser || '',
-          canalWhatsapp: bRedes.canalWhatsapp || bRedes.whatsapp || '',
-          web: bRedes.web || bRedes.webOficial || '',
-          linkedin: bRedes.linkedin || '',
-          linkedinUser: bRedes.linkedinUser || '',
-          twitter: bRedes.twitter || '',
-          twitterUser: bRedes.twitterUser || ''
-        };
-      }
-
-      // Si cRedes existe, se respeta estrictamente lo que guardó el usuario (incluso vacío "")
-      const valorRed = (k, alt) => {
-        if (cRedes[k] !== undefined && cRedes[k] !== null) return cRedes[k];
-        if (alt && cRedes[alt] !== undefined && cRedes[alt] !== null) return cRedes[alt];
-        return '';
-      };
-
-      return {
-        youtube: valorRed('youtube'),
-        youtubeUser: valorRed('youtubeUser'),
-        facebook: valorRed('facebook'),
-        facebookUser: valorRed('facebookUser'),
-        instagram: valorRed('instagram'),
-        instagramUser: valorRed('instagramUser'),
-        tiktok: valorRed('tiktok'),
-        tiktokUser: valorRed('tiktokUser'),
-        canalWhatsapp: valorRed('canalWhatsapp', 'whatsapp'),
-        web: valorRed('web', 'webOficial'),
-        linkedin: valorRed('linkedin'),
-        linkedinUser: valorRed('linkedinUser'),
-        twitter: valorRed('twitter'),
-        twitterUser: valorRed('twitterUser')
-      };
-    })(),
-    redesOrden: Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
-      ? cfg.redesOrden
-      : (Array.isArray(base.redesOrden) && base.redesOrden.length > 0 ? base.redesOrden : ['whatsapp', 'linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter']),
-    seo: {
-      titulo: {
-        es: cfg.seo?.titulo?.es || base.seo?.titulo?.es || '',
-        en: cfg.seo?.titulo?.en || base.seo?.titulo?.en || ''
-      },
-      descripcion: {
-        es: cfg.seo?.descripcion?.es || base.seo?.descripcion?.es || '',
-        en: cfg.seo?.descripcion?.en || base.seo?.descripcion?.en || ''
-      },
-      keywords: {
-        es: Array.isArray(cfg.seo?.keywords?.es) && cfg.seo.keywords.es.length > 0 ? cfg.seo.keywords.es : (Array.isArray(base.seo?.keywords?.es) ? base.seo.keywords.es : []),
-        en: Array.isArray(cfg.seo?.keywords?.en) && cfg.seo.keywords.en.length > 0 ? cfg.seo.keywords.en : (Array.isArray(base.seo?.keywords?.en) ? base.seo.keywords.en : [])
-      },
-      imagen: cfg.seo?.imagen || base.seo?.imagen || null,
-      schema: cfg.seo?.schema || base.seo?.schema || null,
-      audiencia: cfg.seo?.audiencia || base.seo?.audiencia || null,
-      intencion: cfg.seo?.intencion || base.seo?.intencion || null
-    },
-    userId: cfg.userId || '',
-    actualizado: cfg.actualizado || null
-  };
-}
-
-// 4. Lectura en tiempo de compilación (Astro SSG / Cloudflare Build) directamente desde la REST API de Firestore
-let _datosBuildFirestore = null;
-if (typeof window === 'undefined') {
-  try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4000);
-    const projectId = import.meta.env.PUBLIC_FIREBASE_PROJECT_ID || 'contabilidadwii';
-    const res = await fetch(`https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/negocio/principal`, {
-      signal: controller.signal
-    });
-    clearTimeout(timer);
-    if (res.ok) {
-      const json = await res.json();
-      _datosBuildFirestore = parseFirestoreDoc(json.fields || {});
-    }
-  } catch (err) {
-    console.warn('[dataNegocio] Build-time Firestore fetch:', err?.message || err);
-  }
-}
+export {
+  parseFirestoreDoc,
+  normalizarConfig,
+  obtenerDatosNegocio,
+  obtenerNegocioLocal
+};
 
 let _memoriaNegocio = null;
 
@@ -260,39 +60,6 @@ export function calcularAnosTrayectoria(fechaInput) {
   return dif > 0 ? `${dif}+` : '1+';
 }
 
-/**
- * Obtiene los datos oficiales del negocio:
- * 1. Memoria activa en sesión.
- * 2. Caché local persistente (localStorage 'minegocio').
- * 3. En SSG/Build: Datos vivos directo desde Firestore REST API.
- * 4. Fallback directo a src/infoNegocio.json.
- */
-export function obtenerDatosNegocio() {
-  if (_memoriaNegocio) {
-    return _memoriaNegocio;
-  }
-
-  // 1. En el cliente: Revisar caché local primero
-  try {
-    const local = getls(STORAGE_KEY) || getls(OLD_STORAGE_KEY);
-    if (local && typeof local === 'object' && local.identidad && local.identidad.nombre) {
-      _memoriaNegocio = normalizarConfig(local);
-      return _memoriaNegocio;
-    }
-  } catch (e) {}
-
-  // 2. En Node (build time de Cloudflare/Astro): usar datos frescos de Firestore REST
-  if (_datosBuildFirestore && _datosBuildFirestore.identidad?.nombre) {
-    _memoriaNegocio = normalizarConfig(_datosBuildFirestore);
-    return _memoriaNegocio;
-  }
-
-  // 3. Fallback limpio a src/semillas/negocio.json
-  _memoriaNegocio = normalizarConfig(negocioSemilla || {});
-  return _memoriaNegocio;
-}
-
-export const obtenerNegocioLocal = obtenerDatosNegocio;
 
 /**
  * Guarda en caché local y notifica reactivamente a la UI

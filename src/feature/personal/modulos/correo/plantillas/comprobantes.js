@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/correo/plantillas/comprobantes.js
-// Plantilla de Envío de Comprobantes de Pago Electrónico (SUNAT) - Estudio Contable
+// Plantilla de Envío de Comprobantes de Pago Electrónico
 
 import { envoltorioBase } from './base.js';
 import { mdToEmailHtml } from './parser.js';
@@ -8,17 +8,17 @@ export function generarPlantillaComprobante({
   cliente = 'Estimado cliente',
   tipoComprobante = 'Factura Electrónica',
   serieNumero = 'F001-000104',
-  docIdentidad = '20554897123',
+  docIdentidad = '',
   monto = '150.00',
-  fecha = '22 Sep 2026',
-  servicio = 'Servicio Contable Mensual - Régimen MYPE Tributario',
+  fecha = '',
+  servicio = 'Servicio Contable Mensual',
   mensajeMarkdown = '',
-  urlDescarga = 'https://contabilidadwii.com/cliente',
+  urlDescarga = '',
   negocio = {}
 } = {}) {
   const contenidoExtraHtml = mensajeMarkdown ? mdToEmailHtml(mensajeMarkdown) : '';
   const docTexto = docIdentidad ? `<div style="font-size: 13px; color: #64748b; margin-top: 2px;">RUC / DNI: <strong>${docIdentidad}</strong></div>` : '';
-  const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
+  const nombreEmpresa = negocio?.nombre || '';
 
   const contenidoHtml = `
     <h2 style="color: #0f172a; margin-top: 0; font-size: 21px; font-weight: 700;">📄 Tu ${tipoComprobante}</h2>

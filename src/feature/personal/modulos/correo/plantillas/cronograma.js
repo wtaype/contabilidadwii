@@ -14,7 +14,7 @@ export function generarPlantillaCronograma({
   negocio = {}
 } = {}) {
   const contenidoExtraHtml = mensajeMarkdown ? mdToEmailHtml(mensajeMarkdown) : '';
-  const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
+  const nombreEmpresa = negocio?.nombre || '';
 
   const contenidoHtml = `
     <h2 style="color: #9e7b4f; margin-top: 0; font-size: 21px; font-weight: 700;">⏰ Recordatorio de Vencimiento SUNAT</h2>
@@ -49,7 +49,7 @@ export function generarPlantillaCronograma({
     ${contenidoExtraHtml}
 
     <div style="text-align: center; margin-top: 22px;">
-      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola CPC Lourdes, envío mis comprobantes para la declaración del período ' + periodo)}" class="btn-ws">
+      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola, envío mis comprobantes para la declaración del período ' + periodo)}" class="btn-ws">
         📲 Enviar Documentos por WhatsApp
       </a>
     </div>

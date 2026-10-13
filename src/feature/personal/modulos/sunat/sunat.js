@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/sunat/sunat.js
-// 🎯 Controlador Frontend Autónomo del Módulo SUNAT (Estudio Contable Cusihuaman)
+// 🎯 Controlador Frontend Autónomo del Módulo SUNAT
 // Emisión ágil de Boletas (B001) y Facturas (F001) + Cálculo de IGV 18% + Ticket en Vivo + WhatsApp
 // 100% JS Nativo · Integrado con @widev
 
@@ -106,7 +106,7 @@ export function inicializarModuloSunat() {
     if (ticketCliente) ticketCliente.textContent = inpClienteBuscar?.value.trim() || 'Cliente General';
     if (ticketDocLbl) ticketDocLbl.textContent = (selectDocTipo?.value || (esFactura ? 'RUC' : 'DNI')) + ':';
     if (ticketDocVal) ticketDocVal.textContent = inpDocNumero?.value.trim() || '--------';
-    if (ticketDir) ticketDir.textContent = inpClienteDireccion?.value.trim() || 'Surquillo / Atención Online';
+    if (ticketDir) ticketDir.textContent = inpClienteDireccion?.value.trim() || '-';
 
     if (ticketItemsList) {
       ticketItemsList.innerHTML = itemsActuales.map(item => `
@@ -374,7 +374,7 @@ export function inicializarModuloSunat() {
             documentoTipo: selectDocTipo?.value || (tipoDocActual === 'factura' ? 'RUC' : 'DNI'),
             documento: docNumero,
             celular: inpClienteCelular?.value.trim() || '',
-            direccion: inpClienteDireccion?.value.trim() || 'Surquillo / Lima'
+            direccion: inpClienteDireccion?.value.trim() || ''
           },
           items: itemsActuales,
           total,

@@ -1,9 +1,9 @@
 // src/feature/cliente/modulos/02-direccion/direccion.js
-// Controlador Frontend del Módulo 02-Dirección · Domicilio Fiscal · Estudio Cusihuaman
-// Split Layout con selección directa de lugar (Casa, Trabajo, Empresa, Oficina, Otros)
-// Apple cards para Principal y Tiempo Aprox reactivo · Sincronización en segundo plano
+// Controlador Frontend del Módulo 02-Dirección · Domicilio Fiscal · Ecosistema Wii
+// Split Layout con selección directa de lugar y persistencia Local-First (0ms)
 
 import { Mensaje, wiConfirmar, wiSpin, getls } from '@widev';
+import { datosNegocio } from '@/negocio.js';
 import {
   obtenerDireccionesLocal,
   guardarDireccion,
@@ -15,7 +15,7 @@ import {
 let inicializado = false;
 
 const ETA_POR_DISTRITO = {
-  'Surquillo': '12–15 min',
+  [datosNegocio.distritoSede || 'Sede Principal']: '10–15 min',
   'Miraflores': '15–20 min',
   'San Borja': '18–22 min',
   'San Isidro': '20–25 min',
@@ -75,8 +75,8 @@ function resetearFormulario() {
     inputCelular.value = user.celular;
   }
 
-  // Restaurar tiempo estimado a Surquillo
-  actualizarBadgeEta('Surquillo');
+  // Restaurar tiempo estimado
+  actualizarBadgeEta(datosNegocio.distritoSede || '');
 }
 
 function cargarDireccionEnFormulario(dir) {
@@ -95,7 +95,7 @@ function cargarDireccionEnFormulario(dir) {
   if (hiddenId) hiddenId.value = dir.id || '';
   if (inputCalle) inputCalle.value = dir.calle || '';
   if (inputDpto) inputDpto.value = dir.dpto || '';
-  if (selectDistrito) selectDistrito.value = dir.distrito || 'Surquillo';
+  if (selectDistrito) selectDistrito.value = dir.distrito || (datosNegocio.distritoSede || '');
   if (inputCelular) inputCelular.value = dir.celular || '';
   if (textareaRef) textareaRef.value = dir.referencia || '';
   if (chkPrincipal) chkPrincipal.checked = Boolean(dir.esPrincipal);
@@ -106,7 +106,7 @@ function cargarDireccionEnFormulario(dir) {
   if (btnCancel) btnCancel.style.display = 'inline-block';
 
   // Sincronizar chip de tipo de lugar
-  const aliasTarget = dir.alias || 'Casa';
+  const aliasTarget = dir.alias || 'Domicilio Fiscal';
   let encontrado = false;
   document.querySelectorAll('#cdChipsRow .cd-chip-btn').forEach(btn => {
     const coincide = btn.dataset.alias === aliasTarget;
@@ -117,7 +117,7 @@ function cargarDireccionEnFormulario(dir) {
     document.querySelector('#cdChipsRow .cd-chip-btn[data-alias="Otros"]')?.classList.add('active');
   }
 
-  actualizarBadgeEta(selectDistrito?.value || 'Surquillo');
+  actualizarBadgeEta(selectDistrito?.value || (datosNegocio.distritoSede || ''));
 
   inputCalle?.focus();
   inputCalle?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -330,14 +330,14 @@ export function inicializarDirecciones() {
       e.preventDefault();
 
       const id = document.getElementById('cdFormId')?.value;
-      const alias = document.querySelector('#cdChipsRow .cd-chip-btn.active')?.dataset.alias || 'Casa';
+      const alias = document.querySelector('#cdChipsRow .cd-chip-btn.active')?.dataset.alias || 'Domicilio Fiscal';
       const calle = document.getElementById('cdFormCalle')?.value?.trim();
       const dpto = document.getElementById('cdFormDpto')?.value?.trim();
-      const distrito = document.getElementById('cdFormDistrito')?.value?.trim() || 'Surquillo';
+      const distrito = document.getElementById('cdFormDistrito')?.value?.trim() || (datosNegocio.distritoSede || '');
       const celular = document.getElementById('cdFormCelular')?.value?.trim();
       const referencia = document.getElementById('cdFormReferencia')?.value?.trim();
       const esPrincipal = Boolean(document.getElementById('cdFormPrincipal')?.checked);
-      const eta = ETA_POR_DISTRITO[distrito] || '15–20 min';
+      const eta = 'Atención en Sede';
 
       if (!calle) {
         Mensaje('Por favor ingresa la calle o dirección.', 'warning');

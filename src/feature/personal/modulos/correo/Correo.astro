@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/modulos/correo/Correo.astro
-// Centro de Mensajería y Correo Tributario Estilo Hotmail / Outlook (Estudio Cusihuaman)
+// Centro de Mensajería y Correo Estilo Hotmail / Outlook
 // 3 Paneles: Carpetas (Recibidos, Enviados, Borradores) + Lista de Mensajes + Visor / Redactor con Live Preview
 import { datosNegocio } from '@/negocio.js';
 
@@ -86,8 +86,8 @@ const { esActivo = false } = Astro.props;
 
       <div class="cr-sidebar-footer">
         <strong><i class="fa-solid fa-shield-check" style="color:#10b981;"></i> Emisor Oficial</strong>
-        <span id="crBadgeRemitenteActivo">contacto@contabilidadwii.com</span>
-        <div style="margin-top:4px; font-size:10px; color:#10b981; font-weight:600;" data-negocio-nombre>{datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio'}</div>
+        <span id="crBadgeRemitenteActivo">{datosNegocio.contacto?.email || datosNegocio.email || ''}</span>
+        <div style="margin-top:4px; font-size:10px; color:#10b981; font-weight:600;" data-negocio-nombre>{datosNegocio.nombreCorto || datosNegocio.nombre || ''}</div>
       </div>
     </aside>
 
@@ -147,7 +147,7 @@ const { esActivo = false } = Astro.props;
               <div class="cr-reading-avatar" id="crReadAvatar">E</div>
               <div>
                 <div class="cr-reading-from-name" id="crReadFrom">Remitente</div>
-                <div class="cr-reading-from-email" id="crReadTo">Para: contacto@contabilidadwii.com</div>
+                <div class="cr-reading-from-email" id="crReadTo">Para: {datosNegocio.contacto?.email || datosNegocio.email || ''}</div>
               </div>
             </div>
             <div class="cr-reading-date" id="crReadDate">Fecha</div>
@@ -386,7 +386,7 @@ const { esActivo = false } = Astro.props;
                 </div>
                 <div class="cr-md-group">
                   <button type="button" class="cr-md-btn cr-md-btn-table" data-tag="table" title="Tabla"><i class="fa-solid fa-table"></i> Tabla</button>
-                  <button type="button" class="cr-md-btn" data-tag="[Enlace](https://contabilidadwii.com)" title="Enlace"><i class="fa-solid fa-link"></i></button>
+                  <button type="button" class="cr-md-btn" data-tag="[Enlace](https://ejemplo.com)" title="Enlace"><i class="fa-solid fa-link"></i></button>
                 </div>
               </div>
 

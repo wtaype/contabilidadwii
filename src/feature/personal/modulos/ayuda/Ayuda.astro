@@ -1,9 +1,9 @@
 ---
 // src/feature/personal/modulos/ayuda/Ayuda.astro
-// Módulo de Ayuda: Mesa de Ayuda y Generador de Tickets hacia wtaypeee@gmail.com
-// 100% JS Nativo · Integrado con @widev, wii.js y Resend API · 0 CSS Inline
+// Módulo de Ayuda: Mesa de Ayuda y Generador de Tickets de Soporte
+// 100% JS Nativo · Integrado con @widev y Resend API · 0 CSS Inline
 
-import wii from '@/wii.js';
+import { datosNegocio, configurarSistema } from '@/negocio.js';
 
 interface Props {
   esActivo?: boolean;
@@ -22,7 +22,7 @@ const { esActivo = false } = Astro.props;
         Ayuda · Soporte Técnico & Generador de Tickets
       </h1>
       <p class="ps-section-sub">
-        Genera reportes de incidencias técnicas o dudas operativas. Tu solicitud se despacha inmediatamente a soporte oficial (<strong class="sn-text-gold">wtaypeee@gmail.com</strong>) incluyendo telemetría de diagnóstico.
+        Genera reportes de incidencias técnicas o dudas operativas. Tu solicitud se despacha inmediatamente a soporte oficial (<strong class="sn-text-gold">{datosNegocio.email || 'soporte oficial'}</strong>) incluyendo telemetría de diagnóstico.
       </p>
     </div>
   </div>
@@ -117,6 +117,7 @@ const { esActivo = false } = Astro.props;
   </div>
 
   <!-- SECCIÓN INFORMATIVA DEL SOFTWARE (FINES PROFESIONALES DESDE WII.JS) -->
+  <!-- SECCIÓN INFORMATIVA DEL SOFTWARE -->
   <div class="ay-software-section">
     <div class="ay-software-card">
       <div class="ay-software-header">
@@ -124,47 +125,45 @@ const { esActivo = false } = Astro.props;
           <i class="fa-solid fa-certificate"></i>
           Información del Software · Entorno de Uso Profesional
         </h3>
-        <span class="ay-software-tag">Edición Corporativa {wii.versionName}</span>
+        <span class="ay-software-tag">Edición Corporativa v{configurarSistema.version || '2.0.0'}</span>
       </div>
 
       <div class="ay-software-grid">
         <div class="ay-software-item">
           <span class="ay-software-item-label">Plataforma</span>
-          <span class="ay-software-item-val">{wii.app}</span>
-          <span class="ay-software-item-sub">ID: {wii.id}</span>
+          <span class="ay-software-item-val">{datosNegocio.nombreCorto || datosNegocio.nombre}</span>
+          <span class="ay-software-item-sub">ID: {configurarSistema.id}</span>
         </div>
 
         <div class="ay-software-item">
           <span class="ay-software-item-label">Versión de Compilación</span>
-          <span class="ay-software-item-val">{wii.versionName} (v{wii.version.toFixed(1)}) Pro</span>
-          <span class="ay-software-item-sub">Astro 6 SSG · Vite · WiTema 2.0</span>
+          <span class="ay-software-item-val">v{configurarSistema.version || '2.0.0'} Pro</span>
+          <span class="ay-software-item-sub">Build Code: {configurarSistema.versionCode} · Astro 6 SSG</span>
         </div>
 
         <div class="ay-software-item">
-          <span class="ay-software-item-label">Desarrollado Por</span>
+          <span class="ay-software-item-label">Arquitectura</span>
           <span class="ay-software-item-val">
-            <i class="fa-solid fa-code"></i> Wilder & Mochi
+            <i class="fa-solid fa-bolt"></i> Local-First 0ms
           </span>
-          <span class="ay-software-item-sub">{wii.by} & Asistente IA DeepMind</span>
+          <span class="ay-software-item-sub">Ecosistema Modular Wii</span>
         </div>
 
         <div class="ay-software-item">
-          <span class="ay-software-item-label">Portal Oficial & Autor</span>
+          <span class="ay-software-item-label">Portal Oficial</span>
           <span class="ay-software-item-val">
-            <a href={wii.linkme} target="_blank" rel="noopener noreferrer" class="ay-software-link">
-              wtaype.github.io <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7em;"></i>
+            <a href="/" target="_blank" rel="noopener noreferrer" class="ay-software-link">
+              Web Oficial <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.7em;"></i>
             </a>
           </span>
           <span class="ay-software-item-sub">
-            <a href={wii.linkweb} target="_blank" rel="noopener noreferrer" class="ay-software-link">
-              Sitio Web del Estudio
-            </a>
+            Sede {datosNegocio.distritoSede || 'Principal'}
           </span>
         </div>
       </div>
 
       <p class="ay-software-note">
-        <strong>Aviso de Confidencialidad y Uso Profesional:</strong> Esta herramienta está diseñada y optimizada exclusivamente para actividades contables, tributarias y comerciales del {wii.app}. Opera bajo arquitectura Local-First de alta velocidad con respaldo criptográfico en la nube.
+        <strong>Aviso de Confidencialidad y Uso Profesional:</strong> Esta herramienta está diseñada y optimizada para la gestión de {datosNegocio.nombre}. Opera bajo arquitectura Local-First de alta velocidad con respaldo en la nube.
       </p>
     </div>
   </div>

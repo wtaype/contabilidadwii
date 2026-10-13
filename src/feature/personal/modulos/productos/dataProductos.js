@@ -20,26 +20,9 @@ export const STORAGE_KEY = 'wi_servicios';
 export const OLD_STORAGE_KEY = 'contabilidad_servicios';
 export const COLECCION_SERVICIOS = 'servicios';
 
-// Parser ultraligero de campos de la REST API de Firestore (para build-time SSG)
-export function parseFirestoreDoc(fields = {}) {
-  const res = {};
-  for (const [k, v] of Object.entries(fields)) {
-    if (v.stringValue !== undefined) res[k] = v.stringValue;
-    else if (v.integerValue !== undefined) res[k] = parseInt(v.integerValue, 10);
-    else if (v.doubleValue !== undefined) res[k] = parseFloat(v.doubleValue);
-    else if (v.booleanValue !== undefined) res[k] = v.booleanValue;
-    else if (v.timestampValue !== undefined) res[k] = v.timestampValue;
-    else if (v.mapValue) res[k] = parseFirestoreDoc(v.mapValue.fields || {});
-    else if (v.arrayValue) {
-      res[k] = (v.arrayValue.values || []).map(item => {
-        if (item.mapValue) return parseFirestoreDoc(item.mapValue.fields || {});
-        if (item.stringValue !== undefined) return item.stringValue;
-        return Object.values(item)[0];
-      });
-    }
-  }
-  return res;
-}
+import { parseFirestoreDoc } from '@/negocio.js';
+
+export { parseFirestoreDoc };
 
 // Generador de ID y Slug amigable
 export function generarSlug(texto = '') {

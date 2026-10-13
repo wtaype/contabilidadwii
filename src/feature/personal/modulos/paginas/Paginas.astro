@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/modulos/paginas/Paginas.astro
-// Módulo de Páginas: Editor Institucional & Google SERP Simulator (Estudio Cusihuaman)
+// Módulo de Páginas: Editor Institucional & Google SERP Simulator
 // 100% JS Nativo · Integrado con @widev · 0 CSS Inline
 
 import { datosNegocio } from '@/negocio.js';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { esActivo = false } = Astro.props;
-const nombreSitio = datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre || 'Mi Negocio';
+const nombreSitio = datosNegocio.identidad?.nombreCorto || datosNegocio.identidad?.nombre || datosNegocio.nombre || '';
 ---
 
 <section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-paginas" data-paginas-init="false">
@@ -100,7 +100,7 @@ const nombreSitio = datosNegocio.identidad?.nombreCorto || datosNegocio.identida
           <div class="pg-google-url-row">
             <img src="/favicon.ico" alt="Favicon" class="pg-google-favicon" />
             <span class="pg-google-site-name" data-negocio-nombre>{nombreSitio}</span>
-            <span class="pg-google-url-path">https://contabilidadwii.web.app <span id="pgSerpUrlPath"></span></span>
+            <span class="pg-google-url-path">{datosNegocio.linkweb || ''} <span id="pgSerpUrlPath"></span></span>
           </div>
 
           <a href="#" class="pg-google-headline" id="pgSerpHeadline" onclick="return false;">

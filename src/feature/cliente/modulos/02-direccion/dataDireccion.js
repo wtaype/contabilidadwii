@@ -1,9 +1,10 @@
-﻿// src/feature/cliente/modulos/02-direccion/dataDireccion.js
-// Capa Canónica Local-First de Direcciones / Domicilio Fiscal · Estudio Cusihuaman
+// src/feature/cliente/modulos/02-direccion/dataDireccion.js
+// Capa Canónica Local-First de Direcciones / Domicilio Fiscal · Ecosistema Wii
 // Esquema Firestore: smiles/{uid}.direcciones como ARRAY con Timestamps nativos
 // Sincronización en segundo plano (0ms UX) y logging exhaustivo
 
 import { getls, savels } from '@widev';
+import { datosNegocio } from '@/negocio.js';
 
 /**
  * Normaliza fechas provenientes de Timestamp Firestore, objetos serializados o ISO strings
@@ -29,10 +30,10 @@ export function normalizarDireccionesArray(rawDirs = []) {
       if (typeof d === 'string' && d.trim()) {
         return {
           id: `dir_${idx}`,
-          alias: idx === 0 ? 'Casa' : `Dirección ${idx + 1}`,
+          alias: idx === 0 ? 'Domicilio Fiscal' : `Sede ${idx + 1}`,
           calle: d.trim(),
           direccion: d.trim(),
-          distrito: 'Surquillo'
+          distrito: datosNegocio.distritoSede || ''
         };
       }
       return d;
@@ -42,10 +43,10 @@ export function normalizarDireccionesArray(rawDirs = []) {
       if (typeof d === 'string' && d.trim()) {
         return {
           id: key,
-          alias: 'Casa',
+          alias: 'Domicilio Fiscal',
           calle: d.trim(),
           direccion: d.trim(),
-          distrito: 'Surquillo'
+          distrito: datosNegocio.distritoSede || ''
         };
       }
       return {
@@ -62,13 +63,13 @@ export function normalizarDireccionesArray(rawDirs = []) {
     const esPrincipal = Boolean(d.esPrincipal ?? d.predeterminada ?? false);
     if (esPrincipal) hayPrincipal = true;
 
-    const alias = String(d.alias || d.etiqueta || (idx === 0 ? 'Casa' : `Dirección ${idx + 1}`)).trim();
+    const alias = String(d.alias || d.etiqueta || (idx === 0 ? 'Domicilio Fiscal' : `Sede ${idx + 1}`)).trim();
     const calle = String(d.calle || d.direccion || d.domicilio || '').trim();
     const dpto = String(d.dpto || '').trim();
-    const distrito = String(d.distrito || 'Surquillo').trim();
+    const distrito = String(d.distrito || datosNegocio.distritoSede || '').trim();
     const celular = String(d.celular || '').trim();
     const referencia = String(d.referencia || '').trim();
-    const eta = String(d.eta || '12–15 min').trim();
+    const eta = String(d.eta || 'Atención en Sede').trim();
 
     return {
       id: String(d.id || `dir_${Date.now()}_${idx}`),
@@ -164,15 +165,15 @@ function prepararItemParaFirestore(item, Timestamp) {
 
   return {
     id: String(item.id),
-    alias: String(item.alias || 'Casa'),
-    etiqueta: String(item.alias || 'Casa'),
+    alias: String(item.alias || 'Domicilio Fiscal'),
+    etiqueta: String(item.alias || 'Domicilio Fiscal'),
     calle: String(item.calle || ''),
     direccion: String(item.calle || ''),
     dpto: String(item.dpto || ''),
-    distrito: String(item.distrito || 'Surquillo'),
+    distrito: String(item.distrito || datosNegocio.distritoSede || ''),
     celular: String(item.celular || ''),
     referencia: String(item.referencia || ''),
-    eta: String(item.eta || '12–15 min'),
+    eta: String(item.eta || 'Atención en Sede'),
     esPrincipal: Boolean(item.esPrincipal),
     predeterminada: Boolean(item.esPrincipal),
     creado: creadoTs,
@@ -247,15 +248,15 @@ export async function guardarDireccion(dirData = {}) {
 
   const nueva = {
     id,
-    alias: dirData.alias || 'Casa',
-    etiqueta: dirData.alias || 'Casa',
+    alias: dirData.alias || 'Domicilio Fiscal',
+    etiqueta: dirData.alias || 'Domicilio Fiscal',
     calle: dirData.calle || '',
     direccion: dirData.calle || '',
     dpto: dirData.dpto || '',
-    distrito: dirData.distrito || 'Surquillo',
+    distrito: dirData.distrito || datosNegocio.distritoSede || '',
     celular: dirData.celular || '',
     referencia: dirData.referencia || '',
-    eta: dirData.eta || '12–15 min',
+    eta: dirData.eta || 'Atención en Sede',
     esPrincipal,
     predeterminada: esPrincipal,
     actualizado: now,

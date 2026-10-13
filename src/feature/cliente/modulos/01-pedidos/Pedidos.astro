@@ -1,8 +1,8 @@
 ---
 // src/feature/cliente/modulos/01-pedidos/Pedidos.astro
-// Módulo de Servicios y Asesorías Tributarias · Estudio Cusihuaman
+// Módulo de Servicios y Asesorías · Ecosistema Wii
 // 100% Conectado a Firestore (datosNegocio.productos, datosNegocio.mediosPago)
-// Cero datos de gas · Split Layout con WhatsApp Live Preview
+// Split Layout con WhatsApp Live Preview (0ms)
 import { datosNegocio, MEDIOS_PAGO_BASE } from '@/negocio.js';
 
 import type { SmileData, SmileDireccion } from '@auth/lib/auth.ts';
@@ -31,7 +31,7 @@ if (Array.isArray(cliente.direcciones)) {
     id: String(d.id || `dir-${idx}`),
     alias: d.alias || d.etiqueta || (idx === 0 ? 'Domicilio Fiscal' : `Sede ${idx + 1}`),
     calle: d.calle || d.direccion || '',
-    distrito: d.distrito || 'Surquillo',
+    distrito: d.distrito || datosNegocio.distritoSede || '',
     celular: d.celular || cliente.celular || cliente.telefono || '',
     referencia: d.referencia || '',
     eta: d.eta || '',
@@ -42,7 +42,7 @@ if (Array.isArray(cliente.direcciones)) {
     id: key,
     alias: d.alias || d.etiqueta || (key === 'principal' ? 'Domicilio Fiscal' : key),
     calle: d.calle || d.direccion || '',
-    distrito: d.distrito || 'Surquillo',
+    distrito: d.distrito || datosNegocio.distritoSede || '',
     celular: d.celular || cliente.celular || cliente.telefono || '',
     referencia: d.referencia || '',
     eta: d.eta || '',
@@ -132,7 +132,7 @@ const productosCatalogo = prodsFiltrados.length > 0 ? prodsFiltrados.map((p, idx
     tagClase: 'badge-gold',
     precioPEN: 80.00,
     imagen: '/imgwii/productos/orientacion.webp',
-    modalidad: 'Videollamada Google Meet o Presencial Surquillo',
+    modalidad: 'Videollamada o Presencial previa cita',
     enfoque: 'Resolución de dudas tributarias específicas',
     defaultQty: 0
   },
@@ -261,7 +261,7 @@ const whatsappSede = datosNegocio.whatsappLimpio || datosNegocio.whatsapp;
               ))
             ) : (
               <option value="" disabled selected data-calle="" data-distrito="" data-celular="">
-                Atención 100% Online Nacional / Sede Surquillo
+                Atención 100% Online Nacional / Presencial en Sede Oficial
               </option>
             )}
           </select>

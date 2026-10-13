@@ -1,7 +1,7 @@
 ---
 // src/feature/redes/RedesPage.astro
-// Orquestador Maestro de la Vista Bio-Link Independiente (Estudio Cusihuaman)
-// 100% Español · Cero Header ni Footer institucional · Layout: Popular.astro
+// Orquestador Maestro de la Vista Bio-Link Independiente (Ecosistema Wii)
+// 100% Desacoplado · Cero Header ni Footer institucional · Layout: Popular.astro
 import Popular from './layout/Popular.astro';
 import RedesTopBar from './componentes/RedesTopBar.astro';
 import RedesHero from './componentes/RedesHero.astro';
@@ -9,9 +9,21 @@ import RedesLista from './componentes/RedesLista.astro';
 import RedesFooter from './componentes/RedesFooter.astro';
 import { datosNegocio } from '../../negocio.js';
 
+interface Props {
+  idioma?: string;
+}
+
+const { idioma = 'es' } = Astro.props;
+const esEn = idioma === 'en';
+
 const redes = datosNegocio.redes || {};
-const titulo = `Redes Oficiales y Enlaces Directos · ${datosNegocio.nombre}`;
-const descripcion = `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}. ${datosNegocio.subtitulo || datosNegocio.bio || ''}`;
+const titulo = esEn
+  ? `Official Social Media & Direct Links · ${datosNegocio.nombre}`
+  : `Redes Oficiales y Enlaces Directos · ${datosNegocio.nombre}`;
+
+const descripcion = esEn
+  ? `Verified channels and direct links for ${datosNegocio.nombre}.`
+  : `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}. ${datosNegocio.subtitulo || datosNegocio.bio || ''}`;
 
 const handleUsuario = redes.instagramUser 
   ? `@${redes.instagramUser.replace(/^@/, '')}`
@@ -21,16 +33,22 @@ const handleUsuario = redes.instagramUser
           ? `@${redes.youtubeUser.replace(/^@/, '')}`
           : (datosNegocio.nombreCorto ? `@${datosNegocio.nombreCorto.toLowerCase().replace(/\s+/g, '')}` : '')));
 
-const bioTexto = datosNegocio.subtitulo || datosNegocio.bio || '';
-// La foto que sale en redes tiene que ser la misma de foto de especialista que guardamos en Mi Negocio
-const avatarImg = datosNegocio.fotoEspecialista || datosNegocio.identidad?.imagenSede || datosNegocio.hero?.imagen || '/imgwii/hero.webp';
+const bioTexto = esEn
+  ? (datosNegocio.raw.identidad?.bio?.en || datosNegocio.subtitulo || datosNegocio.bio || '')
+  : (datosNegocio.subtitulo || datosNegocio.bio || '');
+
+const avatarImg = datosNegocio.fotoEspecialista || datosNegocio.identidad?.imagenSede || datosNegocio.hero?.imagen || datosNegocio.logo || '/imgwii/hero.webp';
 ---
 
-<Popular titulo={titulo} descripcion={descripcion}>
+<Popular titulo={titulo} descripcion={descripcion} idioma={idioma}>
   <main class="redes-screen">
     <div class="redes-card">
       <!-- 1. TopBar con Botón Copiar URL y Badge Oficial -->
-      <RedesTopBar />
+      <RedesTopBar 
+        btnCopiarLabel={esEn ? 'Copy link' : 'Copiar enlace'}
+        toastMensaje={esEn ? 'Link copied to clipboard!' : '¡Enlace copiado al portapapeles!'}
+        badgeLabel={esEn ? 'OFFICIAL' : 'OFICIAL'}
+      />
 
       <!-- 2. Hero con Avatar, Handle @ y Bio dinámicos -->
       <RedesHero 
@@ -40,11 +58,11 @@ const avatarImg = datosNegocio.fotoEspecialista || datosNegocio.identidad?.image
         alt={datosNegocio.nombre}
       />
 
-      <!-- 3. Lista de Botones Oficiales (YT, FB, IG, TikTok, WhatsApp, Web) -->
-      <RedesLista />
+      <!-- 3. Lista de Botones Oficiales (Configurada desde configurar.js + Firestore) -->
+      <RedesLista idioma={idioma} />
 
       <!-- 4. Footer Discreto (Pill Promocional + Términos · Privacidad · Inicio) -->
-      <RedesFooter />
+      <RedesFooter idioma={idioma} />
     </div>
   </main>
 </Popular>

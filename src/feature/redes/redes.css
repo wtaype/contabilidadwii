@@ -1,5 +1,5 @@
 /* ============================================================ */
-/* 📱 REDES (BIO-LINK / LINKTREE STANDALONE) - ESTUDIO CUSIHUAMAN */
+/* 📱 REDES (BIO-LINK / LINKTREE STANDALONE) · ECOSISTEMA WII   */
 /* Inspirado en la interfaz de referencia limpia de Wiihope     */
 /* 100% Sin Header, Sin Footer institucional, Responsive Móvil  */
 /* ============================================================ */
@@ -13,7 +13,7 @@
   justify-content: center;
   padding: 2.5rem 1rem;
   background-color: var(--bg);
-  background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 65%);
+  background-image: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--mco) 8%, transparent) 0%, transparent 65%);
   box-sizing: border-box;
 }
 
@@ -111,7 +111,7 @@
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  box-shadow: 0 0 0 3.5px #d4af37, 0 8px 24px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 0 3.5px var(--mco), 0 8px 24px color-mix(in srgb, var(--mco) 35%, transparent);
   transition: transform var(--tr_m);
 }
 

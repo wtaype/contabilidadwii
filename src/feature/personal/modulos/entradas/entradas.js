@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/entradas/entradas.js
-// Controlador Frontend Autónomo del Módulo Entradas (Blog Tributario Estudio Cusihuaman)
+// Controlador Frontend Autónomo del Módulo Entradas (Blog SEO)
 // 100% JS Nativo · Integrado con @widev y Local-First
 
 import { Notificacion, wiSpin, wiConfirmar, getls } from '@widev';

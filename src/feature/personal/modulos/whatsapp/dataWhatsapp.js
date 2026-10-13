@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/whatsapp/dataWhatsapp.js
-// Centro de Plantillas y Generador de Mensajes Oficiales de WhatsApp (Estudio Cusihuaman)
+// Centro de Plantillas y Generador de Mensajes Oficiales de WhatsApp
 // 100% JS Nativo · Integrado con @widev y Local-First
 import { obtenerDatosNegocio } from '../negocio/dataNegocio.js';
 

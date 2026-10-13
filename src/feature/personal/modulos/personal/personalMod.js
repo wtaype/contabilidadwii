@@ -68,7 +68,7 @@ export function inicializarModuloPersonal() {
       const especialidad = p.especialidad || 'Asesoría Tributaria General';
       const colegiatura = p.colegiatura || 'Habilitado/a';
       const experiencia = p.experiencia || '5+ años';
-      const modalidad = p.modalidad || 'Online & Presencial Surquillo';
+      const modalidad = p.modalidad || 'Online & Presencial';
 
       return `
         <div class="pe-driver-card" data-id="${p.id}">
@@ -175,7 +175,7 @@ export function inicializarModuloPersonal() {
     const especialidad = document.getElementById('peModalEspecialidad')?.value?.trim() || 'Asesoría Tributaria';
     const cel = document.getElementById('peModalCelular')?.value?.trim() || '';
     const email = document.getElementById('peModalEmail')?.value?.trim() || '';
-    const modalidad = document.getElementById('peModalModalidad')?.value || 'Online & Presencial Surquillo';
+    const modalidad = document.getElementById('peModalModalidad')?.value || 'Online & Presencial';
     const experiencia = document.getElementById('peModalExperiencia')?.value?.trim() || '5+ años de trayectoria';
 
     if (!nombre) {

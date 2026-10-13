@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/productos/modales/modalProducto.js
-// Controlador Frontend del Modal de Servicio / Asesoría (Estudio Cusihuaman)
+// Controlador Frontend del Modal de Servicio / Asesoría
 // Integrado con wiModal de @widev/modales.js, Firestore y solicitarActualizacionWeb
 
 import { wiModal, Notificacion, wiSpin } from '@widev';
@@ -156,8 +156,8 @@ export function inicializarModalProducto() {
           en: prFormDuracionEn?.value.trim() || (tipo === 'servicio' ? 'Monthly' : '1 Hour')
         },
         modalidad: {
-          es: prFormModalidadEs?.value.trim() || '100% Online y Presencial en Surquillo previa cita',
-          en: prFormModalidadEn?.value.trim() || '100% Online & In-Person in Surquillo'
+          es: prFormModalidadEs?.value.trim() || '100% Online y Presencial previa cita',
+          en: prFormModalidadEn?.value.trim() || '100% Online & In-Person'
         },
         publico: {
           es: prFormPublicoEs?.value.trim() || 'Pequeños Negocios y Profesionales',
@@ -298,7 +298,7 @@ export function abrirModalProducto(producto = null) {
 
     // Valores por defecto
     if (prFormDuracionEs) prFormDuracionEs.value = 'Mensual';
-    if (prFormModalidadEs) prFormModalidadEs.value = '100% Online y Presencial en Surquillo previa cita';
+    if (prFormModalidadEs) prFormModalidadEs.value = '100% Online y Presencial previa cita';
     if (prFormPublicoEs) prFormPublicoEs.value = 'Pequeños Negocios y Emprendedores';
     if (prFormGarantiasEs) {
       prFormGarantiasEs.value = [

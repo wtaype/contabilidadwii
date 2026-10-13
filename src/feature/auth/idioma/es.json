@@ -83,6 +83,7 @@
   "acepto_terminos_link": "Términos y Condiciones",
   "acepto_terminos_2": "del servicio.",
   "val_direccion_requerida": "Ingresa tu dirección",
-  "val_distrito_requerido": "Ingresa tu distrito",
-  "val_terminos_requeridos": "Debes aceptar los términos y condiciones"
+  "val_distrito_requerida": "Ingresa tu distrito",
+  "val_terminos_requeridos": "Debes aceptar los términos y condiciones",
+  "recordar_sesion": "Recordar mi sesión"
 }

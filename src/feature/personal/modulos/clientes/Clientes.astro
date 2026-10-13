@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/modulos/clientes/Clientes.astro
-// Módulo de Clientes: Directorio CRM Contable & Tributario (Estudio Cusihuaman)
+// Módulo de Clientes: Directorio CRM Contable & Tributario
 // 100% JS Nativo · Integrado con @widev, Firestore ('clientes') · 0 CSS Inline
 
 interface Props {
@@ -168,7 +168,7 @@ const { esActivo = false } = Astro.props;
 
         <div class="cl-crm-address-box">
           <div class="cl-crm-address-title">
-            <span id="clCrmDireccion">Jr. Dante 260, Surquillo</span>
+            <span id="clCrmDireccion">-</span>
           </div>
           <div class="cl-crm-address-sub" id="clCrmContacto">Contacto: -</div>
           <div class="cl-crm-address-sub" id="clCrmObservaciones" style="font-style: italic; margin-top:4px;">Sin observaciones</div>
@@ -251,7 +251,7 @@ const { esActivo = false } = Astro.props;
 
         <div class="sn-form-group">
           <label class="sn-label" for="clModalDireccion">Dirección Fiscal</label>
-          <input type="text" id="clModalDireccion" class="sn-input" placeholder="Av. Angamos Este 1240, Surquillo" />
+          <input type="text" id="clModalDireccion" class="sn-input" placeholder="Dirección fiscal o comercial" />
         </div>
 
         <div class="cl-modal-actions">

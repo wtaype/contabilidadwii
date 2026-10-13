@@ -47,6 +47,10 @@ export const tplLogin = () => {
   <div class="wilg_or"><span>${txt.o_usa_email}</span></div>
   ${campo('envelope', 'text', 'email', txt.usuario_o_correo_ph, false, 'full')}
   ${campo('lock', 'password', 'password', txt.pass_ph, true, 'full')}
+  <label class="wilg_recordar_check">
+    <input type="checkbox" id="checkRecordarSesion" checked>
+    <span>${txt.recordar_sesion || 'Recordar mi sesión'}</span>
+  </label>
   <button type="button" id="Login" class="wilg_btn inactivo" disabled>
     <i class="fa-solid fa-right-to-bracket"></i> ${txt.btn_login}
   </button>
@@ -140,7 +144,7 @@ export const iniciarSesionOrdinaria = async (btn) => {
     // Leer perfil de Firestore
     const { db, doc, getDoc, setDoc, serverTimestamp } = await loadFirebaseDb();
     const docSnap = await getDoc(doc(db, 'smiles', user.uid));
-    const imgEmail = 'https://imgwii.web.app/smile.avif';
+    const imgEmail = '/imgwii/smile.webp';
     const { avatar: calcIniciales } = await import('../../../core/widev/nombre.js');
     const profile = docSnap.exists()
       ? docSnap.data()
@@ -157,7 +161,8 @@ export const iniciarSesionOrdinaria = async (btn) => {
       setDoc(doc(db, 'smiles', user.uid), { ...profile, creado: serverTimestamp(), actualizado: serverTimestamp() }).catch(() => {});
     }
 
-    entrar(profile);
+    const recordar = document.getElementById('checkRecordarSesion')?.checked ?? true;
+    entrar(profile, recordar);
   } catch (e) {
     console.error('Login error:', e);
     Mensaje(mapearErrorAuth(e), 'error');
@@ -180,7 +185,8 @@ export const iniciarGoogleSSO = async (btn, onNuevoUsuario) => {
 
     if (docSnap.exists()) {
       // ✅ Usuario recurrente: Entra directo sin fricción
-      entrar(docSnap.data());
+      const recordar = document.getElementById('checkRecordarSesion')?.checked ?? true;
+      entrar(docSnap.data(), recordar);
     } else {
       // 🚀 Usuario nuevo: Guardar referencia y solicitar que elija @usuario y acepte términos
       pendingGoogleUser = user;
@@ -241,7 +247,7 @@ export const completarRegistroGoogle = async (btn) => {
     }
 
     const docRef = doc(db, 'smiles', user.uid);
-    const imgEmail = 'https://imgwii.web.app/smile.avif';
+    const imgEmail = '/imgwii/smile.webp';
     const { avatar: calcIniciales } = await import('../../../core/widev/nombre.js');
     const iniciales = calcIniciales(user.displayName || usernameLimpio);
 

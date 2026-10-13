@@ -25,11 +25,18 @@ export function obtenerAjustesCorreo() {
   const negEmail = datosNegocio.email || '';
   const negDominio = negEmail.includes('@') ? negEmail.split('@')[1] : '';
 
+  const emailGuardado = guardado?.remitenteEmail;
+  const remitenteValido = emailGuardado || negEmail;
+
+  const responderAGuardado = guardado?.responderA;
+  const responderAValido = responderAGuardado || negEmail;
+
   return {
     remitenteNombre: guardado?.remitenteNombre || datosNegocio.nombreCorto || datosNegocio.nombre || '',
-    remitenteEmail: guardado?.remitenteEmail || negEmail,
-    responderA: guardado?.responderA || negEmail,
-    dominio: guardado?.dominio || negDominio
+    remitenteEmail: remitenteValido,
+    responderA: responderAValido,
+    dominio: negDominio,
+    workerUrl: guardado?.workerUrl || import.meta.env.PUBLIC_CORREO_WORKER || ''
   };
 }
 
@@ -85,11 +92,14 @@ export function limpiarEmail(str = '') {
  * "Nombre Remitente <email@dominio.com>"
  */
 export function formatearRemitente(nombre = '', email = '') {
-  const emailPuro = limpiarEmail(email) || datosNegocio.email || '';
+  let emailPuro = limpiarEmail(email);
+  if (!emailPuro) {
+    emailPuro = datosNegocio.contacto?.email || datosNegocio.email || '';
+  }
   const nombreFallback = datosNegocio.nombreCorto || datosNegocio.nombre || '';
   const nombrePuro = (nombre || nombreFallback).replace(/[<>]/g, '').trim();
 
-  return `${nombrePuro} <${emailPuro}>`;
+  return `${nombrePuro} <${emailPuro}>`.trim();
 }
 
 /**
@@ -331,13 +341,13 @@ const RECIBIDOS_DEMO = [
     carpeta: 'recibidos',
     estado: 'recibido',
     leido: false,
-    destinatario: { para: 'contacto@contabilidadwii.com', nombre: 'Estudio Cusihuaman' },
-    remitente: { desde: 'Valeria Mendoza <valeria.mendoza@gmail.com>', responderA: 'valeria.mendoza@gmail.com' },
+    destinatario: { para: datosNegocio.contacto?.email || datosNegocio.email || '', nombre: datosNegocio.nombreCorto || datosNegocio.nombre || '' },
+    remitente: { desde: 'Valeria Mendoza <valeria.mendoza@ejemplo.com>', responderA: 'valeria.mendoza@ejemplo.com' },
     mensaje: {
-      asunto: '📋 Consulta: Suspensión de Retenciones 4ta Categoría (RHE 2026)',
+      asunto: '📋 Consulta: Coordinación y Asesoría',
       tipo: 'consulta',
-      resumen: 'Estimada CPC Lourdes, buenas tardes. Este año mis ingresos como diseñadora independiente superarán los S/ 45,000...',
-      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #9e7b4f; margin-top: 0;">Consulta Tributaria de 4ta Categoría</h2><p>Buenas tardes CPC Lourdes,</p><p>He revisado sus publicaciones sobre el Formulario Virtual 1609 para suspensión del 8% de retención de recibos por honorarios.</p><p>Quisiera agendar una asesoría de 1 hora para proyectar mis ingresos del ejercicio fiscal 2026 y saber en qué mes debo tramitar la constancia ante SUNAT sin caer en contingencias.</p><p>Quedo a la espera de su confirmación y de los números de cuenta para el abono del honorario.</p><p>Saludos cordiales,<br/><strong>Valeria Mendoza</strong><br/>📱 987 654 321</p></div>'
+      resumen: 'Estimado equipo, buenas tardes. Quisiera agendar una asesoría para coordinar servicios...',
+      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #9e7b4f; margin-top: 0;">Consulta General</h2><p>Buenas tardes,</p><p>Quisiera agendar una cita o reunión para proyectar las gestiones y conocer más sobre sus servicios.</p><p>Quedo a la espera de su confirmación.</p><p>Saludos cordiales,<br/><strong>Valeria Mendoza</strong></p></div>'
     },
     fecha: 'Hoy, 02:45 p. m.'
   },
@@ -346,13 +356,13 @@ const RECIBIDOS_DEMO = [
     carpeta: 'recibidos',
     estado: 'recibido',
     leido: false,
-    destinatario: { para: 'contacto@contabilidadwii.com', nombre: 'Estudio Cusihuaman' },
+    destinatario: { para: datosNegocio.email || '', nombre: datosNegocio.nombreCorto || datosNegocio.nombre || '' },
     remitente: { desde: 'Restaurante El Rincón Criollo <administracion@rinconcriollo.pe>', responderA: 'administracion@rinconcriollo.pe' },
     mensaje: {
       asunto: '📁 Envío de Comprobantes de Ventas y Compras - Mes Agosto 2026',
       tipo: 'declaracion',
       resumen: 'Estimado Estudio, adjuntamos la carpeta con los XML y PDF de ventas y compras del restaurante para la liquidación mensual...',
-      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #9e7b4f; margin-top: 0;">Envío de Información para PDT 621 y SIRE</h2><p>Estimada CPC Lourdes Cusihuaman,</p><p>Adjuntamos los comprobantes correspondientes al mes de Agosto 2026 de nuestra empresa:</p><ul><li><strong>Razón Social:</strong> Inversiones Gastronómicas El Rincón Criollo S.A.C.</li><li><strong>RUC:</strong> 20554897123 (Régimen MYPE Tributario)</li><li><strong>Ventas del mes:</strong> 42 Facturas electrónicas</li><li><strong>Compras del mes:</strong> 28 Facturas de proveedores</li><li><strong>Planilla:</strong> 4 trabajadores (sin variaciones este mes)</li></ul><p>Por favor emitir la liquidación de IGV-Renta y el código NPS para realizar el pago a tiempo. Muchas gracias.</p><p>Atentamente,<br/><strong>Gerencia de Administración</strong></p></div>'
+      html: '<div style="font-family: sans-serif; padding: 20px; line-height: 1.6; color: #1e293b;"><h2 style="color: #9e7b4f; margin-top: 0;">Envío de Información para PDT 621 y SIRE</h2><p>Estimado(a) Asesor(a),</p><p>Adjuntamos los comprobantes correspondientes al mes de Agosto 2026 de nuestra empresa:</p><ul><li><strong>Razón Social:</strong> Inversiones Gastronómicas El Rincón Criollo S.A.C.</li><li><strong>RUC:</strong> 20554897123 (Régimen MYPE Tributario)</li><li><strong>Ventas del mes:</strong> 42 Facturas electrónicas</li><li><strong>Compras del mes:</strong> 28 Facturas de proveedores</li><li><strong>Planilla:</strong> 4 trabajadores (sin variaciones este mes)</li></ul><p>Por favor emitir la liquidación de IGV-Renta y el código NPS para realizar el pago a tiempo. Muchas gracias.</p><p>Atentamente,<br/><strong>Gerencia de Administración</strong></p></div>'
     },
     fecha: 'Ayer, 06:10 p. m.'
   },
@@ -361,7 +371,7 @@ const RECIBIDOS_DEMO = [
     carpeta: 'recibidos',
     estado: 'recibido',
     leido: true,
-    destinatario: { para: 'contacto@contabilidadwii.com', nombre: 'Estudio Cusihuaman' },
+    destinatario: { para: datosNegocio.email || '', nombre: datosNegocio.nombreCorto || datosNegocio.nombre || '' },
     remitente: { desde: 'SUNAT Virtual Notificaciones <notificaciones@sunat.gob.pe>', responderA: 'notificaciones@sunat.gob.pe' },
     mensaje: {
       asunto: '🔔 Aviso de Cumplimiento: Declaración Jurada Mensual PDT 621',

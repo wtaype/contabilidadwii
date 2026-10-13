@@ -17,13 +17,13 @@ const precios = productos.map(p => Number(p.precioPEN || p.precio || 0)).filter(
 const minPrecio = precios.length > 0 ? Math.min(...precios).toFixed(2) : '60.00';
 const maxPrecio = precios.length > 0 ? Math.max(...precios).toFixed(2) : '160.00';
 const totalFotos = Array.isArray(galeriaSemilla) ? galeriaSemilla.length : 12;
-const totalServicios = productos.length || 6;
+const totalServicios = productos.length;
 
 const nombreNegocio = datosNegocio.nombreCorto || datosNegocio.nombre || 'Mi Negocio';
-const rucNegocio = datosNegocio.identidad?.ruc || '10478912341';
+const rucNegocio = datosNegocio.identidad?.ruc || '';
 const direccionNegocio = datosNegocio.direccionSede || datosNegocio.ubicacion?.direccion || 'Sede Principal';
 const distritoNegocio = datosNegocio.distritoSede || 'Sede Central';
-const telefonoNegocio = datosNegocio.telefonoMostrado || datosNegocio.contacto?.telefono || '+51 933 878 512';
+const telefonoNegocio = datosNegocio.telefonoMostrado || datosNegocio.contacto?.telefono || '';
 ---
 
 <section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-dashboard">
@@ -81,7 +81,7 @@ const telefonoNegocio = datosNegocio.telefonoMostrado || datosNegocio.contacto?.
     </div>
     <div class="db-section-actions">
       <a 
-        href={datosNegocio.linkweb || 'https://lourdes.solgassurquillo.com/'} 
+        href={datosNegocio.linkweb || '/'} 
         target="_blank" 
         rel="noopener noreferrer" 
         class="ps-btn ps-btn-secondary" 

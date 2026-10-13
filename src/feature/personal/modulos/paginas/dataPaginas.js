@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/paginas/dataPaginas.js
-// Gestor Canónico de Contenido Institucional y Metadata SEO de Páginas (Estudio Cusihuaman)
+// Gestor Canónico de Contenido Institucional y Metadata SEO de Páginas
 // Prioridad: 1° Firestore ('paginas') · 2° Semilla src/semillas/paginas.json · Caché Local
 // 100% JS Nativo · Integrado con @widev
 

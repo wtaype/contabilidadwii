@@ -84,5 +84,6 @@
   "acepto_terminos_2": "of service.",
   "val_direccion_requerida": "Please enter your address",
   "val_distrito_requerido": "Please enter your district",
-  "val_terminos_requeridos": "You must accept the terms and conditions"
+  "val_terminos_requeridos": "You must accept the terms and conditions",
+  "recordar_sesion": "Remember me"
 }

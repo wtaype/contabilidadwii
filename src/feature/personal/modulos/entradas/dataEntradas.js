@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/entradas/dataEntradas.js
-// Gestor Canónico de Artículos y Blog Tributario SEO (Estudio Cusihuaman)
+// Gestor Canónico de Artículos y Blog SEO
 // Prioridad: 1° Firestore REST ('entradas') · 2° Semilla src/semillas/entradas.json · Caché Local
 // 100% JS Nativo · Integrado con @widev
 

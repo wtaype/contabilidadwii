@@ -28,14 +28,14 @@ export const wiAuth = {
   },
 
   login(wi, h = 144, keep = []) {
-    try { localStorage.removeItem('wiTema_gaswii'); localStorage.removeItem('contabilidad_theme_cliente'); } catch {}
+    try { localStorage.removeItem('contabilidad_theme_cliente'); } catch {}
     removels.except(['wiTema', 'cookiesPrivacidad', 'wiSmart', ...keep]);
     savels('wiSmile', wi, h);
     this.emit(wi);
   },
 
   logout(keep = []) {
-    try { localStorage.removeItem('wiTema_gaswii'); localStorage.removeItem('contabilidad_theme_cliente'); } catch {}
+    try { localStorage.removeItem('contabilidad_theme_cliente'); } catch {}
     removels.except(['wiTema', 'cookiesPrivacidad', 'wiSmart', ...keep]);
     this.emit(null);
   }
@@ -52,9 +52,12 @@ const _actualizarTimestamp = (uid) => {
   ).catch(() => {});
 };
 
-// Redirección y bienvenida al ingresar — sin await, redirect a 150ms
-export const entrar = (wi) => {
-  wiAuth.login(wi, 144, ['wiSmart', 'cookiesPrivacidad']);
+// Redirección y bienvenida al ingresar — soporta recordar sesión (infinito vs 144h)
+export const entrar = (wi, recordar = true) => {
+  // recordar = true -> null (sesión permanente/infinita en LocalStorage)
+  // recordar = false -> 144 (expiración estricta de 6 días)
+  const horas = (recordar === true || recordar === 'true') ? null : 144;
+  wiAuth.login(wi, horas, ['wiSmart', 'cookiesPrivacidad']);
 
   const modal = document.querySelector('#wi_auth_modal.active') || document.querySelector('#modalLogin');
   if (modal) cerrarTodos();
@@ -114,7 +117,7 @@ export const sincronizarSmile = async (user, extraData = {}) => {
   let docSnap = null;
   try { docSnap = await getDoc(docRef); } catch (e) { console.warn('Firestore offline:', e); }
 
-  const imgEmail = 'https://imgwii.web.app/smile.avif';
+  const imgEmail = '/imgwii/smile.webp';
   const { avatar: calcIniciales } = await import('../../core/widev/nombre.js');
 
   let smileData;

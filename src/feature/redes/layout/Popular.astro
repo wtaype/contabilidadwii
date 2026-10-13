@@ -9,22 +9,27 @@ import redesCss from '../redes.css?inline';
 interface Props {
   titulo?: string;
   descripcion?: string;
+  idioma?: string;
 }
 
 const { 
   titulo = `Redes Oficiales · ${datosNegocio.nombre} | Enlaces`,
-  descripcion = datosNegocio.slogan || `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}.`
+  descripcion = datosNegocio.subtitulo || `Canales verificados y enlaces oficiales de ${datosNegocio.nombre}.`,
+  idioma = 'es'
 } = Astro.props;
 
-const webUrl = datosNegocio.redes?.web || datosNegocio.web || '';
+const webUrl = datosNegocio.redes?.web || '';
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || (webUrl ? (webUrl.startsWith('http') ? webUrl : `https://${webUrl}`) : '');
-const canonical = siteUrl ? `${siteUrl}/redes` : '/redes';
-const ogImgRel = datosNegocio.hero?.imagen || datosNegocio.logo || '/imgwii/hero.webp';
+const canonical = siteUrl 
+  ? (idioma === 'en' ? `${siteUrl}/en/redes` : `${siteUrl}/redes`) 
+  : (idioma === 'en' ? '/en/redes' : '/redes');
+
+const ogImgRel = datosNegocio.fotoEspecialista || datosNegocio.identidad?.imagenSede || datosNegocio.hero?.imagen || datosNegocio.logo || '/imgwii/hero.webp';
 const ogImage = ogImgRel.startsWith('http') ? ogImgRel : (siteUrl ? `${siteUrl}${ogImgRel.startsWith('/') ? '' : '/'}${ogImgRel}` : ogImgRel);
 ---
 
 <!DOCTYPE html>
-<html lang="es" data-theme="luz" class="scroll-smooth">
+<html lang={idioma} data-theme="luz" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -43,7 +48,7 @@ const ogImage = ogImgRel.startsWith('http') ? ogImgRel : (siteUrl ? `${siteUrl}$
   <meta property="og:description" content={descripcion} />
   <meta property="og:image" content={ogImage} />
   <meta property="og:url" content={canonical} />
-  <meta property="og:locale" content="es_PE" />
+  <meta property="og:locale" content={idioma === 'en' ? 'en_US' : 'es_PE'} />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />

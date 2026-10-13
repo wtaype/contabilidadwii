@@ -1,27 +1,33 @@
 ---
 // src/feature/redes/componentes/RedesFooter.astro
-// Pie de la tarjeta de redes con pill de atención y enlaces mínimos legales (100% Español, 0ms)
+// Pie de la tarjeta de redes con pill de atención y enlaces mínimos legales (0ms)
+interface Props {
+  idioma?: string;
+}
+
+const { idioma = 'es' } = Astro.props;
+const esEn = idioma === 'en';
 ---
 
 <footer class="redes-footer">
   <!-- Pill Promocional Discreto -->
   <div class="redes-pill-promo">
     <span class="promo-emoji">✨</span>
-    <span>Atención Personalizada y Puntual</span>
+    <span>{esEn ? 'Personalized & Professional Support' : 'Atención Personalizada y Puntual'}</span>
   </div>
 
   <!-- Enlaces Legales Mínimos -->
   <ul class="redes-links-legales">
     <li>
-      <a href="/terminos">Términos</a>
+      <a href={esEn ? '/en/terminos' : '/terminos'}>{esEn ? 'Terms' : 'Términos'}</a>
     </li>
     <li class="redes-separador" aria-hidden="true">•</li>
     <li>
-      <a href="/privacidad">Privacidad</a>
+      <a href={esEn ? '/en/privacidad' : '/privacidad'}>{esEn ? 'Privacy' : 'Privacidad'}</a>
     </li>
     <li class="redes-separador" aria-hidden="true">•</li>
     <li>
-      <a href="/">Inicio</a>
+      <a href={esEn ? '/en' : '/'}>{esEn ? 'Home' : 'Inicio'}</a>
     </li>
   </ul>
 </footer>

@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/clientes/clientes.js
-// Controlador Frontend Autónomo para el Módulo Clientes CRM Contable (Estudio Cusihuaman)
+// Controlador Frontend Autónomo para el Módulo Clientes CRM Contable
 // 100% JS Nativo · Integrado con @widev y Local-First
 import { Notificacion, wiSpin, wiConfirmar } from '@widev';
 import {
@@ -246,7 +246,7 @@ export function inicializarModuloClientes() {
       crmEstadoFiscal.className = `cl-status-tag ${c.estadoTributario || 'al_dia'}`;
     }
     if (crmFechaInicio) crmFechaInicio.textContent = c.fechaInicio || 'Ene 2026';
-    if (crmDireccion) crmDireccion.textContent = c.direccion || 'Surquillo, Lima';
+    if (crmDireccion) crmDireccion.textContent = c.direccion || '-';
     if (crmContacto) crmContacto.textContent = `Contacto: ${c.contacto || c.nombre}`;
     if (crmObservaciones) crmObservaciones.textContent = c.observaciones || 'Sin observaciones registradas.';
   }
@@ -255,7 +255,8 @@ export function inicializarModuloClientes() {
     const cel = c.celular?.replace(/\D/g, '') || '';
     const ruc = c.documento || '';
     const dig = c.ultimoDigitoRuc ?? (ruc.length >= 1 ? ruc.slice(-1) : 0);
-    const texto = `¡Hola ${c.contacto || c.nombre}! Te saluda el Estudio Contable CPC Lourdes Cusihuaman Gálvez. Te recordamos que la declaración mensual SUNAT de tu RUC (${ruc}, dígito ${dig}) se aproxima a su fecha de vencimiento. Agradecemos remitir tus comprobantes de compras y ventas para procesar tu declaración a tiempo.`;
+    const emisor = window.Wii?.negocio?.nombreCorto || window.Wii?.negocio?.nombre || 'la administración';
+    const texto = `¡Hola ${c.contacto || c.nombre}! Te saluda ${emisor}. Te recordamos que la declaración mensual SUNAT de tu RUC (${ruc}, dígito ${dig}) se aproxima a su fecha de vencimiento. Agradecemos remitir tus comprobantes de compras y ventas para procesar tu declaración a tiempo.`;
     const url = cel 
       ? `https://wa.me/51${cel}?text=${encodeURIComponent(texto)}`
       : `https://wa.me/?text=${encodeURIComponent(texto)}`;
@@ -336,7 +337,7 @@ export function inicializarModuloClientes() {
     const honorario = parseFloat(inputModalHonorario?.value) || 150.00;
     const celular = inputModalCelular?.value?.trim();
     const email = inputModalEmail?.value?.trim();
-    const direccion = inputModalDireccion?.value?.trim() || 'Surquillo, Lima';
+    const direccion = inputModalDireccion?.value?.trim() || '';
 
     if (!doc || !nombre || !celular) {
       Notificacion('Completa los campos obligatorios (*).', 'warning', 2500);

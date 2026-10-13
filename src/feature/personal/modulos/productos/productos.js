@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/productos/productos.js
-// Controlador Frontend Autónomo del Módulo de Servicios & Asesorías (Estudio Cusihuaman)
+// Controlador Frontend Autónomo del Módulo de Servicios & Asesorías
 // 100% JS Nativo · Local-First · Integración con Firestore, @widev y modales.js
 
 import { Notificacion, wiSpin, wiConfirmar } from '@widev';

@@ -1,6 +1,6 @@
-﻿// src/feature/cliente/modulos/03-cuenta/dataCuenta.js
-// Capa de Datos Local-First de Mi Cuenta · Estudio Cusihuaman
-// Esquema canónico 100% alineado con smiles.md y feature/auth
+// src/feature/cliente/modulos/03-cuenta/dataCuenta.js
+// Capa de Datos Local-First de Mi Cuenta · Ecosistema Wii
+// Esquema canónico 100% alineado con smiles y feature/auth (0ms)
 // En smiles/{uid} se guarda estrictamente uid (sin userId) y avatar + iniciales
 
 import { getls, savels, avatar as calcIniciales } from '@widev';
@@ -25,7 +25,7 @@ export function obtenerCuentaLocal() {
     nombre,
     apellidos,
     celular: user.celular || '',
-    avatar: user.avatar || user.foto || 'https://imgwii.web.app/smile.avif',
+    avatar: user.avatar || user.foto || '/imgwii/smile.webp',
     iniciales: user.iniciales || calcIniciales(nombreCompleto),
     rol: user.rol || 'cliente',
     plan: user.plan || 'estandar',
@@ -37,9 +37,9 @@ export function obtenerCuentaLocal() {
     razonSocial: user.razonSocial || '',
     direccionFiscal: user.direccionFiscal || '',
     preferencias: {
-      tipoValvula: user.preferencias?.tipoValvula || 'premium',
-      horarioHabitual: user.preferencias?.horarioHabitual || 'mañana',
-      metodoPago: user.preferencias?.metodoPago || 'yape',
+      regimenTributario: user.preferencias?.regimenTributario || 'mype',
+      horarioHabitual: user.preferencias?.horarioHabitual || 'online-tarde',
+      metodoPago: user.preferencias?.metodoPago || 'bcp',
       timbreMalogrado: Boolean(user.preferencias?.timbreMalogrado),
       llamarAlLlegar: Boolean(user.preferencias?.llamarAlLlegar ?? true),
       pisoAscensor: user.preferencias?.pisoAscensor || '',
@@ -75,7 +75,7 @@ export async function guardarPerfil(datos = {}) {
   if (datos.avatar !== undefined && datos.avatar.trim()) {
     user.avatar = datos.avatar.trim();
   } else if (!user.avatar) {
-    user.avatar = 'https://imgwii.web.app/smile.avif';
+    user.avatar = '/imgwii/smile.webp';
   }
 
   if (datos.iniciales !== undefined && datos.iniciales.trim()) {
@@ -126,7 +126,7 @@ export async function guardarPerfil(datos = {}) {
 }
 
 /**
- * Guarda las preferencias operativas de entrega de gas
+ * Guarda las preferencias operativas del cliente o contribuyente
  */
 export async function guardarPreferencias(prefs = {}) {
   const user = getls('wiSmile') || (typeof window !== 'undefined' ? window.__CONTABILIDAD_USER__ : null);

@@ -1,5 +1,5 @@
 // src/feature/cliente/modulos/04-soporte/soporte.js
-// Controlador Humano y Smart del Módulo 04: Consultas Tributarias · Estudio Cusihuaman
+// Controlador Humano y Smart del Módulo 04: Soporte y Consultas
 // wiSelect, autocompletado en 0ms desde wiSmile, WhatsApp tributario, wiSpin y Notificacion
 
 import { wiSelect, wiSpin, Notificacion, getls } from '@widev';
@@ -156,7 +156,7 @@ function inicializarWiSelects() {
   }
 
   // 4. Selector de Régimen Estimado para Cotizaciones
-  const elRegimen = document.getElementById('spSelectBalonCotiz');
+  const elRegimen = document.getElementById('spSelectRegimenCotiz');
   if (elRegimen && !elRegimen.dataset.wiselect) {
     instSelectRegimen = wiSelect(elRegimen, {
       placeholder: 'Régimen tributario...',

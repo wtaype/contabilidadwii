@@ -6,11 +6,11 @@
  * Genera el armazón HTML principal del correo con membrete y pie de página institucional
  */
 export function envoltorioBase({ contenidoHtml, asunto, vistaPreviaTexto = '', negocio = {} }) {
-  const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
-  const logoUrl = negocio?.logoUrl || '/imgwii/logo.webp';
-  const direccion = negocio?.direccion || 'Jr. Dante 260, Surquillo, Lima 15047';
+  const nombreEmpresa = negocio?.nombre || '';
+  const logoUrl = negocio?.logoUrl || '';
+  const direccion = negocio?.direccion || '';
   const telefono = negocio?.telefono || '';
-  const especialista = negocio?.especialista || 'CPC Lourdes Cusihuaman Gálvez';
+  const especialista = negocio?.especialista || '';
 
   return `
 <!DOCTYPE html>

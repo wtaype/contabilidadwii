@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/modulos/negocio/Negocio.astro
-// Módulo: Ficha de Mi Negocio & Especialista (Estudio Cusihuaman)
+// Módulo: Ficha de Mi Negocio & Especialista
 // Rediseño Pro: Tabs Horizontales Compactos + Redes Dinámicas + SEO Prioritario + Métricas Reordenadas
 // 100% JS Nativo · Local-First · Sincronizado con Firestore · Cero Bloatware
 
@@ -12,6 +12,16 @@ interface Props {
 
 const { esActivo = false } = Astro.props;
 const n = datosNegocio;
+const raw = n.raw || {};
+const iden = raw.identidad || {};
+const cont = raw.contacto || {};
+const ubi = raw.ubicacion || {};
+const seo = raw.seo || {};
+const sedes = Array.isArray(raw.sedes) ? raw.sedes : [];
+const sedePresencial = sedes[0] || {};
+const sedeVirtual = sedes[1] || {};
+const met = raw.metricas || {};
+const hor = raw.horarios || {};
 ---
 
 <section class={`ps-panel ${esActivo ? 'active' : ''}`} id="panel-negocio">
@@ -79,15 +89,15 @@ const n = datosNegocio;
             <!-- 1. Foto Especialista Grande -->
             <div class="ng-photo-box ng-photo-box-hero">
               <div class="ng-photo-avatar-wrap">
-                <img id="ngImgHeroPreview" src="/imgwii/hero.webp" alt="Foto Especialista" class="ng-thumb-specialist-lg" />
+                <img id="ngImgHeroPreview" src={iden.imagenSede || n.fotoEspecialista || ""} alt="Foto Especialista" class="ng-thumb-specialist-lg" />
               </div>
               <div class="ng-photo-box-title">
                 <i class="fa-solid fa-camera"></i>
                 <span>Foto Especialista</span>
               </div>
               <div class="ng-input-url-group">
-                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-url" placeholder="http://localhost:4321/imgwii/hero.webp" />
-                <a id="btnLinkHero" href="/imgwii/hero.webp" target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
+                <input type="text" id="ngInputImagenSede" class="ng-input ng-input-url" placeholder={iden.imagenSede || n.fotoEspecialista || ""} />
+                <a id="btnLinkHero" href={iden.imagenSede || n.fotoEspecialista || "#"} target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
                   <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
               </div>
@@ -99,15 +109,15 @@ const n = datosNegocio;
               <!-- Mini-tarjeta: Logo Oficial Circular -->
               <div class="ng-photo-box">
                 <div class="ng-photo-avatar-wrap">
-                  <img id="ngImgLogoPreview" src="/imgwii/logo.webp" alt="Logo Oficial" class="ng-thumb-circle-lg" />
+                  <img id="ngImgLogoPreview" src={iden.logo || n.logo || ""} alt="Logo Oficial" class="ng-thumb-circle-lg" />
                 </div>
                 <div class="ng-photo-box-title">
                   <i class="fa-solid fa-shield-halved"></i>
                   <span>Logo Oficial</span>
                 </div>
                 <div class="ng-input-url-group">
-                  <input type="text" id="ngInputLogo" class="ng-input ng-input-url" placeholder="http://localhost:4321/imgwii/logo.webp" />
-                  <a id="btnLinkLogo" href="/imgwii/logo.webp" target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
+                  <input type="text" id="ngInputLogo" class="ng-input ng-input-url" placeholder={iden.logo || n.logo || ""} />
+                  <a id="btnLinkLogo" href={iden.logo || n.logo || "#"} target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </a>
                 </div>
@@ -116,15 +126,15 @@ const n = datosNegocio;
               <!-- Mini-tarjeta: Logo Full Horizontal -->
               <div class="ng-photo-box">
                 <div class="ng-photo-avatar-wrap">
-                  <img id="ngImgLogoFullPreview" src="/imgwii/logo_full.webp" alt="Logo Full" class="ng-thumb-full-lg" />
+                  <img id="ngImgLogoFullPreview" src={iden.logoFull || n.logoFull || ""} alt="Logo Full" class="ng-thumb-full-lg" />
                 </div>
                 <div class="ng-photo-box-title">
                   <i class="fa-solid fa-gem"></i>
                   <span>Logo Full</span>
                 </div>
                 <div class="ng-input-url-group">
-                  <input type="text" id="ngInputLogoFull" class="ng-input ng-input-url" placeholder="http://localhost:4321/imgwii/logo_full.webp" />
-                  <a id="btnLinkLogoFull" href="/imgwii/logo_full.webp" target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
+                  <input type="text" id="ngInputLogoFull" class="ng-input ng-input-url" placeholder={iden.logoFull || n.logoFull || ""} />
+                  <a id="btnLinkLogoFull" href={iden.logoFull || n.logoFull || "#"} target="_blank" class="ng-btn-icon-link" title="Abrir imagen en nueva pestaña">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </a>
                 </div>
@@ -147,32 +157,32 @@ const n = datosNegocio;
           <div class="ng-grid-1 ng-gap-comfortable">
             <div class="ng-field">
               <label class="ng-label" for="ngInputNombre">Nombre Oficial / Razón Social *</label>
-              <input type="text" id="ngInputNombre" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
+              <input type="text" id="ngInputNombre" class="ng-input" placeholder={n.nombre || ""} required />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputNombreCorto">Nombre Corto / Marca Comercial</label>
-              <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder="Estudio Cusihuaman" />
+              <input type="text" id="ngInputNombreCorto" class="ng-input" placeholder={n.nombreCorto || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputEspecialista">Nombre del Especialista / Titular *</label>
-              <input type="text" id="ngInputEspecialista" class="ng-input" placeholder="Lourdes Cusihuaman Gálvez" required />
+              <input type="text" id="ngInputEspecialista" class="ng-input" placeholder={n.especialista || ""} required />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputColegiatura">Colegiatura / Registro SUNAT</label>
-              <input type="text" id="ngInputColegiatura" class="ng-input" placeholder="Ex-orientadora SUNAT" />
+              <input type="text" id="ngInputColegiatura" class="ng-input" placeholder={iden.colegiatura || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputTitulo">Título Profesional</label>
-              <input type="text" id="ngInputTitulo" class="ng-input" placeholder="Asesora Contable y Tributaria" />
+              <input type="text" id="ngInputTitulo" class="ng-input" placeholder={iden.titulo || iden.cargo || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputGrado">Grado / Acreditación</label>
-              <input type="text" id="ngInputGrado" class="ng-input" placeholder="Ex-funcionaria de SUNAT · Universidad de Lima" />
+              <input type="text" id="ngInputGrado" class="ng-input" placeholder={iden.grado || ""} />
             </div>
           </div>
         </div>
@@ -480,7 +490,7 @@ const n = datosNegocio;
             <div class="ng-field">
               <label class="ng-label" for="ngSelectPais">
                 <span>País de Operación</span>
-                <span class="ng-label-hint" id="hintPaisCodigo">🇵🇪 +51</span>
+                <span class="ng-label-hint" id="hintPaisCodigo">{cont.paisCode ? `+${cont.paisCode}` : ''}</span>
               </label>
               <select id="ngSelectPais" class="ng-input ng-select">
                 <option value="PE" data-code="51" selected>🇵🇪 Perú (+51)</option>
@@ -498,16 +508,16 @@ const n = datosNegocio;
             <!-- 2. Correo Electrónico Oficial -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputEmail">Correo Electrónico Oficial</label>
-              <input type="email" id="ngInputEmail" class="ng-input" placeholder="contacto@contabilidadwii.com" />
+              <input type="email" id="ngInputEmail" class="ng-input" placeholder={cont.email || n.email || ""} />
             </div>
 
             <!-- 3. Teléfono Visible / Principal -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputTelefono">
                 <span>Teléfono Visible / Principal</span>
-                <span class="ng-label-hint" id="hintTelefonoFormato">+51 933 878 512</span>
+                <span class="ng-label-hint" id="hintTelefonoFormato">{cont.telefono || n.telefono || ''}</span>
               </label>
-              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder="+51 933 878 512" />
+              <input type="tel" id="ngInputTelefono" class="ng-input" placeholder={cont.telefono || n.telefono || ""} />
             </div>
 
             <!-- 4. Teléfono Fijo -->
@@ -516,7 +526,7 @@ const n = datosNegocio;
                 <span>Teléfono Fijo</span>
                 <span class="ng-label-hint">Línea de oficina / sede</span>
               </label>
-              <input type="tel" id="ngInputTelefonoFijo" class="ng-input" placeholder="(01) 447-6849" />
+              <input type="tel" id="ngInputTelefonoFijo" class="ng-input" placeholder={cont.telefonoFijo || ""} />
             </div>
 
             <!-- 5. Celular Secundario / Emergencias -->
@@ -525,16 +535,16 @@ const n = datosNegocio;
                 <span>Celular Secundario</span>
                 <span class="ng-label-hint">Línea de guardia o soporte</span>
               </label>
-              <input type="tel" id="ngInputTelefonoSecundario" class="ng-input" placeholder="+51 900 000 000" />
+              <input type="tel" id="ngInputTelefonoSecundario" class="ng-input" placeholder={cont.telefonoSecundario || ""} />
             </div>
 
             <!-- 6. WhatsApp API (Para Enlaces) -->
             <div class="ng-field">
               <label class="ng-label" for="ngInputWhatsapp">
                 <span>WhatsApp API (Para Enlaces)</span>
-                <span class="ng-label-hint" id="hintWhatsappFormato">51933878512</span>
+                <span class="ng-label-hint" id="hintWhatsappFormato">{cont.whatsapp || n.whatsapp || ''}</span>
               </label>
-              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder="51933878512" />
+              <input type="tel" id="ngInputWhatsapp" class="ng-input" placeholder={cont.whatsapp || n.whatsapp || ""} />
             </div>
           </div>
         </div>
@@ -560,22 +570,22 @@ const n = datosNegocio;
           <div class="ng-grid-2">
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputDireccion">Dirección Física Completa</label>
-              <input type="text" id="ngInputDireccion" class="ng-input" placeholder="Jr. Dante 260" />
+              <input type="text" id="ngInputDireccion" class="ng-input" placeholder={ubi.direccion || ""} />
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label" for="ngInputReferencia">Referencia / Punto de Encuentro</label>
-              <input type="text" id="ngInputReferencia" class="ng-input" placeholder="Cerca a Av. Angamos y Av. Paseo de la República" />
+              <input type="text" id="ngInputReferencia" class="ng-input" placeholder={ubi.referencia || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputDistrito">Distrito</label>
-              <input type="text" id="ngInputDistrito" class="ng-input" placeholder="Surquillo" />
+              <input type="text" id="ngInputDistrito" class="ng-input" placeholder={ubi.distrito || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputCiudad">Ciudad y País</label>
-              <input type="text" id="ngInputCiudad" class="ng-input" placeholder="Lima, PE" />
+              <input type="text" id="ngInputCiudad" class="ng-input" placeholder={ubi.ciudad ? `${ubi.ciudad}${ubi.pais ? ', ' + ubi.pais : ''}` : ""} />
             </div>
 
             <div class="ng-field span-2">
@@ -583,7 +593,7 @@ const n = datosNegocio;
                 <span>Enlace Compartido Google Maps</span>
               </label>
               <div class="ng-input-group-maps">
-                <input type="url" id="ngInputMapsUrl" class="ng-input" placeholder="https://maps.google.com" />
+                <input type="url" id="ngInputMapsUrl" class="ng-input" placeholder={ubi.mapsUrl || ""} />
                 <button type="button" class="ng-btn-maps-action ng-btn-maps-test" id="btnProbarMapsUrl" title="Probar enlace actual">
                   <i class="fa-solid fa-circle-play"></i> Probar
                 </button>
@@ -595,12 +605,12 @@ const n = datosNegocio;
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputLat">Latitud</label>
-              <input type="number" step="any" id="ngInputLat" class="ng-input" placeholder="-12.1125" />
+              <input type="number" step="any" id="ngInputLat" class="ng-input" placeholder={ubi.coordenadas?.lat != null ? String(ubi.coordenadas.lat) : ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputLng">Longitud</label>
-              <input type="number" step="any" id="ngInputLng" class="ng-input" placeholder="-77.0258" />
+              <input type="number" step="any" id="ngInputLng" class="ng-input" placeholder={ubi.coordenadas?.lng != null ? String(ubi.coordenadas.lng) : ""} />
             </div>
           </div>
         </div>
@@ -621,9 +631,9 @@ const n = datosNegocio;
                 <span class="ng-label-hint">Días laborales</span>
               </label>
               <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSemanaAbre" value="08:30" />
+                <input type="time" id="ngHorarioSemanaAbre" value={hor.semana?.abre || ""} />
                 <span>a</span>
-                <input type="time" id="ngHorarioSemanaCierra" value="19:00" />
+                <input type="time" id="ngHorarioSemanaCierra" value={hor.semana?.cierra || ""} />
               </div>
             </div>
 
@@ -633,9 +643,9 @@ const n = datosNegocio;
                 <span class="ng-label-hint">Medio día</span>
               </label>
               <div class="ng-input-group-horario">
-                <input type="time" id="ngHorarioSabadoAbre" value="09:00" />
+                <input type="time" id="ngHorarioSabadoAbre" value={hor.sabado?.abre || ""} />
                 <span>a</span>
-                <input type="time" id="ngHorarioSabadoCierra" value="13:00" />
+                <input type="time" id="ngHorarioSabadoCierra" value={hor.sabado?.cierra || ""} />
               </div>
             </div>
           </div>
@@ -663,17 +673,17 @@ const n = datosNegocio;
           <div class="ng-grid-1">
             <div class="ng-field">
               <label class="ng-label" for="ngInputMetricaPacientes">Clientes Asesorados</label>
-              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder="450+" />
+              <input type="text" id="ngInputMetricaPacientes" class="ng-input" placeholder={met.clientes || met.pacientes || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputMetricaResenas">Reseñas 5 Estrellas</label>
-              <input type="text" id="ngInputMetricaResenas" class="ng-input" placeholder="98%" />
+              <input type="text" id="ngInputMetricaResenas" class="ng-input" placeholder={met.satisfaccion || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label" for="ngInputMetricaSatisfaccion">Satisfacción de Clientes</label>
-              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input" placeholder="99.4%" />
+              <input type="text" id="ngInputMetricaSatisfaccion" class="ng-input" placeholder={met.confidencialidad || ""} />
             </div>
           </div>
         </div>
@@ -686,13 +696,13 @@ const n = datosNegocio;
               <p class="ng-card-desc">Cálculo dinámico de experiencia profesional en vivo.</p>
             </div>
             <span class="ng-badge-trayectoria" id="ngBadgeTrayectoria">
-              <i class="fa-solid fa-award"></i> <span id="ngYearsText">12+ años</span>
+              <i class="fa-solid fa-award"></i> <span id="ngYearsText">{met.years ? `${met.years} años` : (n.experienciaAnos ? `${n.experienciaAnos} años` : "")}</span>
             </span>
           </div>
 
           <div class="ng-field">
             <label class="ng-label" for="ngInputLanzamiento">Fecha de Fundación / Inicio de Operaciones</label>
-            <input type="date" id="ngInputLanzamiento" class="ng-input" value="2014-03-15" />
+            <input type="date" id="ngInputLanzamiento" class="ng-input" value={iden.lanzamientoFecha || ""} />
             <p class="ng-field-hint sn-mt-10">Calcula y actualiza automáticamente los años de experiencia para la web.</p>
           </div>
         </div>
@@ -746,7 +756,7 @@ const n = datosNegocio;
                 <span>Meta Título para Google</span>
                 <span class="ng-label-hint">Recomendado: 50 a 65 caracteres</span>
               </label>
-              <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder="Estudio Cusihuaman | Lourdes Cusihuaman Gálvez - Asesoría Contable & SUNAT" />
+              <input type="text" id="ngInputSeoTituloEs" class="ng-input" placeholder={typeof seo.titulo === 'object' ? (seo.titulo?.es || "") : (seo.titulo || "")} />
             </div>
 
             <div class="ng-field">
@@ -754,7 +764,7 @@ const n = datosNegocio;
                 <span>Meta Descripción para Google</span>
                 <span class="ng-label-hint">Recomendado: 120 a 160 caracteres</span>
               </label>
-              <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="3" placeholder="Asesoría tributaria especializada con Lourdes Cusihuaman Gálvez, ex-funcionaria de SUNAT..."></textarea>
+              <textarea id="ngInputSeoDescEs" class="ng-textarea" rows="3" placeholder={typeof seo.descripcion === 'object' ? (seo.descripcion?.es || "") : (seo.descripcion || "")}></textarea>
             </div>
 
             <div class="ng-field">
@@ -762,7 +772,7 @@ const n = datosNegocio;
                 <span>Palabras Clave SEO (Separadas por comas)</span>
                 <span class="ng-label-hint">Términos de búsqueda frecuentes</span>
               </label>
-              <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder="contabilidad 4ta categoria, declaracion 5ta categoria, recibos por honorarios sunat, suspension retenciones, estudio contable surquillo..."></textarea>
+              <textarea id="ngInputSeoKeywordsEs" class="ng-textarea" rows="2" placeholder={Array.isArray(seo.keywords?.es) ? seo.keywords.es.join(', ') : (typeof seo.keywords === 'string' ? seo.keywords : "")}></textarea>
             </div>
           </div>
         </div>
@@ -782,7 +792,7 @@ const n = datosNegocio;
                 <span>Biografía Profesional / Resumen Ejecutivo</span>
                 <span class="ng-label-hint">Párrafo principal de presentación</span>
               </label>
-              <textarea id="ngInputBioEs" class="ng-textarea ng-textarea-lg" rows="5" placeholder="Especialista contable egresada de la Universidad de Lima y ex-orientadora de SUNAT con más de 12 años de trayectoria..."></textarea>
+              <textarea id="ngInputBioEs" class="ng-textarea ng-textarea-lg" rows="5" placeholder={typeof iden.bio === 'object' ? (iden.bio?.es || "") : (iden.bio || "")}></textarea>
             </div>
 
             <div class="ng-field">
@@ -790,14 +800,14 @@ const n = datosNegocio;
                 <span>Especialidades Tributarias / Enfoques Principales</span>
                 <span class="ng-label-hint">Separados por viñetas o comas</span>
               </label>
-              <input type="text" id="ngInputEnfoques" class="ng-input" placeholder="Rentas de 4ta Categoría (RHE) • 5ta Categoría y Planillas • Regularización SUNAT • Buzón SOL" />
+              <input type="text" id="ngInputEnfoques" class="ng-input" placeholder={iden.enfoques || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label ng-label-prominent" for="ngInputHorario">
                 <span>Horario de Atención Descriptivo</span>
               </label>
-              <input type="text" id="ngInputHorario" class="ng-input" placeholder="Lunes a Viernes: 8:30 a.m. a 7:00 p.m. | Sábados: 9:00 a.m. a 1:00 p.m." />
+              <input type="text" id="ngInputHorario" class="ng-input" placeholder={typeof cont.horario === 'object' ? (cont.horario?.es || "") : (cont.horario || "")} />
             </div>
 
             <div class="ng-field">
@@ -807,7 +817,7 @@ const n = datosNegocio;
                   <i class="fa-solid fa-rotate-left"></i> Restaurar
                 </button>
               </label>
-              <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder="¡Hola Lourdes! Tengo dudas con mis declaraciones / trámites de SUNAT y deseo orientación." />
+              <input type="text" id="ngInputWhatsappMensaje" class="ng-input" placeholder={typeof cont.whatsappMensaje === 'object' ? (cont.whatsappMensaje?.es || "") : (cont.whatsappMensaje || "")} />
             </div>
           </div>
         </div>
@@ -827,11 +837,11 @@ const n = datosNegocio;
               <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesTagEs">Etiqueta / Badge</label>
-                  <input type="text" id="ngSedeVesTagEs" class="ng-input" placeholder="Sede Surquillo" />
+                  <input type="text" id="ngSedeVesTagEs" class="ng-input" placeholder={typeof sedePresencial.tag === 'object' ? (sedePresencial.tag?.es || "") : (sedePresencial.tag || "")} />
                 </div>
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesAtencionEs">Horario de Atención</label>
-                  <input type="text" id="ngSedeVesAtencionEs" class="ng-input" placeholder="Lunes a Viernes (Previa Cita)" />
+                  <input type="text" id="ngSedeVesAtencionEs" class="ng-input" placeholder={typeof sedePresencial.atencion === 'object' ? (sedePresencial.atencion?.es || "") : (sedePresencial.atencion || "")} />
                 </div>
               </div>
             </div>
@@ -841,11 +851,11 @@ const n = datosNegocio;
               <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVirtualTagEs">Etiqueta / Badge</label>
-                  <input type="text" id="ngSedeVirtualTagEs" class="ng-input" placeholder="100% Online" />
+                  <input type="text" id="ngSedeVirtualTagEs" class="ng-input" placeholder={typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.es || "") : (sedeVirtual.tag || "")} />
                 </div>
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVirtualAtencionEs">Horario de Atención</label>
-                  <input type="text" id="ngSedeVirtualAtencionEs" class="ng-input" placeholder="Horarios Flexibles" />
+                  <input type="text" id="ngSedeVirtualAtencionEs" class="ng-input" placeholder={typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.es || "") : (sedeVirtual.atencion || "")} />
                 </div>
               </div>
             </div>
@@ -872,7 +882,7 @@ const n = datosNegocio;
                 <span>Meta Title</span>
                 <span class="ng-label-hint">Recommended: 50 to 65 characters</span>
               </label>
-              <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder="Estudio Cusihuaman | Tax & Accounting Services in Peru" />
+              <input type="text" id="ngInputSeoTituloEn" class="ng-input" placeholder={typeof seo.titulo === 'object' ? (seo.titulo?.en || "") : (seo.tituloEn || "")} />
             </div>
 
             <div class="ng-field">
@@ -880,7 +890,7 @@ const n = datosNegocio;
                 <span>Meta Description</span>
                 <span class="ng-label-hint">Recommended: 120 to 160 characters</span>
               </label>
-              <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="3" placeholder="Expert tax consulting with Lourdes Cusihuaman, former SUNAT tax officer..."></textarea>
+              <textarea id="ngInputSeoDescEn" class="ng-textarea" rows="3" placeholder={typeof seo.descripcion === 'object' ? (seo.descripcion?.en || "") : (seo.descripcionEn || "")}></textarea>
             </div>
 
             <div class="ng-field">
@@ -888,7 +898,7 @@ const n = datosNegocio;
                 <span>Keywords (Comma separated)</span>
                 <span class="ng-label-hint">Frequent search terms</span>
               </label>
-              <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder="peru tax consultant, 4th category tax filing peru, accounting firm surquillo lima..."></textarea>
+              <textarea id="ngInputSeoKeywordsEn" class="ng-textarea" rows="2" placeholder={Array.isArray(seo.keywords?.en) ? seo.keywords.en.join(', ') : (typeof seo.keywordsEn === 'string' ? seo.keywordsEn : "")}></textarea>
             </div>
           </div>
         </div>
@@ -905,32 +915,32 @@ const n = datosNegocio;
           <div class="ng-grid-2">
             <div class="ng-field">
               <label class="ng-label ng-label-prominent" for="ngInputNombreEn">Official Name</label>
-              <input type="text" id="ngInputNombreEn" class="ng-input" placeholder="Cusihuaman Accounting & Tax Firm" />
+              <input type="text" id="ngInputNombreEn" class="ng-input" placeholder={iden.nombreEn || iden.nombre || ""} />
             </div>
 
             <div class="ng-field">
               <label class="ng-label ng-label-prominent" for="ngInputNombreCortoEn">Short Name / Brand</label>
-              <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder="Estudio Cusihuaman" />
+              <input type="text" id="ngInputNombreCortoEn" class="ng-input" placeholder={iden.nombreCortoEn || iden.nombreCorto || ""} />
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label ng-label-prominent" for="ngInputBioEn">Professional Summary</label>
-              <textarea id="ngInputBioEn" class="ng-textarea ng-textarea-lg" rows="5" placeholder="Tax and accounting specialist graduated from the University of Lima and former SUNAT officer with over 12 years of experience..."></textarea>
+              <textarea id="ngInputBioEn" class="ng-textarea ng-textarea-lg" rows="5" placeholder={typeof iden.bio === 'object' ? (iden.bio?.en || "") : (iden.bioEn || "")}></textarea>
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label ng-label-prominent" for="ngInputEnfoquesEn">Tax Specializations</label>
-              <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder="4th Category Income • 5th Category Payroll • SUNAT Tax Compliance • SOL Mailbox Advisory" />
+              <input type="text" id="ngInputEnfoquesEn" class="ng-input" placeholder={iden.enfoquesEn || iden.enfoques || ""} />
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label ng-label-prominent" for="ngInputHorarioEn">Operating Hours Description</label>
-              <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder="Monday to Friday: 8:30 a.m. to 7:00 p.m. | Saturdays: 9:00 a.m. to 1:00 p.m." />
+              <input type="text" id="ngInputHorarioEn" class="ng-input" placeholder={typeof cont.horario === 'object' ? (cont.horario?.en || "") : (cont.horarioEn || "")} />
             </div>
 
             <div class="ng-field span-2">
               <label class="ng-label ng-label-prominent" for="ngInputWhatsappMensajeEn">Default WhatsApp Message</label>
-              <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder="Hello Lourdes! I have questions regarding my taxes and fee receipts with SUNAT." />
+              <input type="text" id="ngInputWhatsappMensajeEn" class="ng-input" placeholder={typeof cont.whatsappMensaje === 'object' ? (cont.whatsappMensaje?.en || "") : (cont.whatsappMensajeEn || "")} />
             </div>
           </div>
         </div>
@@ -950,11 +960,11 @@ const n = datosNegocio;
               <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesTagEn">Tag / Badge</label>
-                  <input type="text" id="ngSedeVesTagEn" class="ng-input" placeholder="Surquillo Office" />
+                  <input type="text" id="ngSedeVesTagEn" class="ng-input" placeholder={typeof sedePresencial.tag === 'object' ? (sedePresencial.tag?.en || "") : (sedePresencial.tagEn || "")} />
                 </div>
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVesAtencionEn">Opening Hours</label>
-                  <input type="text" id="ngSedeVesAtencionEn" class="ng-input" placeholder="Monday to Friday (By Appointment)" />
+                  <input type="text" id="ngSedeVesAtencionEn" class="ng-input" placeholder={typeof sedePresencial.atencion === 'object' ? (sedePresencial.atencion?.en || "") : (sedePresencial.atencionEn || "")} />
                 </div>
               </div>
             </div>
@@ -964,11 +974,11 @@ const n = datosNegocio;
               <div class="ng-grid-1 sn-mt-10">
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVirtualTagEn">Tag / Badge</label>
-                  <input type="text" id="ngSedeVirtualTagEn" class="ng-input" placeholder="100% Online" />
+                  <input type="text" id="ngSedeVirtualTagEn" class="ng-input" placeholder={typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.en || "") : (sedeVirtual.tagEn || "")} />
                 </div>
                 <div class="ng-field">
                   <label class="ng-label" for="ngSedeVirtualAtencionEn">Opening Hours</label>
-                  <input type="text" id="ngSedeVirtualAtencionEn" class="ng-input" placeholder="Flexible Schedule" />
+                  <input type="text" id="ngSedeVirtualAtencionEn" class="ng-input" placeholder={typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.en || "") : (sedeVirtual.atencionEn || "")} />
                 </div>
               </div>
             </div>

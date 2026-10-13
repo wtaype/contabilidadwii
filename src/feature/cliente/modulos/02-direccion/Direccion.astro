@@ -1,7 +1,7 @@
 ---
 // src/feature/cliente/modulos/02-direccion/Direccion.astro
-// Módulo de Gestión de Domicilio Fiscal y Establecimientos Anexos · Estudio Cusihuaman
-// Formulario ultra rápido y directo + Lista interactiva en dos columnas
+// Módulo de Gestión de Domicilio Fiscal y Establecimientos Anexos · Ecosistema Wii
+// Formulario ultra rápido y directo + Lista interactiva en dos columnas (0ms)
 import { datosNegocio } from '@/negocio.js';
 
 interface Props {
@@ -9,17 +9,17 @@ interface Props {
 }
 
 const { cliente = {} } = Astro.props;
-const distritosCobertura = datosNegocio.distritos && datosNegocio.distritos.length > 0 
+const distritosCobertura = Array.isArray(datosNegocio.distritos) && datosNegocio.distritos.length > 0 
   ? datosNegocio.distritos 
-  : [
-      { id: 'surquillo', nombre: 'Surquillo', eta: 'Sede Jr. Dante 260' },
-      { id: 'miraflores', nombre: 'Miraflores', eta: 'Atención Lima' },
-      { id: 'san-isidro', nombre: 'San Isidro', eta: 'Atención Lima' },
-      { id: 'san-borja', nombre: 'San Borja', eta: 'Atención Lima' },
-      { id: 'barranco', nombre: 'Barranco', eta: 'Atención Lima' },
-      { id: 'surco', nombre: 'Santiago de Surco', eta: 'Atención Lima' },
-      { id: 'lima-cercado', nombre: 'Lima Cercado', eta: 'Atención Lima' }
-    ];
+  : (Array.isArray(datosNegocio.sedes) && datosNegocio.sedes.length > 0
+      ? datosNegocio.sedes.map(s => ({ 
+          id: s.id || s.nombre?.toLowerCase().replace(/\s+/g, '-'), 
+          nombre: s.nombre, 
+          eta: s.modalidad || 'Sede Operativa' 
+        }))
+      : [
+          { id: 'principal', nombre: datosNegocio.distritoSede || 'Sede Principal', eta: 'Sede Central' }
+        ]);
 ---
 
 <div class="cl-direccion-module" id="moduloDireccion">

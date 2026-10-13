@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/galeria/galeria.js
-// Controlador Frontend Autónomo del Módulo Galería (Estudio Cusihuaman)
+// Controlador Frontend Autónomo del Módulo Galería
 // 100% JS Nativo · Integrado con @widev
 
 import { Notificacion, wiSpin, wiConfirmar } from '@widev';

@@ -1,5 +1,5 @@
 // src/feature/cliente/modulos/04-soporte/dataSoporte.js
-// Capa de Datos Local-First de Consultas SUNAT y Mesa de Ayuda · Estudio Cusihuaman
+// Capa de Datos Local-First de Consultas y Mesa de Ayuda
 // Gestión de tickets, Smart Cache con wiSoporte y wiCorreo, Firestore y Cloudflare Worker
 
 import { getls, savels } from '@widev';

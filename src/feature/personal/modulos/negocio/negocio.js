@@ -10,6 +10,7 @@ import {
   sincronizarDesdeFirestore
 } from './dataNegocio.js';
 import { solicitarActualizacionWeb } from '../../lib/actualizar.js';
+import { getCanalesRedes } from '@/negocio.js';
 
 export function inicializarNegocio() {
   const panelNegocio = document.getElementById('panel-negocio');
@@ -210,26 +211,30 @@ export function inicializarNegocio() {
   // ── ACTUALIZACIÓN DE PREVIEWS EN TIEMPO REAL CON URL COMPLETA ──
   inputImagenSede?.addEventListener('input', () => {
     const val = inputImagenSede.value.trim();
-    if (imgHeroPreview) imgHeroPreview.src = val || '/imgwii/hero.webp';
-    if (btnLinkHero) btnLinkHero.href = val || '/imgwii/hero.webp';
+    if (imgHeroPreview) imgHeroPreview.src = val || '';
+    if (btnLinkHero) btnLinkHero.href = val || '#';
   });
 
   inputLogo?.addEventListener('input', () => {
     const val = inputLogo.value.trim();
-    if (imgLogoPreview) imgLogoPreview.src = val || '/imgwii/logo.webp';
-    if (btnLinkLogo) btnLinkLogo.href = val || '/imgwii/logo.webp';
+    if (imgLogoPreview) imgLogoPreview.src = val || '';
+    if (btnLinkLogo) btnLinkLogo.href = val || '#';
   });
 
   inputLogoFull?.addEventListener('input', () => {
     const val = inputLogoFull.value.trim();
-    if (imgLogoFullPreview) imgLogoFullPreview.src = val || '/imgwii/logo_full.webp';
-    if (btnLinkLogoFull) btnLinkLogoFull.href = val || '/imgwii/logo_full.webp';
+    if (imgLogoFullPreview) imgLogoFullPreview.src = val || '';
+    if (btnLinkLogoFull) btnLinkLogoFull.href = val || '#';
   });
 
   // ── ASISTENTE DE GOOGLE MAPS ──
   btnBuscarGoogleMaps?.addEventListener('click', () => {
-    const dir = inputDireccion?.value?.trim() || 'Jr. Dante 260 Surquillo Lima';
-    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dir)}`, '_blank');
+    const dir = inputDireccion?.value?.trim() || '';
+    if (dir) {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dir)}`, '_blank');
+    } else {
+      window.open('https://maps.google.com', '_blank');
+    }
   });
 
   btnProbarMapsUrl?.addEventListener('click', () => {
@@ -714,23 +719,23 @@ export function inicializarNegocio() {
     if (inputTitulo) inputTitulo.value = cfg.identidad?.titulo || '';
     if (inputGrado) inputGrado.value = cfg.identidad?.grado || '';
 
-    const fechaLanz = cfg.identidad?.lanzamientoFecha || '2020-03-15';
+    const fechaLanz = cfg.identidad?.lanzamientoFecha || '';
     if (inputLanzamiento) inputLanzamiento.value = fechaLanz;
-    const years = calcularAnosTrayectoria(fechaLanz);
-    if (ngYearsText) ngYearsText.textContent = `${years} años`;
+    const years = fechaLanz ? calcularAnosTrayectoria(fechaLanz) : (cfg.metricas?.years || '');
+    if (ngYearsText) ngYearsText.textContent = years ? `${years} años` : '';
 
-    const foto = cfg.identidad?.imagenSede || '/imgwii/hero.webp';
-    const logo = cfg.identidad?.logo || '/imgwii/logo.webp';
-    const logoFull = cfg.identidad?.logoFull || '/imgwii/logo_full.webp';
-    if (inputImagenSede) inputImagenSede.value = formatearUrlCompleta(foto);
-    if (inputLogo) inputLogo.value = formatearUrlCompleta(logo);
-    if (inputLogoFull) inputLogoFull.value = formatearUrlCompleta(logoFull);
-    if (imgHeroPreview) imgHeroPreview.src = foto;
-    if (imgLogoPreview) imgLogoPreview.src = logo;
-    if (imgLogoFullPreview) imgLogoFullPreview.src = logoFull;
-    if (btnLinkHero) btnLinkHero.href = formatearUrlCompleta(foto);
-    if (btnLinkLogo) btnLinkLogo.href = formatearUrlCompleta(logo);
-    if (btnLinkLogoFull) btnLinkLogoFull.href = formatearUrlCompleta(logoFull);
+    const foto = cfg.identidad?.imagenSede || '';
+    const logo = cfg.identidad?.logo || '';
+    const logoFull = cfg.identidad?.logoFull || '';
+    if (inputImagenSede) inputImagenSede.value = foto ? formatearUrlCompleta(foto) : '';
+    if (inputLogo) inputLogo.value = logo ? formatearUrlCompleta(logo) : '';
+    if (inputLogoFull) inputLogoFull.value = logoFull ? formatearUrlCompleta(logoFull) : '';
+    if (imgHeroPreview) imgHeroPreview.src = foto || '';
+    if (imgLogoPreview) imgLogoPreview.src = logo || '';
+    if (imgLogoFullPreview) imgLogoFullPreview.src = logoFull || '';
+    if (btnLinkHero) btnLinkHero.href = foto ? formatearUrlCompleta(foto) : '#';
+    if (btnLinkLogo) btnLinkLogo.href = logo ? formatearUrlCompleta(logo) : '#';
+    if (btnLinkLogoFull) btnLinkLogoFull.href = logoFull ? formatearUrlCompleta(logoFull) : '#';
 
     // Identidad (ES)
     if (inputNombre) inputNombre.value = cfg.identidad?.nombre || '';
@@ -774,10 +779,10 @@ export function inicializarNegocio() {
     }
     if (inputEmail) inputEmail.value = cfg.contacto?.email || '';
 
-    if (ngHorarioSemanaAbre) ngHorarioSemanaAbre.value = cfg.horarios?.semana?.abre || '08:30';
-    if (ngHorarioSemanaCierra) ngHorarioSemanaCierra.value = cfg.horarios?.semana?.cierra || '19:00';
-    if (ngHorarioSabadoAbre) ngHorarioSabadoAbre.value = cfg.horarios?.sabado?.abre || '09:00';
-    if (ngHorarioSabadoCierra) ngHorarioSabadoCierra.value = cfg.horarios?.sabado?.cierra || '13:00';
+    if (ngHorarioSemanaAbre) ngHorarioSemanaAbre.value = cfg.horarios?.semana?.abre || '';
+    if (ngHorarioSemanaCierra) ngHorarioSemanaCierra.value = cfg.horarios?.semana?.cierra || '';
+    if (ngHorarioSabadoAbre) ngHorarioSabadoAbre.value = cfg.horarios?.sabado?.abre || '';
+    if (ngHorarioSabadoCierra) ngHorarioSabadoCierra.value = cfg.horarios?.sabado?.cierra || '';
 
     // Horario Texto
     if (inputHorario) {
@@ -807,31 +812,31 @@ export function inicializarNegocio() {
     // Ubicación
     if (inputDireccion) inputDireccion.value = cfg.ubicacion?.direccion || '';
     if (inputReferencia) inputReferencia.value = cfg.ubicacion?.referencia || '';
-    if (inputDistrito) inputDistrito.value = cfg.ubicacion?.distrito || 'Surquillo';
-    if (inputCiudad) inputCiudad.value = cfg.ubicacion?.ciudad || 'Lima, PE';
+    if (inputDistrito) inputDistrito.value = cfg.ubicacion?.distrito || '';
+    if (inputCiudad) inputCiudad.value = cfg.ubicacion?.ciudad || '';
     if (inputMapsUrl) inputMapsUrl.value = cfg.ubicacion?.mapsUrl || '';
-    if (inputLat) inputLat.value = cfg.ubicacion?.coordenadas?.lat ?? -12.1125;
-    if (inputLng) inputLng.value = cfg.ubicacion?.coordenadas?.lng ?? -77.0258;
+    if (inputLat) inputLat.value = cfg.ubicacion?.coordenadas?.lat ?? '';
+    if (inputLng) inputLng.value = cfg.ubicacion?.coordenadas?.lng ?? '';
 
     // Sedes
     const sedes = Array.isArray(cfg.sedes) ? cfg.sedes : [];
-    const sedeSurquillo = sedes.find(s => s.id === 'surquillo') || sedes[0] || {};
-    const sedeVirtual = sedes.find(s => s.id === 'virtual' || s.modalidad === 'Virtual') || sedes[1] || {};
+    const sedePresencial = sedes[0] || {};
+    const sedeVirtual = sedes[1] || {};
 
-    if (ngSedeVesTagEs) ngSedeVesTagEs.value = typeof sedeSurquillo.tag === 'object' ? (sedeSurquillo.tag?.es || '') : (sedeSurquillo.tag || 'Sede Surquillo');
-    if (ngSedeVesAtencionEs) ngSedeVesAtencionEs.value = typeof sedeSurquillo.atencion === 'object' ? (sedeSurquillo.atencion?.es || '') : (sedeSurquillo.atencion || 'Lunes a Viernes (Previa Cita)');
-    if (ngSedeVesTagEn) ngSedeVesTagEn.value = typeof sedeSurquillo.tag === 'object' ? (sedeSurquillo.tag?.en || '') : (sedeSurquillo.tagEn || 'Surquillo Office');
-    if (ngSedeVesAtencionEn) ngSedeVesAtencionEn.value = typeof sedeSurquillo.atencion === 'object' ? (sedeSurquillo.atencion?.en || '') : (sedeSurquillo.atencionEn || 'Monday to Friday (By Appointment)');
+    if (ngSedeVesTagEs) ngSedeVesTagEs.value = typeof sedePresencial.tag === 'object' ? (sedePresencial.tag?.es || '') : (sedePresencial.tag || '');
+    if (ngSedeVesAtencionEs) ngSedeVesAtencionEs.value = typeof sedePresencial.atencion === 'object' ? (sedePresencial.atencion?.es || '') : (sedePresencial.atencion || '');
+    if (ngSedeVesTagEn) ngSedeVesTagEn.value = typeof sedePresencial.tag === 'object' ? (sedePresencial.tag?.en || '') : (sedePresencial.tagEn || '');
+    if (ngSedeVesAtencionEn) ngSedeVesAtencionEn.value = typeof sedePresencial.atencion === 'object' ? (sedePresencial.atencion?.en || '') : (sedePresencial.atencionEn || '');
 
-    if (ngSedeVirtualTagEs) ngSedeVirtualTagEs.value = typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.es || '') : (sedeVirtual.tag || '100% Online');
-    if (ngSedeVirtualAtencionEs) ngSedeVirtualAtencionEs.value = typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.es || '') : (sedeVirtual.atencion || 'Horarios Flexibles');
-    if (ngSedeVirtualTagEn) ngSedeVirtualTagEn.value = typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.en || '') : (sedeVirtual.tagEn || '100% Online');
-    if (ngSedeVirtualAtencionEn) ngSedeVirtualAtencionEn.value = typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.en || '') : (sedeVirtual.atencionEn || 'Flexible Schedule');
+    if (ngSedeVirtualTagEs) ngSedeVirtualTagEs.value = typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.es || '') : (sedeVirtual.tag || '');
+    if (ngSedeVirtualAtencionEs) ngSedeVirtualAtencionEs.value = typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.es || '') : (sedeVirtual.atencion || '');
+    if (ngSedeVirtualTagEn) ngSedeVirtualTagEn.value = typeof sedeVirtual.tag === 'object' ? (sedeVirtual.tag?.en || '') : (sedeVirtual.tagEn || '');
+    if (ngSedeVirtualAtencionEn) ngSedeVirtualAtencionEn.value = typeof sedeVirtual.atencion === 'object' ? (sedeVirtual.atencion?.en || '') : (sedeVirtual.atencionEn || '');
 
     // Métricas
-    if (inputMetricaPacientes) inputMetricaPacientes.value = cfg.metricas?.clientes || cfg.metricas?.pacientes || '+240';
-    if (inputMetricaSatisfaccion) inputMetricaSatisfaccion.value = cfg.metricas?.satisfaccion || '99.4%';
-    if (inputMetricaConfidencialidad) inputMetricaConfidencialidad.value = cfg.metricas?.confidencialidad || '100%';
+    if (inputMetricaPacientes) inputMetricaPacientes.value = cfg.metricas?.clientes || cfg.metricas?.pacientes || '';
+    if (inputMetricaSatisfaccion) inputMetricaSatisfaccion.value = cfg.metricas?.satisfaccion || '';
+    if (inputMetricaConfidencialidad) inputMetricaConfidencialidad.value = cfg.metricas?.confidencialidad || '';
 
     // Redes & Canales
     const r = cfg.redes || {};
@@ -876,7 +881,7 @@ export function inicializarNegocio() {
     // Reordenar filas visuales según redesOrden
     const ordenGuardado = Array.isArray(cfg.redesOrden) && cfg.redesOrden.length > 0
       ? cfg.redesOrden
-      : ['whatsapp', 'linkedin', 'web', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
+      : getCanalesRedes().map(c => c.id);
     reordenarFilasRedes(ordenGuardado);
 
     // Actualizar badges y selector de agregar red
@@ -938,10 +943,10 @@ export function inicializarNegocio() {
           es: inputBioEs?.value?.trim() || (typeof idnt.bio === 'object' ? idnt.bio?.es : idnt.bio) || '',
           en: inputBioEn?.value?.trim() || (typeof idnt.bio === 'object' ? idnt.bio?.en : idnt.bioEn) || ''
         },
-        lanzamientoFecha: inputLanzamiento?.value || idnt.lanzamientoFecha || '2020-01-01',
-        logo: normalizarUrlParaGuardar(inputLogo?.value?.trim()) || idnt.logo || '/imgwii/logo.webp',
-        logoFull: normalizarUrlParaGuardar(inputLogoFull?.value?.trim()) || idnt.logoFull || '/imgwii/logo_full.webp',
-        imagenSede: normalizarUrlParaGuardar(inputImagenSede?.value?.trim()) || idnt.imagenSede || '/imgwii/hero.webp'
+        lanzamientoFecha: inputLanzamiento?.value || idnt.lanzamientoFecha || '',
+        logo: normalizarUrlParaGuardar(inputLogo?.value?.trim()) || idnt.logo || '',
+        logoFull: normalizarUrlParaGuardar(inputLogoFull?.value?.trim()) || idnt.logoFull || '',
+        imagenSede: normalizarUrlParaGuardar(inputImagenSede?.value?.trim()) || idnt.imagenSede || ''
       },
 
       contacto: {
@@ -964,12 +969,12 @@ export function inicializarNegocio() {
 
       horarios: {
         semana: {
-          abre: ngHorarioSemanaAbre?.value || actual.horarios?.semana?.abre || '08:30',
-          cierra: ngHorarioSemanaCierra?.value || actual.horarios?.semana?.cierra || '19:00'
+          abre: ngHorarioSemanaAbre?.value || actual.horarios?.semana?.abre || '',
+          cierra: ngHorarioSemanaCierra?.value || actual.horarios?.semana?.cierra || ''
         },
         sabado: {
-          abre: ngHorarioSabadoAbre?.value || actual.horarios?.sabado?.abre || '09:00',
-          cierra: ngHorarioSabadoCierra?.value || actual.horarios?.sabado?.cierra || '13:00'
+          abre: ngHorarioSabadoAbre?.value || actual.horarios?.sabado?.abre || '',
+          cierra: ngHorarioSabadoCierra?.value || actual.horarios?.sabado?.cierra || ''
         }
       },
 
@@ -1015,11 +1020,11 @@ export function inicializarNegocio() {
         : [],
 
       metricas: {
-        clientes: inputMetricaPacientes?.value?.trim() || "240+",
-        pacientes: inputMetricaPacientes?.value?.trim() || "240+",
-        satisfaccion: inputMetricaSatisfaccion?.value?.trim() || "99.4%",
-        confidencialidad: inputMetricaConfidencialidad?.value?.trim() || "100%",
-        years: calcularAnosTrayectoria(inputLanzamiento?.value)
+        clientes: inputMetricaPacientes?.value?.trim() || actual.metricas?.clientes || actual.metricas?.pacientes || '',
+        pacientes: inputMetricaPacientes?.value?.trim() || actual.metricas?.pacientes || actual.metricas?.clientes || '',
+        satisfaccion: inputMetricaSatisfaccion?.value?.trim() || actual.metricas?.satisfaccion || '',
+        confidencialidad: inputMetricaConfidencialidad?.value?.trim() || actual.metricas?.confidencialidad || '',
+        years: inputLanzamiento?.value ? calcularAnosTrayectoria(inputLanzamiento.value) : (actual.metricas?.years || '')
       },
 
       redes: (() => {
@@ -1079,7 +1084,7 @@ export function inicializarNegocio() {
           en: kwEn.length > 0 ? kwEn : (actual.seo?.keywords?.en || [])
         },
         imagen: actual.seo?.imagen || {
-          url: "/imgwii/hero.webp",
+          url: idnt.imagenSede || '',
           width: 1200,
           height: 630,
           type: "image/webp",
@@ -1087,8 +1092,8 @@ export function inicializarNegocio() {
           caption: inputTitulo?.value?.trim() || idnt.cargo || ''
         },
         schema: actual.seo?.schema || {
-          tipo: ["AccountingService", "ProfessionalService"],
-          especialidades: ["TaxPreparation", "PayrollServices", "TaxConsulting"],
+          tipo: ["ProfessionalService"],
+          especialidades: [],
           descripcionCorta: {
             es: inputBioEs?.value?.trim() || "",
             en: inputBioEn?.value?.trim() || ""
@@ -1112,7 +1117,7 @@ export function inicializarNegocio() {
       const payload = recolectarDatos();
       guardarDatosNegocio(payload);
 
-      Notificacion('Ficha de estudio contable guardada con éxito en Firestore', 'success', 3000);
+      Notificacion('Ficha de negocio guardada con éxito en Firestore', 'success', 3000);
 
       // Ofrecer compilación/despliegue en la nube
       if (typeof solicitarActualizacionWeb === 'function') {

@@ -1,7 +1,7 @@
 ---
 // src/feature/personal/modulos/sunat/Sunat.astro
-// Módulo de SUNAT: Facturación Electrónica & Comprobantes (Estudio Cusihuaman)
-// 100% JS Nativo · Integrado con @widev, Firestore y comprobantes contables B001 / F001
+// Módulo de SUNAT: Facturación Electrónica & Comprobantes
+// 100% JS Nativo · Integrado con @widev, Firestore y comprobantes B001 / F001
 import { datosNegocio } from '@/negocio.js';
 
 interface Props {
@@ -156,7 +156,7 @@ const telefonoTicket = datosNegocio.telefonoMostrado || datosNegocio.whatsapp ||
         <!-- Fila 4: Dirección / Domicilio Fiscal -->
         <div class="sn-form-group sn-mt-10">
           <label class="sn-label" for="snInpClienteDireccion">Domicilio Fiscal / Dirección</label>
-          <input type="text" id="snInpClienteDireccion" class="sn-input" placeholder="Ej: Av. Angamos Este 1240, Surquillo, Lima" />
+          <input type="text" id="snInpClienteDireccion" class="sn-input" placeholder="Ej: Av. Principal 123, Lima" />
         </div>
 
         <!-- SECCIÓN DE SELECCIÓN RÁPIDA DE SERVICIOS CONTABLES -->
@@ -274,7 +274,7 @@ const telefonoTicket = datosNegocio.telefonoMostrado || datosNegocio.whatsapp ||
           </div>
           <div class="sn-ti-row">
             <span class="sn-ti-k">Dirección:</span>
-            <span class="sn-ti-v" id="snTicketDir">Surquillo / Lima</span>
+            <span class="sn-ti-v" id="snTicketDir">-</span>
           </div>
         </div>
 

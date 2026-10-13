@@ -1,6 +1,6 @@
 ---
 // src/feature/personal/layout/Sonrisa.astro
-// Layout Maestro para el Feature Personal (Panel de Gestión · Estudio Cusihuaman)
+// Layout Maestro para el Feature Personal (Panel de Gestión)
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 import { datosNegocio } from '@/negocio.js';
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { 
-  titulo = `Panel de Gestión · ${datosNegocio.nombreCorto || 'Estudio Cusihuaman'}`,
+  titulo = `Panel de Gestión${datosNegocio.nombreCorto ? ' · ' + datosNegocio.nombreCorto : ''}`,
   moduloActivo = 'dashboard',
   idioma = 'es' 
 } = Astro.props;

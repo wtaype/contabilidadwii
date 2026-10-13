@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/galeria/dataGaleria.js
-// Gestor Canónico de Medios y Fotos para el Módulo Galería (Estudio Cusihuaman)
+// Gestor Canónico de Medios y Fotos para el Módulo Galería
 // Sincronización Ultra Eficiente: Cloudflare R2 + Firestore 1 Read (galeria/principal) con serverTimestamp()
 // Modelo Enriquecido: creado, actualizado, fechaSubida (YYYY-MM-DD), pin, estado, userId
 // 100% JS Nativo · Integrado con @widev

@@ -1,7 +1,8 @@
 ---
 // src/feature/personal/modulos/personal/Personal.astro
-// Módulo de Personal: Equipo Profesional & Especialistas Contables (Estudio Cusihuaman)
+// Módulo de Personal: Equipo Profesional & Especialistas
 // 100% JS Nativo · Integrado con @widev y Firestore ('personal') · 0 CSS Inline
+import { datosNegocio } from '@/negocio.js';
 
 interface Props {
   esActivo?: boolean;
@@ -119,7 +120,7 @@ const { esActivo = false } = Astro.props;
           </div>
           <div class="sn-form-group">
             <label class="sn-label" for="peModalEmail">Correo Electrónico</label>
-            <input type="email" id="peModalEmail" class="sn-input" placeholder="contacto@contabilidadwii.com" />
+            <input type="email" id="peModalEmail" class="sn-input" placeholder={datosNegocio.email || ""} />
           </div>
         </div>
 
@@ -127,14 +128,14 @@ const { esActivo = false } = Astro.props;
           <div class="sn-form-group">
             <label class="sn-label" for="peModalModalidad">Modalidad de Atención</label>
             <select id="peModalModalidad" class="sn-select">
-              <option value="Online & Presencial Surquillo">Online & Presencial Surquillo</option>
-              <option value="100% Online Nacional">100% Online Nacional</option>
-              <option value="Presencial Surquillo">Presencial Surquillo</option>
+              <option value="Online & Presencial">Online & Presencial</option>
+              <option value="100% Online">100% Online</option>
+              <option value="Presencial">Presencial</option>
             </select>
           </div>
           <div class="sn-form-group">
             <label class="sn-label" for="peModalExperiencia">Años de Trayectoria</label>
-            <input type="text" id="peModalExperiencia" class="sn-input" placeholder="12+ años de trayectoria" />
+            <input type="text" id="peModalExperiencia" class="sn-input" placeholder="Ej: 5+ años de trayectoria" />
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/correo/correo.js
-// 🎯 Controlador Frontend Autónomo del Módulo Correo (Estudio Cusihuaman)
+// 🎯 Controlador Frontend Autónomo del Módulo Correo
 // Experiencia Hotmail / Outlook: 3 Paneles (Carpetas, Lista de Mensajes, Visor/Redactor)
 // Markdown Live Editor + Previsualización en Tiempo Real + Sincronización Firestore y Resend
 
@@ -330,7 +330,7 @@ export function inicializarModuloCorreo() {
     });
 
     if (readSubject) readSubject.textContent = msg.mensaje?.asunto || 'Sin Asunto';
-    const senderFallback = `${datosNegocio.nombreCorto || 'Emisor'} <${datosNegocio.contacto?.email || 'contacto@contabilidadwii.com'}>`;
+    const senderFallback = `${datosNegocio.nombreCorto || datosNegocio.nombre || 'Emisor'} <${datosNegocio.contacto?.email || datosNegocio.email || ''}>`;
     if (readFrom) readFrom.textContent = msg.remitente?.desde || senderFallback;
     if (readTo) readTo.textContent = `Para: ${msg.destinatario?.para || 'Cliente'}`;
     if (readDate) readDate.textContent = msg.fecha || 'Reciente';

@@ -119,11 +119,11 @@ const { cliente = {} } = Astro.props;
               type="text" 
               class="ct-input" 
               id="ctInputAvatar" 
-              placeholder="https://imgwii.web.app/smile.avif" 
+              placeholder="/imgwii/smile.webp" 
             />
             <div class="ct-sug-row">
-              <button type="button" class="ct-sug-chip" data-avatar-sug="https://imgwii.web.app/smile.avif">
-                <i class="fa-solid fa-circle-check" style="color:var(--cl-orange);"></i> Avatar Oficial (/smile.avif)
+              <button type="button" class="ct-sug-chip" data-avatar-sug="/imgwii/smile.webp">
+                <i class="fa-solid fa-circle-check" style="color:var(--cl-orange);"></i> Avatar Oficial (/smile.webp)
               </button>
               <button type="button" class="ct-sug-chip" data-avatar-sug="https://api.dicebear.com/7.x/bottts/svg?seed=Profesional">
                 <i class="fa-solid fa-user-tie"></i> Avatar Profesional
@@ -304,10 +304,10 @@ const { cliente = {} } = Astro.props;
           <!-- Fila 1: Régimen Tributario & Modalidad habitual -->
           <div class="ct-form-row">
             <div class="ct-form-group">
-              <label class="ct-form-label" for="ctSelectValvula">
+              <label class="ct-form-label" for="ctSelectRegimen">
                 <i class="fa-solid fa-scale-balanced"></i> Régimen Tributario Actual:
               </label>
-              <select class="ct-select" id="ctSelectValvula">
+              <select class="ct-select" id="ctSelectRegimen">
                 <option value="mype">Régimen MYPE Tributario (RMT)</option>
                 <option value="rer">Régimen Especial de Renta (RER)</option>
                 <option value="general">Régimen General (RG)</option>
@@ -323,7 +323,7 @@ const { cliente = {} } = Astro.props;
               <select class="ct-select" id="ctSelectHorario">
                 <option value="online-tarde">Online (Meet / WhatsApp) · Tardes</option>
                 <option value="online-manana">Online (Meet / WhatsApp) · Mañanas</option>
-                <option value="presencial-surquillo">Presencial Sede Surquillo (Previa Cita)</option>
+                <option value="presencial-sede">Presencial en Sede Oficial (Previa Cita)</option>
               </select>
             </div>
           </div>
@@ -337,7 +337,7 @@ const { cliente = {} } = Astro.props;
               <select class="ct-select" id="ctSelectMetodoPago">
                 <option value="bcp">Transferencia Bancaria BCP</option>
                 <option value="yape">Yape / Plin</option>
-                <option value="efectivo">Efectivo en Sede Surquillo</option>
+                <option value="efectivo">Efectivo en Sede Oficial</option>
               </select>
             </div>
 

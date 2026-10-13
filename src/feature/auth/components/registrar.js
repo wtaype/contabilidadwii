@@ -222,7 +222,7 @@ export const registrarUsuario = async (btn) => {
     const { db, doc, setDoc, serverTimestamp } = await loadFirebaseDb();
     const { user } = await createUserWithEmailAndPassword(auth, datos.regEmail, datos.regPassword);
 
-    const imgEmail = 'https://imgwii.web.app/smile.avif';
+    const imgEmail = '/imgwii/smile.webp';
     const { avatar: calcIniciales } = await import('../../../core/widev/nombre.js');
     const nombreCompleto = `${datos.regNombre} ${datos.regApellidos}`.trim();
     const iniciales = calcIniciales(nombreCompleto || datos.regUsuario);

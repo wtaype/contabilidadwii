@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/clientes/dataClientes.js
-// 🎯 Gestor Canónico Local-First para Directorio CRM Tributario (Estudio Cusihuaman)
+// 🎯 Gestor Canónico Local-First para Directorio CRM
 // Fuente Canónica: Colección 'smiles' · Semilla src/semillas/smiles.json · Local-First
 // 100% JS Nativo · Integrado con @widev y Firebase
 
@@ -40,7 +40,7 @@ export function normalizarCliente(c = {}) {
     estadoTributario: c.estadoTributario || 'al_dia', // 'al_dia' | 'pendiente' | 'por_vencer'
     fechaInicio: c.fechaInicio || '',
     observaciones: c.observaciones || '',
-    avatar: c.avatar || 'https://imgwii.web.app/smile.avif',
+    avatar: c.avatar || '/imgwii/smile.webp',
     rol: 'cliente',
     activo: Boolean(c.activo ?? true)
   };

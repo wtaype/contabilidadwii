@@ -1,6 +1,6 @@
 ---
 // src/feature/cliente/modulos/04-soporte/Soporte.astro
-// Módulo de Consultas SUNAT y Mesa de Ayuda Contable · Estudio Cusihuaman
+// Módulo de Soporte, Consultas y Mesa de Ayuda
 // 100% Humano, Smart, Split Layout 2 Columnas · Tokens witema.css
 import { datosNegocio } from '@/negocio.js';
 
@@ -123,10 +123,10 @@ const msjWsSoporte = `Hola ${nombreEspecialista || nombreNegocio}, deseo realiza
           </div>
 
           <div class="sp-form-group">
-            <label class="sp-form-label" for="spSelectBalonCotiz">
+            <label class="sp-form-label" for="spSelectRegimenCotiz">
               <i class="fa-solid fa-scale-balanced"></i> Régimen Tributario Estimado:
             </label>
-            <select class="sp-select" id="spSelectBalonCotiz">
+            <select class="sp-select" id="spSelectRegimenCotiz">
               <option value="mype">Régimen MYPE Tributario (RMT)</option>
               <option value="rer">Régimen Especial de Renta (RER)</option>
               <option value="general">Régimen General</option>

@@ -18,7 +18,7 @@ export function generarPlantillaLiquidacion({
   negocio = {}
 } = {}) {
   const contenidoExtraHtml = mensajeMarkdown ? mdToEmailHtml(mensajeMarkdown) : '';
-  const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
+  const nombreEmpresa = negocio?.nombre || '';
 
   const contenidoHtml = `
     <h2 style="color: #9e7b4f; margin-top: 0; font-size: 21px; font-weight: 700;">📊 Liquidación Mensual de Impuestos</h2>
@@ -69,7 +69,7 @@ export function generarPlantillaLiquidacion({
     ${contenidoExtraHtml}
 
     <div style="text-align: center; margin-top: 22px;">
-      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola CPC Lourdes, tengo una consulta sobre mi liquidación del período ' + periodo)}" class="btn-ws">
+      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola, tengo una consulta sobre mi liquidación del período ' + periodo)}" class="btn-ws">
         📲 Coordinar con el Estudio por WhatsApp
       </a>
     </div>

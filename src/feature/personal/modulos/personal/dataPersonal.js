@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/personal/dataPersonal.js
-// Gestor Canónico del Equipo Profesional del Estudio Contable (Lourdes Cusihuaman)
+// Gestor Canónico del Equipo Profesional y Especialistas
 // Fuente Canónica: Colección 'smiles' · Semilla src/semillas/smiles.json · Local-First
 // 100% JS Nativo · Integrado con @widev y Firebase
 

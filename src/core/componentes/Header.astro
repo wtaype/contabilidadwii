@@ -280,7 +280,7 @@ const baseHash = esInicio ? '' : (idioma === 'es' ? '/' : `/${idioma}`);
                 const primerNombre = (u.nombre || u.usuario || 'Usuario').trim().split(' ')[0];
                 const nombreCompleto = u.nombreCompleto || u.nombre || primerNombre;
                 const emailUsuario = u.email || u.correo || 'Cuenta activa';
-                const foto = u.avatar || u.foto || u.photoURL || `https://imgwii.web.app/smile.avif`;
+                const foto = u.avatar || u.foto || u.photoURL || `/imgwii/smile.webp`;
 
                 // Activar estado de usuario autenticado
                 if (authBox) authBox.classList.add('has-user');

@@ -1,7 +1,8 @@
 ---
 // src/feature/personal/modulos/ajustes/Ajustes.astro
-// Módulo de Ajustes: Configuración Global & Centro de Backup JSON (Estudio Cusihuaman)
+// Módulo de Ajustes: Configuración Global & Centro de Backup JSON
 // 100% JS Nativo · Integrado con @widev · 0 CSS Inline
+import { datosNegocio } from '@/negocio.js';
 
 interface Props {
   esActivo?: boolean;
@@ -17,7 +18,7 @@ const { esActivo = false } = Astro.props;
     <div class="ps-section-title-wrap">
       <h1 class="ps-section-title">
         <i class="fa-solid fa-gear sn-header-icon"></i>
-        Ajustes · Configuración Global del Estudio
+        Ajustes · Configuración Global
       </h1>
       <p class="ps-section-sub">
         Control maestro del estado de atención, tiempos de respuesta, notificaciones de vencimiento y centro de respaldo JSON.
@@ -33,7 +34,7 @@ const { esActivo = false } = Astro.props;
   <!-- SWITCH MAESTRO DE ESTADO DE ATENCIÓN -->
   <div class="aj-master-switch-box sn-mb-14">
     <div class="aj-switch-meta">
-      <span class="aj-switch-label" id="ajLabelTienda">🟢 Oficina Abierta (Recibiendo consultas tributarias y citas)</span>
+      <span class="aj-switch-label" id="ajLabelTienda">🟢 Sede Abierta (Recibiendo consultas y citas)</span>
       <span class="aj-switch-sub">Si desactivas este switch, se mostrará un mensaje indicando que la atención está fuera del horario de oficina.</span>
     </div>
     <label class="aj-toggle-switch">
@@ -63,12 +64,12 @@ const { esActivo = false } = Astro.props;
 
       <div class="sn-form-group">
         <label class="sn-label" for="ajInpTelefono">Teléfono Central de Atención</label>
-        <input type="tel" id="ajInpTelefono" class="sn-input" placeholder="+51 900 000 000" />
+        <input type="tel" id="ajInpTelefono" class="sn-input" value={datosNegocio.telefono || ""} placeholder="+51 900 000 000" />
       </div>
 
       <div class="sn-form-group">
         <label class="sn-label" for="ajInpDireccion">Dirección Física de la Sede</label>
-        <input type="text" id="ajInpDireccion" class="sn-input" value="Jr. Dante 260, Surquillo, Lima 15047" />
+        <input type="text" id="ajInpDireccion" class="sn-input" value={datosNegocio.direccionSede || ""} placeholder="Dirección de la sede" />
       </div>
     </div>
 
@@ -109,6 +110,9 @@ const { esActivo = false } = Astro.props;
         </p>
         <button type="button" class="aj-btn-download-json" id="btnAjBackupJson">
           <i class="fa-solid fa-cloud-arrow-down"></i> Descargar Respaldo JSON
+        </button>
+        <button type="button" class="aj-btn-download-json sn-mt-10" id="btnAjSembrarFirestore" style="background: var(--witema-primary, #9e7b4f); color: #ffffff;">
+          <i class="fa-solid fa-seedling"></i> Restaurar / Sembrar desde Semillas
         </button>
       </div>
     </div>

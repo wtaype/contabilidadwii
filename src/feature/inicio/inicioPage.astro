@@ -1,6 +1,6 @@
 ---
 // src/feature/inicio/inicioPage.astro
-// Orquestador Principal de Secciones de Inicio (01 a 09) - Consultorio Psicológico América
+// Orquestador Principal de Secciones de Inicio (01 a 09)
 import Principal from '../../core/layouts/Principal.astro';
 import type { Idioma } from '../../core/idioma/idioma';
 import { buildRuta } from '../../core/idioma/idioma';
@@ -26,30 +26,30 @@ const ruta = buildRuta('/', idioma);
 <Principal idioma={idioma} ruta={ruta}>
   <style slot="head" is:global set:html={inicioCss}></style>
   
-  <!-- 01. Hero Autónomo: Bienvenida Empática, C.Ps.P. 49425 y Test de Orientación -->
+  <!-- 01. Hero Principal -->
   <Hero idioma={idioma} />
 
-  <!-- 02. Catálogo Oficial de Especialidades Clínicas (Grilla 3x2 Fija) -->
+  <!-- 02. Catálogo Oficial de Servicios -->
   <Servicios idioma={idioma} />
 
-  <!-- 03. Espacios Vivenciales y Talleres Psicoeducativos (Grilla 3x2 Fija) -->
+  <!-- 03. Programas y Asesorías Especializadas -->
   <Talleres idioma={idioma} />
 
-  <!-- 04. Tarifas Transparentes y Calculadora de Ahorro Familiar -->
+  <!-- 04. Calculadora y Tarifas -->
   <Calculadora idioma={idioma} />
 
-  <!-- 05. Separador de Orientación Empática Directa SOS -->
+  <!-- 05. Separador de Contacto Directo SOS -->
   <Separador idioma={idioma} />
 
-  <!-- 06. Acompañamiento Terapéutico y Metodología Clínica en 3 Pasos -->
+  <!-- 06. Metodología de Acompañamiento en 3 Pasos -->
   <Compania idioma={idioma} />
 
-  <!-- 07. Sedes Oficiales (Miraflores, Villa El Salvador y Online) -->
+  <!-- 07. Sede Oficial y Cobertura Online -->
   <Mapa idioma={idioma} />
 
-  <!-- 08. Trayectoria, Compromiso y Vocación (+6 Años) -->
+  <!-- 08. Trayectoria y Respaldo Profesional -->
   <Nosotros idioma={idioma} />
 
-  <!-- 09. Preguntas Frecuentes Clínicas y Asistencia -->
+  <!-- 09. Preguntas Frecuentes -->
   <Faq idioma={idioma} />
 </Principal>

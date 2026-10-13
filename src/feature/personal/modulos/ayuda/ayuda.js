@@ -1,5 +1,5 @@
 // src/feature/personal/modulos/ayuda/ayuda.js
-// 🎧 Módulo de Ayuda y Mesa de Ayuda: Generador de Tickets hacia wtaypeee@gmail.com
+// 🎧 Módulo de Ayuda y Mesa de Ayuda: Generador de Tickets de Soporte Técnico
 // 100% JS Nativo · Integrado con @widev y Resend API
 
 import { Notificacion, getls, savels } from '@widev';
@@ -7,7 +7,7 @@ import { enviarCorreo } from '../correo/dataCorreo.js';
 import { obtenerNegocioLocal } from '../negocio/dataNegocio.js';
 
 const STORAGE_KEY_TICKETS = 'wi_tickets_soporte';
-const OLD_STORAGE_KEY_TICKETS = 'contabilidadwii_tickets_soporte';
+const OLD_STORAGE_KEY_TICKETS = 'wi_tickets_soporte_legacy';
 
 /**
  * Obtiene el historial de tickets guardados en localStorage

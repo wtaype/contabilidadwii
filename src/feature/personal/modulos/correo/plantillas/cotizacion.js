@@ -12,7 +12,7 @@ export function generarPlantillaCotizacion({
   mensajeMarkdown = '',
   negocio = {}
 } = {}) {
-  const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
+  const nombreEmpresa = negocio?.nombre || '';
 
   const contenidoMarkdownFinal = mensajeMarkdown || `
 | Servicio Contable Propuesto | Modalidad | Honorario Mensual |
@@ -33,7 +33,7 @@ export function generarPlantillaCotizacion({
   const contenidoHtml = `
     <h2 style="color: #9e7b4f; margin-top: 0; font-size: 21px; font-weight: 700;">📋 Propuesta de Servicios Contables</h2>
     <p style="font-size: 15px;">Estimados señores de <strong>${empresa}</strong> (${cliente}),</p>
-    <p style="color: #475569; font-size: 14px;">Presentamos nuestra propuesta formal de servicios contables, tributarios y de planillas respaldada por la trayectoria de CPC Lourdes Cusihuaman Gálvez (ex-funcionaria de SUNAT):</p>
+    <p style="color: #475569; font-size: 14px;">Presentamos nuestra propuesta formal de servicios contables, tributarios y de planillas con respaldo profesional especializado:</p>
 
     <div style="background:#fdfbf7;border:1px solid #ebdcc5;border-radius:8px;padding:10px 16px;margin:14px 0;display:flex;justify-content:space-between;font-size:13px;">
       <span>Propuesta: <strong>#${cotizacionId}</strong></span>
@@ -44,7 +44,7 @@ export function generarPlantillaCotizacion({
     ${tablaHtml}
 
     <div style="text-align: center; margin-top: 25px;">
-      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola CPC Lourdes, deseo aprobar la propuesta contable #' + cotizacionId + ' para ' + empresa)}" class="btn-ws">
+      <a href="https://wa.me/${(negocio.contacto?.whatsappLimpio || negocio.contacto?.whatsapp || '').replace(/\D/g, '')}?text=${encodeURIComponent('Hola, deseo coordinar la propuesta #' + cotizacionId + ' para ' + empresa)}" class="btn-ws">
         🤝 Coordinar Inicio de Servicios por WhatsApp
       </a>
     </div>

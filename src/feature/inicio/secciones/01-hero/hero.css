@@ -15,7 +15,7 @@
 }
 
 
-/* Grid Principal: Distribución Equilibrada y Presencia Imponente (Estilo Gaswii) */
+/* Grid Principal: Distribución Equilibrada y Presencia Imponente */
 .hero-layout {
   display: grid;
   grid-template-columns: 1.16fr 0.94fr;
@@ -112,7 +112,7 @@
   animation: heroSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.22s backwards;
 }
 
-/* 4. Selector Dinámico de Temas Clínicos (Inspirado en Gaswii) */
+/* 4. Selector Dinámico de Servicios y Ubicación */
 .hero-district-card {
   width: 100%;
   max-width: 720px;

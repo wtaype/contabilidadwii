@@ -1,5 +1,5 @@
 // src/feature/personal/personal.js
-// Controlador de cliente unificado para Feature Personal (Estudio Cusihuaman)
+// Controlador de cliente unificado para Feature Personal
 // 100% JS Nativo · Integrado con @widev y @/feature/auth/sesion.js
 
 import { Notificacion, wiConfirmar, wiTema, getls, savels } from '@widev';

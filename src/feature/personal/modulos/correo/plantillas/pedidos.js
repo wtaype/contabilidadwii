@@ -1,29 +1,29 @@
 // src/feature/personal/modulos/correo/plantillas/pedidos.js
-// Plantilla de Confirmación de Asesoría Tributaria y Cita Contable
-// 100% Adaptado a Estudio Cusihuaman · Cero referencias a gas
+// Plantilla de Confirmación de Asesoría y Servicios
+// 100% Modular y Reutilizable
 
 import { envoltorioBase } from './base.js';
 import { mdToEmailHtml } from './parser.js';
 
 export function generarPlantillaPedido({
-  cliente = 'Estimado/a contribuyente',
-  pedidoId = 'CUSI-1029',
-  producto = 'Asesoría Tributaria 1 a 1 (1 Hora)',
+  cliente = 'Estimado/a cliente',
+  pedidoId = 'PED-1029',
+  producto = 'Asesoría Profesional (1 Hora)',
   cantidad = 1,
   precio = '80.00',
-  direccion = 'Atención Online (Google Meet) / Presencial Jr. Dante 260, Surquillo',
-  metodoPago = 'Transferencia BCP / Yape / Plin',
-  tiempoEstimado = 'Sesión de 60 minutos agendada',
+  direccion = 'Atención Online / Presencial',
+  metodoPago = 'Transferencia / Billetera Digital',
+  tiempoEstimado = 'Sesión agendada',
   mensajeMarkdown = '',
   negocio = {}
 } = {}) {
   const contenidoExtraHtml = mensajeMarkdown ? mdToEmailHtml(mensajeMarkdown) : '';
-  const nombreEmpresa = negocio?.nombre || 'Estudio Cusihuaman';
+  const nombreEmpresa = negocio?.nombre || '';
 
   const contenidoHtml = `
     <h2 style="color: #9e7b4f; margin-top: 0; font-size: 22px; font-weight: 800;">⚖️ ¡Tu cita de asesoría está confirmada!</h2>
     <p style="font-size: 15px;">Hola <strong>${cliente}</strong>,</p>
-    <p style="color: #475569; font-size: 14px; margin-bottom: 20px;">Hemos registrado tu solicitud de asesoría tributaria. La CPC Lourdes Cusihuaman Gálvez revisará tu caso para guiarte ante SUNAT.</p>
+    <p style="color: #475569; font-size: 14px; margin-bottom: 20px;">Hemos registrado tu solicitud de atención. Nuestro especialista revisará tu caso para guiarte en tu gestión.</p>
 
     <!-- Ficha de Datos de la Asesoría -->
     <div style="background: #fdfbf7; border: 1px solid #e5dccb; border-radius: 10px; padding: 18px; margin: 18px 0;">

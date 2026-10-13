@@ -1,20 +1,13 @@
 // src/feature/cliente/modulos.js
 // Registro y configuración desacoplada del Portal de Clientes
-// Gobernado dinámicamente por src/semillas/config.json
-import configSemilla from '@/semillas/config.json';
+// Gobernado dinámicamente por src/semillas/configurar.js (0ms)
+import { configurarCliente, getModulosCliente } from '@/negocio.js';
 
-const modulosConfig = configSemilla?.portalCliente?.modulos || [
-  { id: 'pedidos',   nombre: 'Servicios',        icono: 'fa-solid fa-briefcase', activo: true },
-  { id: 'direccion', nombre: 'Domicilio Fiscal', icono: 'fa-solid fa-building',  activo: true },
-  { id: 'cuenta',    nombre: 'Mi Cuenta Fiscal', icono: 'fa-solid fa-id-card',   activo: true },
-  { id: 'soporte',   nombre: 'Consultas SUNAT',  icono: 'fa-solid fa-headset',   activo: true }
-];
-
-export const moduloDefecto = configSemilla?.portalCliente?.moduloDefecto || 'pedidos';
-export const modulos = modulosConfig;
+export const moduloDefecto = configurarCliente.moduloDefecto || 'pedidos';
+export const modulos = configurarCliente.modulos || [];
 
 // Obtener solo los módulos habilitados para el sidebar y navegación
-export const getModulosActivos = () => modulos.filter(m => m.activo);
+export const getModulosActivos = () => getModulosCliente();
 
 // Obtener el módulo por defecto
 export const getModuloDefecto = () => moduloDefecto;

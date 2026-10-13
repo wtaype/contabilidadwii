@@ -1,6 +1,6 @@
 // src/feature/personal/modulos/sunat/dataSunat.js
-// 🎯 Capa de Datos Local-First de Comprobantes SUNAT (Estudio Contable Cusihuaman)
-// Emisión ágil de Boletas (B001) y Facturas (F001) para servicios contables y asesorías
+// 🎯 Capa de Datos Local-First de Comprobantes SUNAT
+// Emisión ágil de Boletas (B001) y Facturas (F001) para servicios y asesorías
 // 100% JS Nativo · Integrado con @widev y Firebase SDK
 
 import { savels, getls } from '@widev';
@@ -142,7 +142,7 @@ export async function emitirYGuardarComprobante(comprobanteData) {
       documentoTipo: comprobanteData.cliente?.documentoTipo || (comprobanteData.tipo === 'factura' ? 'RUC' : 'DNI'),
       documento: comprobanteData.cliente?.documento || '',
       celular: comprobanteData.cliente?.celular || '',
-      direccion: comprobanteData.cliente?.direccion || 'Surquillo / Lima',
+      direccion: comprobanteData.cliente?.direccion || '',
       email: comprobanteData.cliente?.email || ''
     },
     items: Array.isArray(comprobanteData.items) && comprobanteData.items.length > 0 ? comprobanteData.items : [

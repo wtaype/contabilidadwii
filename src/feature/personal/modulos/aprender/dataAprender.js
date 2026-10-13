@@ -286,9 +286,9 @@ export const top7Temas = [
       }
     ],
     soporteDirecto: {
-      correo: 'wtaypeee@gmail.com',
+      correo: 'soporte@widominio.com',
       modulo: '/personal/ayuda',
-      mensaje: 'Para cualquier consulta técnica, reporte de mejora o asesoría en tu plataforma, puedes generar un ticket en el módulo Ayuda o escribirnos a wtaypeee@gmail.com.'
+      mensaje: 'Para cualquier consulta técnica, reporte de mejora o asesoría en tu plataforma, puedes generar un ticket en el módulo Ayuda.'
     }
   },
 

@@ -3,6 +3,9 @@
 // Barra superior con logo de sede, buscador, conmutador de temas y dropdown de usuario
 import Busqueda from './Busqueda.astro';
 import { datosNegocio } from '@/negocio.js';
+
+const defaultNombre = datosNegocio.identidad?.especialista || datosNegocio.identidad?.nombre || 'Especialista';
+const defaultEmail = datosNegocio.email || '';
 ---
 
 <header class="ps-topbar">
@@ -50,19 +53,19 @@ import { datosNegocio } from '@/negocio.js';
         <div class="ps-user-avatar">
           <img 
             id="topbarUserImg" 
-            src="https://api.dicebear.com/7.x/initials/svg?seed=Wilder&backgroundColor=ff6600,0284c7,10b981" 
+            src="/imgwii/smile.webp" 
             alt="Avatar" 
           />
         </div>
-        <span class="ps-user-name" id="topbarUserName">Wilder Taype</span>
+        <span class="ps-user-name" id="topbarUserName">{defaultNombre}</span>
         <i class="fa-solid fa-chevron-down ps-user-chevron"></i>
       </div>
 
       <!-- Dropdown Flotante -->
       <div class="ps-dropdown-menu" id="userDropdownMenu">
         <div class="ps-dropdown-header">
-          <strong style="font-size:var(--fz_s4); color:var(--ink); display:block;" id="dropdownUserName">Wilder Taype</strong>
-          <span class="ps-dropdown-email" id="dropdownUserEmail">wtaypeee@gmail.com</span>
+          <strong style="font-size:var(--fz_s4); color:var(--ink); display:block;" id="dropdownUserName">{defaultNombre}</strong>
+          <span class="ps-dropdown-email" id="dropdownUserEmail">{defaultEmail}</span>
         </div>
         <a href="/" target="_blank" class="ps-dropdown-item">
           <i class="fa-solid fa-globe"></i> Ver Web Pública

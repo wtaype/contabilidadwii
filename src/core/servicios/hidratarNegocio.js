@@ -3,7 +3,7 @@
 // Conecta Firebase Firestore + Local-First con la Web Pública e Inicio en Tiempo Real.
 // Cero datos fijos o sueltos: cualquier cambio en Personal se refleja inmediatamente en Inicio.
 
-import { sincronizarDesdeFirestore, obtenerDatosNegocio } from '../../feature/personal/modulos/negocio/dataNegocio.js';
+import { sincronizarNegocioDesdeFirestore as sincronizarDesdeFirestore, obtenerDatosNegocio } from '../../negocio.js';
 
 /**
  * Hidrata todos los elementos interactivos del DOM con la ficha oficial de negocio

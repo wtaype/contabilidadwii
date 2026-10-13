@@ -4,9 +4,8 @@
 // Validación estricta y formato profesional tributario
 
 import { Saludar, Notificacion, getls, savels } from '@widev';
-import { datosNegocio } from '../../../../negocio.js';
+import { datosNegocio, configurarSistema } from '../../../../negocio.js';
 import { firebaseConfig } from '../../../../core/servicios/firebase.js';
-import configSemilla from '@/semillas/config.json';
 import { normalizarDireccionesMap, sincronizarDireccionesDesdeFirestore } from '../02-direccion/dataDireccion.js';
 
 const PRODUCTOS_CACHE_KEY = 'wi_servicios';
@@ -17,7 +16,7 @@ export function inicializarPedidos() {
   const modulo = document.getElementById('moduloPedidos');
   if (!modulo) return;
 
-  const rolClienteNombre = configSemilla?.terminologia?.rolClienteNombre || 'Cliente';
+  const rolClienteNombre = configurarSistema?.terminologia?.rolClienteNombre || 'Cliente';
 
   // Estado del usuario activo desde wiSmile (Sesión real obligatoria)
   const user = getls('wiSmile');
@@ -163,14 +162,14 @@ ${itemsList.join('\n')}
     const opt = selDir.options[selDir.selectedIndex];
     if (opt && opt.value) {
       state.calle = opt.dataset.calle || '';
-      state.distrito = opt.dataset.distrito || 'Surquillo';
+      state.distrito = opt.dataset.distrito || (datosNegocio.distritoSede || '');
       if (opt.dataset.celular && !inCel.value.trim()) {
         inCel.value = opt.dataset.celular;
         state.celular = opt.dataset.celular;
       }
     } else {
       state.calle = '';
-      state.distrito = 'Surquillo';
+      state.distrito = datosNegocio.distritoSede || '';
     }
   }
 
